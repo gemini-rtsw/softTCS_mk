@@ -1,0 +1,19 @@
+[symbol2]
+bbox -344 32 40 160
+port -144 112 100 1792 SLNK symbol 1 -160 96 0
+port 200 112 100 1792 FLNK symbol 2 216 96 0
+uniq 27
+[tools]
+[attributes]
+p -24 67 100 0 -1 seta:gsaoiport 1
+[layers]
+<symbol>
+l 100 0 0 -72 96 Coeffs for GSAOI port
+r 0 -104 32 152 160
+v 0 -96 96
+-160 96
+_
+v 0 152 96
+216 96
+_
+[comments]

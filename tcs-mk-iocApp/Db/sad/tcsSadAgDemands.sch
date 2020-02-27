@@ -1,0 +1,75 @@
+[schematic2]
+uniq 29
+[tools]
+[detail]
+w 1488 1883 100 0 n#28 esirs.pwfs1ZDemand.FLNK 992 1184 1216 1184 1216 1872 1808 1872 esirs.pwfs2XDemand.SLNK
+w 1816 1323 100 0 n#27 esirs.pwfs2YDemand.FLNK 2224 1600 2352 1600 2352 1312 1328 1312 1328 1024 1808 1024 esirs.pwfs2ZDemand.SLNK
+w 1816 1739 100 0 n#26 esirs.pwfs2XDemand.FLNK 2224 2032 2352 2032 2352 1728 1328 1728 1328 1440 1808 1440 esirs.pwfs2YDemand.SLNK
+w 584 1323 100 0 n#22 esirs.pwfs1YDemand.FLNK 992 1600 1120 1600 1120 1312 96 1312 96 1024 576 1024 esirs.pwfs1ZDemand.SLNK
+w 584 1739 100 0 n#21 esirs.pwfs1XDemand.FLNK 992 2032 1120 2032 1120 1728 96 1728 96 1440 576 1440 esirs.pwfs1YDemand.SLNK
+s 2688 96 100 0 Gemini Telescope Control System
+s 2432 2288 100 0 $Id: tcsSadAgDemands.sch,v 1.1 1999/11/17 06:29:43 dlt Exp $
+[cell use]
+use esirs 600 1784 100 0 pwfs1XDemand
+xform 0 784 1936
+p 656 2110 100 0 -1 DESC:PWFS1 x demand
+p 672 1934 100 0 1 EGU:mm
+p 512 1520 100 0 0 FDSC:PWFS1 x demand from TCS
+p 672 1838 100 0 1 FTVL:DOUBLE
+p 768 1712 100 0 0 PREC:2
+p 672 1888 100 0 1 SCAN:1 second
+p 176 2032 100 0 -1 def(INP):$(top)drives:driveAG1S.VALE
+p 688 1776 100 1024 0 name:$(sad)$(I)
+use esirs 600 1352 100 0 pwfs1YDemand
+xform 0 784 1504
+p 656 1678 100 0 -1 DESC:PWFS1 y demand
+p 672 1502 100 0 1 EGU:mm
+p 512 1088 100 0 0 FDSC:PWFS1 y demand from TCS
+p 672 1406 100 0 1 FTVL:DOUBLE
+p 768 1280 100 0 0 PREC:2
+p 768 1216 100 0 0 SCAN:Passive
+p 176 1600 100 0 -1 def(INP):$(top)drives:driveAG1S.VALF
+p 688 1344 100 1024 0 name:$(sad)$(I)
+use esirs 600 936 100 0 pwfs1ZDemand
+xform 0 784 1088
+p 656 1262 100 0 -1 DESC:PWFS1 z demand
+p 672 1086 100 0 1 EGU:mm
+p 512 672 100 0 0 FDSC:PWFS1 z demand from TCS
+p 672 990 100 0 1 FTVL:DOUBLE
+p 768 864 100 0 0 PREC:2
+p 768 800 100 0 0 SCAN:Passive
+p 176 1184 100 0 -1 def(INP):$(top)drives:driveAG1S.VALG
+p 688 928 100 1024 0 name:$(sad)$(I)
+use esirs 1832 1784 100 0 pwfs2XDemand
+xform 0 2016 1936
+p 1888 2110 100 0 -1 DESC:PWFS2 x demand
+p 1904 1934 100 0 1 EGU:mm
+p 1744 1520 100 0 0 FDSC:PWFS2 x demand from TCS
+p 1904 1838 100 0 1 FTVL:DOUBLE
+p 2000 1712 100 0 0 PREC:2
+p 1936 2016 100 0 0 SCAN:Passive
+p 1408 2032 100 0 -1 def(INP):$(top)drives:driveAG2S.VALE
+p 1920 1776 100 1024 0 name:$(sad)$(I)
+use esirs 1832 1352 100 0 pwfs2YDemand
+xform 0 2016 1504
+p 1888 1678 100 0 -1 DESC:PWFS2 y demand
+p 1904 1502 100 0 1 EGU:mm
+p 1744 1088 100 0 0 FDSC:PWFS2 y demand from TCS
+p 1904 1406 100 0 1 FTVL:DOUBLE
+p 2000 1280 100 0 0 PREC:2
+p 2000 1216 100 0 0 SCAN:Passive
+p 1408 1600 100 0 -1 def(INP):$(top)drives:driveAG2S.VALF
+p 1920 1344 100 1024 0 name:$(sad)$(I)
+use esirs 1832 936 100 0 pwfs2ZDemand
+xform 0 2016 1088
+p 1888 1262 100 0 -1 DESC:PWFS2 z demand
+p 1904 1086 100 0 1 EGU:mm
+p 1744 672 100 0 0 FDSC:PWFS2 z demand from TCS
+p 1904 990 100 0 1 FTVL:DOUBLE
+p 2000 864 100 0 0 PREC:2
+p 2000 800 100 0 0 SCAN:Passive
+p 1408 1184 100 0 -1 def(INP):$(top)drives:driveAG2S.VALG
+p 1920 928 100 1024 0 name:$(sad)$(I)
+use bc200tr -144 -184 -100 0 frame
+xform 0 1536 1120
+[comments]

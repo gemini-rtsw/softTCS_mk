@@ -1,0 +1,23 @@
+[symbol2]
+bbox -224 -192 96 96
+port -16 -160 100 0 FLNK symbol 2 96 -160 0
+port -144 -160 100 0 SLNK symbol 1 -224 -160 0
+port -144 -96 100 0 INDEX symbol 1 -224 -96 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -128 -32 Coefficients
+l 100 0 0 -128 0 Zernike model
+r 0 -160 -192 32 96
+v 0 32 -160
+96 -160
+_
+v 0 -224 -160
+-160 -160
+_
+v 0 -224 -96
+-160 -96
+_
+[comments]

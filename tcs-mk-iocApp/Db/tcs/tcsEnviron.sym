@@ -1,0 +1,22 @@
+[symbol2]
+bbox 448 512 640 704
+port 656 544 100 0 rh symbol 2 640 544 0
+port 656 608 100 0 p symbol 2 640 608 0
+port 656 672 100 0 t symbol 2 640 672 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 464 608 environ
+r 0 448 704 576 512
+v 0 576 544
+640 544
+_
+v 0 576 608
+640 608
+_
+v 0 576 672
+640 672
+_
+[comments]

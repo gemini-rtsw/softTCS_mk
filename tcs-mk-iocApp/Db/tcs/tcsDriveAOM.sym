@@ -1,0 +1,18 @@
+[symbol2]
+bbox -224 -160 128 160
+port 0 -128 100 0 FLNK symbol 2 128 -128 0
+port -144 -128 100 0 SLNK symbol 1 -224 -128 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -96 32 Drive AOM
+r 0 -160 -160 64 160
+v 0 64 -128
+128 -128
+_
+v 0 -224 -128
+-160 -128
+_
+[comments]

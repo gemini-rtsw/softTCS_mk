@@ -1,0 +1,12 @@
+[symbol2]
+bbox -160 -224 96 160
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -128 -16 prediction models
+l 100 0 0 -128 16 of Zernike
+l 100 0 0 -128 48 Set parameters
+r 0 -160 -224 96 160
+[comments]

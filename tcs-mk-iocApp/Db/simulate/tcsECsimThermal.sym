@@ -1,0 +1,11 @@
+[symbol2]
+bbox 160 480 544 704
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 560 Mode
+l 100 0 0 288 608 Generate Thermal
+r 0 160 704 544 480
+[comments]

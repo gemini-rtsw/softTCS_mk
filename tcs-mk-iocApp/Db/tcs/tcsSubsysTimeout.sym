@@ -1,0 +1,13 @@
+[symbol2]
+bbox 1920 1472 2144 1728
+port 1872 1584 100 0 START symbol 1 1920 1616 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 1968 1632 Subsystem
+l 100 0 0 1984 1600 activeC
+l 100 0 0 1984 1568 Timeout
+r 0 1920 1728 2144 1472
+[comments]

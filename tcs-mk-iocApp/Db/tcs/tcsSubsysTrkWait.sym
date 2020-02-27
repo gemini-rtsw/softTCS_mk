@@ -1,0 +1,14 @@
+[symbol2]
+bbox 1920 1472 2144 1728
+port 2080 1680 100 0 TRACKID symbol 2 2144 1712 0
+port 2096 1488 100 0 FLNK symbol 2 2144 1488 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 1984 1632 Value
+l 100 0 0 1968 1664 trackId
+l 120 0 0 1952 1696 Subsystem
+r 0 1920 1728 2144 1472
+[comments]

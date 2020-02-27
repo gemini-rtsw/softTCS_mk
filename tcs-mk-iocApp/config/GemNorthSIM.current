@@ -1,0 +1,117 @@
+#
+# pvload parameter file for current TCS database values
+#
+
+
+string $(top)mcIntSimulate = "True"; # Simulate connection to Mount
+string $(top)m1IntSimulate = "True"; # Simulate connection to Primary
+string $(top)crIntSimulate = "True"; # Simulate connection to Rotator
+string $(top)aoIntSimulate = "True"; # Simulate connection to AO
+string $(top)agIntSimulate = "True"; # Simulate connection to A&G
+string $(top)ecIntSimulate = "True"; # Simulate connection to Enclosure
+string $(top)m2IntSimulate = "True"; # Simulate connection to Secondary
+string $(top)wsIntSimulate = "True"; # Simulate connection to Weather server
+string $(top)gpIntSimulate = "True"; # Simulate connection to GPOL
+string $(top)aomIntSimulate = "True"; # Simulate connection to AOM (Canopus)
+string $(top)gsaoiIntSimulate = "True"; # Simulate connection to GSAOI
+
+#
+# pvload parameter file for current TCS database values
+#
+
+long $(top)aoInPosCalc    = "1"; #AO inPosition Flag TRUE
+long $(top)gpInPosCalc    = "1";  #GPOL inPosition Flag TRUE
+
+# Gemini south, 2011 Dec. 6
+# Model AZ head 2, El head 1,2
+# generated using "easypoint", based on 216 points collected over 10 nights
+
+string $(top)ak:pm:par0:name     = "IA";
+double $(top)ak:pm:par0:value    = -162.5669;
+string $(top)ak:pm:par1:name     = "IE";
+double $(top)ak:pm:par1:value    = -484.3690;
+
+string $(top)ak:pm:par2:name     = "NPAE";
+double $(top)ak:pm:par2:value    = -29.09;
+string $(top)ak:pm:par3:name     = "CA";
+double $(top)ak:pm:par3:value    = 45.49;
+
+string $(top)ak:pm:par4:name     = "AN";
+double $(top)ak:pm:par4:value    = -19.347;
+string $(top)ak:pm:par5:name     = "AW";
+double $(top)ak:pm:par5:value    = 20.5601;
+
+string $(top)ak:pm:par6:name     = "PEE";
+double $(top)ak:pm:par6:value    = 230.0;
+string $(top)ak:pm:par7:name     = "TF";
+double $(top)ak:pm:par7:value    = -16.87;
+
+string $(top)ak:pm:par8:name     = "HACA2";
+double $(top)ak:pm:par8:value    = 14.26;
+string $(top)ak:pm:par9:name     = "HESA3";
+double $(top)ak:pm:par9:value    = 2.73;
+
+string $(top)ak:pm:par10:name    = "HASA2";
+double $(top)ak:pm:par10:value   = 1.85;
+string $(top)ak:pm:par11:name    = "HECA3";
+double $(top)ak:pm:par11:value   = 1.11;
+
+string $(top)ak:pm:par12:name    = "HESA";
+double $(top)ak:pm:par12:value   = -0.95;
+string $(top)ak:pm:par13:name    = "HVCA2";
+double $(top)ak:pm:par13:value   = -3.05;
+
+string $(top)ak:pm:par14:name    = "HECA5";
+double $(top)ak:pm:par14:value   = 0.98;
+string $(top)ak:pm:par15:name    = "HASA3";
+double $(top)ak:pm:par15:value   = 1.48;
+
+string $(top)ak:pm:par16:name    = "HACA7";
+double $(top)ak:pm:par16:value   = 1.40;
+string $(top)ak:pm:par17:name    = "HESA6";
+double $(top)ak:pm:par17:value   = -0.71;
+
+# The following lines should be uncommented when running the real telescope
+# with the simulators running. 
+# they ensure the maximum CPU is available to the TCS
+
+#string $(top)ag:startFan.SCAN   = "1 second" ;
+#string $(top)ag:oi:ttfZero.SCAN = "1 second" ;
+#string $(top)ag:p1:ttfZero.SCAN = "1 second" ;
+#string $(top)ag:p2:ttfZero.SCAN = "1 second" ;
+#string $(top)ao:followA.SCAN    = "1 second" ;
+#string $(top)cr:followA.SCAN    = "1 second" ;
+#string $(top)m2:followA.SCAN    = "1 second" ;
+#string $(top)omSim:simulate.SCAN = "1 second" ;
+
+# These slow down the guiding loops to 10Hz
+
+double $(top)ak:guide:scanrate = 0.1;       # Scan rate 10 Hz
+string $(top)ak:guide:scan.SCAN = ".1 second";
+
+# Pole motion parameters, from web page - [ftp://maia.usno.navy.mil/ser7/mark3.out]
+# Updated 01 July 2011 - EJC
+
+double $(top)ak:delut	=   -0.29091;	# UT1 - UTC (seconds)
+double $(top)ak:xpm	=   0.0438;	# X polar motion (arcsec)
+double $(top)ak:ypm	=   0.4355;	# Y polar motion (arcsec)
+
+# Disable CAR records and trackids by default
+string $(top)mcCarDisable = "Disabled" ;
+string $(top)crCarDisable = "Disabled" ;
+string $(top)m1CarDisable = "Disabled" ;
+string $(top)m2CarDisable = "Disabled" ;
+string $(top)ecCarDisable = "Disabled" ;
+string $(top)agCarDisable = "Disabled" ;
+string $(top)aoCarDisable = "Disabled" ;
+string $(top)gpCarDisable = "Disabled" ;
+string $(top)wsCarDisable = "Disabled" ;
+string $(top)aomCarDisable = "Disabled" ;
+string $(top)gsaoiCarDisable = "Disabled" ;
+
+
+# Disable track ids by default
+string $(top)trackidDisable = "On" ;
+
+# Default path for ephemeris files
+string $(top)def:ephFolder = "/gemini/files/ephemerides" ;

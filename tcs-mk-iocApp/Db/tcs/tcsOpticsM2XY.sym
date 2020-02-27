@@ -1,0 +1,18 @@
+[symbol2]
+bbox 416 672 832 800
+port 720 704 100 1792 YCORR symbol 2 832 704 0
+port 720 768 100 1792 XCORR symbol 2 832 768 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 448 736 M2 XY translation
+r 0 416 800 768 672
+v 0 768 704
+832 704
+_
+v 0 768 768
+832 768
+_
+[comments]

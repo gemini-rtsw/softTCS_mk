@@ -1,0 +1,52 @@
+[schematic2]
+uniq 70
+[tools]
+[detail]
+w 1464 891 100 0 n#66 ecad8.ecad8#0.VALE 857 1377 1136 1377 1136 880 1840 880 eaos.ce.DOL
+w 1896 1051 100 0 abswfserr eaos.ca.FLNK 2080 1184 2144 1184 2144 1040 1696 1040 1696 848 1840 848 eaos.ce.SLNK
+w 1156 964 100 0 n#56 ecad8.ecad8#0.STLK 857 961 1504 961 1504 1152 1824 1152 eaos.ca.SLNK
+w 1520 1187 100 0 n#53 ecad8.ecad8#0.VALD 848 1440 1264 1440 1264 1184 1824 1184 eaos.ca.DOL
+w 1028 1797 100 0 n#18 ecad8.ecad8#0.MESS 857 1793 1248 1793 1248 1728 1376 1728 outhier.MESS.p
+w 1092 1829 100 0 n#17 ecad8.ecad8#0.VAL 857 1825 1376 1825 1376 1824 outhier.VAL.p
+w 322 1715 100 0 n#4 inhier.ICID.P 228 1713 452 1713 452 1793 537 1793 ecad8.ecad8#0.ICID
+w 322 1859 100 0 n#3 inhier.DIR.P 228 1857 452 1857 452 1825 537 1825 ecad8.ecad8#0.DIR
+s 2848 208 100 0 Gemini Telescope Control System
+s 2592 2400 100 0 $Id: tcsCadCollAdjust.sch,v 1.1 2001/01/15 11:39:03 dlt Exp $
+[cell use]
+use eaos 1840 759 100 0 ce
+xform 0 1968 848
+p 1808 574 100 0 0 EGU:arcsec
+p 1584 830 100 0 0 OMSL:closed_loop
+p 2160 800 100 0 -1 def(OUT):$(tcs)ak:guide:cestep
+p 2096 816 75 768 -1 pproc(OUT):PP
+use eaos 1824 1063 100 0 ca
+xform 0 1952 1152
+p 1792 878 100 0 0 EGU:arcsec
+p 1568 1134 100 0 0 OMSL:closed_loop
+p 2144 1104 100 0 -1 def(OUT):$(tcs)ak:guide:castep
+p 2080 1120 75 768 -1 pproc(OUT):PP
+use outhier 1368 1784 100 0 VAL
+xform 0 1360 1824
+use outhier 1368 1688 100 0 MESS
+xform 0 1360 1728
+use inhier 236 1817 100 0 DIR
+xform 0 228 1857
+use inhier 236 1673 100 0 ICID
+xform 0 228 1713
+use ecad8 561 873 100 0 ecad8#0
+xform 0 697 1377
+p 553 1919 100 0 -1 DESC:Implement the collAdjust command
+p 633 1569 100 0 0 FTVA:LONG
+p 672 1566 100 0 0 FTVB:DOUBLE
+p 720 1504 100 0 0 FTVC:DOUBLE
+p 720 1440 100 0 -1 FTVD:DOUBLE
+p 704 1376 100 0 -1 FTVE:DOUBLE
+p 704 1312 100 0 0 FTVF:STRING
+p 633 1217 100 0 0 PREC:2
+p 633 1087 100 0 1 SNAM:$(snam)
+p 928 1472 100 0 0 def(OUTC):0.0
+p 944 1408 100 0 0 def(OUTD):0.0
+p 677 801 100 1024 1 name:$(tcs)$(cad)
+use bc200tr 16 -72 -100 0 frame
+xform 0 1696 1232
+[comments]

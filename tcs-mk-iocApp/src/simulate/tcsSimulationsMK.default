@@ -1,0 +1,19 @@
+#
+#  pvload parameter definition file
+#
+# Default site specific startup parameters for the TCS internal simulations 
+#
+#
+# Weather Server
+#
+double $(top)ws:temp  =   5.0;         # Default air temperature (deg C)
+double $(top)ws:press = 615.0;         # Default pressure (mbars)
+double $(top)ws:humid =  20.0;         # Default relative humidity (% RH)
+double $(top)ws:windSpeed = 10.0;      # Default wind speed (km/h)
+double $(top)ws:windDirection = 90.0;  # Default wind direction (degs)
+
+# A&G
+double $(ag)p1:RTMax =  200.0;     # Rotary table upper limit (degs)
+double $(ag)p1:RTMin = -200.0;     # Rotary table lower limit (degs)
+double $(ag)p2:RTMax =  200.0;     # Rotary table upper limit (degs)
+double $(ag)p2:RTMin = -200.0;     # Rotary table lower limit (degs)

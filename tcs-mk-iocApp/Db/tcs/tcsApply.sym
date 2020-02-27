@@ -1,0 +1,18 @@
+[symbol2]
+bbox 192 416 768 672
+port 656 448 100 1792 RESET symbol 2 768 448 0
+port 320 608 100 1792 ELLIMIT symbol 1 192 608 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 416 560 Commands
+r 0 256 672 704 416
+v 0 704 448
+768 448
+_
+v 0 192 608
+256 608
+_
+[comments]

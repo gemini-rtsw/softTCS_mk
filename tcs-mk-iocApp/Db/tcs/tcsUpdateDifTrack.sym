@@ -1,0 +1,18 @@
+[symbol2]
+bbox 0 512 352 704
+port 272 528 100 0 FLNK symbol 2 352 544 0
+port 48 544 100 0 SLNK symbol 1 0 544 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 64 608 tcsUpdateDifTrack
+r 0 32 512 320 704
+v 0 320 544
+352 544
+_
+v 0 0 544
+32 544
+_
+[comments]

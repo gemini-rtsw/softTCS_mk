@@ -1,0 +1,82 @@
+[schematic2]
+uniq 83
+[tools]
+[detail]
+w 1536 340 100 0 n#67 eapply.apply64.INPE 640 1248 320 1248 320 336 2800 336 2800 912 2720 912 tcsCadOffsetPo.tcsCadOffsetPo#79.VAL
+w 1536 356 100 0 n#66 eapply.apply64.INME 640 1216 352 1216 352 352 2768 352 2768 832 2720 832 tcsCadOffsetPo.tcsCadOffsetPo#79.MESS
+w 1360 372 100 0 n#65 eapply.apply64.INPF 640 1184 384 1184 384 368 2384 368 2384 912 2304 912 tcsCadOffsetPo.tcsCadOffsetPo#80.VAL
+w 1360 388 100 0 n#64 eapply.apply64.INMF 640 1152 416 1152 416 384 2352 384 2352 832 2304 832 tcsCadOffsetPo.tcsCadOffsetPo#80.MESS
+w 1176 404 100 0 n#63 eapply.apply64.INPG 640 1120 448 1120 448 400 1952 400 1952 912 1888 912 tcsCadOffsetPo.tcsCadOffsetPo#81.VAL
+w 1176 420 100 0 n#62 eapply.apply64.INMG 640 1088 480 1088 480 416 1920 416 1920 832 1888 832 tcsCadOffsetPo.tcsCadOffsetPo#81.MESS
+w 1008 436 100 0 n#61 eapply.apply64.INPH 640 1056 512 1056 512 432 1552 432 1552 912 1488 912 tcsCadOffsetPo.tcsCadOffsetPo#82.VAL
+w 1016 452 100 0 n#60 eapply.apply64.INMH 640 1024 544 1024 544 448 1536 448 1536 832 1488 832 tcsCadOffsetPo.tcsCadOffsetPo#82.MESS
+w 1720 1252 100 0 n#59 eapply.apply64.OUTE 1024 1248 2464 1248 2464 912 2496 912 tcsCadOffsetPo.tcsCadOffsetPo#79.DIR
+w 1712 1220 100 0 n#58 eapply.apply64.OCLE 1024 1216 2448 1216 2448 832 2496 832 tcsCadOffsetPo.tcsCadOffsetPo#79.ICID
+w 1512 1188 100 0 n#57 eapply.apply64.OUTF 1024 1184 2048 1184 2048 912 2080 912 tcsCadOffsetPo.tcsCadOffsetPo#80.DIR
+w 1496 1156 100 0 n#56 eapply.apply64.OCLF 1024 1152 2016 1152 2016 832 2080 832 tcsCadOffsetPo.tcsCadOffsetPo#80.ICID
+w 1304 1124 100 0 n#55 eapply.apply64.OUTG 1024 1120 1632 1120 1632 912 1664 912 tcsCadOffsetPo.tcsCadOffsetPo#81.DIR
+w 1288 1092 100 0 n#54 eapply.apply64.OCLG 1024 1088 1600 1088 1600 832 1664 832 tcsCadOffsetPo.tcsCadOffsetPo#81.ICID
+w 1122 1008 100 0 n#53 eapply.apply64.OUTH 1024 1056 1120 1056 1120 912 1264 912 tcsCadOffsetPo.tcsCadOffsetPo#82.DIR
+w 1090 952 100 0 n#52 eapply.apply64.OCLH 1024 1024 1088 1024 1088 832 1264 832 tcsCadOffsetPo.tcsCadOffsetPo#82.ICID
+w 1192 2340 100 0 n#35 tcsCadOffsetPo.tcsCadOffsetPo#76.MESS 1904 2000 1984 2000 1984 2336 448 2336 448 1408 640 1408 eapply.apply64.INMB
+w 1184 2308 100 0 n#34 tcsCadOffsetPo.tcsCadOffsetPo#76.VAL 1904 2080 1936 2080 1936 2304 480 2304 480 1440 640 1440 eapply.apply64.INPB
+w 1296 1412 100 0 n#33 eapply.apply64.OCLB 1024 1408 1616 1408 1616 2000 1680 2000 tcsCadOffsetPo.tcsCadOffsetPo#76.ICID
+w 1604 1784 100 0 n#32 eapply.apply64.OUTB 1024 1440 1600 1440 1600 2080 1680 2080 tcsCadOffsetPo.tcsCadOffsetPo#76.DIR
+w 1560 2402 100 0 n#29 tcsCadOffsetPo.tcsCadOffsetPo#78.MESS 2784 2000 2848 2000 2848 2400 320 2400 320 1280 640 1280 eapply.apply64.INMD
+w 1560 2386 100 0 n#28 tcsCadOffsetPo.tcsCadOffsetPo#78.VAL 2784 2080 2816 2080 2816 2384 352 2384 352 1312 640 1312 eapply.apply64.INPD
+w 1384 2370 100 0 n#27 tcsCadOffsetPo.tcsCadOffsetPo#77.MESS 2352 2000 2352 1920 2432 1920 2432 2368 384 2368 384 1344 640 1344 eapply.apply64.INMC
+w 1384 2354 100 0 n#26 tcsCadOffsetPo.tcsCadOffsetPo#77.VAL 2352 2080 2352 2000 2400 2000 2400 2352 416 2352 416 1376 640 1376 eapply.apply64.INPC
+w 1736 1284 100 0 n#25 eapply.apply64.OCLD 1024 1280 2496 1280 2496 2000 2560 2000 tcsCadOffsetPo.tcsCadOffsetPo#78.ICID
+w 1728 1316 100 0 n#24 eapply.apply64.OUTD 1024 1312 2480 1312 2480 2080 2560 2080 tcsCadOffsetPo.tcsCadOffsetPo#78.DIR
+w 1520 1348 100 0 n#23 eapply.apply64.OCLC 1024 1344 2064 1344 2064 1920 2128 1920 2128 2000 tcsCadOffsetPo.tcsCadOffsetPo#77.ICID
+w 1504 1380 100 0 n#22 eapply.apply64.OUTC 1024 1376 2032 1376 2032 2080 2128 2080 tcsCadOffsetPo.tcsCadOffsetPo#77.DIR
+w 1016 2276 100 0 n#21 tcsCadOffsetPo.tcsCadOffsetPo#68.MESS 1504 2000 1568 2000 1568 2272 512 2272 512 1472 640 1472 eapply.apply64.INMA
+w 1016 2244 100 0 n#20 tcsCadOffsetPo.tcsCadOffsetPo#68.VAL 1504 2080 1536 2080 1536 2240 544 2240 544 1504 640 1504 eapply.apply64.INPA
+w 1188 1760 100 0 n#19 eapply.apply64.OCLA 1024 1472 1184 1472 1184 2000 1280 2000 tcsCadOffsetPo.tcsCadOffsetPo#68.ICID
+w 1156 1816 100 0 n#18 eapply.apply64.OUTA 1024 1504 1152 1504 1152 2080 1280 2080 tcsCadOffsetPo.tcsCadOffsetPo#68.DIR
+w 374 1570 100 0 n#4 inhier.ICID.P 80 1472 144 1472 144 1568 640 1568 eapply.apply64.CLID
+w 342 1602 100 0 n#3 inhier.DIR.P 80 1600 640 1600 eapply.apply64.DIR
+w 1934 1570 100 0 n#2 eapply.apply64.MESS 1024 1568 2880 1568 2880 1472 3040 1472 outhier.MESS.p
+w 2014 1602 100 0 n#1 eapply.apply64.VAL 1024 1600 3040 1600 outhier.VAL.p
+s 2848 264 200 0 Gemini TCS
+s 2608 2432 100 0 #$Id: tcsOffCommands4.sch,v 1.1.1.1 1998/11/08 00:20:44 epics Exp $
+s 2752 224 100 0 TCS commands
+[cell use]
+use tcsCadOffsetPo 1288 488 100 0 tcsCadOffsetPo#82
+xform 0 1376 768
+p 1248 478 100 0 1 setb:cad offsetPoB
+use tcsCadOffsetPo 1688 488 100 0 tcsCadOffsetPo#81
+xform 0 1776 768
+p 1648 478 100 0 1 setb:cad offsetPoB1
+use tcsCadOffsetPo 2104 488 100 0 tcsCadOffsetPo#80
+xform 0 2192 768
+p 2064 478 100 0 1 setb:cad offsetPoB2
+use tcsCadOffsetPo 2520 488 100 0 tcsCadOffsetPo#79
+xform 0 2608 768
+p 2480 478 100 0 1 setb:cad offsetPoC
+use tcsCadOffsetPo 2584 1656 100 0 tcsCadOffsetPo#78
+xform 0 2672 1936
+p 2544 1646 100 0 1 setb:cad offsetPoA2
+use tcsCadOffsetPo 2152 1656 100 0 tcsCadOffsetPo#77
+xform 0 2240 1936
+p 2112 1646 100 0 1 setb:cad offsetPoA1
+use tcsCadOffsetPo 1704 1656 100 0 tcsCadOffsetPo#76
+xform 0 1792 1936
+p 1664 1646 100 0 1 setb:cad offsetPoA
+use tcsCadOffsetPo 1304 1656 100 0 tcsCadOffsetPo#68
+xform 0 1392 1936
+p 1264 1646 100 0 1 setb:cad offsetPoM
+use eapply 664 968 100 0 apply64
+xform 0 832 1328
+p 780 1012 100 0 0 DESC:First apply for TCS commands
+use outhier 3032 1560 100 0 VAL
+xform 0 3024 1600
+use outhier 3032 1432 100 0 MESS
+xform 0 3024 1472
+use inhier 88 1560 100 0 DIR
+xform 0 80 1600
+use inhier 88 1432 100 0 ICID
+xform 0 80 1472
+use bc200tr -48 -8 -100 0 frame
+xform 0 1632 1296
+[comments]

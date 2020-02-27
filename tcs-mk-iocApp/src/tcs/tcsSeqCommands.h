@@ -1,0 +1,2 @@
+long tcsSeqInitActions( char *prefix );
+

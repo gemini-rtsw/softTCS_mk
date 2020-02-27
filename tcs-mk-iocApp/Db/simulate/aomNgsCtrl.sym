@@ -1,0 +1,22 @@
+[symbol2]
+bbox 544 560 720 768
+port 736 720 100 0 DIR symbol 2 720 720 0
+port 736 656 100 0 MOVEA symbol 2 720 656 0
+port 736 592 100 0 MOVEB symbol 2 720 592 0
+port 544 662 100 0 X symbol 1 544 656 0
+port 544 598 100 0 Y symbol 1 544 592 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 110 0 0 608 688 NGS
+l 130 0 0 576 656 Control
+r 0 560 768 720 560
+v 0 544 656
+560 656
+_
+v 0 544 592
+560 592
+_
+[comments]

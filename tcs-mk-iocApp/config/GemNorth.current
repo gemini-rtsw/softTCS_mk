@@ -1,0 +1,132 @@
+#
+# pvload parameter file for current TCS database values
+#
+
+
+string $(top)mcIntSimulate = "False"; # Simulate connection to Mount
+string $(top)m1IntSimulate = "False"; # Simulate connection to Primary
+string $(top)crIntSimulate = "False"; # Simulate connection to Rotator
+string $(top)aoIntSimulate = "False"; # Simulate connection to AO
+string $(top)agIntSimulate = "False"; # Simulate connection to A&G
+string $(top)ecIntSimulate = "False"; # Simulate connection to Enclosure
+string $(top)m2IntSimulate = "False"; # Simulate connection to Secondary
+string $(top)wsIntSimulate = "False"; # Simulate connection to Weather server
+string $(top)gpIntSimulate = "True"; # Simulate connection to GPOL 
+string $(top)aomIntSimulate = "True"; # Simulate connection to AO
+string $(top)gsaoiIntSimulate = "True"; # Simulate connection to GSAOI
+
+#
+# Should be updated daily from IERS bulletin.
+#
+# last values loaded  2009 January 22  UT from IERS Bulletin A (DMC).
+# can also be gotten from web page - [ftp://maia.usno.navy.mil/ser7/mark3.out]
+#
+double $(top)ak:delut =   0.35964;        # UT1 - UTC (seconds)
+double $(top)ak:xpm   =  -0.1472;         # X polar motion (arcsec)
+double $(top)ak:ypm   =   0.2745;         # Y polar motion (arcsec)
+#
+#
+# Pointing model by P.T.Wallace 25 July 2000
+# Updated 31 May 2004 by D. Walther
+# Updated 01 October 2004: D. Walther
+# Updated 22 December 2004: D.Walther
+# Updated 17 August 2006: D.Walther
+# Updated 11 November 2006, post earthquake repairs: D.Walther
+# Updated 15 January 2008: D.Coulson
+# Updated 12 April 2008: D. Coulson
+# Updated 03 September 2008: D. Coulson
+# Updated 21 January 2009: D. Coulson
+# Updated 11 May 2009: D. Coulson
+# Updated 21 November 2010: D. Coulson
+# Updated 20 June 2011: D. Coulson
+# Updated 17 November 2011: D. Coulson
+# Updated 01 September 2012: D. Coulson
+# Updated 02 February 2013: D. Coulson
+# Updated 07 February 2013: Backing out the last model D. Coulson
+# Updated 12 February 2013: Putting back newest pointing model taken 2/2/13 D.Coulson
+# Updated 29 September 2013: New pointing model after new M1/M2 LUT was stalled. D.Coulson
+# Updated 22 October 2013: New pointing model after the second M1/M2 LUT installation. D. Coulson
+# Updated: 26-Mar-2015: New pointing model after new telescope collimation values were installed.
+# Updated: 05 June 2015: Full pointing test after the M1/M2 LUT installation. D.Coulson
+# Updated: 15 June 2015: Backing out pointing test from 05-Jun-2015 and re-installing 26-Mar-2015 again.
+# Updated: 10-December-2015: After telescope collimation and M1/M2 work. D.Coulson
+# Updated: 19 March 2016: new pointing model (20160314 data), M. Hoenig
+# Updated: 28 May 2016: new pointing model installed (60-star model), D. Coulson
+# Updated: 10 May 2017: new pointing model installed (30-star model), J. Ball
+# Updated: 01 Sep 2017: new pointing model installed (30-star model), J. Ball
+#
+string $(top)ak:pm:par0:name      = "IA";
+double $(top)ak:pm:par0:value     =        169.34;
+string $(top)ak:pm:par1:name      = "IE";
+double $(top)ak:pm:par1:value     =       -356.92;
+string $(top)ak:pm:par2:name      = "PEE";
+double $(top)ak:pm:par2:value     =        306.42;
+string $(top)ak:pm:par3:name      = "TF";
+double $(top)ak:pm:par3:value     =        -19.21;
+string $(top)ak:pm:par4:name      = "HASA2";
+double $(top)ak:pm:par4:value     =          8.83;
+string $(top)ak:pm:par5:name      = "HACA2";
+double $(top)ak:pm:par5:value     =          5.84;
+string $(top)ak:pm:par6:name      = "HASA6";
+double $(top)ak:pm:par6:value     =          0.94;
+string $(top)ak:pm:par7:name      = "HESA";
+double $(top)ak:pm:par7:value     =         -0.27;
+string $(top)ak:pm:par8:name      = "HESA3";
+double $(top)ak:pm:par8:value     =         -3.28;
+string $(top)ak:pm:par9:name      = "HECA3";
+double $(top)ak:pm:par9:value     =         -0.46;
+string $(top)ak:pm:par10:name      = "HESA5";
+double $(top)ak:pm:par10:value     =        -0.48;
+string $(top)ak:pm:par11:name      = "HVCA2";
+double $(top)ak:pm:par11:value     =        -0.49;
+string $(top)ak:pm:par12:name     = "HVCA3";
+double $(top)ak:pm:par12:value    =          0.90;
+string $(top)ak:pm:par13:name     = "HESE";
+double $(top)ak:pm:par13:value    =          4.94;
+string $(top)ak:pm:par14:name     = "NPAE";
+double $(top)ak:pm:par14:value    =        -10.00;
+string $(top)ak:pm:par15:name     = "CA";
+double $(top)ak:pm:par15:value    =         26.47;
+string $(top)ak:pm:par16:name     = "AW";
+double $(top)ak:pm:par16:value    =        -15.02;
+string $(top)ak:pm:par17:name     = "AN";
+double $(top)ak:pm:par17:value    =         46.24;
+
+#
+# The following lines should be uncommented when running the real telescope
+# with the simulators running. 
+# they ensure the maximum CPU is available to the TCS
+
+#string $(top)ag:startFan.SCAN   = "1 second" ;
+#string $(top)ag:oi:ttfZero.SCAN = "1 second" ;
+#string $(top)ag:p1:ttfZero.SCAN = "1 second" ;
+#string $(top)ag:p2:ttfZero.SCAN = "1 second" ;
+#string $(top)ao:followA.SCAN    = "1 second" ;
+#string $(top)cr:followA.SCAN    = "1 second" ;
+#string $(top)m2:followA.SCAN    = "1 second" ;
+#string $(top)omSim:simulate.SCAN = "1 second" ;
+
+# These slow down the guiding loops to 10Hz
+
+double $(top)ak:guide:scanrate = 0.1;       # Scan rate 10 Hz
+string $(top)ak:guide:scan.SCAN = ".1 second";
+
+# Disable CAR records from subsystems by default
+string $(top)mcCarDisable = "Disabled" ;
+string $(top)crCarDisable = "Disabled" ;
+string $(top)m1CarDisable = "Disabled" ;
+string $(top)m2CarDisable = "Disabled" ;
+string $(top)ecCarDisable = "Disabled" ;
+string $(top)agCarDisable = "Disabled" ;
+string $(top)aoCarDisable = "Disabled" ;
+string $(top)gpCarDisable = "Disabled" ;
+string $(top)wsCarDisable = "Disabled" ;
+string $(top)aomCarDisable = "Disabled" ;
+string $(top)gsaoiCarDisable = "Disabled" ;
+
+# Disable track ids by default
+string $(top)trackidDisable = "On" ;
+
+# Default path for ephemeris files
+string $(top)def:ephFolder = "/gemini/files/ephemerides" ;
+

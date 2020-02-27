@@ -1,0 +1,22 @@
+[symbol2]
+bbox -352 32 -64 256
+port -256 64 100 0 CEINC symbol 1 -352 64 0
+port -256 128 100 0 CAINC symbol 1 -352 128 0
+port -256 192 100 0 SLNK symbol 1 -352 192 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 70 0 0 -256 160 Sets pointing model
+r 0 -288 32 -64 256
+v 0 -352 64
+-288 64
+_
+v 0 -352 128
+-288 128
+_
+v 0 -352 192
+-288 192
+_
+[comments]

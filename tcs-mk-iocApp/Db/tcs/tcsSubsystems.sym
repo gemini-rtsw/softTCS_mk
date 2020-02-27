@@ -1,0 +1,11 @@
+[symbol2]
+bbox 192 544 512 768
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 288 640 Subsystems
+l 100 0 0 320 704 TCS
+r 0 192 768 512 544
+[comments]

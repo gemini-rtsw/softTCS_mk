@@ -1,0 +1,333 @@
+#
+#  pvload parameter definition file
+#
+# Default startup parameters for the TCS internal simulations 
+#
+# Mount Control system
+#
+int    $(top)mc:state    = 0;             # Initial state is Booting
+double $(top)mc:azdef    = 90.0;          # Default azimuth (degrees)
+double $(top)mc:eldef    = 90.0;          # Default elevation (degrees)
+double $(top)mc:azveldef = 2.0;           # Default az velocity (deg/s)
+double $(top)mc:elveldef = 0.75;          # Default el velocity (deg/s)
+double $(top)mc:errSize  = 0.0 ;          # Noise on az/el values (arcsec)
+double $(top)mc:parkaz   = 90.0 ;         # Park position for azimuth (degrees)
+double $(top)mc:parkel   = 90.0 ;         # Park position for elevation (degrees)
+int $(top)mc:datumS      = 0 ;            # Initially not datumed
+#
+# Cassegrain Rotator Control System
+#
+int    $(top)cr:state    = 0;             # Initial state is "Booting"
+double $(top)cr:padef    = 0.0;           # Rotator P.A. (degrees)
+double $(top)cr:paveldef = 2.0;           # Default PA velocity (deg/s)
+double $(top)cr:errSize  = 0.0;           # Noise on PA (arcsec)
+double $(top)cr:parkpa   = 0.0 ;          # Park position PA for rotator (degrees)
+int $(top)cr:datumS      = 0 ;            # Initially not datumed
+#
+# Enclosure Control system
+#
+int    $(top)ec:state    = 0;            # Initial state is Booting
+double $(top)ec:azdef    = 90.0;         # Default azimuth (degrees)
+double $(top)ec:eldef    = 15.0;         # Default elevation (degrees)
+double $(top)ec:azveldef = 3.0;          # Default az velocity (deg/s)
+double $(top)ec:elveldef = 0.4;          # Default el velocity (deg/s)
+double $(top)ec:parkaz   = 90.0 ;        # Park position for azimuth (degrees)
+double $(top)ec:parkel   = 15.0 ;        # Park position for elevation (degrees)
+double $(top)ec:botShtrMin = 0.5;        # Min. bottom shutter posn (degs)
+double $(top)ec:botShtrMax = 63.7;       # Max. bottom shutter posn. (degs)
+double $(top)ec:topShtrMin = 10.6;       # Min. top shutter posn. (degs)
+double $(top)ec:topShtrMax = 105.0;      # Max. top shutter posn. (degs)
+double $(top)ec:thermalwindSetPoint = 25.0; # Set point for wind speed (km/h)
+#
+# M2 Control system
+#
+int    $(top)m2:state    = 0;             # Initial state is Booting
+int    $(top)m2:dummyInPos = 1;           # Set in position to true
+string $(top)m2:topEnd   = "F16";         # Describes which secondary is present
+double $(top)m2:minChopFreq = 0.1 ;       # Minimum chop freq. (Hz)
+double $(top)m2:breakChopFreq = 5.0;      # Chop freq. at break point (Hz)
+double $(top)m2:maxChopFreq = 10.0 ;      # Maximum chop freq. (Hz)
+double $(top)m2:minChopFreqThrow = 130.0; # Max. throw at minimum freq. (arcsec)
+double $(top)m2:breakChopFreqThrow = 130.0; # Max. throw at break point (arcsec)
+double $(top)m2:maxChopFreqThrow = 60.0;  # max. throw at minimum freq. (arcsec)
+double $(top)m2:minTilt = 0.0;            # Minimum tilt (arcsec)
+double $(top)m2:maxTilt = 3600.0;         # Maximum tilt (arcsec)
+double $(top)m2:minTiltZ = 10.0;          # Z (focus) limit at min tilt (mm)
+double $(top)m2:maxTiltZ = 5.0;           # Z (focus) limit at max tilt (mm)
+double $(top)m2:xTiltDef = 0.0;           # Initial x Tilt position (arcsec)
+double $(top)m2:yTiltDef = 0.0;           # Initial y Tilt position (arcsec)
+double $(top)m2:xDef     = 0.0;           # Initial x position (mm)
+double $(top)m2:yDef     = 0.0;           # Initial y position (mm)
+double $(top)m2:zDef     = 0.5;           # Initial z position (mm)
+#
+# A & G Control system
+#
+# Note that the minimum radius the probes can reach is now calculated
+# within the simulation database.
+int    $(ag)state    = 0;           # Initial state is Booting
+double $(ag)p1:Xdef = 0.0;          # Default table angle (degs) 
+double $(ag)p1:Ydef = -72.67;       # Default probe angle (degs) 
+double $(ag)p1:Zdef = 0.1;          # default X probe position (mm)
+double $(ag)p1:veldef = 3.5;        # default probe velocity (deg/sec)
+double $(ag)p2:Xdef = 58.45;        # Default table angle (degs) 
+double $(ag)p2:Ydef = -73.25;       # Default probe angle (degs) 
+double $(ag)p2:Zdef = -0.1;         # default X probe position (mm)
+double $(ag)p2:veldef = 3.5;        # default velocity (mm/sec)
+double $(ag)oi:Xdef = 0.0;          # Default X probe position (mm)
+double $(ag)oi:Ydef = 150.0;        # Default Y probe position (mm)
+double $(ag)oi:Zdef = 1.0;          # default X probe position (mm)
+double $(ag)oi:veldef = 15.0;       # default velocity (mm/sec)
+string $(ag)p1:LimitType = "Radial"; # Radial probe limits
+double $(ag)p1:Rmax = 370.0;        # maximum probe radius (mm)
+double $(ag)p1:Zmin = -2.9;         # Minimum Z position (mm)
+double $(ag)p1:Zmax = 28.4;         # Maximum Z position (mm)
+string $(ag)p2:LimitType = "Radial"; # Radial probe limits
+double $(ag)p2:Rmax = 322.0;        # maximum probe radius (mm)
+double $(ag)p2:Zmin = -9.5;         # Minimum Z position (mm)
+double $(ag)p2:Zmax = 26.0;         # Maximum Z position (mm)
+string $(ag)oi:LimitType = "XY";    # XY probe limits
+double $(ag)oi:Xmin = -150.0;       # Minimum X position (mm)
+double $(ag)oi:Xmax = 150.0;        # Maximum X position (mm)
+double $(ag)oi:Ymin = -150.0;       # Minimum Y position (mm)
+double $(ag)oi:Ymax = 150.0;        # Maximum Y position (mm)
+double $(ag)oi:Zmin = -12.0;        # Minimum Z position (mm)
+double $(ag)oi:Zmax = 12.0;         # Maximum Z position (mm)
+double $(ag)oi:Rmax = 212.0 ;       # Maximum probe radius (mm)
+group {
+ double $(ag)p1:ParkX = 300.0;       # Park position for PWFS1 X probe (mm)
+ double $(ag)p1:ParkY = 0.0;         # Park position for PWFS1 Y probe (mm)
+ double $(ag)p1:ParkZ = 0.0;         # Park position for PWFS1 Z probe (mm)
+ double $(ag)p2:ParkX = 0.0;         # Park position for PWFS2 X probe (mm)
+ double $(ag)p2:ParkY = 300.0;       # Park position for PWFS2 Y probe (mm)
+ double $(ag)p2:ParkZ = 0.0;         # Park position for PWFS2 Z probe (mm)
+ double $(ag)oi:ParkX = 0.0;         # Park position for OIWFS X probe (mm)
+ double $(ag)oi:ParkY = 150.0;       # Park position for OIWFS Y probe (mm)
+ double $(ag)oi:ParkZ = 0.0;         # Park position for OIWFS Z probe (mm)
+};
+double $(ag)p1:xyTol = 0.010;       # In position default tolerance for A&G X,Y
+double $(ag)p2:xyTol = 0.010;       # In position default tolerance for A&G X,Y
+double $(ag)oi:xyTol = 0.010;       # In position default tolerance for A&G X,Y
+double $(ag)p1:zTol  = 0.010;       # In position default tolerance for A&G Z
+double $(ag)p2:zTol  = 0.010;       # In position default tolerance for A&G Z
+double $(ag)oi:zTol  = 0.010;       # In position default tolerance for A&G Z
+int    $(ag)p1:probeDatumed     = 0 ;  # Initially not datumed
+int    $(ag)p2:probeDatumed     = 0 ;  # Initially not datumed
+int    $(ag)oi:probeDatumed  = 0 ;  # Initially not datumed
+group {
+ double $(ag)oi:oiwfsCoeffs.A = 0.0 ;  # Rotation of frame (degs)
+ double $(ag)oi:oiwfsCoeffs.B = 0.0 ;  # Non perp (degs) 
+ double $(ag)oi:oiwfsCoeffs.C = 1.0 ;  # X scale 
+ double $(ag)oi:oiwfsCoeffs.D = 1.0 ;  # Y scale 
+ double $(ag)oi:oiwfsCoeffs.E = 0.0 ;  # X zero point (mm) 
+ double $(ag)oi:oiwfsCoeffs.F = 0.0 ;  # Y zero point (mm) 
+};
+#
+# Altair Control system
+#
+string $(top)ao:health =  "GOOD";         # Default health state (GOOD)
+int    $(top)ao:state    = 0;             # Initial state is Booting
+double $(top)ao:Xdef = -0.2;              # Default X probe position (mm)
+double $(top)ao:Ydef = 0.5;               # Default Y probe position (mm)
+double $(top)ao:Zdef = 0.1;               # default X probe position (mm)
+int    $(top)ao:numZernikes = 19;         # Number of Zernikes to generate
+double $(top)ao:updateInterval = 30.0;    # How often to geenrate them (secs)
+group {
+double $(top)ao:imageDistort.C = 1.0 ;    # X axis scaling
+double $(top)ao:imageDistort.D = 1.0 ;    # Y axis scaling
+} ;
+double $(top)ao:imageDistort.J = 1.0 ;    # Trigger processing 
+#
+# The real limits are expected to be about +/-37.2. However until
+# logic is improved in DriveAOS set the limits to the P2 limits
+#
+group {
+ double $(top)ao:wfsXMin = -37.2;         # Min. X position (mm)
+ double $(top)ao:wfsXMax =  37.2;         # Max. X position (mm)
+ double $(top)ao:wfsYMin = -37.2;         # Min. Y position (mm)
+ double $(top)ao:wfsYMax =  37.2;         # Max. Y position (mm)
+ double $(top)ao:wfsZMin = -37.2;         # Min. Z position (mm)
+ double $(top)ao:wfsZMax =  37.2;         # Max. Z position (mm)
+};
+double $(top)ao:probeVelDef = 5.0;        # default probe velocity (mm/sec)
+#
+# AOM Control system
+#
+group {
+ double $(top)aom:ngsPr1Xdef = -40.0;     # Default X position
+ double $(top)aom:ngsPr1Ydef =  0.0;      # Default Y position
+ double $(top)aom:ngsPr1xyTol = 0.01 ;    # In position tolernace
+ double $(top)aom:ngsPr1veldef = 2.0 ;    # mm/s 
+ double $(top)aom:ngsPr1ParkX = -40.0;    # Default X park position
+ double $(top)aom:ngsPr1ParkY =  0.0;     # Default Y park position
+ double $(top)aom:ngsPr1XMax =  41.0;     # Maximum X position
+ double $(top)aom:ngsPr1XMin = -41.0;     # Minimum X position
+ double $(top)aom:ngsPr1Rmax =  41.0;     # Maximum R position
+ double $(top)aom:ngsPr1Rmin =   0.0;     # Minimum R position
+ double $(top)aom:ngsPr2Xdef = 40.0;      # Default X position
+ double $(top)aom:ngsPr2Ydef =  0.0;      # Default Y position
+ double $(top)aom:ngsPr2xyTol = 0.01 ;    # In position tolernace
+ double $(top)aom:ngsPr2veldef = 2.0 ;    # mm/s 
+ double $(top)aom:ngsPr2ParkX = 40.0;     # Default X park position
+ double $(top)aom:ngsPr2ParkY =  0.0;     # Default Y park position
+ double $(top)aom:ngsPr2XMax =  41.0;     # Maximum X position
+ double $(top)aom:ngsPr2XMin = -41.0;     # Minimum X position
+ double $(top)aom:ngsPr2Rmax =  41.0;     # Maximum R position
+ double $(top)aom:ngsPr2Rmin =   0.0;     # Minimum R position
+ double $(top)aom:ngsPr3Xdef = 0.0;       # Default X position
+ double $(top)aom:ngsPr3Ydef = 40.0;      # Default Y position
+ double $(top)aom:ngsPr3xyTol = 0.01 ;    # In position tolernace
+ double $(top)aom:ngsPr3veldef = 2.0 ;    # mm/s 
+ double $(top)aom:ngsPr3ParkX = 0.0;      # Default X park position
+ double $(top)aom:ngsPr3ParkY = 40.0;     # Default Y park position
+ double $(top)aom:ngsPr3XMax =  41.0;     # Maximum X position
+ double $(top)aom:ngsPr3XMin = -41.0;     # Minimum X position
+ double $(top)aom:ngsPr3Rmax =  41.0;     # Maximum R position
+ double $(top)aom:ngsPr3Rmin =   0.0;     # Minimum R position
+}
+
+#
+# GSAOI control system
+#
+group {
+ double tgsaoi:sad:dc:d_gdr_winXo1 = 20.0;     # x center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winYo1 = 20.0;     # y center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winXo2 = 20.0;     # x center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winYo2 = 20.0;     # y center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winXo3 = 20.0;     # x center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winYo3 = 20.0;     # y center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winXo4 = 20.0;     # x center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winYo4 = 20.0;     # y center of window (pixels) 
+ double tgsaoi:sad:dc:d_gdr_winSizeS = 32.0;   # extent of window (pixels) 
+}
+
+group {
+ string tgsaoi:cc:vfilt1Menu.ZRST = "Clear";
+ string tgsaoi:cc:vfilt1Menu.ONST = "Z";
+ string tgsaoi:cc:vfilt1Menu.TWST = "J";
+ string tgsaoi:cc:vfilt1Menu.THST = "H";
+ string tgsaoi:cc:vfilt1Menu.FRST = "K'";
+ string tgsaoi:cc:vfilt1Menu.FVST = "Ks";
+ string tgsaoi:cc:vfilt1Menu.SXST = "K";
+ string tgsaoi:cc:vfilt1Menu.SVST = "J-continuum";
+ string tgsaoi:cc:vfilt1Menu.EIST = "H-continuum";
+ string tgsaoi:cc:vfilt1Menu.NIST = "CH4(short)";
+ string tgsaoi:cc:vfilt1Menu.TEST = "CH4(long)";
+ string tgsaoi:cc:vfilt1Menu.ELST = "Ks-continuum";
+ string tgsaoi:cc:vfilt1Menu.TVST = "Kl-continuum";
+ string tgsaoi:cc:vfilt1Menu.TTST = "Diffuser1";
+ string tgsaoi:cc:vfilt1Menu.FTST = "Blocked";
+}
+
+group {
+ string tgsaoi:cc:vfilt2Menu.ZRST = "Clear";
+ string tgsaoi:cc:vfilt2Menu.ONST = "HeI-1.083";
+ string tgsaoi:cc:vfilt2Menu.TWST = "HI-Pgamm";
+ string tgsaoi:cc:vfilt2Menu.THST = "HI-Pbeta";
+ string tgsaoi:cc:vfilt2Menu.FRST = "FeII";
+ string tgsaoi:cc:vfilt2Menu.FVST = "H2O";
+ string tgsaoi:cc:vfilt2Menu.SXST = "HeI-2p2s";
+ string tgsaoi:cc:vfilt2Menu.SVST = "HI-Brgamm";
+ string tgsaoi:cc:vfilt2Menu.EIST = "H2-2-1";
+ string tgsaoi:cc:vfilt2Menu.NIST = "CO";
+ string tgsaoi:cc:vfilt2Menu.TEST = "Diffuser2";
+ string tgsaoi:cc:vfilt2Menu.ELST = "Hartman1";
+ string tgsaoi:cc:vfilt2Menu.TVST = "Hartman2";
+ string tgsaoi:cc:vfilt2Menu.TTST = "Blocked";
+}
+
+#
+# GeMS RTCSeq Control System
+#
+double $(top)gems:updateInterval = 30.0 ;  # Update interval for Zernikes
+long   $(top)gems:numZernikes    = 19 ;    # No. of Zernikes 
+#
+# M1 Control System
+#
+int    $(top)m1:state    = 0;            # Initial state is Booting
+int    $(top)m1:dummyInPos = 1;          # Set in position to true
+double $(top)m1:positionThermal = 5.0;   # Default mirror temp. (deg C)
+double $(top)m1:ANB101Zero = 12.0 ;      # Zero point of truss temp (deg C)
+double $(top)m1:ANB101Amp  =  3.0 ;      # Amplitude of truss temp (deg C)
+double $(top)m1:ANB103Zero = 12.0 ;      # Zero point of truss temp (deg C)
+double $(top)m1:ANB103Amp  =  3.0 ;      # Amplitude of truss temp (deg C)
+#
+# GPOL Control System
+#
+int    $(top)gp:sad:state    = 0;        # Initial state is Booting
+# Set some default values for the names of the plates
+group {
+string  $(top)gp:identify.E  = "calibrator" ;  # Name of upper plate
+string  $(top)gp:identify.F  = "opt_IR"     ;  # Name of middle plate
+string  $(top)gp:identify.G  = "Lband"      ;  # Name of lower plate
+};
+string  $(top)gp:identify.DIR = "CLEAR"     ;  # Don't leave command marked
+#
+# Set the states of the park and beam switches
+#
+group {
+string $(top)gp:carUpBeamSwitch = "OPEN"     ; # not in beam
+string $(top)gp:carUpParkSwitch = "CLOSED"   ; # parked
+string $(top)gp:carMidBeamSwitch = "OPEN"    ; # not in beam
+string $(top)gp:carMidParkSwitch = "CLOSED"  ; # parked
+string $(top)gp:carLowBeamSwitch = "OPEN"    ; # not in beam
+string $(top)gp:carLowParkSwitch = "CLOSED"  ; # parked
+};
+#
+# Weather Server
+#
+int    $(top)ws:state =  2;            # Default subsystem state (RUNNING)
+string $(top)ws:health =  "GOOD";      # Default health state (GOOD)
+#
+# Follow SIRs
+#
+string $(top)mc:followS = "Off";        # MCS follow status SIR initialized value
+string $(top)ec:followS = "Off";        # ECS follow status SIR initialized value
+string $(top)cr:followS = "Off";        # CRS follow status SIR initialized value
+string $(top)m2:followS = "Off";        # SCS follow status SIR initialized value
+string $(ag)p1:followS = "OFF";     # A&G follow status SIR initialized value
+string $(ag)p2:followS = "OFF";     # A&G follow status SIR initialized value
+string $(ag)oi:followS = "OFF";     # A&G follow status SIR initialized value
+#
+#  In position flags for subsystems not implemented.
+#
+int    $(ag)inPosition = 1;
+int    $(top)m1:inPosition = 1;
+int    $(top)m2:inPosition = 1;
+int    $(top)ao:inPosition = 1;
+#
+#  Simulator scan off initially (except sky)
+#
+string $(top)mc:simScanControl = "Off";     # MCS simulator scan control 
+string $(top)ec:simScanControl = "Off";     # ECS simulator scan control 
+string $(top)cr:simScanControl = "Off";     # CRS simulator scan control 
+string $(top)m2:simScanControl = "Off";     # M2 simulator scan control 
+string $(ag)simScanControl = "Off";     # A&G simulator scan control 
+string $(top)ao:simScanControl = "Off";     # GAOS simulator scan control 
+string $(top)aom:simScanControl = "Off";    # AOM simulator scan control 
+string $(top)sky:simScanControl = "Off";    # Sky simulator scan control
+#
+# GIS simulation
+#
+string $(top)gi:M1cover = "OPENED";
+string $(top)gi:M1inst = "OPENED";
+#
+# Sky simulation
+#
+double $(top)sky:cabase = 0.0 ;       # Base offset CA (arcsec)
+double $(top)sky:cebase = 0.0 ;       # Base offset CE (arcsec)
+double $(top)sky:oscamp = 0.0;        # Mount oscillation amplitude (arcsec) 
+double $(top)sky:seeing = 0.0;        # Rms seeing (arcsec) 
+double $(top)sky:oscperiod = 10.0;    # Mount oscillation period (secs)
+double $(top)sky:seeingperiod = 10.0; # Seeing "period" (secs)
+#
+#  Scan period string
+#
+string $(top)mc:simScanPeriod = ".05 second";    # MCS simulator scan rate 
+string $(top)ec:simScanPeriod = ".5 second";     # ECS simulator scan rate 
+string $(top)cr:simScanPeriod = ".05 second";    # CRS simulator scan rate 
+string $(top)m2:simScanPeriod = ".05 second";    # M2 simulator scan rate 
+string $(ag)simScanPeriod = ".05 second";    # A&G simulator scan rate 
+string $(top)ao:simScanPeriod = ".05 second";    # GAOS simulator scan rate 
+string $(top)aom:simScanPeriod = ".05 second";   # AOM simulator scan rate 
+string $(top)gsaoi:simScanPeriod = ".05 second"; # GSAOI simulator scan rate 
+string $(top)sky:simScanPeriod = ".2 second";    # Sky simulator scan rate 

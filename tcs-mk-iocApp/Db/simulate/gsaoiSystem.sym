@@ -1,0 +1,14 @@
+[symbol2]
+bbox 448 608 672 800
+port 656 672 160 0 VAL symbol 2 672 704 0
+port 656 736 160 0 FLNK symbol 2 672 768 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 528 752 GSAOI
+l 100 0 0 512 704 System
+l 100 0 0 512 656 Commands
+r 0 448 800 672 608
+[comments]

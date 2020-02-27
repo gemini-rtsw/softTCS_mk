@@ -1,0 +1,26 @@
+[symbol2]
+bbox -256 -128 224 160
+port -176 32 100 0 FOLLCAR symbol 1 -256 32 0
+port 80 -64 100 0 CAROUT symbol 2 224 -96 0
+port -176 -80 100 0 SLNK symbol 1 -256 -96 0
+port -176 -32 100 0 MOVECAR symbol 1 -256 -32 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -80 64 M2 Commands
+r 0 -192 -128 160 160
+v 0 -256 32
+-192 32
+_
+v 0 160 -96
+224 -96
+_
+v 0 -256 -96
+-192 -96
+_
+v 0 -256 -32
+-192 -32
+_
+[comments]

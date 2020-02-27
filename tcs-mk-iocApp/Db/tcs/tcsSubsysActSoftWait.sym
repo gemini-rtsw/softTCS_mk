@@ -1,0 +1,19 @@
+[symbol2]
+bbox 1856 1472 2144 1728
+port 1968 1488 100 1792 RESET symbol 1 1856 1504 0
+port 2096 1488 100 0 FLNK symbol 2 2144 1488 0
+port 2096 1648 100 0 OMSS symbol 2 2144 1648 0
+port 2112 1696 100 0 VAL symbol 2 2144 1712 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 1952 1632 CAR record
+l 120 0 0 1920 1664 softC & activeC
+l 120 0 0 1952 1696 Subsystem
+r 0 1920 1728 2144 1472
+v 0 1856 1504
+1920 1504
+_
+[comments]

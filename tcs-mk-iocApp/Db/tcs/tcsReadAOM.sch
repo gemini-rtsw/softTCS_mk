@@ -1,0 +1,163 @@
+[schematic2]
+uniq 1642
+[tools]
+[detail]
+w 5468 1115 100 0 n#1641 eais.ngsPr1Y.FLNK 5280 896 5408 896 5408 1104 5600 1104 eais.ngsPr2X.SLNK
+w 7116 683 100 0 n#1639 ebos.ngsPr2Parked.FLNK 7360 848 7616 848 7616 672 6688 672 6688 512 7104 512 ebos.ngsPr3Parked.SLNK
+w 7116 987 100 0 n#1637 ebos.ngsPr1Parked.FLNK 7360 1120 7616 1120 7616 976 6688 976 6688 816 7104 816 ebos.ngsPr2Parked.SLNK
+w 7116 1227 100 0 n#1635 ebos.ngsPr3Datumed.FLNK 7360 1360 7616 1360 7616 1216 6688 1216 6688 1088 7104 1088 ebos.ngsPr1Parked.SLNK
+w 7116 1531 100 0 n#1633 ebos.ngsPr2Datumed.FLNK 7360 1664 7616 1664 7616 1520 6688 1520 6688 1328 7104 1328 ebos.ngsPr3Datumed.SLNK
+w 7220 1755 100 0 n#1631 ebos.ngsPr1Datumed.FLNK 7360 1936 7824 1936 7824 1744 6688 1744 6688 1632 7104 1632 ebos.ngsPr2Datumed.SLNK
+w 6796 1915 100 0 n#1627 eais.ngsPr3Y.FLNK 6400 896 6560 896 6560 1904 7104 1904 ebos.ngsPr1Datumed.SLNK
+w 5900 907 100 0 n#1626 eais.ngsPr2Y.FLNK 5856 896 6016 896 6016 1104 6144 1104 eais.ngsPr3X.SLNK
+w 6884 555 -100 0 c#1597 inhier.c#1597.P 6736 544 7104 544 ebos.ngsPr3Parked.DOL
+w 6884 859 -100 0 c#1596 inhier.c#1596.P 6736 848 7104 848 ebos.ngsPr2Parked.DOL
+w 6884 1131 -100 0 c#1595 inhier.c#1595.P 6736 1120 7104 1120 ebos.ngsPr1Parked.DOL
+w 6884 1371 -100 0 c#1529 inhier.c#1529.P 6736 1360 7104 1360 ebos.ngsPr3Datumed.DOL
+w 6884 1675 -100 0 c#1528 inhier.c#1528.P 6736 1664 7104 1664 ebos.ngsPr2Datumed.DOL
+w 6884 1947 -100 0 c#1527 inhier.c#1527.P 6736 1936 7104 1936 ebos.ngsPr1Datumed.DOL
+w 6252 994 100 0 n#1519 eais.ngsPr3X.FLNK 6400 1120 6496 1120 6496 992 6080 992 6080 880 6144 880 eais.ngsPr3Y.SLNK
+w 5708 994 100 0 n#1517 eais.ngsPr2X.FLNK 5856 1120 5952 1120 5952 992 5536 992 5536 880 5600 880 eais.ngsPr2Y.SLNK
+w 5132 994 100 0 n#1515 eais.ngsPr1X.FLNK 5280 1120 5376 1120 5376 992 4960 992 4960 880 5024 880 eais.ngsPr1Y.SLNK
+s 4768 1296 100 0 not be fast enough for all circumstances.
+s 4768 1328 100 0 These records are currently all scanned at 1 Hz. This may
+s 7424 -48 100 0 Gemini Telescope Control System
+s 7168 2144 100 0 $Id: tcsReadAOM.sch,v 1.2 2010/12/03 11:13:45 cjm Exp $
+s 7424 -112 100 0 Schematic to read A&G data
+[cell use]
+use ebos 7104 1815 100 0 ngsPr1Datumed
+xform 0 7232 1904
+p 7104 1984 100 0 -1 DESC:Datum state of NGS PR1
+p 6784 1854 100 0 0 OMSL:closed_loop
+p 7392 1840 100 0 1 ONAM:DATUMED
+p 7392 1808 100 0 1 ZNAM:NOT DATUMED
+p 6768 1952 100 0 -1 def(DOL):$(aom)ngsPr1Datumed
+p 7072 1936 75 1280 -1 pproc(DOL):CA
+use ebos 7104 1543 100 0 ngsPr2Datumed
+xform 0 7232 1632
+p 7104 1712 100 0 -1 DESC:Datum state of NGS PR2
+p 6784 1582 100 0 0 OMSL:closed_loop
+p 7392 1568 100 0 1 ONAM:DATUMED
+p 7392 1536 100 0 1 ZNAM:NOT DATUMED
+p 6768 1680 100 0 -1 def(DOL):$(aom)ngsPr2Datumed
+p 7072 1664 75 1280 -1 pproc(DOL):CA
+use ebos 7104 1239 100 0 ngsPr3Datumed
+xform 0 7232 1328
+p 7104 1408 100 0 -1 DESC:Datum state of NGS PR3
+p 6784 1278 100 0 0 OMSL:closed_loop
+p 7392 1264 100 0 1 ONAM:DATUMED
+p 7392 1232 100 0 1 ZNAM:NOT DATUMED
+p 6768 1376 100 0 -1 def(DOL):$(aom)ngsPr3Datumed
+p 7072 1360 75 1280 -1 pproc(DOL):CA
+use ebos 7104 999 100 0 ngsPr1Parked
+xform 0 7232 1088
+p 7104 1168 100 0 -1 DESC:Park state of NGS PR1
+p 6784 1038 100 0 0 OMSL:closed_loop
+p 7392 1024 100 0 1 ONAM:PARKED
+p 7392 992 100 0 1 ZNAM:NOT PARKED
+p 6768 1136 100 0 -1 def(DOL):$(aom)ngsPr1Parked
+p 7072 1120 75 1280 -1 pproc(DOL):CA
+use ebos 7104 727 100 0 ngsPr2Parked
+xform 0 7232 816
+p 7104 896 100 0 -1 DESC:Park state of NGS PR2
+p 6784 766 100 0 0 OMSL:closed_loop
+p 7392 752 100 0 1 ONAM:PARKED
+p 7392 720 100 0 1 ZNAM:NOT PARKED
+p 6768 864 100 0 -1 def(DOL):$(aom)ngsPr2Parked
+p 7072 848 75 1280 -1 pproc(DOL):CA
+use ebos 7104 423 100 0 ngsPr3Parked
+xform 0 7232 512
+p 7104 592 100 0 -1 DESC:Park state of NGS PR3
+p 6784 462 100 0 0 OMSL:closed_loop
+p 7392 448 100 0 1 ONAM:PARKED
+p 7392 416 100 0 1 ZNAM:NOT PARKED
+p 6768 560 100 0 -1 def(DOL):$(aom)ngsPr3Parked
+p 7072 544 75 1280 -1 pproc(DOL):CA
+use inhier 6720 1895 100 0 c#1527
+xform 0 6736 1936
+use inhier 6720 1623 100 0 c#1528
+xform 0 6736 1664
+use inhier 6720 1319 100 0 c#1529
+xform 0 6736 1360
+use inhier 6720 1079 100 0 c#1595
+xform 0 6736 1120
+use inhier 6720 807 100 0 c#1596
+xform 0 6736 848
+use inhier 6720 503 100 0 c#1597
+xform 0 6736 544
+use bc200tr 4592 -328 -100 0 frame
+xform 0 6272 976
+use eais 5624 136 100 0 ngsPr2Rmax
+xform 0 5728 208
+p 5568 288 100 0 -1 DESC:Max radius in focal plane
+p 5344 -50 100 0 0 EGU:mm
+p 5344 -274 100 0 0 MDEL:0.0005
+p 5344 46 100 0 0 PREC:4
+p 5664 318 100 0 0 SCAN:Passive
+p 5376 272 100 0 -1 def(INP):$(ag)p2:Rmax
+p 5568 240 75 1280 -1 pproc(INP):CA
+use eais 5048 136 100 0 ngsPr1Rmax
+xform 0 5152 208
+p 5008 272 100 0 -1 DESC:Max radius in focal plane
+p 4768 -50 100 0 0 EGU:mm
+p 4768 -274 100 0 0 MDEL:0.0005
+p 4768 46 100 0 0 PREC:4
+p 5088 318 100 0 0 SCAN:Passive
+p 4800 272 100 0 -1 def(INP):$(ag)p1:Rmax
+p 4992 240 75 1280 -1 pproc(INP):CA
+use eais 6168 808 100 0 ngsPr3Y
+xform 0 6272 880
+p 6208 958 100 0 -1 DESC:Y position
+p 5888 622 100 0 0 EGU:mm
+p 5888 398 100 0 0 MDEL:0.0005
+p 5888 718 100 0 0 PREC:4
+p 6208 990 100 0 0 SCAN:Passive
+p 5952 960 100 0 -1 def(INP):$(aom)ngsPr3:tcsY
+p 6112 912 75 1280 -1 pproc(INP):CA
+use eais 6168 1032 100 0 ngsPr3X
+xform 0 6272 1104
+p 6208 1182 100 0 -1 DESC:X position
+p 5888 846 100 0 0 EGU:mm
+p 5888 622 100 0 0 MDEL:0.0005
+p 5888 942 100 0 0 PREC:4
+p 6208 1214 100 0 0 SCAN:Passive
+p 5952 1184 100 0 -1 def(INP):$(aom)ngsPr3:tcsX
+p 6112 1136 75 1280 -1 pproc(INP):CA
+use eais 5624 808 100 0 ngsPr2Y
+xform 0 5728 880
+p 5664 958 100 0 -1 DESC:Y position
+p 5344 622 100 0 0 EGU:mm
+p 5344 398 100 0 0 MDEL:0.0005
+p 5344 718 100 0 0 PREC:4
+p 5664 990 100 0 0 SCAN:Passive
+p 5392 960 100 0 -1 def(INP):$(aom)ngsPr2:tcsY
+p 5568 912 75 1280 -1 pproc(INP):CA
+use eais 5624 1032 100 0 ngsPr2X
+xform 0 5728 1104
+p 5664 1182 100 0 -1 DESC:X position
+p 5344 846 100 0 0 EGU:mm
+p 5344 622 100 0 0 MDEL:0.0005
+p 5344 942 100 0 0 PREC:4
+p 5664 1214 100 0 0 SCAN:Passive
+p 5392 1168 100 0 -1 def(INP):$(aom)ngsPr2:tcsX
+p 5568 1136 75 1280 -1 pproc(INP):CA
+use eais 5048 808 100 0 ngsPr1Y
+xform 0 5152 880
+p 5088 958 100 0 -1 DESC:Y position
+p 4768 622 100 0 0 EGU:mm
+p 4768 398 100 0 0 MDEL:0.0005
+p 4768 718 100 0 0 PREC:4
+p 5088 990 100 0 0 SCAN:Passive
+p 4736 928 100 0 -1 def(INP):$(aom)ngsPr1:tcsY
+p 4992 912 75 1280 -1 pproc(INP):CA
+use eais 5048 1032 100 0 ngsPr1X
+xform 0 5152 1104
+p 5088 1182 100 0 -1 DESC:X position
+p 4768 846 100 0 0 EGU:mm
+p 4768 622 100 0 0 MDEL:0.0005
+p 4768 942 100 0 0 PREC:4
+p 5088 1214 100 0 1 SCAN:1 second
+p 4768 1168 100 0 -1 def(INP):$(aom)ngsPr1:tcsX
+p 5024 1136 75 1280 -1 palrm(INP):NMS
+p 4992 1136 75 1280 -1 pproc(INP):CA
+[comments]

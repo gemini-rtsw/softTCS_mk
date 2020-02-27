@@ -1,0 +1,27 @@
+[symbol2]
+bbox -256 -64 -32 192
+port -256 -26 100 0 SLNK symbol 1 -256 -32 0
+port -256 38 100 0 NEW symbol 1 -256 32 0
+port -256 102 100 0 SEL symbol 1 -256 96 0
+port -256 166 100 0 VAL symbol 1 -256 160 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -192 48 parameters
+l 100 0 0 -176 112 generic
+r 0 -224 -64 -32 192
+v 0 -256 -32
+-224 -32
+_
+v 0 -256 32
+-224 32
+_
+v 0 -256 96
+-224 96
+_
+v 0 -256 160
+-224 160
+_
+[comments]

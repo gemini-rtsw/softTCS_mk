@@ -1,0 +1,50 @@
+[symbol2]
+bbox -224 -256 64 224
+port 16 0 100 0 VAL symbol 2 64 0 0
+port 16 32 100 0 FLNK symbol 2 64 32 0
+port -208 -192 100 0 SLNK symbol 1 -224 -192 0
+port -208 64 100 0 INPE symbol 1 -224 64 0
+port -208 96 100 0 INPD symbol 1 -224 96 0
+port -208 128 100 0 INPC symbol 1 -224 128 0
+port -208 160 100 0 INPB symbol 1 -224 160 0
+uniq 6
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -128 -32 Offload
+l 100 0 0 -128 0 Compute
+v 0 0 0
+64 0
+_
+v 0 0 32
+64 32
+_
+v 0 -224 -192
+-160 -192
+_
+v 0 -224 64
+-160 64
+_
+v 0 -224 96
+-160 96
+_
+v 0 -224 128
+-160 128
+_
+v 0 -224 160
+-160 160
+_
+v 0 0 64
+0 -96
+_
+v 0 -160 224
+-160 -256
+_
+v 0 -160 224
+0 64
+_
+v 0 -160 -256
+0 -96
+_
+[comments]

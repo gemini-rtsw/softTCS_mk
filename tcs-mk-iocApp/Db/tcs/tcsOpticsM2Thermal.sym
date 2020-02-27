@@ -1,0 +1,19 @@
+[symbol2]
+bbox -320 -64 64 96
+port -240 64 100 0 REFTEMP symbol 1 -320 64 0
+port -48 64 100 0 TEMP symbol 2 64 64 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -176 0 M2 Truss
+l 100 0 0 -192 -32 Temperature
+r 0 -256 -64 0 96
+v 0 -320 64
+-256 64
+_
+v 0 0 64
+64 64
+_
+[comments]

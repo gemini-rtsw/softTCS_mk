@@ -1,0 +1,23 @@
+[symbol2]
+bbox -96 -192 128 96
+port 48 -160 100 0 FLNK symbol 2 128 -160 0
+port 48 0 100 0 OMSS symbol 2 128 0 0
+port 48 64 100 0 VAL symbol 2 128 64 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -64 32 Compute 
+l 100 0 0 -64 -16 softC
+r 0 -96 -192 96 96
+v 0 96 -160
+128 -160
+_
+v 0 96 0
+128 0
+_
+v 0 96 64
+128 64
+_
+[comments]

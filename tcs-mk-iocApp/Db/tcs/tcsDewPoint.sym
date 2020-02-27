@@ -1,0 +1,14 @@
+[symbol2]
+bbox 160 416 704 640
+port 272 576 100 1792 SDIS symbol 1 160 576 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 384 544 Dew Point Alarms
+r 0 224 640 704 416
+v 0 160 576
+224 576
+_
+[comments]

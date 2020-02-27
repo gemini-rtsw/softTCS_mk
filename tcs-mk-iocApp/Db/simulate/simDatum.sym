@@ -1,0 +1,28 @@
+[symbol2]
+bbox 320 816 624 960
+port 507 845 100 1792 VAL symbol 2 608 848 0
+port 509 894 100 1792 FLNK symbol 2 610 897 0
+port 507 925 100 1792 VLNK symbol 2 608 928 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 352 880 simDatum
+r 0 323 947 546 821
+v 0 544 848
+608 848
+_
+v 0 546 897
+610 897
+_
+v 0 331 916
+331 916
+_
+v 0 331 884
+331 884
+_
+v 0 544 928
+608 928
+_
+[comments]

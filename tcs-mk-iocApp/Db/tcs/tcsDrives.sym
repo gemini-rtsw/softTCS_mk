@@ -1,0 +1,34 @@
+[symbol2]
+bbox 688 960 1056 1664
+port 790 1470 100 0 ROTLOLIM symbol 1 700 1480 0
+port 790 1500 100 0 ROTHILIM symbol 1 700 1510 0
+port 790 1530 100 0 AZLOLIM symbol 1 700 1540 0
+port 790 1560 100 0 AZHILIM symbol 1 700 1570 0
+port 820 1630 100 1792 TRACK symbol 1 700 1630 0
+port 830 1600 100 1792 ELLIMIT symbol 1 700 1600 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 200 0 0 848 1296 drives
+r 0 768 1664 1056 960
+v 0 700 1630
+770 1630
+_
+v 0 700 1600
+770 1600
+_
+v 0 700 1480
+770 1480
+_
+v 0 700 1510
+770 1510
+_
+v 0 700 1540
+770 1540
+_
+v 0 700 1570
+770 1570
+_
+[comments]

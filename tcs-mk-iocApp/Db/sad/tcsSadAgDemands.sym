@@ -1,0 +1,11 @@
+[symbol2]
+bbox 320 560 656 672
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 624 SAD records for Peripheral
+l 100 0 0 336 592 Wave Front Sensor Demands
+r 0 320 560 656 672
+[comments]

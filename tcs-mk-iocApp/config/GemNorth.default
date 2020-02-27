@@ -1,0 +1,1024 @@
+#
+#  pvload parameter definition file
+#
+# Initiate check for Xycom hardware and state of Interlock system
+#
+string $(top)checkForXycom.PROC = "1"; # Any value to force processing
+#
+# Set up default values for system statistic scan rates
+#
+# double $(top)cpuScanPeriod    = 5.0 ;   # Estimate CPU load every 5 secs
+# double $(top)memoryScanPeriod = 10.0 ;  # Estimate memory usage every 10 secs
+# double $(top)fdScanPeriod     = 10.0 ;  # Estimate FD usage every 10 secs
+#
+# Default mechanism limits. Processing of the times to limits record
+# is disabled here so that it doesn't run before the kernel is 
+# generating valid data.
+#
+int $(top)limits:times.DISA = 1;       # Disable limit calculation
+double $(top)rmadef   = 0.0;           # Rotator P.A. (degrees)
+double $(top)azdef    = 90.0;          # Default azimuth (degrees)
+double $(top)eldef    = 90.0;          # Default elevation (degrees)
+double $(top)azveldef = 2.0;           # Default az velocity (deg/s)
+double $(top)elveldef = 0.75;          # Default el velocity (deg/s)
+double $(top)paveldef = 5.0;           # Default PA velocity (deg/s)
+double $(top)ellimit  = 17.0;          # Elevation lower limit (degrees)
+double $(top)azlolimit  = -180.0;      # Azimuth lower limit (degrees)
+double $(top)azhilimit  = 355.0;       # Azimuth upper limit (degrees)
+double $(top)rotlolimit  = -265.0;     # Rotator lower limit (degrees)
+double $(top)rothilimit  = 265.0;      # Rotator upper limit (degrees)
+double $(top)zlimit = 0.5;             # Zenith avoidance limit (degrees)
+double $(top)airmasslimit = 2.0;       # Air mass limit
+#
+# Default parameters for disabling mount following
+#
+group {
+ string $(top)mcFollow:axes = "BOTH" ;   # Stop following on both axes
+ string $(top)mcFollow:azBrake = "NO" ;  # Don't apply azimuth brakes
+ string $(top)mcFollow:elBrake = "NO" ;  # Don't apply elevation brakes
+}
+#
+# Default parameter when disabling rotator following
+#
+string $(top)crFollow:crBrake = "NO" ;    # Don't apply brakes
+#
+# Default startup parameters for M2. 
+#
+double $(top)def:m2MinChopFreq = 0.1;   # Min. chop frequency (Hz)
+double $(top)def:m2BreakChopFreq = 5.0; # Chop freq. at break
+double $(top)def:m2MaxChopFreq = 10.0;  # Max. chop frequency (Hz)
+double $(top)def:m2MinChopFreqThrow = 130.0; # Throw at min freq. (arcsec)
+double $(top)def:m2BreakChopFreqThrow = 130.0; # Throw at break (arcsec)
+double $(top)def:m2MaxChopFreqThrow = 60.0; # Throw at max freq. (arcsec)
+double $(top)def:m2MinTilt = 0.0;       # Minimum tilt (arcsec)
+double $(top)def:m2MaxTilt = 3600.0;    # Maximum tilt (arcsec)
+double $(top)def:m2MinTiltZ = 10.0;     # Max Z at min. tilt (mm)
+double $(top)def:m2MaxTiltZ = 5.0;      # Max Z at max. tilt (mm)
+string $(top)defTopEnd = "F16";        # Default top end is F/16
+#
+# Default startup limits for Altair - these are only used if and until
+# the Altair system is loaded
+#
+group {
+string $(top)def:aowfsLimitType = "XY";     # Altair is on an XY table
+double $(top)def:aowfsRmin = 0.0;           # probe can reach centre
+double $(top)def:aowfsRmax = 53.0 ;         # Max. radius (mm)
+double $(top)def:aowfsXmin = -37.2 ;        # Minimum X (mm)
+double $(top)def:aowfsXmax = 37.2 ;         # maximum X (mm)
+double $(top)def:aowfsYmin = -37.2 ;        # Minimum Y (mm)
+double $(top)def:aowfsYmax = 37.2 ;         # maximum Y (mm)
+double $(top)def:aowfsZmin = -12.0;         # Minimum Z (mm)
+double $(top)def:aowfsZmax = 12.0;          # maximum Z (mm)
+double $(top)def:aowfsXposn = 35.0;         # Default X posn (mm)
+double $(top)def:aowfsYposn = 35.0;         # Default Y posn (mm)
+double $(top)def:aowfsZposn = 0.0;          # Default Z posn (mm)
+};
+#
+# Altair probe offsets. The x,y values are equal to the pointing origin
+# of Altair when its gimbals re at 0,0
+#
+double $(top)drives:aoXoffset = 0.74;      # Focus offset of wfs (mm)
+double $(top)drives:aoYoffset = -0.37;     # Focus offset of wfs (mm)
+double $(top)drives:aoZoffset = 0.0;       # Focus offset of wfs (mm)
+#
+# Default set up parameters for the AOM (Canopus)
+#
+# These are used if and only if the AOM can't be contacted at startup.
+# Once the AOM is booted the TCS sequence program will use the data read
+# back from it.
+#
+group {
+string $(top)def:aomngsPr1LimitType = "Radial"; # Not strictly true
+double $(top)def:aomngsPr1Rmin = 0.0;           # probe can reach centre
+double $(top)def:aomngsPr1Rmax = 41.0 ;         # Max. radius (mm)
+double $(top)def:aomngsPr1Xmin = -41.0 ;        # Minimum X (mm)
+double $(top)def:aomngsPr1Xmax = 15.0 ;         # maximum X (mm)
+double $(top)def:aomngsPr1Ymin = -41.0 ;        # Minimum Y (mm)
+double $(top)def:aomngsPr1Ymax = 41.0 ;         # maximum Y (mm)
+double $(top)def:aomngsPr1Xposn = -31.0;         # Default X posn (mm)
+double $(top)def:aomngsPr1Yposn = 32.0;         # Default Y posn (mm)
+};
+group {
+string $(top)def:aomngsPr2LimitType = "Radial"; # Not strictly true
+double $(top)def:aomngsPr2Rmin = 0.0;           # probe can reach centre
+double $(top)def:aomngsPr2Rmax = 41.0 ;         # Max. radius (mm)
+double $(top)def:aomngsPr2Xmin = -15.0 ;        # Minimum X (mm)
+double $(top)def:aomngsPr2Xmax = 41.0 ;         # maximum X (mm)
+double $(top)def:aomngsPr2Ymin = -41.0 ;        # Minimum Y (mm)
+double $(top)def:aomngsPr2Ymax = 41.0 ;         # maximum Y (mm)
+double $(top)def:aomngsPr2Xposn = 32.0;         # Default X posn (mm)
+double $(top)def:aomngsPr2Yposn = 33.0;         # Default Y posn (mm)
+};
+group {
+string $(top)def:aomngsPr3LimitType = "Radial"; # probe 3 has a circular area
+double $(top)def:aomngsPr3Rmin = 0.0;           # probe can reach centre
+double $(top)def:aomngsPr3Rmax = 41.0 ;         # Max. radius (mm)
+double $(top)def:aomngsPr3Xmin = -41.0 ;        # Minimum X (mm)
+double $(top)def:aomngsPr3Xmax = 41.0 ;         # maximum X (mm)
+double $(top)def:aomngsPr3Ymin = -41.0 ;        # Minimum Y (mm)
+double $(top)def:aomngsPr3Ymax = 41.0 ;         # maximum Y (mm)
+double $(top)def:aomngsPr3Xposn = 33.0;         # Default X posn (mm)
+double $(top)def:aomngsPr3Yposn = 34.0;         # Default Y posn (mm)
+};
+
+#
+# Default startup parameters for A&G. These are only used when it is not
+# possible to connect to the A&G or the TCS's internal simulation of the
+# A&G. The defaults are based on a probe arm length of 400mm and max. angles
+# of 48 and 43 degs, 2000 and 1615 mm above focal plane respectively.
+#
+string $(top)def:pwfs1LimitType = "Radial"; # pwfs1 is on a rotary table
+double $(top)def:pwfs1Rmin = 0.0;           # probe can reach centre
+double $(top)def:pwfs1Rmax = 380.0;         # Max. radius (mm)
+double $(top)def:pwfs1Xmin = -380.0;        # Minimum X (mm)
+double $(top)def:pwfs1Xmax = 380.0;         # maximum X (mm)
+double $(top)def:pwfs1Ymin = -380.0;        # Minimum Y (mm)
+double $(top)def:pwfs1Ymax = 380.0;         # maximum Y (mm)
+double $(top)def:pwfs1Zmin = -0.2;         # Minimum Z (mm)
+double $(top)def:pwfs1Zmax = 29.0;          # maximum Z (mm)
+double $(top)def:pwfs1Xposn = 300.0;        # Default X posn (mm)
+double $(top)def:pwfs1Yposn = 0.0;          # Default Y posn (mm)
+double $(top)def:pwfs1Zposn = 0.0;          # Default Z posn (mm)
+double $(top)def:pwfs1RTmin = -200.0;       # Min. rotary table angle (degs)
+double $(top)def:pwfs1RTmax = 200.0;        # Max. rotary table angle (degs)
+string $(top)def:pwfs2LimitType = "Radial"; # pwfs2 is on a rotary table
+double $(top)def:pwfs2Rmin = 0.0;           # probe can reach centre
+double $(top)def:pwfs2Rmax = 325.0;         # Max. radius (mm)
+double $(top)def:pwfs2Xmin = -325.0;        # Minimum X (mm)
+double $(top)def:pwfs2Xmax = 325.0;         # maximum X (mm)
+double $(top)def:pwfs2Ymin = -325.0;        # Minimum Y (mm)
+double $(top)def:pwfs2Ymax = 325.0;         # maximum Y (mm)
+double $(top)def:pwfs2Zmin = -11.3;         # Minimum Z (mm)
+double $(top)def:pwfs2Zmax = 18.8;          # maximum Z (mm)
+double $(top)def:pwfs2Xposn = 300.0;        # Default X posn (mm)
+double $(top)def:pwfs2Yposn = 0.0;          # Default Y posn (mm)
+double $(top)def:pwfs2Zposn = 0.0;          # Default Z posn (mm)
+double $(top)def:pwfs2RTmin = -200.0;       # Min. rotary table angle (degs)
+double $(top)def:pwfs2RTmax = 200.0;        # Max. rotary table angle (degs)
+string $(top)def:oiwfsLimitType = "XY";     # oiwfs is on an XY table
+double $(top)def:oiwfsRmin = 0.0;           # probe can reach centre
+double $(top)def:oiwfsRmax = 150.0;         # Max. radius (mm)
+double $(top)def:oiwfsXmin = -150.0;        # Minimum X (mm)
+double $(top)def:oiwfsXmax = 150.0;         # maximum X (mm)
+double $(top)def:oiwfsYmin = -150.0;        # Minimum Y (mm)
+double $(top)def:oiwfsYmax = 150.0;         # maximum Y (mm)
+double $(top)def:oiwfsZmin = -12.0;         # Minimum Z (mm)
+double $(top)def:oiwfsZmax = 12.0;          # maximum Z (mm)
+double $(top)def:oiwfsXposn = 150.0;        # Default X posn (mm)
+double $(top)def:oiwfsYposn = 0.0;          # Default Y posn (mm)
+double $(top)def:oiwfsZposn = 0.0;          # Default Z posn (mm)
+double $(top)drives:pwfs1XNominal = 0.0;    # Nominal X position
+double $(top)drives:pwfs1YNominal = 0.0;    # Nominal Y position
+double $(top)drives:pwfs1ZNominal = 0.0;    # Nominal Z position
+double $(top)drives:pwfs2XNominal = 0.0;    # Nominal X position
+double $(top)drives:pwfs2YNominal = 0.0;    # Nominal Y position
+double $(top)drives:pwfs2ZNominal = 0.0;    # Nominal Z position
+double $(top)drives:oiwfsXNominal = 0.0;    # Nominal X position
+double $(top)drives:oiwfsYNominal = 0.0;    # Nominal Y position
+double $(top)drives:oiwfsZNominal = 0.0;    # Nominal Z position
+#
+# Default user limits. Writing to these cause the corresponding
+# SAD items to be updated. These values will later be overwritten by
+# tcsSeqInit with data from the A&G
+#
+group {
+ double $(top)pwfs1Rmin = 0.0;       # Min radius for PWFS1 (mm)
+ double $(top)pwfs1Rmax = 380.0;     # Max radius for PWFS1 (mm) 
+ double $(top)pwfs2Rmin = 0.0;       # Min radius for PWFS2 (mm)
+ double $(top)pwfs2Rmax = 325.0;     # Max radius for PWFS2 (mm) 
+}
+#
+# Default startup parameters for the ECS. These are only used if it is
+# not possible to connect to the ECS on startup
+#
+double $(top)def:minBotShtr = 0.5;     # Min. elevation bottom shutter (degs)
+double $(top)def:maxBotShtr = 63.7;    # Max. elevation bottom shutter (degs)
+double $(top)def:minTopShtr = 10.6;    # Min. elevation top shutter (degs)
+double $(top)def:maxTopShtr = 105.0;   # Max. elevation top shutter (degs)
+double $(top)def:domePos = 90.0;       # Default dome azimuth (degs)
+double $(top)def:topShtrPos = 15.0;    # Default top shutter elevation (degs)
+double $(top)def:botShtrPos = 15.0;    # Default bottom shutter posn (degs)
+double $(top)drives:moveTol = 1.0 ;    # Tolerance for move commands (degs)
+#
+# Parameters to control ECS positioning
+#
+double $(top)def:encRadius = 17000.0;  # Enclosure radius (mm)
+double $(top)def:slitWidth = 9320.0;   # Slit width (mm)
+double $(top)def:beamDiameter = 7909.0; # Beam diameter at M1 (mm)
+double $(top)def:minScatWidth = 500.0; # Adjustment for min scatter mode (mm)
+double $(top)def:minSlitHeight = 9320.0; # Min. slit height (mm)
+double $(top)def:fieldRadius = 8.0 ;   # Field radius (arcmin)
+#
+# Fixed parameters (TCS/PTW/4.4)
+#
+# Latitude and longitude changed on 15/5/99 from -155 28 18, 19 49 36
+# Height above sea level changed on 17/5/99 from 4145.0
+double $(top)ak:del   =  0.0025;       # Probe vector length (rads)
+double $(top)ak:tlongm = -155.46906;   # Longitude (-155 28 08.6 in degrees)
+double $(top)ak:tlatm  = 19.823806;    # Latitude  (19 49 25.7 in degrees)
+double $(top)ak:height = 4213.4;       # Height above sea-level (metres)
+double $(top)sodium    = 90.0;         # Default Na layer height (km)
+#
+# Quasi-fixed parameters (TCS/PTW/4.4)
+#
+# 2/12/13 Removed Leap sec temporarility D. Coulson
+# 2/13/14 Put leap sec back. D. Coulson
+#
+#
+double $(top)ak:delut = 0.0;           # UT1 - UTC (seconds) 
+double $(top)ak:delat = 37.0;          # TAI - UTC (seconds)
+double $(top)ak:ttmtai = 32.184;       # TT - TAI (seconds)
+double $(top)ak:xpm    = 0.0;          # X polar motion (arcsec) 
+double $(top)ak:ypm   = 0.0;           # Y polar motion (arcsec) 
+double $(top)ak:slow.A = 278.16;       # Initial air temperature (deg K)
+double $(top)ak:slow.B = 615.0;        # Initial pressure (mbars)
+double $(top)ak:slow.C =  0.2;         # Initial relative humidity
+double $(top)ak:tempMax = 50.0;        # Max air temperature (deg C)
+double $(top)ak:tempMin = -40.0;       # Min air temparature (deg C)
+double $(top)ak:tempDefault =  5.0;    # Default temperature
+double $(top)ak:pressMax = 1100.0;     # Max air pressure (millibars)
+double $(top)ak:pressMin = 300.0;      # Min air pressure (millibars)
+double $(top)ak:pressDefault =  615.0; # Default air pressure (millibars)
+double $(top)ak:humidMax = 100.0;      # Max relative humidity (% RH)
+double $(top)ak:humidMin = 0.0;        # Min  relative humidity (% RH)
+double $(top)ak:humidDefault =  20.0;  # Default relative humidity (% RH)
+double $(top)ak:tlr   =  0.0065;       # Tropospheric lapse rate (deg K / m)
+double $(top)ak:wavel =  0.5;          # Default wavelength (microns)
+double $(top)ak:djmls = 99999.0;      # MJD of next leap second
+double $(top)ak:biass = 0.0;           # Time offset for testing (seconds)
+
+double $(top)ak:xim   =  0.0;          # X pointing origin (mm)
+double $(top)ak:yim   =  0.0;          # Y pointing origin (mm)
+#
+# Parameters of M2 optics model 
+#
+# The theoretical ZThermal coeff is 0.138
+# m2ZModelCoeff & m2ZNominal determined from 4 points on 20/5/99
+# m2XTiltNominal & m2XTiltModelCoeff determined from 3 points 22/5/99
+# Updated 12 June by FR
+# Focus elevation term fitted from data of Jan 31 - Feb 1 CJM
+# New terms from Inger Jorgensen 15 Feb DLT
+# Updated 01-September-2000 by DMW
+# m2XNominal, m2YNominal, m2XTiltNominal, m2YTiltNominal changed by SC 6/19/01
+# m2ZNominalchanged to 0.450 DMW 2/5/2003
+# m2XNominal, m2YNominal, im:cVals:Z4, im:cVals:Z5, im:cVals:Z8, im:cVals:Z12,im:cVals:Z13,im:cVals:Z14, im:cVals:Z17  MBEC 1/22/04
+# m2XNominal, m2YNominal, SCHAN 08/11/06
+# New terms from TV 03Jan2008, GT (Coma x, y and z.)
+# New terms from TV 02Aug2008, BW (Coma x, and y)
+# New terms from TS and TV 07Feb2013 (data from Jan2012)
+# New terms from TS 31Mar2015 (Coma x and y)
+# New terms from TS 30Nov2015 (Coma x and y tilt x and y)
+# m2YModelCoeff1 changed from 0.02 to 0.20 and m2XModelCoeff1 changed from -0.09 to -0.90 TS 11Feb2016 (Coma y)
+# New terms from TS 30Aug2016 (Coma x and y)
+# New terms from TS 13Oct2016 (Coma x and y)
+# New terms from TS 22Mar2017 (Coma x and y)
+# New terms from TS 26Aug2017 (Coma x and y)
+# New terms from TS 08Nov2017 (Coma x and y)
+#
+group {
+ double $(top)om:m2XNominal = 2.31; # X reference position
+ double $(top)om:m2YNominal = 2.36; # Y reference position
+ double $(top)om:m2ZNominal = -0.25;     # Z reference position
+ double $(top)om:m2XYRefTemp = 5.0;     # Reference for thermal model (deg C)
+ double $(top)om:m2ZRefTemp  = 0.15;     # Reference for thermal model (deg C)
+ double $(top)om:m2TiltRefTemp = 5.0;   # Reference for thermal model (deg C)
+ double $(top)om:m2XThermalCoeff = 0.0; # Thermal X coefficient (mm/deg C)
+ double $(top)om:m2YThermalCoeff = 0.0; # Thermal Y coefficient (mm/deg C)
+ double $(top)om:m2ZThermalCoeff = 0.15; # Thermal Z coefficient (mm/deg C)
+ double $(top)om:tt:step1 = 0.5;         # permitted sample step (deg C)
+ double $(top)om:tt:step2 = 0.5;         # permitted sample step (deg C)
+ double $(top)om:tt:diff  = 1.0;         # permitted sensor difference (deg C)
+ double $(top)om:m2XModelCoeff1   = 0.20; # Model X coefficient (mm)
+ double $(top)om:m2YModelCoeff1   = -0.24; # Model Y coefficient (mm)
+ double $(top)om:m2XModelCoeff2   = 0.0; # Model X coefficient (mm)
+ double $(top)om:m2YModelCoeff2   = 0.0; # Model Y coefficient (mm)
+ double $(top)om:m2ZModelCoeff1  = 0.496; # Model Z coefficient (mm)
+ double $(top)om:m2ZModelCoeff2  = -0.225; # Model Z coefficient (mm)
+ 
+ double $(top)om:m2XTiltNominal  = -224; # Reference for xtilt (arcsec)
+ double $(top)om:m2YTiltNominal  = -322; # Reference for ytilt (arcsec)
+ double $(top)om:m2XTiltModelCoeff = 0.0 ; # Model Xtilt coeff (arcsec)
+ double $(top)om:m2YTiltModelCoeff = 0.0 ; # Model Ytilt coeff (arcsec)
+};
+#
+# Data for M2 tilt correction model
+#
+int $(top)drives:m2ComaInt = 10;        # update interval for model (secs) 
+group {
+ string $(top)m2ComaModel.A = "0.0";   # A coefficient 
+ string $(top)m2ComaModel.B = "0.0";   # B coefficient 
+ string $(top)m2ComaModel.C = "0.0";   # C coefficient 
+}
+string $(top)m2ComaModel.DIR = "CLEAR"; # Otherwise command is marked
+#
+# Coefficients to compute Zernike terms
+#
+int $(top)om:setZCoeffs.A = 6;          # Number of Zernike terms to follow 
+#
+# Terms to compute Z3
+#
+double $(top)om:setZCoeffs.B[11] = { 
+   [0] 0.0,
+   [1] -0.1031324,
+   [2] -0.1031324,
+   [3] -0.01846,
+   [4] 1787.6283,
+   [5] -1787.6283,
+   [6] 0.1031324,
+   [7] 0.1031324,
+   [8] 0.01870,
+   [9] -481.28455,
+   [10] 481.28455
+};
+double $(top)om:setZCoeffs.C[11] = {
+   [0] 223.83487,
+   [1] -0.1031324,
+   [2] 0.1031324,
+   [3] 0.0,
+   [4] -1443.8536,
+   [5] -1443.8536,
+   [6] 0.1031324,
+   [7] 0.1031324,
+   [8] 0.0,
+   [9] 481.28455,
+   [10] 481.28455
+};
+double $(top)om:setZCoeffs.D[11] = {
+   [0] 223.83487,
+   [1] -0.1031324,
+   [2] -0.1031324,
+   [3] 0.0,
+   [4] 1443.8536,
+   [5] -1443.8536,
+   [6] 0.1031324,
+   [7] 0.1031324,
+   [8] 0.0,
+   [9] -481.28455,
+   [10] 481.28455
+};
+double $(top)om:setZCoeffs.E[11] = {
+   [0] 0.0,
+   [1] 0.00168,
+   [2] 0.0,
+   [3] 0.0,
+   [4] 0.0,
+   [5] 24.16,
+   [6] -0.00168,
+   [7] 0.0,
+   [8] 0.0,
+   [9] 0.0,
+   [10] -3.08
+};
+double $(top)om:setZCoeffs.F[11] = {
+   [0] 0.0,
+   [1] 0.0,
+   [2] 0.00168,
+   [3] 0.0,
+   [4] -24.16,
+   [5] 0.0,
+   [6] 0.0,
+   [7] -0.00168,
+   [8] 0.0,
+   [9] 3.08,
+   [10] 0.0
+};
+#
+# Terms to compute Z8 (spherical)
+#
+double $(top)om:setZCoeffs.G[11] = {
+   [0] 0.0,
+   [1] 0.0,
+   [2] 0.0,
+   [3] 0.000104,
+   [4] 0.0,
+   [5] 0.0,
+   [6] 0.0,
+   [7] 0.0,
+   [8] -0.000114,
+   [9] 0.0,
+   [10] 0.0
+};
+string $(top)om:setZCoeffs.PROC = "1" ;      # Trigger processing
+#
+# Data for empirical off axis data model
+#
+group {
+ double $(top)om:ast0Zero    = 0.0 ;
+ double $(top)om:ast0Scale   = 1.0 ;
+ double $(top)om:ast0Phase   = 180.0 ;
+ double $(top)om:ast45Zero   = 0.0 ;
+ double $(top)om:ast45Scale  = 1.0 ;
+ double $(top)om:ast45Phase  = 180.0 ;
+ double $(top)om:ast0A2      = 0.0 ;
+ double $(top)om:ast0P2      = 0.0 ;
+ double $(top)om:ast0A3      = 0.0 ;
+ double $(top)om:ast0P3      = 0.0 ;
+ double $(top)om:ast45A2     = 0.0 ;
+ double $(top)om:ast45P2     = 0.0 ;
+ double $(top)om:ast45A3     = 0.0 ;
+ double $(top)om:ast45P3     = 0.0 ;
+} ;
+string $(top)om:setModel.PROC = "1" ;       # Trigger processing
+#
+# Data and parameters for M1 open loop figure model
+#
+int $(top)drives:m1Interval = 30 ;               # Update every 30 seconds
+double $(top)drives:m1ModelMaxAge = 1000.0;  # Max age (hrs) for valid file
+
+# updated 12 June 99 following observations by FR
+# updated 24 Jan 00  from data of 17/18 Jan
+# New terms from Inger Jorgensen 15 Feb DLT
+# updated 12 Sep 00 for sin trefoil by SC
+# updated 01 Aug 02 for Z8 C coefficient by SC
+# New terms from Maxime Boccas 1 Sep 04 MB
+# New terms from Maxime Boccas 16 Aug 06 MB
+# New terms 03 Jan 2008
+# New terms 02Aug 2008  Brian Walls
+# New terms TS and TV 07Feb2013 (values from Jan2012)
+# New terms TS and TV 27Sep2013 (M1 recoat)
+# New terms TS 31Mar2015
+# New terms TS 30Nov2015 (Z4 Z5 Z9 Z10 Z11 Z12)
+# New terms TS 30Aug2016 (Z4 Z5)
+# New terms TS 22Mar2017 (Z4 Z5 Z9 Z10 Z11 Z12)
+# New terms TS 26Aug2017 (Z4 Z5 Z9 Z10 Z16 Z17
+#
+group {
+ double $(top)im:aVals:Z4 = -1.17 ;
+ double $(top)im:bVals:Z4 = 0.0 ;
+ double $(top)im:cVals:Z4 = 9.92 ;
+}
+group {
+ double $(top)im:aVals:Z5 = -13.37 ;
+ double $(top)im:bVals:Z5 = 0.0 ;
+ double $(top)im:cVals:Z5 = 7.13 ;
+}
+group {
+ double $(top)im:aVals:Z8 = 0.41 ;
+ double $(top)im:bVals:Z8 = 0.0 ;
+ double $(top)im:cVals:Z8 = -0.25 ;
+}
+group {
+ double $(top)im:aVals:Z9 = -0.25 ;
+ double $(top)im:bVals:Z9 = 0.0 ;
+ double $(top)im:cVals:Z9 = 0.74 ;
+}
+group {
+ double $(top)im:aVals:Z10 = -0.04 ;
+ double $(top)im:bVals:Z10 = 0.0 ;
+ double $(top)im:cVals:Z10 = 0.72 ;
+}
+group {
+ double $(top)im:aVals:Z11 = 0.03 ;
+ double $(top)im:bVals:Z11 = 0.0 ;
+ double $(top)im:cVals:Z11 = -0.05 ;
+}
+group {
+ double $(top)im:aVals:Z12 = 0.45 ;
+ double $(top)im:bVals:Z12 = 0.0 ;
+ double $(top)im:cVals:Z12 = 0.01 ;
+}
+group {
+ double $(top)im:aVals:Z13 = 0.19 ;
+ double $(top)im:bVals:Z13 = 0.0 ;
+ double $(top)im:cVals:Z13 = -0.68 ;
+}
+group {
+ double $(top)im:aVals:Z14 = 0.11 ;
+ double $(top)im:bVals:Z14 = 0.0 ;
+ double $(top)im:cVals:Z14 = 0.06 ;
+}
+group {
+ double $(top)im:aVals:Z15 = 0.0 ;
+ double $(top)im:bVals:Z15 = 0.0 ;
+ double $(top)im:cVals:Z15 = 0.0 ;
+}
+group {
+ double $(top)im:aVals:Z16 = -0.22 ;
+ double $(top)im:bVals:Z16 = 0.0 ;
+ double $(top)im:cVals:Z16 = -0.17 ;
+}
+group {
+ double $(top)im:aVals:Z17 = -0.35 ;
+ double $(top)im:bVals:Z17 = 0.0 ;
+ double $(top)im:cVals:Z17 = 0.23 ;
+}
+group {
+ double $(top)im:aVals:Z18 = 0.02 ;
+ double $(top)im:bVals:Z18 = 0.0 ;
+ double $(top)im:cVals:Z18 = -0.1 ;
+}
+group {
+ double $(top)im:aVals:Z19 = -0.27 ;
+ double $(top)im:bVals:Z19 = 0.0 ;
+ double $(top)im:cVals:Z19 = -0.03 ;
+}
+string $(top)im:m1TriggerLoadModel = "enabled" ; # Make sure model is loaded
+#
+#  Parameters controlling guide filtering.
+#
+double $(top)ak:guide:scanrate = 0.05;       # Scan rate 20 Hz
+double $(top)ak:guide:bw = 0.1;              # Filter bandwidth
+double $(top)ak:guide:scale = 3.86956518;    # Scale factor (arcsec on the sky
+                                             # to M2 ti/p/tilt)
+double $(top)ak:guide:agbw = 1.0;            # A & G Filter bandwidth
+double $(top)ak:guide:agscale = 0.620561515; # Scale factor (arcsec on the sky
+                                             # to mm on wave front sensor)
+double $(top)ak:wfsguide:scanrate = 0.05;    # Scan rate 20 Hz
+double $(top)ak:wfsguide:bw = 0.5;           # A & G to WFS Filter bandwidth
+double $(top)ak:wfsguide:oiZ1scale = 70.0;   # Probe guide scale factor
+double $(top)ak:wfsguide:oiZ2scale = 70.0;   # Probe guide scale factor
+
+double $(top)rotatorGuideGain = 1.0 ;        # Not used by Gemini North
+#
+# Default TCS  parameters
+#
+double $(top)display:tzone = -10.0;     # Hours west of Greenwich
+string $(top)display:tzonestr = "HST";  # Hawaii Standard Time
+string $(top)name = "Gemini-North";     # System name as per ICD2
+#
+# Default parameters for follow command
+#
+group {
+ string $(top)mcFollow.A = "Off" ;      # Mount following Off
+ string $(top)crFollow.A = "Off" ;      # Rotator following Off
+ string $(top)pwfs1Follow.A = "Off" ;   # PWFS1 following Off
+ string $(top)pwfs2Follow.A = "Off" ;   # PWFS2 following Off
+ string $(top)oiwfsFollow.A = "Off" ;   # OIWFS following Off
+ string $(top)aoFollow.A = "Off" ;      # AO following Off
+ string $(top)m2Follow.A = "Off";       # M2 following off
+}
+group {
+string $(top)mcFollow.DIR = "CLEAR" ;   # Other wise command is marked
+string $(top)m2Follow.DIR = "CLEAR" ;   # Other wise command is marked
+string $(top)crFollow.DIR = "CLEAR" ;   # Other wise command is marked
+string $(top)aoFollow.DIR = "CLEAR" ;   # Other wise command is marked
+string $(top)pwfs1Follow.DIR = "CLEAR"; # Other wise command is marked
+string $(top)pwfs2Follow.DIR = "CLEAR"; # Other wise command is marked
+string $(top)oiwfsFollow.DIR = "CLEAR"; # Other wise command is marked
+}
+#
+# Default values for load command
+#
+string $(top)load.A = "0" ;          # Apply to CURRENT TCB
+string $(top)load.DIR = "CLEAR" ;    # Otherwise load is marked
+#
+# Default values for save command
+#
+string $(top)save.A = "0" ;          # Apply to CURRENT TCB
+string $(top)save.DIR = "CLEAR" ;    # Otherwise save is marked
+#
+# Default values for azwrap command
+#
+string $(top)azwrap.A = "0" ;          # Wrap zero 
+string $(top)azwrap.DIR = "CLEAR" ;    # Otherwise azwrap is marked
+#
+# Default values for telstop command
+#
+group {
+ string $(top)telstop.A = "BOTH" ;     # Stop both axes
+ string $(top)telstop.B = "YES"  ;     # Apply az brakes when stopped
+ string $(top)telstop.C = "YES"  ;     # Apply el brakes when stopped
+}
+string $(top)telstop.DIR = "CLEAR" ;   # Otherwise telstop is marked
+#
+# Default values for rotwrap command
+#
+string $(top)rotwrap.A = "0" ;          # Wrap zero
+string $(top)rotwrap.DIR = "CLEAR" ;    # Otherwise rotwrap is marked
+#
+# Default values for tcbdefn command
+#
+string $(top)tcbdefn.A = "Current" ;    # Default is Current TCB
+string $(top)tcbdefn.DIR = "CLEAR" ;    # Otherwise command is marked
+#
+# Default input for the chop command
+#
+string $(top)chop.A = "Off" ;           # No chopping
+string $(top)chop.B = "On" ;            # DECS is enabled
+string $(top)chop.C = "Off" ;           # DECS freeze is off
+string $(top)chop.D = "Off" ;           # DECS pause is disabled
+string $(top)chop.E = "Off" ;           # DECS reset is disabled
+string $(top)chop.DIR = "CLEAR" ;       # Otherwise command is marked
+#
+# Default input for chopConfig command
+#
+string $(top)chopConfig.A = "none" ;    # Type of chopping 
+string $(top)chopConfig.B = "SCS" ;     # Sync source is SCS
+string $(top)chopConfig.D = "80.0";     # chop duty cycle (percentage)
+string $(top)chopConfig.DIR = "CLEAR";  # Otherwise command is marked
+#
+# Default input for datum command. This is used to send to the MCS and is
+# necessary because the datum command is specified to have no parameters
+# whereas the mount datum command needs them.
+#
+group {
+ string $(top)datum.B = "BOTH" ;        # Datum both az and el
+ string $(top)datum.C = "SWITCH" ;      # Use switch on az axis
+ string $(top)datum.D = "SWITCH" ;      # use switch on el axis
+} 
+string $(top)datum.DIR = "CLEAR" ;      # Otherwise command is marked
+group {
+ string $(top)mountDatum.A = "BOTH" ;   # Datum both az and el
+ string $(top)mountDatum.B = "SWITCH" ; # Use switch on az axis
+ string $(top)mountDatum.C = "SWITCH" ; # use switch on el axis
+} 
+string $(top)mountDatum.DIR = "CLEAR" ; # Otherwise command is marked
+#
+# Default input for the debug command
+# Note that debugString is caused to process to ensure that all status
+# records have the correct initial value. debugString fetches its input
+# from debug.VALA which is why that field is set.
+#
+string $(top)debug.VALA = "NONE" ;      # Must be same as TCS debug state
+string $(top)debugString.PROC = "1";    # Any value will do
+string $(top)debug.A = "None" ;         # TCS debug state
+string $(top)debug.B = "None" ;         # MCS debug state
+string $(top)debug.C = "None" ;         # CRS debug state
+string $(top)debug.D = "None" ;         # ECS debug state
+string $(top)debug.E = "None" ;         # A&G debug state
+string $(top)debug.F = "None" ;         # M2 debug state
+string $(top)debug.G = "None" ;         # PCS debug state
+string $(top)debug.H = "None" ;         # AO debug state
+string $(top)debug.DIR = "CLEAR";       # Otherwise command is marked
+#
+# Default input for the carouselMode command
+#
+string $(top)sad:carouselDriveMode = "Basic" ;   # Make sure SAD is initialized
+string $(top)sad:shutterDriveMode = "Fully Open";
+string $(top)carouselMode.A = "Basic" ;  # Simplest tracking mode
+string $(top)carouselMode.B = "FullyOpen" ; 
+string $(top)carouselMode.C = "9320.0" ; # Set to minimum slit height
+string $(top)carouselMode.D = "Off" ;    # Don't automatically start Dome
+string $(top)carouselMode.E = "Off" ;    # Don't automatically open shutters
+string $(top)carouselMode.DIR = "CLEAR"; # Otherwise command is marked
+#
+# Default input for the pwfs1Observe command
+#
+string $(top)pwfs1Observe.A = "-1" ;     # Measure tip/tilt and focus
+string $(top)pwfs1Observe.DIR = "CLEAR"; # Otherwise command is marked
+#
+# Default input for other pwfs1 commands
+string $(top)p1detSigInit.A = "data/defFullP1DarkMK.fits" ; # Dark file name
+string $(top)p1detSigInit.DIR = "CLEAR"; # Otherwise command is marked
+#
+string $(top)p1SeqDark.A = "coadd.fits" ; # Dark file name
+string $(top)p1SeqDark.DIR = "CLEAR" ;    # Otherwise comamnd is marked
+#
+string $(top)p1Seq.A = "1.0" ;            # Global integration period (secs)
+string $(top)p1Seq.B = "30.0" ;           # Frame averaging for aO (secs)
+string $(top)p1Seq.C = "1" ;              # Flag for writing Z to SCS
+string $(top)p1Seq.D = "3.5" ;            # Rms multiplier for image
+string $(top)p1Seq.DIR = "CLEAR" ;        # Otherwise command is marked
+#
+# Default input for the pwfs2Observe command
+#
+string $(top)pwfs2Observe.A = "-1" ;     # Measure tip/tilt and focus
+string $(top)pwfs2Observe.DIR = "CLEAR"; # Otherwise command is marked
+#
+# Default input for other pwfs2 commands
+string $(top)p2detSigInit.A = "data/defBinP2DarkMK.fits" ; # Dark file name
+string $(top)p2detSigInit.DIR = "CLEAR"; # Otherwise command is marked
+#
+string $(top)p2SeqDark.A = "coadd.fits" ; # Dark file name
+string $(top)p2SeqDark.DIR = "CLEAR" ;    # Otherwise comamnd is marked
+#
+string $(top)p2Seq.A = "1.0" ;            # Global integration period (secs)
+string $(top)p2Seq.B = "30.0" ;           # Frame averaging for aO (secs)
+string $(top)p2Seq.C = "1" ;              # Flag for writing Z to SCS
+string $(top)p2Seq.D = "3.5" ;            # Rms multiplier for image
+string $(top)p2Seq.DIR = "CLEAR" ;        # Otherwise command is marked
+#
+# Default input for the oiwfsObserve command
+#
+string $(top)oiwfsObserve.A = "-1" ;     # Measure tip/tilt and focus
+string $(top)oiwfsObserve.DIR = "CLEAR"; # Otherwise command is marked
+#
+# Default input for other oiwfs commands
+#
+string $(top)oiSigInit.A = "data/defBinOiwfsDarkMK.fits" ; # Dark file name
+string $(top)oiSigInit.DIR = "CLEAR"; # Otherwise command is marked
+#
+string $(top)oiSeqDark.A = "coadd.fits" ; # Dark file name
+string $(top)oiSeqDark.DIR = "CLEAR" ;    # Otherwise comamnd is marked
+#
+string $(top)oiSeq.A = "1.0" ;            # Global integration period (secs)
+string $(top)oiSeq.B = "30.0" ;           # Frame averaging for aO (secs)
+string $(top)oiSeq.C = "1" ;              # Flag for writing Z to SCS
+string $(top)oiSeq.D = "3.5" ;            # Rms multiplier for image
+string $(top)oiSeq.DIR = "CLEAR" ;        # Otherwise command is marked
+#
+# Default input for the m2GuideControl command
+#
+string $(top)m2GuideControl.A = "On" ;   # Respond to WFS signals 
+string $(top)m2GuideControl.B = "Off" ;  # Don't reset 
+string $(top)m2GuideControl.DIR = "CLEAR" ; # Otherwise command is marked 
+#
+# Default data for m1GuideConfig command
+group {
+string $(top)m1GuideConfig.A = "None";   # Weighting scheme
+string $(top)m1GuideConfig.B = "PWFS1";  # Default source of aO data 
+string $(top)m1GuideConfig.C = "1";      # Default no. of frames to average 
+}
+string $(top)m1GuideConfig.DIR = "CLEAR"; # Otherwise command is left marked
+#
+# Default for m2GuideConfig - this is temporary until the 3.13 CAD record
+# sets nulls rather than " " as the default
+string $(top)m2GuideConfig.B = "200" ; # Sample frequency
+string $(top)m2GuideConfig.C = "RAW" ; # Filter
+string $(top)m2GuideConfig.D = "20"  ; # Chop Freq 1
+string $(top)m2GuideConfig.E = "20"  ; # Chop Freq 2
+string $(top)m2GuideConfig.F = "A"   ; # Chop Beam
+string $(top)m2GuideConfig.G = "OFF" ; # Reset option
+string $(top)m2GuideConfig.DIR = "CLEAR" ;
+#
+# Default PID gains for m2SetController
+#
+group {
+string $(top)m2SetController.A = "0.5";    # P term for X tilt
+string $(top)m2SetController.B = "0.4";    # I term for X tilt
+string $(top)m2SetController.C = "0.0";    # D term for X tilt
+string $(top)m2SetController.D = "0.0596"; # P term for Z focus 
+string $(top)m2SetController.E = "0.2086"; # I term for Z focus 
+string $(top)m2SetController.F = "0.0";    # D term for Z focus 
+string $(top)m2SetController.G = "0.5";    # P term for Y tilt
+string $(top)m2SetController.H = "0.4";    # I term for Y tilt
+string $(top)m2SetController.I = "0.0";    # D term for Y tilt
+} ;
+string $(top)m2SetController.DIR = "CLEAR" ;
+#
+# Default for where TCS gets its mount offload signals
+#
+string $(top)mountGuideMode.B = "SCS" ;  # Source of mount guide signals
+string $(top)mountGuideMode.DIR = "CLEAR" ;
+#
+# Defaults for chopRelative command
+string $(top)chopRelative.C  = "FK5" ;   # Chop frame
+string $(top)chopRelative.DIR = "CLEAR" ;
+#
+# Default wavelength for OSCIR
+#
+string $(top)wavelSourceB.A = "1.0" ;    # 1 micron
+string $(top)wavelSourceB.DIR = "CLEAR" ;
+#
+# Default data for oiwfsSelect command
+#
+group {
+string $(top)oiwfsSelect.A = "None" ;    # Name of WFS to use
+string $(top)oiwfsSelect.B = "WFS" ;     # Where to send WFS data
+}
+string $(top)oiwfsSelect.DIR = "CLEAR" ;
+#
+# Default values for the GPOL datum and move commands
+#
+group {
+string $(top)gpolPlateMove.A = "Out" ;   # Upper plate out
+string $(top)gpolPlateMove.B = "Out" ;   # Middle plate out
+string $(top)gpolPlateMove.C = "Out" ;   # Lower plate out
+} ;
+string $(top)gpolPlateMove.DIR = "CLEAR" ;
+group {
+string $(top)gpolPlateDatum.A = "No" ;   # Upper plate 
+string $(top)gpolPlateDatum.B = "No" ;   # Middle plate 
+string $(top)gpolPlateDatum.C = "No" ;   # Lower plate 
+} ;
+string $(top)gpolPlateDatum.DIR = "CLEAR" ;
+
+#
+# Default parameters for the gsaoiodgwSetup command - not really
+# needed for Gemini North but it keeps the North and South
+# configuration files in line
+#
+group {
+  string $(top)gsaoiodgwSetup.A = "DCS" ;   # Read method
+  string $(top)gsaoiodgwSetup.B = "1" ;     # No. of resets
+  string $(top)gsaoiodgwSetup.C = "1" ;     # No. of Fowler samples
+  string $(top)gsaoiodgwSetup.D = "0.1" ;   # ODGW base exposure time (secs)
+  string $(top)gsaoiodgwSetup.E = "1" ;     # No. interleaved science rows 
+  string $(top)gsaoiodgwSetup.F = "1" ;     # No. interleaved idle rows
+  string $(top)gsaoiodgwSetup.G = "1" ;     # ODGW1 exposure multiplier 
+  string $(top)gsaoiodgwSetup.H = "1" ;     # ODGW2 exposure multiplier
+  string $(top)gsaoiodgwSetup.I = "1" ;     # ODGW3 exposure multiplier 
+  string $(top)gsaoiodgwSetup.J = "1" ;     # ODGW4 exposure multiplier 
+  string $(top)gsaoiodgwSetup.L = "NO" ;    # Save copy 
+  string $(top)gsaoiodgwSetup.M = "MCAO" ;  # Guider output 
+  string $(top)gsaoiodgwSetup.N = "YES" ;   # Display ODGW
+  string $(top)gsaoiodgwSetup.O = "10.0" ;  # Display rate (Hz)
+}
+string $(top)gsaoiodgwSetup.DIR = "CLEAR";
+
+# Not used at Gemini North but needed to ensure matrices have sensible data
+group {
+#
+# GSAOI Port 1 coeffs: Inputs A-D
+#
+double $(top)drives:storeOdgwCoeffs.A[6] = {
+  [0] -66.8623,
+  [1] -80.5254,
+  [2] 0.0,
+  [3] 2113.6123,
+  [4] 0.0,
+  [5] 80.5254
+} ;
+
+double $(top)drives:storeOdgwCoeffs.B[6] = {
+  [0] 2113.6123,
+  [1] -80.5254,
+  [2] 0.0,
+  [3] 2113.6123,
+  [4] 0.0,
+  [5] 80.5254
+} ;
+
+double $(top)drives:storeOdgwCoeffs.C[6] = {
+  [0] 2113.6123,
+  [1] -80.5254,
+  [2] 0.0,
+  [3] -66.8623,
+  [4] 0.0,
+  [5] 80.5254
+} ;
+
+double $(top)drives:storeOdgwCoeffs.D[6] = {
+  [0] -66.8623,
+  [1] -80.5254,
+  [2] 0.0,
+  [3] -66.8623,
+  [4] 0.0,
+  [5] 80.5254
+} ;
+
+#
+# GSAOI Port 3 coeffs: Inputs E-H
+#
+double $(top)drives:storeOdgwCoeffs.E[6] = {
+  [0] -66.8623,
+  [1] 0.0,
+  [2] -80.5254,
+  [3] 2113.6123,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.F[6] = {
+  [0] 2113.6123,
+  [1] 0.0,
+  [2] -80.5254,
+  [3] 2113.6123,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.G[6] = {
+  [0] 2113.6123,
+  [1] 0.0,
+  [2] -80.5254,
+  [3] -66.8623,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.H[6] = {
+  [0] -66.8623,
+  [1] 0.0,
+  [2] -80.5254,
+  [3] -66.8623,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+#
+# GSAOI Port 5 coeffs: Inputs I, K, L, M
+# Skip J as it triggers the gensub
+#
+double $(top)drives:storeOdgwCoeffs.I[6] = {
+  [0] -66.8623,
+  [1] 0.0,
+  [2] 80.5254,
+  [3] 2113.6123,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.K[6] = {
+  [0] 2113.6123,
+  [1] 0.0,
+  [2] 80.5254,
+  [3] 2113.6123,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.L[6] = {
+  [0] 2113.6123,
+  [1] 0.0,
+  [2] 80.5254,
+  [3] -66.8623,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+
+double $(top)drives:storeOdgwCoeffs.M[6] = {
+  [0] -66.8623,
+  [1] 0.0,
+  [2] 80.5254,
+  [3] -66.8623,
+  [4] -80.5254,
+  [5] 0.0
+} ;
+}
+
+string $(top)drives:storeOdgwCoeffs.PROC = "1" ;
+
+# Limits that control when the TCS considers M1 to be settled after a move.
+# The numbers are the number of moving actuators. This is used when 
+# averaging P1 data
+#
+group {
+int $(top)drives:m1HighLimit   = 15 ;    # High bound of deadband 
+int $(top)drives:m1CentreLimit = 10 ;    # Boundary for moving/not moving
+int $(top)drives:m1LowLimit    = 5  ;    # Lower bound of deadband 
+}
+#
+# Default values for subsystem CAD messages
+#
+string $(top)aoSubcadMess = " " ;       # Blank string
+string $(top)crSubcadMess = " " ;       # Blank string
+string $(top)ecSubcadMess = " " ;       # Blank string
+string $(top)m1SubcadMess = " " ;       # Blank string
+string $(top)m2SubcadMess = " " ;       # Blank string
+string $(top)mcSubcadMess = " " ;       # Blank string
+string $(top)agSubcadMess = " " ;       # Blank string
+string $(top)wsSubcadMess = " " ;       # Blank string
+#
+# Default values for tracking frame and equinox SAD records
+#
+string $(top)sad:sourceATrackFrame = "FK5";
+string $(top)sad:sourceBTrackFrame = "FK5";
+string $(top)sad:sourceCTrackFrame = "FK5";
+string $(top)sad:mountTrackFrame = "FK5";
+string $(top)sad:pwfs1TrackFrame = "FK5";
+string $(top)sad:pwfs2TrackFrame = "FK5";
+string $(top)sad:oiwfsTrackFrame = "FK5";
+string $(top)sad:rotTrackFrame = "FK5";
+string $(top)sad:sourceATrackEq = "J2000";
+string $(top)sad:sourceBTrackEq = "J2000";
+string $(top)sad:sourceCTrackEq = "J2000";
+string $(top)sad:mountTrackEq = "J2000";
+string $(top)sad:pwfs1TrackEq = "J2000";
+string $(top)sad:pwfs2TrackEq = "J2000";
+string $(top)sad:oiwfsTrackEq = "J2000";
+string $(top)sad:rotTrackEqnx = "J2000";
+double $(top)sad:sourceAWavelength = 5000;
+double $(top)sad:sourceBWavelength = 5000;
+double $(top)sad:sourceCWavelength = 5000;
+double $(top)sad:mountWavelength = 5000;
+double $(top)sad:pwfs1Wavelength = 5000;
+double $(top)sad:pwfs2Wavelength = 5000;
+double $(top)sad:oiwfsWavelength = 5000;
+#
+# Set input frames, equinoxs and object names.
+#
+string $(top)sad:sourceAInputFrame = "FK5";
+string $(top)sad:sourceBInputFrame = "FK5";
+string $(top)sad:sourceCInputFrame = "FK5";
+string $(top)sad:mountInputFrame = "FK5";
+string $(top)sad:pwfs1InputFrame = "FK5";
+string $(top)sad:pwfs2InputFrame = "FK5";
+string $(top)sad:oiwfsInputFrame = "FK5";
+string $(top)sad:sourceAEquinox = "J2000.0";
+string $(top)sad:sourceBEquinox = "J2000.0";
+string $(top)sad:sourceCEquinox = "J2000.0";
+string $(top)sad:mountEquinox = "J2000.0";
+string $(top)sad:pwfs1Equinox = "J2000.0";
+string $(top)sad:pwfs2Equinox = "J2000.0";
+string $(top)sad:oiwfsEquinox = "J2000.0";
+string $(top)sad:sourceAObjectName = "None set";
+string $(top)sad:sourceBObjectName = "None set";
+string $(top)sad:sourceCObjectName = "None set";
+string $(top)sad:mountObjectName = "None set";
+string $(top)sad:pwfs1ObjectName = "None set";
+string $(top)sad:pwfs2ObjectName = "None set";
+string $(top)sad:oiwfsObjectName = "None set";
+#
+# Set "defaults" for Epoch. Note, these are not real defaults but simply
+# strings so that the SAD records won't be blank on startup. Once
+# a target is specified, a proper default will be provided by the TCS
+# if a value isn't supplied by the user
+#
+string $(top)sad:sourceAEpoch = "J2000.0";
+string $(top)sad:sourceBEpoch = "J2000.0";
+string $(top)sad:sourceCEpoch = "J2000.0";
+string $(top)sad:mountEpoch = "J2000.0";
+string $(top)sad:pwfs1Epoch = "J2000.0";
+string $(top)sad:pwfs2Epoch = "J2000.0";
+string $(top)sad:oiwfsEpoch = "J2000.0";
+#
+# Make sure the program identifier isn't blank on startup
+#
+string $(top)sad:programID = "None";
+#
+# Default values for m1ModelRestore command 
+#
+string $(top)m1ModelRestore.A = "AO" ;    # Default is AO model
+string $(top)m1ModelRestore.DIR = "CLEAR" ;    # Otherwise command is marked
+

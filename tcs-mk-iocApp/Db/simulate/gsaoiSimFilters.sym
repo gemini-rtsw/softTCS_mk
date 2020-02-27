@@ -1,0 +1,16 @@
+[symbol2]
+bbox 448 608 672 800
+port 656 672 160 0 VAL symbol 2 672 704 0
+port 656 736 160 0 FLNK symbol 2 672 768 0
+uniq 27
+[tools]
+[attributes]
+p 462 831 100 0 -1 seta:prefix $(prefix):cc:
+p 459 863 100 0 -1 setb:
+p 464 861 100 0 -1 setc:
+[layers]
+<symbol>
+l 100 0 0 528 752 GSAOI
+l 100 0 0 488 688 Simulated Filters
+r 0 448 608 672 800
+[comments]

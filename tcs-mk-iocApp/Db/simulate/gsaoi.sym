@@ -1,0 +1,30 @@
+[symbol2]
+bbox 384 448 896 704
+uniq 27
+[tools]
+[attributes]
+p 541 727 100 0 -1 seth:sadtop $(gsaoi)sad:cc:
+[layers]
+<symbol>
+l 100 0 0 528 656 GSAOI ODGW System
+r 0 416 480 864 640
+r 0 384 448 896 704
+v 0 480 640
+480 480
+_
+v 0 544 640
+544 480
+_
+v 0 608 640
+608 480
+_
+v 0 672 640
+672 480
+_
+v 0 736 640
+736 480
+_
+v 0 800 640
+800 480
+_
+[comments]

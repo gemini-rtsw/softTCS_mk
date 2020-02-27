@@ -1,0 +1,12 @@
+[symbol2]
+bbox -96 656 160 736
+port -160 688 100 0 SubCadStart symbol 1 -96 720 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 48 672 CAD
+l 100 0 0 -48 704 Trigger Subsystem
+r 0 -96 736 160 672
+[comments]

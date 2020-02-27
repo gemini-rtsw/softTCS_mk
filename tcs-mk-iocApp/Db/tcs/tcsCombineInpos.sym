@@ -1,0 +1,11 @@
+[symbol2]
+bbox 80 928 224 1200
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 80 0 0 128 1056 Status
+l 60 0 0 96 1088 Combine inPosition
+r 0 80 1200 224 928
+[comments]

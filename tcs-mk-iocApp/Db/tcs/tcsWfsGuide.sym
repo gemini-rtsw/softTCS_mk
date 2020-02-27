@@ -1,0 +1,18 @@
+[symbol2]
+bbox -224 64 0 224
+port -128 192 100 0 XERR symbol 2 0 192 0
+port -128 96 100 0 YERR symbol 2 0 96 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -192 144 wfs guide
+r 0 -224 64 -64 224
+v 0 0 192
+-64 192
+_
+v 0 0 96
+-64 96
+_
+[comments]

@@ -1,0 +1,10 @@
+[symbol2]
+bbox -192 -96 128 160
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -128 64 M1 Thermal records
+r 0 -192 -96 128 160
+[comments]

@@ -1,0 +1,14 @@
+[symbol2]
+bbox 560 560 720 768
+port 736 592 100 0 MOVEB symbol 2 720 592 0
+port 736 656 100 0 MOVEA symbol 2 720 656 0
+port 736 720 100 0 DIR symbol 2 720 720 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 130 0 0 576 672 Enclosure
+l 100 0 0 608 640 Move
+r 0 560 768 720 560
+[comments]

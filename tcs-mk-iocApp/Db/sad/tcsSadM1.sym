@@ -1,0 +1,19 @@
+[symbol2]
+bbox 160 448 608 672
+port 256 640 100 1792 SLNK symbol 1 160 640 0
+port 512 640 100 1792 FLNK symbol 2 608 640 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 352 528 to M1
+l 100 0 0 288 560 SAD items relating
+r 0 224 672 544 448
+v 0 160 640
+224 640
+_
+v 0 544 640
+608 640
+_
+[comments]

@@ -1,0 +1,18 @@
+[symbol2]
+bbox -128 -64 192 64
+port 96 -32 100 1792 OMSS symbol 2 192 -32 0
+port 64 32 100 1792 TIMEHEALTH symbol 2 192 32 0
+uniq 381
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -24 -12 TIME
+r 0 -128 -64 128 64
+v 0 128 -32
+192 -32
+_
+v 0 128 32
+192 32
+_
+[comments]

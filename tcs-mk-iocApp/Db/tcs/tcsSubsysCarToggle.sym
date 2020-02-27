@@ -1,0 +1,26 @@
+[symbol2]
+bbox -224 -320 64 64
+port -64 32 100 0 DISV symbol 2 64 32 0
+port -64 -32 100 0 TRIG symbol 2 64 -32 0
+port -64 -288 100 0 MESS symbol 2 64 -288 0
+port -48 -224 100 0 OUT symbol 2 64 -224 0
+uniq 3
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -176 -128 CAR disable
+r 0 -224 -320 0 64
+v 0 0 32
+64 32
+_
+v 0 0 -32
+64 -32
+_
+v 0 0 -288
+64 -288
+_
+v 0 0 -224
+64 -224
+_
+[comments]

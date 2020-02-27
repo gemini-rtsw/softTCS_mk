@@ -1,0 +1,51 @@
+[symbol2]
+bbox 0 0 224 384
+port 272 336 100 1792 Zoff symbol 2 288 320 0
+port 272 304 100 1792 VAL symbol 2 288 288 0
+port 272 272 100 1792 Fname symbol 2 288 256 0
+port 272 240 100 1792 FLNK symbol 2 288 224 0
+port 272 208 100 1792 Yoff symbol 2 288 192 0
+port 272 176 100 1792 Xoff symbol 2 288 160 0
+port 264 144 100 1792 LUTFLNK symbol 2 280 128 0
+uniq 27
+[tools]
+[attributes]
+p 8 256 100 0 -1 set1:
+p 8 224 100 0 -1 set2:
+p 8 192 100 0 -1 set3:
+p 8 160 100 0 -1 set4:
+p 8 128 100 0 -1 set5:
+p 8 96 100 0 -1 set6:
+p 8 64 100 0 -1 set7:
+p 8 32 100 0 -1 set8:
+p 51 258 100 0 -1 seta:filtname vfilt1
+[layers]
+<symbol>
+a 0 222 128 228 128 360
+l 100 0 0 8 336 GSAOI Simulate Filter
+r 0 0 0 224 384
+v 0 0 288
+224 288
+_
+v 0 224 320
+288 320
+_
+v 0 224 288
+288 288
+_
+v 0 224 256
+288 256
+_
+v 0 224 224
+288 224
+_
+v 0 224 192
+288 192
+_
+v 0 224 160
+288 160
+_
+v 0 228 128
+280 128
+_
+[comments]

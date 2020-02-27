@@ -1,0 +1,12 @@
+[symbol2]
+bbox 416 400 736 688
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 150 0 0 512 624 Switch
+l 150 0 0 496 560 Simulator
+l 150 0 0 512 496 On/Off
+r 0 416 688 736 400
+[comments]

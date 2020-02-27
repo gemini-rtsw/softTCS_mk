@@ -1,0 +1,139 @@
+[schematic2]
+uniq 1572
+[tools]
+[detail]
+w 6332 1467 100 0 n#1571 egenSubC.end.VALI 6208 1504 6304 1504 6304 1456 6432 1456 outhier.VALI.p
+w 6284 1547 100 0 n#1570 egenSubC.end.VALH 6208 1536 6432 1536 outhier.VALH.p
+w 5820 1067 100 0 n#1568 tcsKernelEndGG.tcsKernelEndGG#1566.FLNK 5728 688 5792 688 5792 1056 5920 1056 egenSubC.end.SLNK
+w 5260 699 100 0 n#1567 elongins.oiwfsnodBchopB.FLNK 5184 688 5408 688 tcsKernelEndGG.tcsKernelEndGG#1566.SLNK
+w 4156 2235 100 0 n#1562 egenSubC.kernelStatus.FLNK 3904 1056 3936 1056 3936 2224 4448 2224 elongins.pwfs1nodAchopA.SLNK
+w 4364 795 100 0 n#1561 egenSubC.kernelStatus.VALL 3904 1440 4000 1440 4000 784 4800 784 4800 704 4928 704 elongins.oiwfsnodBchopB.INP
+w 4204 715 100 0 n#1560 egenSubC.kernelStatus.VALK 3904 1472 4032 1472 4032 704 4448 704 elongins.oiwfsnodBchopA.INP
+w 4396 1099 100 0 n#1559 egenSubC.kernelStatus.VALJ 3904 1504 4064 1504 4064 1088 4800 1088 4800 992 4928 992 elongins.oiwfsnodAchopB.INP
+w 4236 1003 100 0 n#1558 egenSubC.kernelStatus.VALI 3904 1536 4096 1536 4096 992 4448 992 elongins.oiwfsnodAchopA.INP
+w 4428 1451 100 0 n#1557 egenSubC.kernelStatus.VALH 3904 1568 4128 1568 4128 1440 4800 1440 4800 1360 4928 1360 elongins.pwfs2nodBchopB.INP
+w 4268 1371 100 0 n#1556 egenSubC.kernelStatus.VALG 3904 1600 4160 1600 4160 1360 4448 1360 elongins.pwfs2nodBchopA.INP
+w 4436 1531 100 0 n#1555 egenSubC.kernelStatus.VALF 3904 1632 4192 1632 4192 1520 4752 1520 4752 1648 4928 1648 elongins.pwfs2nodAchopB.INP
+w 4020 1675 100 0 n#1554 egenSubC.kernelStatus.VALE 3904 1664 4208 1664 4208 1648 4448 1648 elongins.pwfs2nodAchopA.INP
+w 4372 1851 100 0 n#1552 egenSubC.kernelStatus.VALD 3904 1696 4064 1696 4064 1840 4752 1840 4752 1968 4928 1968 elongins.pwfs1nodBchopB.INP
+w 4204 1979 100 0 n#1551 egenSubC.kernelStatus.VALC 3904 1728 4032 1728 4032 1968 4448 1968 elongins.pwfs1nodBchopA.INP
+w 4340 2139 100 0 n#1550 egenSubC.kernelStatus.VALB 3904 1760 4000 1760 4000 2128 4752 2128 4752 2256 4928 2256 elongins.pwfs1nodAchopB.INP
+w 4172 2267 100 0 n#1549 egenSubC.kernelStatus.VALA 3904 1792 3968 1792 3968 2256 4448 2256 elongins.pwfs1nodAchopA.INP
+w 4748 2091 100 0 n#1548 elongins.pwfs1nodAchopB.FLNK 5184 2240 5280 2240 5280 2080 4288 2080 4288 1936 4448 1936 elongins.pwfs1nodBchopA.SLNK
+w 4748 1787 100 0 n#1547 elongins.pwfs1nodBchopB.FLNK 5184 1952 5280 1952 5280 1776 4288 1776 4288 1616 4448 1616 elongins.pwfs2nodAchopA.SLNK
+w 4748 1499 100 0 n#1546 elongins.pwfs2nodAchopB.FLNK 5184 1632 5280 1632 5280 1488 4288 1488 4288 1328 4448 1328 elongins.pwfs2nodBchopA.SLNK
+w 4748 1179 100 0 n#1545 elongins.pwfs2nodBchopB.FLNK 5184 1344 5280 1344 5280 1168 4288 1168 4288 960 4448 960 elongins.oiwfsnodAchopA.SLNK
+w 4748 827 100 0 n#1544 elongins.oiwfsnodAchopB.FLNK 5184 976 5280 976 5280 816 4288 816 4288 672 4448 672 elongins.oiwfsnodBchopA.SLNK
+w 4828 683 100 0 n#1543 elongins.oiwfsnodBchopA.FLNK 4704 688 4800 688 4800 672 4928 672 elongins.oiwfsnodBchopB.SLNK
+w 4828 971 100 0 n#1542 elongins.oiwfsnodAchopA.FLNK 4704 976 4800 976 4800 960 4928 960 elongins.oiwfsnodAchopB.SLNK
+w 4828 1339 100 0 n#1541 elongins.pwfs2nodBchopA.FLNK 4704 1344 4800 1344 4800 1328 4928 1328 elongins.pwfs2nodBchopB.SLNK
+w 4828 1627 100 0 n#1540 elongins.pwfs2nodAchopA.FLNK 4704 1632 4800 1632 4800 1616 4928 1616 elongins.pwfs2nodAchopB.SLNK
+w 4828 1947 100 0 n#1539 elongins.pwfs1nodBchopA.FLNK 4704 1952 4800 1952 4800 1936 4928 1936 elongins.pwfs1nodBchopB.SLNK
+w 4828 2235 100 0 n#1538 elongins.pwfs1nodAchopA.FLNK 4704 2240 4800 2240 4800 2224 4928 2224 elongins.pwfs1nodAchopB.SLNK
+w 6284 1771 100 0 n#1525 egenSubC.end.VALA 6208 1760 6432 1760 outhier.VALA.p
+w 3476 1099 100 0 n#1520 inhier.SLNK.P 3408 1088 3616 1088 egenSubC.kernelStatus.SLNK
+w 6284 1035 100 0 n#1519 egenSubC.end.FLNK 6208 1024 6432 1024 outhier.FLNK.p
+s 5856 2592 100 0 $Id: tcsKernelEnd.sch,v 1.4 2009/10/30 17:29:29 cjm Exp $
+s 6080 336 100 0 Kernel completion status
+s 5856 368 100 0 Observatory
+s 5856 400 100 0 Copyright
+s 5856 336 100 0 Sciences Ltd.
+s 4576 2448 200 0 Export data from Kernel
+[cell use]
+use egenSubC 5920 967 100 0 end
+xform 0 6064 1392
+p 6080 1760 100 0 -1 FTVA:LONG
+p 5697 549 100 0 0 FTVH:STRING
+p 5697 517 100 0 0 FTVI:STRING
+p 5697 485 100 0 0 FTVJ:STRING
+p 5697 357 100 0 0 NOVB:8
+p 5697 325 100 0 0 NOVC:8
+p 5697 293 100 0 0 NOVD:8
+p 5697 261 100 0 0 NOVE:4
+p 5697 229 100 0 0 NOVF:4
+p 5697 197 100 0 0 NOVG:4
+p 5697 101 100 0 0 NOVK:4
+p 5697 101 100 0 0 NOVL:4
+p 5697 101 100 0 0 NOVM:4
+p 5697 101 100 0 0 NOVN:4
+p 5632 1518 100 0 0 PREC:14
+p 6000 1376 100 0 -1 SNAM:tcsKernelEnd
+use tcsKernelEndGG 5408 631 100 0 tcsKernelEndGG#1566
+xform 0 5568 912
+use elongins 4928 599 100 0 oiwfsnodBchopB
+xform 0 5056 672
+p 4976 736 100 0 -1 DESC:Nod B Chop B
+p 4672 670 100 0 0 EGU:units
+use elongins 4448 599 100 0 oiwfsnodBchopA
+xform 0 4576 672
+p 4496 736 100 0 -1 DESC:Nod B Chop A
+p 4192 670 100 0 0 EGU:units
+use elongins 4928 887 100 0 oiwfsnodAchopB
+xform 0 5056 960
+p 4976 1024 100 0 -1 DESC:Nod A Chop B
+p 4672 958 100 0 0 EGU:units
+use elongins 4448 887 100 0 oiwfsnodAchopA
+xform 0 4576 960
+p 4496 1024 100 0 -1 DESC:Nod A Chop A
+p 4192 958 100 0 0 EGU:units
+use elongins 4928 1255 100 0 pwfs2nodBchopB
+xform 0 5056 1328
+p 4976 1392 100 0 -1 DESC:Nod B Chop B
+p 4672 1326 100 0 0 EGU:units
+use elongins 4448 1255 100 0 pwfs2nodBchopA
+xform 0 4576 1328
+p 4496 1392 100 0 -1 DESC:Nod B Chop A
+p 4192 1326 100 0 0 EGU:units
+use elongins 4928 1543 100 0 pwfs2nodAchopB
+xform 0 5056 1616
+p 4976 1680 100 0 -1 DESC:Nod A Chop B
+p 4672 1614 100 0 0 EGU:units
+use elongins 4448 1543 100 0 pwfs2nodAchopA
+xform 0 4576 1616
+p 4496 1680 100 0 -1 DESC:Nod A Chop A
+p 4192 1614 100 0 0 EGU:units
+use elongins 4928 1863 100 0 pwfs1nodBchopB
+xform 0 5056 1936
+p 4976 2000 100 0 -1 DESC:Nod B Chop B
+p 4672 1934 100 0 0 EGU:units
+use elongins 4448 1863 100 0 pwfs1nodBchopA
+xform 0 4576 1936
+p 4496 2000 100 0 -1 DESC:Nod B Chop A
+p 4192 1934 100 0 0 EGU:units
+use elongins 4928 2151 100 0 pwfs1nodAchopB
+xform 0 5056 2224
+p 4976 2288 100 0 -1 DESC:Nod A Chop B
+p 4672 2222 100 0 0 EGU:units
+use elongins 4448 2151 100 0 pwfs1nodAchopA
+xform 0 4576 2224
+p 4496 2288 100 0 -1 DESC:Nod A Chop A
+p 4192 2222 100 0 0 EGU:units
+use outhier 6400 1415 100 0 VALI
+xform 0 6416 1456
+use outhier 6400 1495 100 0 VALH
+xform 0 6416 1536
+use outhier 6400 1719 100 0 VALA
+xform 0 6416 1760
+use outhier 6400 983 100 0 FLNK
+xform 0 6416 1024
+use inhier 3392 1047 100 0 SLNK
+xform 0 3408 1088
+use egenSubC 3616 999 100 0 kernelStatus
+xform 0 3760 1424
+p 3616 1856 100 0 -1 DESC:Kernel Completion Status
+p 3393 773 100 0 0 FTVA:LONG
+p 3393 773 100 0 0 FTVB:LONG
+p 3393 741 100 0 0 FTVC:LONG
+p 3393 709 100 0 0 FTVD:LONG
+p 3393 677 100 0 0 FTVE:LONG
+p 3393 613 100 0 0 FTVF:LONG
+p 3393 613 100 0 0 FTVG:LONG
+p 3393 581 100 0 0 FTVH:LONG
+p 3393 549 100 0 0 FTVI:LONG
+p 3393 517 100 0 0 FTVJ:LONG
+p 3393 517 100 0 0 FTVK:LONG
+p 3393 517 100 0 0 FTVL:LONG
+p 3712 944 100 0 1 SNAM:tcsKernelStatus
+use bc200tr 3264 120 -100 0 frame
+xform 0 4944 1424
+[comments]

@@ -1,0 +1,69 @@
+[schematic2]
+uniq 110
+[tools]
+[detail]
+w 1666 475 100 0 n#109 tcsOffCommands7.tcsOffCommands7#104.MESS 2464 608 2544 608 2544 464 848 464 848 1664 1024 1664 eapply.apply6.INMG
+w 1658 619 100 0 n#108 eapply.apply6.OCLG 1408 1664 1488 1664 1488 608 1888 608 tcsOffCommands7.tcsOffCommands7#104.ICID
+w 1674 715 100 0 n#107 eapply.apply6.OUTG 1408 1696 1520 1696 1520 704 1888 704 tcsOffCommands7.tcsOffCommands7#104.DIR
+w 1666 459 100 0 n#105 tcsOffCommands7.tcsOffCommands7#104.VAL 2464 704 2560 704 2560 448 832 448 832 1696 1024 1696 eapply.apply6.INPG
+w 1666 443 100 0 n#103 tcsOffCommands6.tcsOffCommands6#99.MESS 2464 832 2576 832 2576 432 816 432 816 1728 1024 1728 eapply.apply6.INMF
+w 1666 427 100 0 n#102 tcsOffCommands6.tcsOffCommands6#99.VAL 2464 928 2592 928 2592 416 800 416 800 1760 1024 1760 eapply.apply6.INPF
+w 1690 843 100 0 n#101 eapply.apply6.OCLF 1408 1728 1552 1728 1552 832 1888 832 tcsOffCommands6.tcsOffCommands6#99.ICID
+w 1706 939 100 0 n#100 eapply.apply6.OUTF 1408 1760 1584 1760 1584 928 1888 928 tcsOffCommands6.tcsOffCommands6#99.DIR
+w 1672 411 100 0 n#92 tcsOffCommands5.tcsOffCommands5#88.MESS 2464 1056 2608 1056 2608 400 784 400 784 1792 1024 1792 eapply.apply6.INME
+w 1672 395 100 0 n#91 tcsOffCommands5.tcsOffCommands5#88.VAL 2464 1152 2624 1152 2624 384 768 384 768 1824 1024 1824 eapply.apply6.INPE
+w 1728 1067 100 0 n#90 eapply.apply6.OCLE 1408 1792 1616 1792 1616 1056 1888 1056 tcsOffCommands5.tcsOffCommands5#88.ICID
+w 1512 1835 100 0 n#89 eapply.apply6.OUTE 1408 1824 1664 1824 1664 1152 1888 1152 tcsOffCommands5.tcsOffCommands5#88.DIR
+w 1672 379 100 0 n#87 tcsOffCommands4.tcsOffCommands4#83.MESS 2464 1280 2640 1280 2640 368 752 368 752 1856 1024 1856 eapply.apply6.INMD
+w 1672 363 100 0 n#86 tcsOffCommands4.tcsOffCommands4#83.VAL 2464 1376 2656 1376 2656 352 736 352 736 1888 1024 1888 eapply.apply6.INPD
+w 1528 1867 100 0 n#85 eapply.apply6.OCLD 1408 1856 1696 1856 1696 1280 1888 1280 tcsOffCommands4.tcsOffCommands4#83.ICID
+w 1544 1899 100 0 n#84 eapply.apply6.OUTD 1408 1888 1728 1888 1728 1376 1888 1376 tcsOffCommands4.tcsOffCommands4#83.DIR
+w 1672 347 100 0 n#75 tcsOffCommands3.tcsOffCommands3#82.MESS 2464 1504 2672 1504 2672 336 720 336 720 1920 1024 1920 eapply.apply6.INMC
+w 1672 331 100 0 n#74 tcsOffCommands3.tcsOffCommands3#82.VAL 2464 1600 2688 1600 2688 320 704 320 704 1952 1024 1952 eapply.apply6.INPC
+w 1672 315 100 0 n#73 tcsOffCommands2.tcsOffCommands2#81.MESS 2464 1744 2704 1744 2704 304 688 304 688 1984 1024 1984 eapply.apply6.INMB
+w 1672 299 100 0 n#72 tcsOffCommands2.tcsOffCommands2#81.VAL 2464 1840 2720 1840 2720 288 672 288 672 2016 1024 2016 eapply.apply6.INPB
+w 1672 274 100 0 n#71 tcsOffCommands1.tcsOffCommands1#80.MESS 2464 1968 2736 1968 2736 272 656 272 656 2048 1024 2048 eapply.apply6.INMA
+w 1560 1931 100 0 n#62 eapply.apply6.OCLC 1408 1920 1760 1920 1760 1504 1888 1504 tcsOffCommands3.tcsOffCommands3#82.ICID
+w 1568 1963 100 0 n#61 eapply.apply6.OUTC 1408 1952 1776 1952 1776 1600 1888 1600 tcsOffCommands3.tcsOffCommands3#82.DIR
+w 1576 1995 100 0 n#60 eapply.apply6.OCLB 1408 1984 1792 1984 1792 1744 1888 1744 tcsOffCommands2.tcsOffCommands2#81.ICID
+w 1584 2027 100 0 n#59 eapply.apply6.OUTB 1408 2016 1808 2016 1808 1840 1888 1840 tcsOffCommands2.tcsOffCommands2#81.DIR
+w 2088 2146 100 0 n#46 eapply.apply6.MESS 1408 2144 2816 2144 2816 2096 2976 2096 outhier.MESS.p
+w 1592 2050 100 0 n#45 eapply.apply6.OCLA 1408 2048 1824 2048 1824 1968 1888 1968 tcsOffCommands1.tcsOffCommands1#80.ICID
+w 1600 2082 100 0 n#44 eapply.apply6.OUTA 1408 2080 1840 2080 1840 2064 1888 2064 tcsOffCommands1.tcsOffCommands1#80.DIR
+w 1672 260 100 0 n#39 tcsOffCommands1.tcsOffCommands1#80.VAL 2464 2064 2752 2064 2752 256 640 256 640 2080 1024 2080 eapply.apply6.INPA
+w 2168 2178 100 0 n#22 eapply.apply6.VAL 1408 2176 2976 2176 outhier.VAL.p
+w 744 2146 100 0 n#21 inhier.ICID.P 384 1936 512 1936 512 2144 1024 2144 eapply.apply6.CLID
+w 680 2178 100 0 n#20 inhier.DIR.P 384 2176 1024 2176 eapply.apply6.DIR
+s 2944 152 200 0 Gemini TCS
+s 2840 32 100 0 C
+s 2704 2320 100 0 $Id: tcsOffCommands.sch,v 1.2 2007/12/18 11:23:10 cjm Exp $
+s 2848 112 100 0 TCS commands
+[cell use]
+use tcsOffCommands7 1888 519 100 0 tcsOffCommands7#104
+xform 0 2176 640
+use tcsOffCommands6 1888 743 100 0 tcsOffCommands6#99
+xform 0 2176 864
+use tcsOffCommands5 1912 968 100 0 tcsOffCommands5#88
+xform 0 2176 1088
+use tcsOffCommands4 1912 1192 100 0 tcsOffCommands4#83
+xform 0 2176 1312
+use tcsOffCommands3 1912 1416 100 0 tcsOffCommands3#82
+xform 0 2176 1536
+use tcsOffCommands2 1912 1656 100 0 tcsOffCommands2#81
+xform 0 2176 1776
+use tcsOffCommands1 1912 1880 100 0 tcsOffCommands1#80
+xform 0 2176 2000
+use outhier 2968 2056 100 0 MESS
+xform 0 2960 2096
+use outhier 2968 2136 100 0 VAL
+xform 0 2960 2176
+use inhier 392 1896 100 0 ICID
+xform 0 384 1936
+use inhier 392 2136 100 0 DIR
+xform 0 384 2176
+use eapply 1048 1544 100 0 apply6
+xform 0 1216 1904
+p 1164 1588 100 0 0 DESC:Top TCS command Apply
+use bc200tr 32 -120 -100 0 frame
+xform 0 1712 1184
+[comments]

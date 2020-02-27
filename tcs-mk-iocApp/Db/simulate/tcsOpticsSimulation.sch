@@ -1,0 +1,244 @@
+[schematic2]
+uniq 41
+[tools]
+[detail]
+w 608 1170 100 0 n#27 inhier.c#24.P 336 1168 928 1168 928 1360 1104 1360 egenSub.simulate.INPI
+w 600 1234 100 0 n#26 inhier.c#21.P 336 1232 912 1232 912 1424 1104 1424 egenSub.simulate.INPH
+w 592 1298 100 0 n#25 inhier.c#20.P 336 1296 896 1296 896 1488 1104 1488 egenSub.simulate.INPG
+w 584 1362 100 0 n#23 inhier.c#19.P 336 1360 880 1360 880 1552 1104 1552 egenSub.simulate.INPF
+w 576 1426 100 0 n#22 inhier.c#18.P 336 1424 864 1424 864 1616 1104 1616 egenSub.simulate.INPE
+w 568 1490 100 0 n#17 inhier.c#16.P 336 1488 848 1488 848 1680 1104 1680 egenSub.simulate.INPD
+w 994 856 100 0 n#15 ecalcs.calc.VAL 960 496 992 496 992 1168 1104 1168 egenSub.simulate.SDIS
+w 944 1778 100 0 n#14 eaos.simM2FlError.OUT 672 1632 832 1632 832 1776 1104 1776 egenSub.simulate.C
+w 824 1858 100 0 n#13 eaos.simM2ZThermalCoeff.OUT 672 1856 1024 1856 1024 1840 1104 1840 egenSub.simulate.B
+w 824 2098 100 0 n#12 eaos.simM2ZNominal.OUT 672 2096 1024 2096 1024 1904 1104 1904 egenSub.simulate.A
+w 578 530 100 0 n#4 ebos.simEnable.FLNK 480 720 576 720 576 304 672 304 ecalcs.calc.SLNK
+w 558 690 100 0 n#3 ebos.simEnable.VAL 480 688 672 688 ecalcs.calc.INPA
+s 1616 1872 100 0 m2Follow.I
+s 1616 1904 100 0 Temporarily remove output to
+s 2112 2192 200 0 Zernike components for generating WFS data
+s 2816 256 100 0 Gemini Telescope Control System
+s 2848 192 100 0 Optics Simulation System
+s 2560 2448 100 0 $Id: tcsOpticsSimulation.sch,v 1.3 2006/04/21 09:47:08 cjm Exp $
+s 1216 2368 100 0 This schematic implements a simulation of the optics of the TCS
+s 1216 2336 100 0 At present it just simulates focus errors. The simulation 
+s 1216 2304 100 0 can only be enabled if the M2 system is in internal simulation
+[cell use]
+use eaos 2912 1031 100 0 z18
+xform 0 3040 1120
+p 2692 1306 100 0 0 DESC:Components Z18 & Z19
+p 2656 878 100 0 0 DRVH:5.0
+p 2656 846 100 0 0 DRVL:-5.0
+p 2880 846 100 0 0 EGU:mm
+p 2656 942 100 0 0 EGUF:5.0
+p 2656 910 100 0 0 EGUL:-5.0
+p 2880 1230 100 0 0 HOPR:5.0
+p 2880 1198 100 0 0 LOPR:-5.0
+p 2656 974 100 0 0 PREC:2
+p 3024 1024 100 1024 0 name:$(optics)$(I)
+use eaos 2496 1031 100 0 z16
+xform 0 2624 1120
+p 2276 1306 100 0 0 DESC:Components Z16 & Z17
+p 2240 878 100 0 0 DRVH:5.0
+p 2240 846 100 0 0 DRVL:-5.0
+p 2464 846 100 0 0 EGU:mm
+p 2240 942 100 0 0 EGUF:5.0
+p 2240 910 100 0 0 EGUL:-5.0
+p 2464 1230 100 0 0 HOPR:5.0
+p 2464 1198 100 0 0 LOPR:-5.0
+p 2240 974 100 0 0 PREC:2
+p 2608 1024 100 1024 0 name:$(optics)$(I)
+use eaos 2080 1031 100 0 z15
+xform 0 2208 1120
+p 2256 1104 100 0 0 DESC:Component Z15
+p 1824 878 100 0 0 DRVH:5.0
+p 1824 846 100 0 0 DRVL:-5.0
+p 2048 846 100 0 0 EGU:mm
+p 1824 942 100 0 0 EGUF:5.0
+p 1824 910 100 0 0 EGUL:-5.0
+p 2048 1230 100 0 0 HOPR:5.0
+p 2048 1198 100 0 0 LOPR:-5.0
+p 1824 974 100 0 0 PREC:2
+p 2192 1024 100 1024 0 name:$(optics)$(I)
+use eaos 2912 1319 100 0 z13
+xform 0 3040 1408
+p 2692 1594 100 0 0 DESC:Components Z13 & Z14
+p 2656 1166 100 0 0 DRVH:5.0
+p 2656 1134 100 0 0 DRVL:-5.0
+p 2880 1134 100 0 0 EGU:mm
+p 2656 1230 100 0 0 EGUF:5.0
+p 2656 1198 100 0 0 EGUL:-5.0
+p 2880 1518 100 0 0 HOPR:5.0
+p 2880 1486 100 0 0 LOPR:-5.0
+p 2656 1262 100 0 0 PREC:2
+p 3024 1312 100 1024 0 name:$(optics)$(I)
+use eaos 2496 1319 100 0 z11
+xform 0 2624 1408
+p 2276 1594 100 0 0 DESC:Components Z11 & Z12
+p 2240 1166 100 0 0 DRVH:5.0
+p 2240 1134 100 0 0 DRVL:-5.0
+p 2464 1134 100 0 0 EGU:mm
+p 2240 1230 100 0 0 EGUF:5.0
+p 2240 1198 100 0 0 EGUL:-5.0
+p 2464 1518 100 0 0 HOPR:5.0
+p 2464 1486 100 0 0 LOPR:-5.0
+p 2240 1262 100 0 0 PREC:2
+p 2608 1312 100 1024 0 name:$(optics)$(I)
+use eaos 2080 1319 100 0 z9
+xform 0 2208 1408
+p 1860 1594 100 0 0 DESC:Trefoil components Z9 & Z10
+p 1824 1166 100 0 0 DRVH:5.0
+p 1824 1134 100 0 0 DRVL:-5.0
+p 2048 1134 100 0 0 EGU:mm
+p 1824 1230 100 0 0 EGUF:5.0
+p 1824 1198 100 0 0 EGUL:-5.0
+p 2048 1518 100 0 0 HOPR:5.0
+p 2048 1486 100 0 0 LOPR:-5.0
+p 1824 1262 100 0 0 PREC:2
+p 2192 1312 100 1024 0 name:$(optics)$(I)
+use eaos 2912 1607 100 0 z8
+xform 0 3040 1696
+p 2692 1882 100 0 0 DESC:Spherical component z8
+p 2656 1454 100 0 0 DRVH:5.0
+p 2656 1422 100 0 0 DRVL:-5.0
+p 2880 1422 100 0 0 EGU:mm
+p 2656 1518 100 0 0 EGUF:5.0
+p 2656 1486 100 0 0 EGUL:-5.0
+p 2880 1806 100 0 0 HOPR:5.0
+p 2880 1774 100 0 0 LOPR:-5.0
+p 2656 1550 100 0 0 PREC:2
+p 3024 1600 100 1024 0 name:$(optics)$(I)
+use eaos 2496 1607 100 0 z6
+xform 0 2624 1696
+p 2276 1882 100 0 0 DESC:Coma components Z6 & Z7
+p 2240 1454 100 0 0 DRVH:5.0
+p 2240 1422 100 0 0 DRVL:-5.0
+p 2464 1422 100 0 0 EGU:mm
+p 2240 1518 100 0 0 EGUF:5.0
+p 2240 1486 100 0 0 EGUL:-5.0
+p 2464 1806 100 0 0 HOPR:5.0
+p 2464 1774 100 0 0 LOPR:-5.0
+p 2240 1550 100 0 0 PREC:2
+p 2608 1600 100 1024 0 name:$(optics)$(I)
+use eaos 2080 1607 100 0 z4
+xform 0 2208 1696
+p 1860 1882 100 0 0 DESC:Astigmatism component Z4 & Z5
+p 1824 1454 100 0 0 DRVH:5.0
+p 1824 1422 100 0 0 DRVL:-5.0
+p 2048 1422 100 0 0 EGU:mm
+p 1824 1518 100 0 0 EGUF:5.0
+p 1824 1486 100 0 0 EGUL:-5.0
+p 2048 1806 100 0 0 HOPR:5.0
+p 2048 1774 100 0 0 LOPR:-5.0
+p 1824 1550 100 0 0 PREC:2
+p 2192 1600 100 1024 0 name:$(optics)$(I)
+use eaos 2912 1895 100 0 z3
+xform 0 3040 1984
+p 2692 2170 100 0 0 DESC:Focus component Z3
+p 2656 1742 100 0 0 DRVH:5.0
+p 2656 1710 100 0 0 DRVL:-5.0
+p 2880 1710 100 0 0 EGU:mm
+p 2656 1806 100 0 0 EGUF:5.0
+p 2656 1774 100 0 0 EGUL:-5.0
+p 2880 2094 100 0 0 HOPR:5.0
+p 2880 2062 100 0 0 LOPR:-5.0
+p 2656 1838 100 0 0 PREC:2
+p 3024 1888 100 1024 0 name:$(optics)$(I)
+use eaos 2496 1895 100 0 z2
+xform 0 2624 1984
+p 2276 2170 100 0 0 DESC:Tilt component Z2
+p 2240 1742 100 0 0 DRVH:5.0
+p 2240 1710 100 0 0 DRVL:-5.0
+p 2464 1710 100 0 0 EGU:mm
+p 2240 1806 100 0 0 EGUF:5.0
+p 2240 1774 100 0 0 EGUL:-5.0
+p 2464 2094 100 0 0 HOPR:5.0
+p 2464 2062 100 0 0 LOPR:-5.0
+p 2240 1838 100 0 0 PREC:2
+p 2608 1888 100 1024 0 name:$(optics)$(I)
+use eaos 440 1576 100 0 simM2FlError
+xform 0 544 1664
+p 400 1742 100 0 -1 DESC:Random error on focus position
+p 496 1614 100 0 1 EGU:mm
+p 160 1102 100 0 0 MDEL:0.0005
+p 160 1518 100 0 0 PREC:3
+p 528 1568 100 1024 0 name:$(optics)$(I)
+use eaos 440 1800 100 0 simM2ZThermalCoeff
+xform 0 544 1888
+p 416 1966 100 0 -1 DESC:Simulated value of m2ZThermalCoeff
+p 496 1838 100 0 1 EGU:mm/deg C
+p 160 1326 100 0 0 MDEL:0.0005
+p 160 1742 100 0 0 PREC:3
+p 528 1792 100 1024 0 name:$(optics)$(I)
+use eaos 440 2040 100 0 simM2ZNominal
+xform 0 544 2128
+p 416 2238 100 0 -1 DESC:Simulated value of m2ZNominal
+p 496 2078 100 0 1 EGU:mm
+p 160 1566 100 0 0 MDEL:0.0005
+p 160 1982 100 0 0 PREC:3
+p 528 2032 100 1024 0 name:$(optics)$(I)
+use eaos 2080 1895 100 0 z1
+xform 0 2208 1984
+p 1860 2170 100 0 0 DESC:Tip component Z1
+p 1824 1742 100 0 0 DRVH:5.0
+p 1824 1710 100 0 0 DRVL:-5.0
+p 2048 1710 100 0 0 EGU:mm
+p 1824 1806 100 0 0 EGUF:5.0
+p 1824 1774 100 0 0 EGUL:-5.0
+p 2048 2094 100 0 0 HOPR:5.0
+p 2048 2062 100 0 0 LOPR:-5.0
+p 1824 1838 100 0 0 PREC:2
+p 2192 1888 100 1024 0 name:$(optics)$(I)
+use eaos 2080 743 100 0 zErr
+xform 0 2208 832
+p 2256 816 100 0 0 DESC:Error on Zernike 
+p 1824 590 100 0 0 DRVH:1.0
+p 1824 558 100 0 0 DRVL:0.0
+p 2048 558 100 0 0 EGU:mm
+p 1824 654 100 0 0 EGUF:1.0
+p 1824 622 100 0 0 EGUL:0.0
+p 2048 942 100 0 0 HOPR:1.0
+p 2048 910 100 0 0 LOPR:0.0
+p 1824 686 100 0 0 PREC:2
+p 2192 736 100 1024 0 name:$(optics)$(I)
+use inhier 344 1448 100 0 c#16
+xform 0 336 1488
+use inhier 344 1384 100 0 c#18
+xform 0 336 1424
+use inhier 344 1320 100 0 c#19
+xform 0 336 1360
+use inhier 344 1256 100 0 c#20
+xform 0 336 1296
+use inhier 344 1192 100 0 c#21
+xform 0 336 1232
+use inhier 344 1128 100 0 c#24
+xform 0 336 1168
+use ebos 248 600 100 0 simEnable
+xform 0 352 688
+p -8 844 100 0 0 DESC:Enable/disable optic simulation
+p 272 510 100 0 1 ONAM:Enable
+p 272 542 100 0 1 ZNAM:Disable
+p 336 592 100 1024 0 name:$(optics)$(I)
+use ecalcs 696 216 100 0 calc
+xform 0 816 480
+p 752 398 100 0 1 CALC:A && B
+p 592 766 100 0 -1 DESC:Disable/enable optics simulation
+p 592 734 100 0 1 def(INPB):$(top)m2IntSimulate
+p 784 208 100 1024 0 name:$(optics)$(I)
+use egenSub 1128 1112 100 0 simulate
+xform 0 1248 1536
+p 1072 1982 100 0 -1 DESC:Generate simulated focus adjustments
+p 1200 1166 100 0 1 DISV:0
+p 1120 1038 100 0 1 SCAN:.05 second
+p 1120 1070 100 0 1 SNAM:tcsOpticsSimulate
+p 400 1518 100 0 -1 def(INPD):$(top)currentExternalTemp
+p 400 1454 100 0 -1 def(INPE):$(top)om:m2Z.VALD
+p 400 1374 100 0 -1 def(INPF):$(top)om:m2Z.VALA
+p 400 1310 100 0 -1 def(INPG):$(top)om:m2ZRefTemp
+p 400 1246 100 0 -1 def(INPH):$(top)m2Magnification
+p 400 1182 100 0 -1 def(INPI):$(top)m2ZErrorCorr
+p 1520 1870 100 0 0 def(OUTA):0.000000000000000e+00
+p 1216 1104 100 1024 0 name:$(optics)$(I)
+use bc200tr -16 -24 -100 0 frame
+xform 0 1664 1280
+[comments]

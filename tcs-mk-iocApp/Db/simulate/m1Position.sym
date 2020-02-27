@@ -1,0 +1,35 @@
+[symbol2]
+bbox 352 512 864 672
+port 824 559 100 1792 ZEROIDLE symbol 2 864 544 0
+port 824 607 100 1792 FIGIDLE symbol 2 864 592 0
+port 824 655 100 1792 DEFNIDLE symbol 2 864 640 0
+port 396 559 100 1792 CARZERO symbol 1 352 544 0
+port 396 607 100 1792 CARFIG symbol 1 352 592 0
+port 396 655 100 1792 CARDEFN symbol 1 352 640 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 480 608 M1 Position relative
+l 100 0 0 560 560 to LUT
+r 0 416 672 800 512
+v 0 800 544
+864 544
+_
+v 0 800 592
+864 592
+_
+v 0 800 640
+864 640
+_
+v 0 352 544
+416 544
+_
+v 0 352 592
+416 592
+_
+v 0 352 640
+416 640
+_
+[comments]

@@ -1,0 +1,19 @@
+[symbol2]
+bbox 224 832 640 992
+port 560 928 100 1792 VAL symbol 2 640 928 0
+port 544 864 100 1792 FLNK symbol 2 640 864 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 288 960 Generic CAD command
+l 100 0 0 352 928 8 inputs
+r 0 224 992 576 832
+v 0 576 928
+640 928
+_
+v 0 576 864
+640 864
+_
+[comments]

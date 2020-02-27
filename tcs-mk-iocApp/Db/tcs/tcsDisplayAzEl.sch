@@ -1,0 +1,225 @@
+[schematic2]
+uniq 162
+[tools]
+[detail]
+w 1970 267 100 0 n#161 esirs.demandElS.FLNK 1824 -192 1920 -192 1920 256 2080 256 eais.demandRma.SLNK
+w 1026 651 100 0 n#159 esirs.elErrorS.FLNK 2240 992 2336 992 2336 640 -224 640 -224 224 -192 224 eais.currentRma.SLNK
+w 1650 1163 100 0 n#158 esirs.azErrorS.FLNK 2240 1456 2336 1456 2336 1152 1024 1152 1024 1008 1312 1008 eais.elError.SLNK
+w 1602 1035 100 0 n#157 eais.elError.FLNK 1568 1024 1696 1024 1696 832 1824 832 esirs.elErrorS.SLNK
+w 1666 1003 100 0 n#156 eais.elError.VAL 1568 992 1824 992 esirs.elErrorS.INP
+w 1122 1483 100 0 n#154 esirs.currentElS.FLNK 800 992 992 992 992 1472 1312 1472 eais.azError.SLNK
+w 1602 1499 100 0 n#153 eais.azError.FLNK 1568 1488 1696 1488 1696 1296 1824 1296 esirs.azErrorS.SLNK
+w 1666 1467 100 0 n#152 eais.azError.VAL 1568 1456 1824 1456 esirs.azErrorS.INP
+w 306 1163 100 0 n#150 esirs.currentAzS.FLNK 800 1472 896 1472 896 1152 -224 1152 -224 1008 -80 1008 eais.currentEl.SLNK
+w 202 1035 100 0 n#149 eais.currentEl.FLNK 176 1024 288 1024 288 832 384 832 esirs.currentElS.SLNK
+w 250 1003 100 0 n#148 eais.currentEl.VAL 176 992 384 992 esirs.currentElS.INP
+w 202 1515 100 0 n#146 eais.currentAz.FLNK 176 1504 288 1504 288 1312 384 1312 esirs.currentAzS.SLNK
+w 250 1483 100 0 n#145 eais.currentAz.VAL 176 1472 384 1472 esirs.currentAzS.INP
+w 490 251 100 0 n#143 eais.rmaError.FLNK 64 -144 352 -144 352 240 688 240 eais.demandAz.SLNK
+w 1474 11 100 0 n#141 eais.demandEl.VAL 1664 208 1744 208 1744 0 1264 0 1264 -192 1408 -192 esirs.demandElS.INP
+w 1474 -21 100 0 n#140 eais.demandEl.FLNK 1664 240 1776 240 1776 -32 1232 -32 1232 -352 1408 -352 esirs.demandElS.SLNK
+w 1274 235 100 0 n#138 esirs.demandAzS.FLNK 1104 -192 1200 -192 1200 224 1408 224 eais.demandEl.SLNK
+w 754 -21 100 0 n#137 eais.demandAz.FLNK 944 256 1040 256 1040 -32 528 -32 528 -352 688 -352 esirs.demandAzS.SLNK
+w 2402 283 100 0 n#135 eais.demandRma.FLNK 2336 272 2528 272 outhier.FLNK.p
+w -270 1499 100 0 n#128 inhier.SLNK.P -400 1488 -80 1488 eais.currentAz.SLNK
+w -94 -37 100 0 n#113 eais.currentRma.FLNK 64 240 160 240 160 -48 -288 -48 -288 -160 -192 -160 eais.rmaError.SLNK
+s 2192 -400 100 0 display time and telescope postion
+s 2208 -336 100 0 Gemini Telescope Control System
+s 1952 1856 100 0 $Id: tcsDisplayAzEl.sch,v 1.2 2007/12/18 16:42:33 cjm Exp $
+s 640 1696 400 0 Display Az/El Records
+[cell use]
+use esirs 1824 743 100 0 elErrorS
+xform 0 2032 896
+p 1952 1040 100 0 -1 DESC:Elevation error
+p 1760 384 100 0 0 HIGH:360.0
+p 1760 352 100 0 0 HIHI:360.0
+p 1760 224 100 0 0 LOLO:-360.0
+p 1760 192 100 0 0 LOW:-360.0
+p 1920 784 100 0 1 SNAM:sirSDegsSigned
+p 1936 736 100 1024 0 name:$(tcs)$(I)
+p 1824 992 75 1280 -1 palrm(INP):NMS
+use esirs 1824 1207 100 0 azErrorS
+xform 0 2032 1360
+p 1952 1504 100 0 -1 DESC:Azimuth error
+p 1760 880 100 0 0 HHSV:NO_ALARM
+p 1760 848 100 0 0 HIGH:360.0
+p 1760 816 100 0 0 HIHI:360.0
+p 1760 688 100 0 0 LOLO:-360.0
+p 1760 656 100 0 0 LOW:-360.0
+p 1920 1248 100 0 1 SNAM:sirSDegsSigned
+p 1936 1200 100 1024 0 name:$(tcs)$(I)
+p 1824 1456 75 1280 -1 palrm(INP):NMS
+use esirs 384 743 100 0 currentElS
+xform 0 592 896
+p 512 1040 100 0 -1 DESC:Current elevation
+p 320 384 100 0 0 HIGH:87.0
+p 320 352 100 0 0 HIHI:90.0
+p 320 224 100 0 0 LOLO:15.0
+p 320 192 100 0 0 LOW:15.0
+p 480 784 100 0 1 SNAM:sirSDegsSigned
+p 496 736 100 1024 0 name:$(tcs)$(I)
+p 384 992 75 1280 -1 palrm(INP):NMS
+use esirs 384 1223 100 0 currentAzS
+xform 0 592 1376
+p 512 1520 100 0 -1 DESC:Current azimuth
+p 320 864 100 0 0 HIGH:357.0
+p 320 832 100 0 0 HIHI:360.0
+p 320 704 100 0 0 LOLO:-180.0
+p 320 672 100 0 0 LOW:-177.0
+p 480 1264 100 0 1 SNAM:sirSDegsSigned
+p 496 1216 100 1024 0 name:$(tcs)$(I)
+p 384 1472 75 1280 -1 palrm(INP):NMS
+use esirs 1408 -441 100 0 demandElS
+xform 0 1616 -288
+p 1488 -144 100 0 -1 DESC:Demand Elevation
+p 1344 -800 100 0 0 HIGH:87.0
+p 1344 -832 100 0 0 HIHI:90.0
+p 1344 -960 100 0 0 LOLO:15.0
+p 1344 -992 100 0 0 LOW:15.0
+p 1504 -400 100 0 1 SNAM:sirSDegsSigned
+p 1520 -448 100 1024 0 name:$(tcs)$(I)
+p 1408 -192 75 1280 -1 palrm(INP):NMS
+use esirs 688 -441 100 0 demandAzS
+xform 0 896 -288
+p 784 -128 100 0 -1 DESC:Demand Az
+p 624 -704 100 0 0 FDSC:Demand Az as a sexagesimal string
+p 624 -736 100 0 0 FTVL:STRING
+p 624 -768 100 0 0 HHSV:MAJOR
+p 624 -800 100 0 0 HIGH:357.0
+p 624 -832 100 0 0 HIHI:360.0
+p 624 -864 100 0 0 HSV:MINOR
+p 624 -928 100 0 0 LLSV:MAJOR
+p 624 -960 100 0 0 LOLO:-180.0
+p 624 -992 100 0 0 LOW:-177
+p 624 -1024 100 0 0 LSV:MINOR
+p 768 -400 100 0 1 SNAM:sirSDegsSigned
+p 880 -704 100 0 0 def(INP):$(tcs)drives:driveMCS.VALB
+p 800 -448 100 1024 0 name:$(tcs)$(I)
+p 688 -192 75 1280 -1 palrm(INP):NMS
+use outhier 2496 231 100 0 FLNK
+xform 0 2512 272
+use bc200tr -624 -616 -100 0 frame
+xform 0 1056 688
+use inhier -416 1447 100 0 SLNK
+xform 0 -400 1488
+use eais 2080 183 100 0 demandRma
+xform 0 2208 256
+p 2112 336 100 0 -1 DESC:Demand rotator mechanical angle
+p 1824 -2 100 0 0 EGU:degs
+p 2048 128 100 0 1 HHSV:MAJOR
+p 2048 96 100 0 1 HIGH:267.0
+p 2048 64 100 0 1 HIHI:270.0
+p 2048 32 100 0 1 HSV:MINOR
+p 2256 128 100 0 1 LLSV:MAJOR
+p 2256 96 100 0 1 LOLO:-270.0
+p 2256 64 100 0 1 LOW:-267.0
+p 2256 32 100 0 1 LSV:MINOR
+p 1824 -226 100 0 0 MDEL:0.001
+p 1824 94 100 0 0 PREC:14
+p 1680 288 100 0 -1 def(INP):$(tcs)drives:driveCRS.VALB
+p 2192 176 100 1024 0 name:$(tcs)$(I)
+use eais -192 -233 100 0 rmaError
+xform 0 -64 -160
+p -176 -80 100 0 -1 DESC:Rotator position error
+p -448 -418 100 0 0 EGU:degs
+p -448 -642 100 0 0 MDEL:0.001
+p -448 -322 100 0 0 PREC:14
+p -480 -128 100 0 -1 def(INP):$(cr)crPosError
+p -80 -240 100 1024 0 name:$(tcs)$(I)
+use eais -192 151 100 0 currentRma
+xform 0 -64 224
+p -160 304 100 0 -1 DESC:Current rotator mechanical angle
+p -448 -34 100 0 0 EGU:rads
+p -224 96 100 0 1 HHSV:MAJOR
+p -224 64 100 0 1 HIGH:267.0
+p -224 32 100 0 1 HIHI:270.0
+p -224 0 100 0 1 HSV:MINOR
+p -16 96 100 0 1 LLSV:MAJOR
+p -16 64 100 0 1 LOLO:-270.0
+p -16 32 100 0 1 LOW:-267.0
+p -16 0 100 0 1 LSV:MINOR
+p -448 -258 100 0 0 MDEL:0.001
+p -448 62 100 0 0 PREC:14
+p -480 256 100 0 -1 def(INP):$(cr)crCurrentPos
+p -80 144 100 1024 0 name:$(tcs)$(I)
+use eais 1408 151 100 0 demandEl
+xform 0 1536 224
+p 1440 304 100 0 -1 DESC:Demand Elevation
+p 1152 -34 100 0 0 EGU:degs
+p 1376 96 100 0 1 HHSV:MAJOR
+p 1376 64 100 0 1 HIGH:87.0
+p 1376 32 100 0 1 HIHI:90.0
+p 1376 0 100 0 1 HSV:MINOR
+p 1552 96 100 0 1 LLSV:MAJOR
+p 1552 64 100 0 1 LOLO:15.0
+p 1552 32 100 0 1 LOW:15.0
+p 1552 0 100 0 1 LSV:MINOR
+p 1152 -258 100 0 0 MDEL:0.00003
+p 1152 62 100 0 0 PREC:14
+p 1024 272 100 0 -1 def(INP):$(tcs)drives:driveMCS.VALC
+p 1520 144 100 1024 0 name:$(tcs)$(I)
+use eais 688 167 100 0 demandAz
+xform 0 816 240
+p 720 320 100 0 -1 DESC:Demand Azimuth
+p 432 -18 100 0 0 EGU:degs
+p 656 112 100 0 1 HHSV:MAJOR
+p 656 80 100 0 1 HIGH:357.0
+p 656 48 100 0 1 HIHI:360.0
+p 656 16 100 0 1 HSV:MINOR
+p 816 112 100 0 1 LLSV:MAJOR
+p 816 80 100 0 1 LOLO:-180.0
+p 816 48 100 0 1 LOW:-177.0
+p 816 16 100 0 1 LSV:MINOR
+p 432 -242 100 0 0 MDEL:0.00003
+p 432 78 100 0 0 PREC:14
+p 288 272 100 0 -1 def(INP):$(tcs)drives:driveMCS.VALB
+p 800 160 100 1024 0 name:$(tcs)$(I)
+use eais 1312 935 100 0 elError
+xform 0 1440 1008
+p 1328 1088 100 0 -1 DESC:Mount elevation error
+p 1056 750 100 0 0 EGU:degs
+p 1056 526 100 0 0 MDEL:0.000001
+p 1056 846 100 0 0 PREC:14
+p 1056 1040 100 0 -1 def(INP):$(mc)elPosError
+p 1424 928 100 1024 0 name:$(tcs)$(I)
+use eais 1312 1399 100 0 azError
+xform 0 1440 1472
+p 1328 1552 100 0 -1 DESC:Mount azimuth error
+p 1056 1214 100 0 0 EGU:degs
+p 1056 990 100 0 0 MDEL:0.000001
+p 1056 1310 100 0 0 PREC:14
+p 1056 1504 100 0 -1 def(INP):$(mc)azPosError
+p 1424 1392 100 1024 0 name:$(tcs)$(I)
+use eais -80 935 100 0 currentEl
+xform 0 48 1008
+p -48 1088 100 0 -1 DESC:Current Elevation
+p -336 750 100 0 0 EGU:degs
+p -112 880 100 0 1 HHSV:MAJOR
+p -112 848 100 0 1 HIGH:87.0
+p -112 816 100 0 1 HIHI:90.0
+p -112 784 100 0 1 HSV:MINOR
+p 64 880 100 0 1 LLSV:MAJOR
+p 64 848 100 0 1 LOLO:15.0
+p 64 816 100 0 1 LOW:15.0
+p 64 784 100 0 1 LSV:MINOR
+p -336 526 100 0 0 MDEL:0.00003
+p -336 846 100 0 0 PREC:14
+p -352 1040 100 0 -1 def(INP):$(mc)elCurrentPos
+p 32 928 100 1024 0 name:$(tcs)$(I)
+use eais -80 1415 100 0 currentAz
+xform 0 48 1488
+p -48 1568 100 0 -1 DESC:Current Azimuth
+p -336 1230 100 0 0 EGU:degs
+p -112 1360 100 0 1 HHSV:MAJOR
+p -112 1328 100 0 1 HIGH:357.0
+p -112 1296 100 0 1 HIHI:360.0
+p -112 1264 100 0 1 HSV:MINOR
+p 48 1360 100 0 1 LLSV:MAJOR
+p 48 1328 100 0 1 LOLO:-180.0
+p 48 1296 100 0 1 LOW:-177.0
+p 48 1264 100 0 1 LSV:MINOR
+p -336 1006 100 0 0 MDEL:0.00003
+p -336 1326 100 0 0 PREC:14
+p -400 1536 100 0 -1 def(INP):$(mc)azCurrentPos
+p 32 1408 100 1024 0 name:$(tcs)$(I)
+[comments]

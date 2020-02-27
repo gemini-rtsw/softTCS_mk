@@ -1,0 +1,18 @@
+[symbol2]
+bbox 80 416 320 928
+port 96 816 100 0 DIR1 symbol 1 80 816 0
+port 96 736 100 0 ICID1 symbol 1 80 736 0
+port 256 816 100 0 VAL1 symbol 2 304 816 0
+port 240 720 100 0 MESS1 symbol 2 304 736 0
+port 96 656 100 0 DIR2 symbol 1 80 656 0
+port 96 576 100 0 ICID2 symbol 1 80 576 0
+port 256 656 100 0 VAL2 symbol 2 304 656 0
+port 240 560 100 0 MESS2 symbol 2 304 576 0
+uniq 5
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 140 0 0 96 480 tcsCadHandset
+r 0 80 928 304 416
+[comments]

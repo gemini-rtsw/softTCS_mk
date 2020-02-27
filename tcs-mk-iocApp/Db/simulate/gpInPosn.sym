@@ -1,0 +1,20 @@
+[symbol2]
+bbox 352 544 608 896
+port 432 624 100 0 INPOS symbol 1 352 640 0
+port 432 560 100 0 SLNK symbol 1 352 576 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 448 752 In position
+l 100 0 0 480 784 GPOL
+l 100 0 0 480 720 Status
+r 0 416 544 608 896
+v 0 352 640
+416 640
+_
+v 0 352 576
+416 576
+_
+[comments]

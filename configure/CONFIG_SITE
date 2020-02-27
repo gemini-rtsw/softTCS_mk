@@ -1,0 +1,86 @@
+# CONFIG_SITE
+
+# Make any application-specific changes to the EPICS build
+#   configuration variables in this file.
+#
+# Host/target specific settings can be specified in files named
+#   CONFIG_SITE.$(EPICS_HOST_ARCH).Common
+#   CONFIG_SITE.Common.$(T_A)
+#   CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
+
+# CHECK_RELEASE controls the consistency checking of the support
+#   applications pointed to by the RELEASE* files.
+# Normally CHECK_RELEASE should be set to YES.
+# Set CHECK_RELEASE to NO to disable checking completely.
+# Set CHECK_RELEASE to WARN to perform consistency checking but
+#   continue building anyway if conflicts are found.
+CHECK_RELEASE = YES
+
+# Define flag for "top=" macro substitution on ioc startup script. 
+# More than one top can be defined this way
+# This flag is used by the Macros Substitution and Include Tool 
+# (MSI) to generate .boot from .src
+
+# Definition for different use cases
+# TTCS: TCS top
+# TEST_IOC: Option if you are booting the IOC with "tcs" as top in a Lab environment
+# ICARUS: Choose if data files are going to be read from icarus or from local data/ directory
+TTCS = tcs
+TEST_IOC = no
+
+# Dynamic conf
+DYNCFG_SERVER = 10.2.71.11
+DYNCFG_REMOTE = /gem_sw/etc/rtconfig
+DYNCFG_LOCAL  = /rtconfig
+DYNCFG_FILES = $(DYNCFG_LOCAL)/tcs
+# Static conf
+STCFG_SERVER = 10.2.2.57
+STCFG_REMOTE = /export/gemini
+STCFG_LOCAL  = /gemini
+
+AGTOP = ag
+SIMTOP = tc2
+
+USR_BOOT_FLAGS  = -MTCSTOP=$(TTCS) -MAGTOP=$(AGTOP) -MSIMTOP=$(SIMTOP)
+USR_BOOT_FLAGS += -MDYNCFGSERVER=$(DYNCFG_SERVER) -MDYNCFGREMOTE=$(DYNCFG_REMOTE)
+USR_BOOT_FLAGS += -MDYNCFGLOCAL=$(DYNCFG_LOCAL) -MDYNCFGFILE=$(DYNCFG_FILES)
+USR_BOOT_FLAGS += -MSTCFGSERVER=$(STCFG_SERVER) -MSTCFGREMOTE=$(STCFG_REMOTE)
+USR_BOOT_FLAGS += -MSTCFGLOCAL=$(STCFG_LOCAL)
+USR_BOOT_FLAGS += -MTCSDATA=.
+
+ifeq ($(TTCS),tcs)
+    USR_BOOT_FLAGS += -MTCSENV=resource
+    USR_BOOT_FLAGS += -MTCSPV=GemNorth
+    USR_BOOT_FLAGS += -MTCSSEQ=startSeq
+    USR_BOOT_FLAGS += -MNTP_INET=10.1.71.12
+    ifeq ($(TEST_IOC),no)
+        USR_BOOT_FLAGS += -MIOCPROMPT=tcs-mk-ioc
+        USR_BOOT_FLAGS += -MSUBS=tcs.subs
+    else
+        USR_BOOT_FLAGS += -MIOCPROMPT=tcs-TEST-ioc
+        USR_BOOT_FLAGS += -MSUBS=tcsTEST.subs
+    endif
+else
+    USR_BOOT_FLAGS += -MTCSENV=resourceTC1
+    USR_BOOT_FLAGS += -MTCSPV=GemNorthTC1
+    USR_BOOT_FLAGS += -MTCSSEQ=startSeqSIM
+    USR_BOOT_FLAGS += -MIOCPROMPT='$(SIMTOP)-sim-ioc'
+    USR_BOOT_FLAGS += -MSUBS=tc1.subs
+    USR_BOOT_FLAGS += -MNTP_INET=10.2.2.104
+endif
+
+# Set this when you only want to compile this application
+#   for a subset of the cross-compiled target architectures
+#   that Base is built for.
+CROSS_COMPILER_TARGET_ARCHS = RTEMS-mvme2307
+
+# To install files into a location other than $(TOP) define
+#   INSTALL_LOCATION here.
+#INSTALL_LOCATION=</path/name/to/install/top>
+
+# Set this when your IOC and the host use different paths
+#   to access the application. This will be needed to boot
+#   from a Microsoft FTP server or with some NFS mounts.
+# You must rebuild in the iocBoot directory for this to
+#   take effect.
+#IOCS_APPL_TOP = </IOC/path/to/application/top>

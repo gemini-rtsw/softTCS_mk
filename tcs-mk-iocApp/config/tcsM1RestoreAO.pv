@@ -1,0 +1,41 @@
+# Template pvsave file to save the values of the current M1 model
+#
+# Note that the J field is written last as this will trigger
+# the processing of the gensub record restoreM1
+group {
+
+%double tcs:drives:figureTotals.VALA;
+double tcs:drives:restoreM1.A = 8.53344;
+%double tcs:drives:figureTotals.VALB;
+double tcs:drives:restoreM1.B = 6.50768;
+%double tcs:drives:figureTotals.VALC;
+double tcs:drives:restoreM1.C = -0.166023;
+%double tcs:drives:figureTotals.VALD;
+double tcs:drives:restoreM1.D = 0.658411;
+%double tcs:drives:figureTotals.VALE;
+double tcs:drives:restoreM1.E = 0.394849;
+%double tcs:drives:figureTotals.VALF;
+double tcs:drives:restoreM1.F = -0.043856;
+%double tcs:drives:figureTotals.VALG;
+double tcs:drives:restoreM1.G = 0.102171;
+%double tcs:drives:figureTotals.VALH;
+double tcs:drives:restoreM1.H = -0.641086;
+%double tcs:drives:figureTotals.VALI;
+double tcs:drives:restoreM1.I = 0.082533;
+%double tcs:drives:figureTotals.VALK;
+double tcs:drives:restoreM1.K = -0.215066;
+%double tcs:drives:figureTotals.VALL;
+double tcs:drives:restoreM1.L = 0.158308;
+%double tcs:drives:figureTotals.VALM;
+double tcs:drives:restoreM1.M = -0.095905;
+%double tcs:drives:figureTotals.VALN;
+double tcs:drives:restoreM1.N = -0.085302;
+%double tcs:m2XErrorCorr;
+double tcs:drives:restoreM1.P = -0.0197869;
+%double tcs:m2YErrorCorr;
+double tcs:drives:restoreM1.Q = -0.153977;
+%double tcs:demandEl;
+double tcs:drives:restoreM1.O = 79.7376;
+};
+%double tcs:drives:figureTotals.VALJ;
+double tcs:drives:restoreM1.J = 0;

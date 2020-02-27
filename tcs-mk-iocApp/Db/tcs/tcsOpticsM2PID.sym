@@ -1,0 +1,11 @@
+[symbol2]
+bbox -224 -96 96 128
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -112 -16 parameters
+l 100 0 0 -96 32 M2 PID 
+r 0 -224 -96 96 128
+[comments]

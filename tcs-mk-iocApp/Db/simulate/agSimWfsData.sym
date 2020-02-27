@@ -1,0 +1,12 @@
+[symbol2]
+bbox 352 432 624 768
+port 288 608 100 0 PROBE symbol 1 352 608 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 400 640 WFS Continuous
+l 120 0 0 400 608 Data Handling
+r 0 352 768 624 432
+[comments]

@@ -1,0 +1,27 @@
+[symbol2]
+bbox -288 32 32 160
+port -176 128 100 0 SLNK symbol 1 -224 128 0
+port 16 64 100 0 FLNK symbol 2 96 64 0
+port -176 64 100 0 Window symbol 1 -224 64 0
+port -240 104 100 1792 Port symbol 1 -256 88 0
+uniq 27
+[tools]
+[attributes]
+p -137 177 100 0 -1 seta:odgw odgw1
+[layers]
+<symbol>
+l 100 0 0 -160 96 Fetch ODGW Coeffs
+r 0 -192 32 64 160
+v 0 -224 128
+-192 128
+_
+v 0 96 64
+64 64
+_
+v 0 -224 64
+-192 64
+_
+v 0 -192 88
+-256 88
+_
+[comments]

@@ -1,0 +1,14 @@
+[symbol2]
+bbox 288 416 768 608
+port 400 544 100 1792 SDIS symbol 1 288 544 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 464 512 Wind Speed Alarms
+r 0 352 608 768 416
+v 0 288 544
+352 544
+_
+[comments]

@@ -1,0 +1,26 @@
+[symbol2]
+bbox 320 672 512 928
+port 416 768 100 1792 FLNK symbol 2 512 768 0
+port 416 832 100 1792 VAL symbol 2 512 832 0
+port 416 864 100 1792 WEST symbol 2 512 864 0
+port 416 896 100 1792 EAST symbol 2 512 896 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 720 Ventgates
+r 0 320 928 448 672
+v 0 448 768
+512 768
+_
+v 0 448 832
+512 832
+_
+v 0 448 864
+512 864
+_
+v 0 448 896
+512 896
+_
+[comments]

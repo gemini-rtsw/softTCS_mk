@@ -1,0 +1,31 @@
+[symbol2]
+bbox -352 -128 0 192
+port -240 -96 100 0 SLNK symbol 1 -352 -96 0
+port -240 32 100 0 VEL symbol 1 -352 32 0
+port -240 160 100 0 TIME symbol 1 -352 160 0
+port -240 96 100 0 POS symbol 1 -352 96 0
+port -240 -32 100 0 ERR symbol 1 -352 -32 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -160 48 Cass. Rotator
+l 100 0 0 -128 16 positions
+r 0 -256 -128 0 192
+v 0 -352 -96
+-256 -96
+_
+v 0 -352 32
+-256 32
+_
+v 0 -352 160
+-256 160
+_
+v 0 -352 96
+-256 96
+_
+v 0 -352 -32
+-256 -32
+_
+[comments]

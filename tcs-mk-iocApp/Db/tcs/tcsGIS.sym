@@ -1,0 +1,11 @@
+[symbol2]
+bbox 192 480 576 704
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 288 576 Interlock System
+l 100 0 0 272 608 Heartbeat for Laser
+r 0 192 704 576 480
+[comments]

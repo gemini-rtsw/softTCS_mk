@@ -1,0 +1,94 @@
+[schematic2]
+uniq 60
+[tools]
+[detail]
+w 1632 363 100 0 n#59 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#55.VAL 2784 1104 2864 1104 2864 352 448 352 448 1248 640 1248 eapply.apply877.INPE
+w 1624 379 100 0 n#58 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#55.MESS 2784 1024 2832 1024 2832 368 464 368 464 1216 640 1216 eapply.apply877.INME
+w 1728 1227 100 0 n#57 eapply.apply877.OCLE 1024 1216 2480 1216 2480 1024 2560 1024 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#55.ICID
+w 1744 1259 100 0 n#56 eapply.apply877.OUTE 1024 1248 2512 1248 2512 1104 2560 1104 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#55.DIR
+w 1440 395 100 0 n#54 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#50.VAL 2368 1024 2448 1024 2448 384 480 384 480 1184 640 1184 eapply.apply877.INPF
+w 1432 411 100 0 n#53 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#50.MESS 2368 944 2416 944 2416 400 496 400 496 1152 640 1152 eapply.apply877.INMF
+w 1512 1163 100 0 n#52 eapply.apply877.OCLF 1024 1152 2048 1152 2048 944 2144 944 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#50.ICID
+w 1528 1195 100 0 n#51 eapply.apply877.OUTF 1024 1184 2080 1184 2080 1024 2144 1024 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#50.DIR
+w 1232 427 100 0 n#49 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#43.VAL 1920 944 2000 944 2000 416 512 416 512 1120 640 1120 eapply.apply877.INPG
+w 1224 443 100 0 n#48 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#43.MESS 1920 864 1968 864 1968 432 528 432 528 1088 640 1088 eapply.apply877.INMG
+w 1312 1099 100 0 n#45 eapply.apply877.OCLG 1024 1088 1648 1088 1648 864 1696 864 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#43.ICID
+w 1032 475 100 0 n#42 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#37.MESS 1504 864 1552 864 1552 464 560 464 560 1024 640 1024 eapply.apply877.INMH
+w 1040 459 100 0 n#41 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#37.VAL 1504 944 1584 944 1584 448 544 448 544 1056 640 1056 eapply.apply877.INPH
+w 1072 1035 100 0 n#39 eapply.apply877.OCLH 1024 1024 1168 1024 1168 864 1280 864 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#37.ICID
+w 1096 1067 100 0 n#38 eapply.apply877.OUTH 1024 1056 1216 1056 1216 944 1280 944 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#37.DIR
+w 374 1570 100 0 n#1 inhier.ICID.P 80 1472 144 1472 144 1568 640 1568 eapply.apply877.CLID
+w 342 1602 100 0 n#2 inhier.DIR.P 80 1600 640 1600 eapply.apply877.DIR
+w 1934 1570 100 0 n#3 eapply.apply877.MESS 1024 1568 2880 1568 2880 1472 3040 1472 outhier.MESS.p
+w 2014 1602 100 0 n#4 eapply.apply877.VAL 1024 1600 3040 1600 outhier.VAL.p
+w 1034 1450 100 0 n#5 eapply.apply877.OUTB 1024 1440 1648 1440 1648 2008 1752 2008 tcsCad4.tcsCad4#125.DIR
+w 1034 1418 100 0 n#6 eapply.apply877.OCLB 1024 1408 1680 1408 1680 1928 1752 1928 tcsCad4.tcsCad4#125.ICID
+w 1986 2018 100 0 n#7 tcsCad4.tcsCad4#125.VAL 1976 2008 2000 2008 2000 2224 496 2224 496 1440 640 1440 eapply.apply877.INPB
+w 1986 1938 100 0 n#8 tcsCad4.tcsCad4#125.MESS 1976 1928 2032 1928 2032 2256 480 2256 480 1408 640 1408 eapply.apply877.INMB
+w 1034 1386 100 0 n#9 eapply.apply877.OUTC 1024 1376 2096 1376 2096 2032 2160 2032 tcsCad4.tcsCad4#126.DIR
+w 1034 1354 100 0 n#10 eapply.apply877.OCLC 1024 1344 2128 1344 2128 1952 2160 1952 tcsCad4.tcsCad4#126.ICID
+w 2394 2026 100 0 n#11 tcsCad4.tcsCad4#126.VAL 2384 2032 2424 2032 2424 2272 464 2272 464 1376 640 1376 eapply.apply877.INPC
+w 2394 1946 100 0 n#12 tcsCad4.tcsCad4#126.MESS 2384 1952 2440 1952 2440 2288 448 2288 448 1344 640 1344 eapply.apply877.INMC
+w 1034 1322 100 0 n#13 eapply.apply877.OUTD 1024 1312 2488 1312 2488 2032 2544 2032 tcsCad4.tcsCad4#128.DIR
+w 1034 1290 100 0 n#14 eapply.apply877.OCLD 1024 1280 2512 1280 2512 1952 2544 1952 tcsCad4.tcsCad4#128.ICID
+w 2778 2042 100 0 n#15 tcsCad4.tcsCad4#128.VAL 2768 2032 2800 2032 2800 2304 432 2304 432 1312 640 1312 eapply.apply877.INPD
+w 2778 1962 100 0 n#16 tcsCad4.tcsCad4#128.MESS 2768 1952 2816 1952 2816 2320 416 2320 416 1280 640 1280 eapply.apply877.INMD
+w 1026 1514 100 0 n#17 eapply.apply877.OUTA 1016 1504 1144 1504 1144 2016 1272 2016 tcsCad4.tcsCad4#135.DIR
+w 1026 1482 100 0 n#18 eapply.apply877.OCLA 1016 1472 1200 1472 1200 1936 1280 1936 tcsCad4.tcsCad4#135.ICID
+w 1506 1946 100 0 n#19 tcsCad4.tcsCad4#135.MESS 1496 1936 1568 1936 1568 2200 512 2200 512 1472 640 1472 eapply.apply877.INMA
+w 1514 2026 100 0 n#20 tcsCad4.tcsCad4#135.VAL 1504 2016 1536 2016 1536 2176 536 2176 536 1504 640 1504 eapply.apply877.INPA
+w 1034 1130 100 0 n#23 eapply.apply877.OUTG 1024 1120 1672 1120 1672 944 1696 944 tcsCadGsaoiOdgwPark.tcsCadGsaoiOdgwPark#43.DIR
+s 2752 224 100 0 TCS commands
+s 2848 264 200 0 Gemini TCS
+s 2560 2432 100 0 $Id: tcsGSAOICommands2.sch,v 1.2 2013/07/22 16:24:31 cjm Exp $
+[cell use]
+use tcsCadGsaoiOdgwPark 2480 679 100 0 tcsCadGsaoiOdgwPark#55
+xform 0 2688 960
+p 2557 680 100 0 -1 seta:snam tcsCADodgwPark
+p 2559 645 100 0 -1 setb:odgw odgw4
+use tcsCadGsaoiOdgwPark 2064 599 100 0 tcsCadGsaoiOdgwPark#50
+xform 0 2272 880
+p 2141 600 100 0 -1 seta:snam tcsCADodgwPark
+p 2143 565 100 0 -1 setb:odgw odgw3
+use tcsCadGsaoiOdgwPark 1616 519 100 0 tcsCadGsaoiOdgwPark#43
+xform 0 1824 800
+p 1693 520 100 0 -1 seta:snam tcsCADodgwPark
+p 1695 485 100 0 -1 setb:odgw odgw2
+use tcsCadGsaoiOdgwPark 1200 519 100 0 tcsCadGsaoiOdgwPark#37
+xform 0 1408 800
+p 1277 520 100 0 -1 seta:snam tcsCADodgwPark
+p 1279 485 100 0 -1 setb:odgw odgw1
+use bc200tr -48 -8 -100 0 frame
+xform 0 1632 1296
+use outhier 3032 1432 100 0 MESS
+xform 0 3024 1472
+use outhier 3032 1560 100 0 VAL
+xform 0 3024 1600
+use eapply 664 968 100 0 apply877
+xform 0 832 1328
+p 780 1012 100 0 0 DESC:First apply for TCS commands
+use inhier 88 1432 100 0 ICID
+xform 0 80 1472
+use inhier 88 1560 100 0 DIR
+xform 0 80 1600
+use tcsCad4 1752 1608 100 0 tcsCad4#125
+xform 0 1864 1864
+p 1852 1508 100 0 0 set0:ftva LONG
+p 1749 1584 100 0 -1 seta:snam tcsCADodgwDatum
+p 1751 1549 100 0 -1 setb:cad odgw2Datum
+use tcsCad4 2160 1632 100 0 tcsCad4#126
+xform 0 2272 1888
+p 2260 1532 100 0 0 set0:ftva LONG
+p 2157 1608 100 0 -1 seta:snam tcsCADodgwDatum
+p 2159 1573 100 0 -1 setb:cad odgw3Datum
+use tcsCad4 2544 1632 100 0 tcsCad4#128
+xform 0 2656 1888
+p 2644 1532 100 0 0 set0:ftva LONG
+p 2541 1608 100 0 -1 seta:snam tcsCADodgwDatum
+p 2543 1573 100 0 -1 setb:cad odgw4Datum
+use tcsCad4 1280 1616 100 0 tcsCad4#135
+xform 0 1392 1872
+p 1380 1516 100 0 0 set0:ftva LONG
+p 1277 1592 100 0 -1 seta:snam tcsCADodgwDatum
+p 1279 1557 100 0 -1 setb:cad odgw1Datum
+[comments]

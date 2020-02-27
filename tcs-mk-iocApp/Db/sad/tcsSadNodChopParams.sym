@@ -1,0 +1,11 @@
+[symbol2]
+bbox 224 448 608 672
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 368 544 Parameters
+l 100 0 0 368 576 Nod / Chop
+r 0 224 448 608 672
+[comments]

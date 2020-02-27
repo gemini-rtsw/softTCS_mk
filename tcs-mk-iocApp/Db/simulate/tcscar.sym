@@ -1,0 +1,42 @@
+[symbol2]
+bbox 160 704 576 896
+port 272 736 100 1792 ICID symbol 1 160 736 0
+port 240 864 100 0 CLEAR symbol 1 160 864 0
+port 272 768 100 1792 START symbol 1 160 768 0
+port 272 832 100 1792 ISTA symbol 1 160 832 0
+port 272 800 100 1792 IMSS symbol 1 160 800 0
+port 464 864 100 1792 FLNK symbol 2 576 864 0
+port 464 832 100 1792 VAL symbol 2 576 832 0
+port 464 800 100 1792 OMSS symbol 2 576 800 0
+uniq 4
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 848 tcscar
+r 0 224 896 512 704
+v 0 160 736
+224 736
+_
+v 0 160 768
+224 768
+_
+v 0 160 864
+224 864
+_
+v 0 160 832
+224 832
+_
+v 0 160 800
+224 800
+_
+v 0 512 864
+576 864
+_
+v 0 512 832
+576 832
+_
+v 0 512 800
+576 800
+_
+[comments]

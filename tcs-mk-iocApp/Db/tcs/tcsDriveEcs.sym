@@ -1,0 +1,25 @@
+[symbol2]
+bbox 192 160 768 640
+port 304 256 100 1792 SLNK symbol 1 192 256 0
+port 320 320 100 1792 ELLIMIT symbol 1 192 320 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+a 0 512 384 768 384 180
+l 200 0 0 416 256 Drive ECS
+r 0 256 384 768 160
+v 0 192 256
+256 256
+_
+v 0 608 624
+608 384
+_
+v 0 416 624
+416 384
+_
+v 0 192 320
+256 320
+_
+[comments]

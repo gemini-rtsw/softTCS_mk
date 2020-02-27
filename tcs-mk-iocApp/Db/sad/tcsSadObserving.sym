@@ -1,0 +1,11 @@
+[symbol2]
+bbox 256 480 704 736
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 384 624 by Observe/endObserve
+l 100 0 0 368 672 SAD Parameters triggered
+r 0 256 736 704 480
+[comments]

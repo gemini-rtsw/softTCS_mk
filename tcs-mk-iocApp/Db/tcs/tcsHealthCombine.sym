@@ -1,0 +1,18 @@
+[symbol2]
+bbox 80 928 256 1248
+port -16 944 100 0 wsHealth symbol 1 80 944 0
+port -16 976 100 0 agHealth symbol 1 80 976 0
+port -16 1008 100 0 aoHealth symbol 1 80 1008 0
+port -16 1040 100 0 ecHealth symbol 1 80 1040 0
+port -16 1072 100 0 crHealth symbol 1 80 1072 0
+port -16 1120 100 0 m1Health symbol 1 80 1120 0
+port -16 1152 100 0 m2Health symbol 1 80 1152 0
+port -16 1184 100 0 mcHealth symbol 1 80 1184 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 60 0 0 96 1088 Combine Health Status
+r 0 80 1238 244 928
+[comments]

@@ -1,0 +1,13 @@
+[symbol2]
+bbox 320 816 560 960
+port 544 870 100 0 VAL symbol 2 544 864 0
+port 544 918 100 0 FLNK symbol 2 544 912 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 80 0 0 368 896 GPOL platePark
+l 100 0 0 416 864 CAD
+r 0 323 947 546 821
+[comments]

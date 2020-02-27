@@ -1,0 +1,42 @@
+[symbol2]
+bbox 224 256 672 896
+port 560 416 100 1792 OPTCE symbol 2 672 416 0
+port 560 480 100 1792 OPTCA symbol 2 672 480 0
+port 576 544 100 1792 FL symbol 2 672 544 0
+port 544 608 100 1792 YTILTCORR symbol 2 672 608 0
+port 544 672 100 1792 XTILTCORR symbol 2 672 672 0
+port 560 736 100 1792 ZCORR symbol 2 672 736 0
+port 560 864 100 1792 XCORR symbol 2 672 864 0
+port 560 800 100 1792 YCORR symbol 2 672 800 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 304 832 TCS Optics Control
+r 0 224 896 608 256
+v 0 608 416
+672 416
+_
+v 0 608 480
+672 480
+_
+v 0 608 544
+672 544
+_
+v 0 608 608
+672 608
+_
+v 0 608 672
+672 672
+_
+v 0 608 736
+672 736
+_
+v 0 608 864
+672 864
+_
+v 0 608 800
+672 800
+_
+[comments]

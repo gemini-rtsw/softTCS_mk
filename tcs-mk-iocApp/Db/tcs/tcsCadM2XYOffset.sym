@@ -1,0 +1,19 @@
+[symbol2]
+bbox 80 416 320 928
+port 96 816 100 0 DIR symbol 1 80 816 0
+port 96 736 100 0 ICID symbol 1 80 736 0
+port 256 816 100 0 VAL symbol 2 304 816 0
+port 240 720 100 0 MESS symbol 2 304 736 0
+uniq 1
+[tools]
+[attributes]
+p 180 316 100 0 0 set0:ftva STRING
+p 200 296 100 0 0 set1:ftvb STRING
+p 220 276 100 0 0 set2:ftvc STRING
+p 240 256 100 0 0 set3:ftvd STRING
+[layers]
+<symbol>
+l 200 0 0 160 544 CAD
+l 180 0 0 96 608 m2XYOffset
+r 0 80 928 304 416
+[comments]

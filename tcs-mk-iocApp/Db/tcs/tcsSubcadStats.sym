@@ -1,0 +1,19 @@
+[symbol2]
+bbox 96 928 240 1200
+port 0 1184 100 0 mcSubcad symbol 1 96 1184 0
+port 0 1152 100 0 m2Subcad symbol 1 96 1152 0
+port 0 1120 100 0 m1Subcad symbol 1 96 1120 0
+port 0 1072 100 0 crSubcad symbol 1 96 1072 0
+port 0 1040 100 0 ecSubcad symbol 1 96 1040 0
+port 0 1008 100 0 aoSubcad symbol 1 96 1008 0
+port 0 976 100 0 agSubcad symbol 1 96 976 0
+port 16 944 100 0 c#65 symbol 1 96 944 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 60 0 0 112 1072 TCS Subsystem CAD
+l 80 0 0 144 1056 Status
+r 0 96 1200 240 928
+[comments]

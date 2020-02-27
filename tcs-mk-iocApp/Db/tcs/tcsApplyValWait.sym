@@ -1,0 +1,13 @@
+[symbol2]
+bbox 288 640 496 880
+port 488 680 100 0 MLNK symbol 2 496 720 0
+port 488 776 100 0 VAL symbol 2 496 816 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 784 apply CAD
+l 100 0 0 352 752 Status
+r 0 288 880 496 640
+[comments]

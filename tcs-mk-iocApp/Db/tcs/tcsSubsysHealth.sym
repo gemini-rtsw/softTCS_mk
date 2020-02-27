@@ -1,0 +1,27 @@
+[symbol2]
+bbox -288 -320 64 -96
+port -64 -128 100 0 HLTH symbol 2 64 -128 0
+port -64 -192 100 0 MESS symbol 2 64 -192 0
+port -64 -288 100 0 FLNK symbol 2 64 -288 0
+port -208 -288 100 0 SLNK symbol 1 -288 -288 0
+uniq 3
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -144 -224 Subsys
+l 100 0 0 -144 -256 Health
+r 0 -224 -320 0 -96
+v 0 0 -128
+64 -128
+_
+v 0 0 -192
+64 -192
+_
+v 0 0 -288
+64 -288
+_
+v 0 -288 -288
+-224 -288
+_
+[comments]

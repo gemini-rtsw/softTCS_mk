@@ -1,0 +1,14 @@
+[symbol2]
+bbox 560 560 720 768
+port 736 592 100 0 VAL symbol 2 720 592 0
+port 736 704 100 0 FLNK symbol 2 720 704 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 592 656 Mechanisms
+l 130 0 0 608 608 PARK
+l 110 0 0 624 688 AOM
+r 0 560 768 720 560
+[comments]

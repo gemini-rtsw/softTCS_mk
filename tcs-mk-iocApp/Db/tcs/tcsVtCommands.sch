@@ -1,0 +1,55 @@
+[schematic2]
+uniq 67
+[tools]
+[detail]
+w 1744 2402 100 0 n#48 tcsCadWavel.tcsCadWavel#66.MESS 3104 1744 3184 1744 3184 2400 352 2400 352 1808 592 1808 eapply.eapply#65.INMD
+w 1736 2388 100 0 n#47 eapply.eapply#65.INPD 592 1840 368 1840 368 2384 3152 2384 3152 1824 3104 1824 tcsCadWavel.tcsCadWavel#66.VAL
+w 2032 1188 100 0 n#46 eapply.eapply#65.OCLD 976 1808 1264 1808 1264 1184 2848 1184 2848 1744 2880 1744 tcsCadWavel.tcsCadWavel#66.ICID
+w 2024 1204 100 0 n#45 eapply.eapply#65.OUTD 976 1840 1296 1840 1296 1200 2800 1200 2800 1824 2880 1824 tcsCadWavel.tcsCadWavel#66.DIR
+w 1560 2354 100 0 n#28 tcsCadTrack.tcsCadTrack#37.MESS 2672 1744 2672 1760 2768 1760 2768 2352 400 2352 400 1872 592 1872 eapply.eapply#65.INMC
+w 1560 2322 100 0 n#27 tcsCadTrack.tcsCadTrack#37.VAL 2672 1824 2736 1824 2736 2320 432 2320 432 1904 592 1904 eapply.eapply#65.INPC
+w 1360 2290 100 0 n#26 tcsCadDifTrack.tcsCadDifTrack#64.MESS 2208 1744 2304 1744 2304 2288 464 2288 464 1936 592 1936 eapply.eapply#65.INMB
+w 1352 2274 100 0 n#25 tcsCadDifTrack.tcsCadDifTrack#64.VAL 2208 1824 2256 1824 2256 2272 496 2272 496 1968 592 1968 eapply.eapply#65.INPB
+w 1160 2242 100 0 n#24 tcsCadTarget.tcsCadTarget#63.MESS 1760 1728 1840 1728 1840 2240 528 2240 528 2000 592 2000 eapply.eapply#65.INMA
+w 1160 2210 100 0 n#23 tcsCadTarget.tcsCadTarget#63.VAL 1760 1808 1808 1808 1808 2208 560 2208 560 2032 592 2032 eapply.eapply#65.INPA
+w 1832 1220 100 0 n#16 eapply.eapply#65.OCLC 976 1872 1328 1872 1328 1216 2384 1216 2384 1744 2448 1744 tcsCadTrack.tcsCadTrack#37.ICID
+w 1832 1268 100 0 n#15 eapply.eapply#65.OUTC 976 1904 1360 1904 1360 1264 2352 1264 2352 1824 2448 1824 tcsCadTrack.tcsCadTrack#37.DIR
+w 1396 1640 100 0 n#14 eapply.eapply#65.OCLB 976 1936 1392 1936 1392 1296 1936 1296 1936 1744 1984 1744 tcsCadDifTrack.tcsCadDifTrack#64.ICID
+w 1428 1672 100 0 n#13 eapply.eapply#65.OUTB 976 1968 1424 1968 1424 1328 1888 1328 1888 1824 1984 1824 tcsCadDifTrack.tcsCadDifTrack#64.DIR
+w 1192 2004 100 0 n#12 eapply.eapply#65.OCLA 976 2000 1456 2000 1456 1728 1536 1728 tcsCadTarget.tcsCadTarget#63.ICID
+w 1208 2036 100 0 n#11 eapply.eapply#65.OUTA 976 2032 1488 2032 1488 1808 1536 1808 tcsCadTarget.tcsCadTarget#63.DIR
+w 366 2098 100 0 n#4 inhier.ICID.P 112 2000 176 2000 176 2096 592 2096 eapply.eapply#65.CLID
+w 334 2130 100 0 n#3 inhier.DIR.P 112 2128 592 2128 eapply.eapply#65.DIR
+w 1926 2100 100 0 n#2 eapply.eapply#65.MESS 976 2096 2912 2096 2912 2000 3072 2000 outhier.MESS.p
+w 2006 2132 100 0 n#1 eapply.eapply#65.VAL 976 2128 3072 2128 outhier.VAL.p
+s 2752 224 100 0 TCS VT Commands
+s 2848 264 200 0 Gemini TCS
+s 2608 2432 100 0 tcsVtCommands.sch
+[cell use]
+use tcsCadWavel 2880 1399 100 0 tcsCadWavel#66
+xform 0 2992 1680
+p 2896 1568 100 0 -1 seta:cad wavel$(tag)
+use eapply 592 1495 100 0 eapply#65
+xform 0 784 1856
+p 688 1840 100 0 0 DESC:Apply for VT Commands
+p 704 1488 100 1024 1 name:$(top)$(apply)
+use tcsCadDifTrack 1984 1399 100 0 tcsCadDifTrack#64
+xform 0 2096 1680
+p 2016 1568 100 0 -1 seta:cad difTr$(tag)
+use tcsCadTarget 1536 1383 100 0 tcsCadTarget#63
+xform 0 1648 1664
+p 1568 1552 100 0 -1 seta:cad $(vt)
+use tcsCadTrack 2472 1400 100 0 tcsCadTrack#37
+xform 0 2560 1680
+p 2464 1568 100 0 -1 seta:cad track$(tag)
+use bc200tr -48 -8 -100 0 frame
+xform 0 1632 1296
+use outhier 3064 2088 100 0 VAL
+xform 0 3056 2128
+use outhier 3064 1960 100 0 MESS
+xform 0 3056 2000
+use inhier 120 2088 100 0 DIR
+xform 0 112 2128
+use inhier 120 1960 100 0 ICID
+xform 0 112 2000
+[comments]

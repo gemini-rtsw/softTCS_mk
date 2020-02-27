@@ -1,0 +1,22 @@
+[symbol2]
+bbox -256 -160 128 192
+port 0 112 100 0 CAR symbol 2 128 128 0
+port 0 -144 100 0 FLNK symbol 2 128 -128 0
+port -32 48 100 0 MEASURE symbol 2 128 64 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -160 -32 WFS commands
+r 0 -256 -160 64 192
+v 0 64 128
+128 128
+_
+v 0 64 -128
+128 -128
+_
+v 0 64 64
+128 64
+_
+[comments]

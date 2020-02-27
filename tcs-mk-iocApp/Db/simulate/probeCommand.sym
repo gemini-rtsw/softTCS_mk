@@ -1,0 +1,18 @@
+[symbol2]
+bbox 320 816 560 960
+port 288 864 100 0 PROBE symbol 1 320 896 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 384 864 Command
+l 120 0 0 384 896 Probe
+r 0 323 947 546 821
+v 0 331 884
+331 884
+_
+v 0 331 916
+331 916
+_
+[comments]

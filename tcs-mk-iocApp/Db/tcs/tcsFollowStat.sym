@@ -1,0 +1,19 @@
+[symbol2]
+bbox 256 640 544 880
+port 464 848 100 0 VAL symbol 2 544 832 0
+port 304 688 100 0 DISV symbol 1 256 672 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 304 768 Subsystem Follow
+l 100 0 0 368 736 Status
+r 0 288 880 496 640
+v 0 496 832
+544 832
+_
+v 0 256 672
+288 672
+_
+[comments]

@@ -1,0 +1,11 @@
+[symbol2]
+bbox 352 432 624 768
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 120 0 0 400 608 Data Handling
+l 120 0 0 400 640 AO Continuous
+r 0 352 768 624 432
+[comments]

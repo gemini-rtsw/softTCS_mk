@@ -1,0 +1,31 @@
+[symbol2]
+bbox 224 288 880 672
+port 768 640 100 1792 FLNK symbol 2 880 640 0
+port 768 576 100 1792 LTIME symbol 2 880 576 0
+port 768 512 100 1792 UTCtime symbol 2 880 512 0
+port 768 448 100 1792 DATE symbol 2 880 448 0
+port 768 384 100 1792 LAST symbol 2 880 384 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 432 464 tcsDisplayTime
+l 100 0 0 288 592 Contains records for dates and times
+r 0 224 672 816 288
+v 0 816 640
+880 640
+_
+v 0 816 576
+880 576
+_
+v 0 816 512
+880 512
+_
+v 0 816 448
+880 448
+_
+v 0 816 384
+880 384
+_
+[comments]

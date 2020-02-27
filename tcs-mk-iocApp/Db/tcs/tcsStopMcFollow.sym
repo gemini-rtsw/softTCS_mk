@@ -1,0 +1,23 @@
+[symbol2]
+bbox -304 0 32 224
+port -304 70 100 0 Slnk symbol 1 -304 64 0
+port -304 198 100 0 Action symbol 1 -304 192 0
+port -112 192 100 0 Flnk symbol 2 32 192 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -176 80 Parameters
+l 100 0 0 -192 128 Default stop 
+r 0 -224 0 -32 224
+v 0 -304 64
+-224 64
+_
+v 0 -304 192
+-224 192
+_
+v 0 -32 192
+32 192
+_
+[comments]

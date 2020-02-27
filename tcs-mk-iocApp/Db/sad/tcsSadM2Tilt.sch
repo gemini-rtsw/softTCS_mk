@@ -1,0 +1,70 @@
+[schematic2]
+uniq 10
+[tools]
+[detail]
+w 2990 2290 100 0 n#9 esirs.ModelCorr.FLNK 4096 2672 4224 2672 4224 2288 1792 2288 1792 1888 1920 1888 esirs.Demand.SLNK
+w 2446 2050 100 0 n#8 esirs.Demand.FLNK 2336 2048 2592 2048 outhier.FLNK.p
+w 1734 2514 100 0 n#5 inhier.SLNK.P 1584 2512 1920 2512 esirs.Nominal.SLNK
+w 3478 2514 100 0 n#4 esirs.TempCorr.FLNK 3184 2672 3312 2672 3312 2512 3680 2512 esirs.ModelCorr.SLNK
+w 2590 2514 100 0 n#3 esirs.Nominal.FLNK 2336 2672 2448 2672 2448 2512 2768 2512 esirs.TempCorr.SLNK
+s 4032 3088 100 0 tcsSadM2Axis.sch
+s 4176 832 100 0 TCS M2 Records for each axis
+s 4160 896 100 0 Gemini Telescope Control System
+[cell use]
+use esirs 1944 1800 100 0 Demand
+xform 0 2128 1952
+p 2048 2126 100 0 -1 DESC:Total axis demand
+p 1984 1694 100 0 1 EGU:$(units)
+p 1871 1280 100 0 0 HIGH:3000.0
+p 1871 1344 100 0 0 HIHI:3600.0
+p 1871 1312 100 0 0 LOLO:-3600.0
+p 1871 1248 100 0 0 LOW:-3000.0
+p 1871 1440 100 0 0 PREC:14
+p 1984 1742 100 0 1 PV:$(sad)m2$(axis)
+p 2064 1886 100 0 -1 SNAM:sirRArcsecs
+p 1648 2046 100 0 -1 def(INP):$(rec1)$(field4)
+use esirs 3704 2424 100 0 ModelCorr
+xform 0 3888 2576
+p 3776 2734 100 0 -1 DESC:Axis Model correction
+p 3744 2334 100 0 1 EGU:$(units)
+p 3631 1904 100 0 0 HIGH:3000.0
+p 3631 1968 100 0 0 HIHI:3600.0
+p 3631 1936 100 0 0 LOLO:-3600.0
+p 3631 1872 100 0 0 LOW:-3000.0
+p 3631 2064 100 0 0 PREC:14
+p 3744 2366 100 0 1 PV:$(sad)m2$(axis)
+p 3824 2510 100 0 -1 SNAM:sirRArcsecs
+p 3392 2670 100 0 -1 def(INP):$(rec1)$(field3)
+use esirs 2792 2424 100 0 TempCorr
+xform 0 2976 2576
+p 2832 2734 100 0 -1 DESC:Axis temperature correction
+p 2832 2318 100 0 1 EGU:$(units)
+p 2719 1904 100 0 0 HIGH:3000.0
+p 2719 1968 100 0 0 HIHI:3600.0
+p 2719 1936 100 0 0 LOLO:-3600.0
+p 2719 1872 100 0 0 LOW:-3000.0
+p 2719 2064 100 0 0 PREC:14
+p 2832 2366 100 0 1 PV:$(sad)m2$(axis)
+p 2912 2510 100 0 -1 SNAM:sirRArcsecs
+p 2496 2670 100 0 -1 def(INP):$(rec1)$(field2)
+use esirs 1944 2424 100 0 Nominal
+xform 0 2128 2576
+p 2016 2734 100 0 -1 DESC:Nominal axis position
+p 2000 2318 100 0 1 EGU:$(units)
+p 1871 1904 100 0 0 HIGH:3000.0
+p 1871 1968 100 0 0 HIHI:3600.0
+p 1856 1968 100 0 0 HYST:0.0
+p 1871 1936 100 0 0 LOLO:-3600.0
+p 1871 1872 100 0 0 LOW:-3000.0
+p 1856 1808 100 0 0 MDEL:0.1
+p 1871 2064 100 0 0 PREC:14
+p 2000 2366 100 0 1 PV:$(sad)m2$(axis)
+p 2064 2510 100 0 -1 SNAM:sirRArcsecs
+p 1632 2670 100 0 -1 def(INP):$(rec1)$(field1)
+use inhier 1592 2472 100 0 SLNK
+xform 0 1584 2512
+use outhier 2584 2008 100 0 FLNK
+xform 0 2576 2048
+use bc200tr 1328 616 -100 0 frame
+xform 0 3008 1920
+[comments]

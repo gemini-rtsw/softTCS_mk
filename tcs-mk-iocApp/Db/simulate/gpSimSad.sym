@@ -1,0 +1,12 @@
+[symbol2]
+bbox -96 -32 416 320
+uniq 90
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 160 0 0 64 160 Simulated
+l 180 0 0 112 224 GPOL
+l 140 0 0 0 96 Status Alarm Database
+r 0 -96 -32 416 320
+[comments]

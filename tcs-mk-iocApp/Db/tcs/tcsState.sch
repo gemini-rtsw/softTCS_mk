@@ -1,0 +1,144 @@
+[schematic2]
+uniq 675
+[tools]
+[detail]
+w -2574 114 100 0 n#674 ecalcs.calc1.FLNK -2656 176 -2624 176 -2624 112 -2464 112 elongouts.heartbeat.SLNK
+w -2862 386 100 0 n#672 ecalcs.calc1.VAL -2656 144 -2592 144 -2592 384 -3072 384 -3072 336 -2944 336 ecalcs.calc1.INPA
+w -2558 146 100 0 n#672 junction -2592 144 -2464 144 elongouts.heartbeat.DOL
+w -1998 1038 100 0 n#669 embbo.state.VAL -2064 1264 -2000 1264 -2000 752 -1712 752 esubs.updatestate.INPA
+w -1870 1430 100 0 n#669 junction -2000 1264 -1872 1264 -1872 1536 -1728 1536 ecalcs.calc.INPA
+w -1598 882 100 0 n#670 esubs.updatestate.FLNK -1424 592 -1296 592 -1296 880 -1840 880 -1840 1152 -1728 1152 ecalcs.calc.SLNK
+w -1982 942 100 0 n#668 embbo.state.FLNK -2064 1456 -1984 1456 -1984 368 -1712 368 esubs.updatestate.SLNK
+w -1350 1682 100 0 n#667 embbo.state.U2 -2064 1072 -1936 1072 -1936 1680 -704 1680 -704 1056 -624 1056 estringouts.run.DOL
+w -1350 1698 100 0 n#666 embbo.state.U1 -2064 1136 -1952 1136 -1952 1696 -688 1696 -688 1312 -624 1312 estringouts.init.DOL
+w -1350 1714 100 0 n#665 embbo.state.U0 -2064 1200 -1968 1200 -1968 1712 -672 1712 -672 1568 -624 1568 estringouts.boot.DOL
+w -1286 1410 100 0 n#664 ecalcs.calc.VAL -1440 1344 -1376 1344 -1376 1408 -1136 1408 efanouts.fanout.SELL
+w -1286 1330 100 0 n#663 ecalcs.calc.FLNK -1440 1376 -1328 1376 -1328 1328 -1184 1328 efanouts.fanout.SLNK
+w -798 1214 100 0 n#662 efanouts.fanout.LNK3 -944 1344 -800 1344 -800 1024 -624 1024 estringouts.run.SLNK
+w -886 1378 100 0 n#661 efanouts.fanout.LNK2 -944 1376 -768 1376 -768 1280 -624 1280 estringouts.init.SLNK
+w -886 1410 100 0 n#660 efanouts.fanout.LNK1 -944 1408 -768 1408 -768 1536 -624 1536 estringouts.boot.SLNK
+s -496 -176 100 0 Gemini Telescope Control System
+s -2336 1856 300 0 Maintain "state" and "heartbeat" records
+s -3184 2032 100 0 The record "state" is updated by the initialisation
+s -3184 1984 100 0 sequence. This schematic ensures that the data is
+s -3184 1936 100 0 also stored internally in the TCS and output to the
+s -3184 1888 100 0 SAD.
+s -736 2080 100 0 $Id: tcsState.sch,v 1.3 2001/05/21 15:44:47 cjm Exp $
+[cell use]
+use elongouts -2440 24 100 0 heartbeat
+xform 0 -2336 112
+p -2432 222 100 0 -1 DESC:Incrementing heartbeat
+p -2624 30 100 0 0 OMSL:closed_loop
+p -2096 78 100 0 -1 def(OUT):$(sad)heartbeat
+p -2352 -32 100 1024 1 name:$(tcs)$(I)
+p -2208 80 75 768 -1 pproc(OUT):PP
+use ecalcs -1704 1064 100 0 calc
+xform 0 -1584 1328
+p -1616 1278 100 0 1 CALC:A+1
+p -1680 1598 100 0 -1 DESC:Increment state value
+use ecalcs -2920 -136 100 0 calc1
+xform 0 -2800 128
+p -2848 62 100 0 1 CALC:A+1
+p -2928 446 100 0 -1 DESC:Increment counter
+p -2848 30 100 0 1 SCAN:1 second
+use estringouts -600 1464 100 0 boot
+xform 0 -496 1536
+p -576 1630 100 0 -1 DESC:Outputs 'Booting'
+p -688 1342 100 0 0 OMSL:closed_loop
+p -688 1502 100 0 0 VAL:BOOTING
+p -272 1518 100 0 -1 def(OUT):$(sad)state
+p -368 1520 75 768 -1 pproc(OUT):PP
+use estringouts -600 1208 100 0 init
+xform 0 -496 1280
+p -576 1374 100 0 -1 DESC:Outputs 'Initialising'
+p -688 1086 100 0 0 OMSL:closed_loop
+p -688 1246 100 0 0 VAL:INITIALISING
+p -272 1262 100 0 -1 def(OUT):$(sad)state
+p -368 1264 75 768 -1 pproc(OUT):PP
+use estringouts -600 952 100 0 run
+xform 0 -496 1024
+p -576 1118 100 0 -1 DESC:Outputs 'Running'
+p -688 830 100 0 0 OMSL:closed_loop
+p -688 990 100 0 0 VAL:RUNNING
+p -272 1006 100 0 -1 def(OUT):$(sad)state
+p -368 1008 75 768 -1 pproc(OUT):PP
+use efanouts -1160 1192 100 0 fanout
+xform 0 -1064 1344
+p -1072 1502 100 0 -1 DESC:Select string output
+p -1120 1134 100 0 1 SELM:Specified
+use embbo -3064 824 100 0 state
+xform 0 -2576 1248
+p -2960 1038 100 0 0 COSV:NO_ALARM
+p -2768 1547 100 0 1 DESC:State of TCS application
+p -2960 1102 100 0 0 DISS:NO_ALARM
+p -2544 1166 100 0 0 EIST:
+p -2352 1166 100 0 0 EISV:NO_ALARM
+p -2736 1166 100 0 0 EIVL:0
+p -2544 1070 100 0 0 ELST:
+p -2352 1070 100 0 0 ELSV:NO_ALARM
+p -2736 1070 100 0 0 ELVL:0
+p -2960 1358 100 0 0 EVNT:0
+p -2544 942 100 0 0 FFST:
+p -2352 942 100 0 0 FFSV:NO_ALARM
+p -2736 942 100 0 0 FFVL:0
+p -2544 1294 100 0 0 FRST:
+p -2352 1294 100 0 0 FRSV:NO_ALARM
+p -2736 1294 100 0 0 FRVL:0
+p -2544 974 100 0 0 FTST:
+p -2352 974 100 0 0 FTSV:NO_ALARM
+p -2736 974 100 0 0 FTVL:0
+p -2544 1262 100 0 0 FVST:
+p -2352 1262 100 0 0 FVSV:NO_ALARM
+p -2736 1262 100 0 0 FVVL:0
+p -2544 910 100 0 0 IVOA:Continue normally
+p -2544 878 100 0 0 IVOV:0
+p -2544 1134 100 0 0 NIST:
+p -2736 1134 100 0 0 NIVL:0
+p -2960 1326 100 0 0 NOBT:0
+p -2544 1390 100 0 1 ONST:INITIALISING
+p -2352 1390 100 0 0 ONSV:NO_ALARM
+p -2736 1390 100 0 1 ONVL:1
+p -2960 1390 100 0 0 PHAS:0
+p -2960 1294 100 0 0 PINI:NO
+p -2960 1230 100 0 0 PRIO:LOW
+p -2960 1422 100 0 1 SCAN:Passive
+p -2960 878 100 0 0 SIML:0.000000000000000e+00
+p -2960 1166 100 0 0 SIMS:NO_ALARM
+p -2960 910 100 0 0 SIOL:0.000000000000000e+00
+p -2544 1198 100 0 0 SVST:
+p -2960 1006 100 0 0 SVSV:NO_ALARM
+p -2736 1198 100 0 0 SVVL:0
+p -2544 1230 100 0 0 SXST:
+p -2352 1230 100 0 0 SXSV:NO_ALARM
+p -2736 1230 100 0 0 SXVL:0
+p -2544 1102 100 0 0 TEST:
+p -2352 1102 100 0 0 TESV:NO_ALARM
+p -2736 1102 100 0 0 TEVL:0
+p -2544 1326 100 0 0 THST:
+p -2352 1326 100 0 0 THSV:NO_ALARM
+p -2736 1326 100 0 0 THVL:0
+p -2544 1006 100 0 0 TTST:
+p -2352 1006 100 0 0 TTSV:NO_ALARM
+p -2736 1006 100 0 0 TTVL:0
+p -2544 1038 100 0 0 TVST:
+p -2352 1038 100 0 0 TVSV:NO_ALARM
+p -2736 1038 100 0 0 TVVL:0
+p -2544 1358 100 0 1 TWST:RUNNING
+p -2352 1358 100 0 0 TWSV:NO_ALARM
+p -2736 1358 100 0 1 TWVL:2
+p -2960 1070 100 0 0 UNSV:NO_ALARM
+p -2544 1422 100 0 1 ZRST:BOOTING
+p -2352 1422 100 0 0 ZRSV:NO_ALARM
+p -2736 1422 100 0 1 ZRVL:0
+p -2720 800 100 1024 1 name:$(tcs)$(I)
+p -2064 1328 75 768 -1 pproc(OUT):PP
+p -2096 1200 100 1024 -1 username(U0):ZRST
+p -2096 1136 100 1024 -1 username(U1):ONST
+p -2096 1072 100 1024 -1 username(U2):TWST
+use esubs -1688 280 100 0 updatestate
+xform 0 -1568 544
+p -2000 398 100 0 0 INAM:tcsNullInit
+p -1632 446 100 0 -1 SNAM:tcsUpdateState
+use bc200tr -3312 -392 -100 0 frame
+xform 0 -1632 912
+[comments]

@@ -1,0 +1,378 @@
+[schematic2]
+uniq 117
+[tools]
+[detail]
+w 2058 619 100 0 n#115 egenSub.m2Z.FLNK 2912 832 3024 832 3024 608 1152 608 1152 448 1216 448 tcsOpticsM2Z.tcsOpticsM2Z#113.SLNK
+w 2530 635 100 0 n#111 egenSub.m2Z.OUTJ 2912 960 3056 960 3056 624 2064 624 2064 160 2144 160 elongouts.m2ZTempEnabled.SLNK
+w 2450 779 100 0 n#109 tcsOpticsM2Thermal.tcsOpticsM2Thermal#108.TEMP 2432 768 2528 768 2528 1088 2624 1088 egenSub.m2Z.INPH
+w 2200 1707 100 0 n#66 junction 2464 1696 1984 1696 1984 768 2048 768 tcsOpticsM2Thermal.tcsOpticsM2Thermal#108.REFTEMP
+w 2466 1656 100 0 n#66 eais.m2ZRefTemp.VAL 2368 1792 2464 1792 2464 1472 2624 1472 egenSub.m2Z.INPB
+w 1458 1899 100 0 n#107 eais.chopDutyCycle.FLNK 1632 2000 1696 2000 1696 1888 1280 1888 1280 1776 1376 1776 embbis.syncSource.SLNK
+w 1458 2091 100 0 n#104 estringins.chopping.FLNK 1632 2224 1696 2224 1696 2080 1280 2080 1280 1984 1376 1984 eais.chopDutyCycle.SLNK
+w 2400 939 100 0 n#99 eais.m2ZModelCoeff2.VAL 2352 928 2496 928 2496 1152 2624 1152 egenSub.m2Z.INPG
+w 824 178 100 0 n#97 eais.xTiltPos.FLNK 608 192 736 192 736 176 960 176 eais.yTiltPos.SLNK
+w 2466 1224 100 0 n#94 eais.m2RawZPos.VAL 2368 1120 2464 1120 2464 1280 2624 1280 egenSub.m2Z.INPE
+w 2312 594 100 0 n#92 egenSub.m2Z.OUTI 2912 1024 3088 1024 3088 592 1584 592 1584 160 1696 160 eaos.m2Magnification.SLNK
+w 2328 578 100 0 n#90 egenSub.m2Z.OUTH 2912 1088 3104 1088 3104 576 1600 576 1600 432 1696 432 eaos.m2Scale.SLNK
+w 2616 562 100 0 n#76 egenSub.m2Z.OUTG 2912 1152 3120 1152 3120 560 2160 560 2160 432 2288 432 eaos.m2ZErrorCorr.SLNK
+w 3138 904 100 0 n#74 egenSub.m2Z.OUTF 2912 1216 3136 1216 3136 544 2752 544 2752 416 2848 416 eaos.m2ZPos.SLNK
+w 3016 1314 100 0 n#72 egenSub.m2Z.VALE 2912 1312 3168 1312 outhier.FL.p
+w 3016 1442 100 0 n#70 egenSub.m2Z.VALC 2912 1440 3168 1440 outhier.ZCORR.p
+w 1936 843 100 0 n#68 egenSub.m2Tilt.FLNK 1456 832 2464 832 2464 864 2624 864 egenSub.m2Z.SLNK
+w 2498 1800 100 0 n#67 eais.m2ZNominal.VAL 2368 2016 2496 2016 2496 1536 2624 1536 egenSub.m2Z.INPA
+w 2504 1410 100 0 n#65 eais.m2ZThermalCoeff.VAL 2368 1568 2432 1568 2432 1408 2624 1408 egenSub.m2Z.INPC
+w 2472 1346 100 0 n#64 eais.m2ZModelCoeff1.VAL 2368 1344 2624 1344 egenSub.m2Z.INPD
+w 1026 952 100 0 n#54 tcsArcsec2rad.tcsArcsec2rad#88.VAL 816 704 1024 704 1024 1152 1168 1152 egenSub.m2Tilt.INPG
+w 504 706 100 0 n#53 eais.m2YTiltModelCoeff.VAL 480 704 576 704 tcsArcsec2rad.tcsArcsec2rad#88.INP
+w 504 738 100 0 n#52 eais.m2YTiltModelCoeff.FLNK 480 736 576 736 tcsArcsec2rad.tcsArcsec2rad#88.SLNK
+w 994 1096 100 0 n#50 tcsArcsec2rad.tcsArcsec2rad#87.VAL 816 928 992 928 992 1216 1168 1216 egenSub.m2Tilt.INPF
+w 504 930 100 0 n#49 eais.m2XTiltModelCoeff.VAL 480 928 576 928 tcsArcsec2rad.tcsArcsec2rad#87.INP
+w 504 962 100 0 n#48 eais.m2XTiltModelCoeff.FLNK 480 960 576 960 tcsArcsec2rad.tcsArcsec2rad#87.SLNK
+w 1040 1282 100 0 n#46 tcsArcsec2rad.tcsArcsec2rad#86.VAL 816 1152 960 1152 960 1280 1168 1280 egenSub.m2Tilt.INPE
+w 504 1154 100 0 n#45 eais.m2YTiltThermalCoeff.VAL 480 1152 576 1152 tcsArcsec2rad.tcsArcsec2rad#86.INP
+w 504 1186 100 0 n#44 eais.m2YTiltThermalCoeff.FLNK 480 1184 576 1184 tcsArcsec2rad.tcsArcsec2rad#86.SLNK
+w 1040 1346 100 0 n#42 tcsArcsec2rad.tcsArcsec2rad#85.VAL 816 1376 960 1376 960 1344 1168 1344 egenSub.m2Tilt.INPD
+w 504 1378 100 0 n#41 eais.m2XTiltThermalCoeff.VAL 480 1376 576 1376 tcsArcsec2rad.tcsArcsec2rad#85.INP
+w 504 1410 100 0 n#40 eais.m2XTiltThermalCoeff.FLNK 480 1408 576 1408 tcsArcsec2rad.tcsArcsec2rad#85.SLNK
+w 1026 1672 100 0 n#38 tcsArcsec2rad.tcsArcsec2rad#84.VAL 800 1824 1024 1824 1024 1472 1168 1472 egenSub.m2Tilt.INPB
+w 496 1826 100 0 n#37 eais.m2YTiltNominal.VAL 480 1824 560 1824 tcsArcsec2rad.tcsArcsec2rad#84.INP
+w 496 1858 100 0 n#36 eais.m2YTiltNominal.FLNK 480 1856 560 1856 tcsArcsec2rad.tcsArcsec2rad#84.SLNK
+w 1058 1808 100 0 n#34 tcsArcsec2rad.tcsArcsec2rad#83.VAL 816 2032 1056 2032 1056 1536 1168 1536 egenSub.m2Tilt.INPA
+w 504 2034 100 0 n#33 eais.m2XTiltNominal.VAL 480 2032 576 2032 tcsArcsec2rad.tcsArcsec2rad#83.INP
+w 504 2066 100 0 n#32 eais.m2XTiltNominal.FLNK 480 2064 576 2064 tcsArcsec2rad.tcsArcsec2rad#83.SLNK
+w 856 482 100 0 n#30 ebis.m2TiltStartLoop.VAL 672 480 1088 480 1088 832 1168 832 egenSub.m2Tilt.SDIS
+w 840 514 100 0 n#28 ebis.m2TiltStartLoop.FLNK 672 512 1056 512 1056 864 1168 864 egenSub.m2Tilt.SLNK
+w 1632 1250 100 0 n#20 egenSub.m2Tilt.VALF 1456 1248 1856 1248 outhier.YTILTCORR.p
+w 1632 1314 100 0 n#19 egenSub.m2Tilt.VALE 1456 1312 1856 1312 outhier.XTILTCORR.p
+w 712 1604 100 0 n#10 eais.m2TiltRefTemp.VAL 480 1600 992 1600 992 1408 1168 1408 egenSub.m2Tilt.INPC
+s 2688 1728 100 0 VALF: Z model correction 2
+s 2576 2352 100 0 $Id: tcsOpticsM2ZTilt.sch,v 1.9 2002/11/23 12:49:54 cjm Exp $
+s 2688 1824 100 0 VALD: Z nominal position
+s 2688 1872 100 0 VALB: Z model correction 1
+s 2688 1920 100 0 VALA: Z temperature correction
+s 2848 160 100 0 Gemini Telescope Control system
+s 2896 96 100 0 Optics control system
+s 1552 1552 100 0 VALA: X tilt temperature correction
+s 1552 1504 100 0 VALB: Y tilt temperature correction
+s 1552 1440 100 0 VALC: X tilt model correction
+s 1568 1376 100 0 VALD: Y tilt model correction
+s 1552 1184 100 0 VALG: X tilt nominal position
+s 1568 1120 100 0 VALH: Y tilt nominal position
+s 2688 1776 100 0 VALE: effective focal length
+[cell use]
+use tcsOpticsM2PID 1760 2087 100 0 tcsOpticsM2PID#116
+xform 0 1920 2224
+p 1792 2128 100 0 1 seta:top $(top)m2:
+use tcsOpticsM2Z 1216 391 100 0 tcsOpticsM2Z#113
+xform 0 1376 496
+use elongouts 2144 71 100 0 m2ZTempEnabled
+xform 0 2272 160
+p 2128 256 100 0 -1 DESC:Focus temp. corrections
+p 1984 78 100 0 0 OMSL:closed_loop
+use tcsOpticsM2Thermal 2080 615 100 0 tcsOpticsM2Thermal#108
+xform 0 2240 720
+p 2384 656 100 0 -1 seta:top $(top)tt:
+use embbis 1376 1703 100 0 syncSource
+xform 0 1504 1776
+p 1408 1856 100 0 -1 DESC:Sync source for chop
+p 1504 1694 100 0 0 FRST:ICS3
+p 1312 1694 100 0 0 FRVL:4
+p 1504 1662 100 0 0 FVST:ICS4
+p 1312 1662 100 0 0 FVVL:5
+p 1504 1790 100 0 0 ONST:OSCIR
+p 1312 1790 100 0 0 ONVL:1
+p 1504 1726 100 0 0 THST:ICS2
+p 1312 1726 100 0 0 THVL:3
+p 1504 1758 100 0 0 TWST:Sig. Gen.
+p 1312 1758 100 0 0 TWVL:2
+p 1504 1822 100 0 0 ZRST:SCS
+p 1104 1808 100 0 -1 def(INP):$(m2)lostSync
+use ebis 440 424 100 0 m2TiltStartLoop
+xform 0 544 496
+p 368 574 100 0 -1 DESC:Enable/disable M2 Z and Tilt corrections
+p 480 286 100 0 0 DISV:1
+p 480 350 100 0 1 ONAM:enable
+p 480 382 100 0 1 SCAN:.05 second
+p 480 318 100 0 1 ZNAM:disable
+use ebis 2784 2119 100 0 chopBeam
+xform 0 2912 2192
+p 2800 2256 100 0 -1 DESC:Current chop state
+p 2560 2030 100 0 0 ONAM:B
+p 2560 2190 100 0 0 SCAN:.05 second
+p 2560 2062 100 0 0 ZNAM:A
+p 2560 1660 100 0 0 def(INP):$(m2)beam
+use eais 1376 1911 100 0 chopDutyCycle
+xform 0 1504 1984
+p 1504 1952 100 0 0 ADEL:0.01
+p 1424 2048 100 0 -1 DESC:Chop duty cycle
+p 1120 1726 100 0 0 EGU:percent
+p 1120 1502 100 0 0 MDEL:0.01
+p 1120 1822 100 0 0 PREC:2
+p 1120 2016 100 0 -1 def(INP):$(m2)dutyOut
+use eais 2120 872 100 0 m2ZModelCoeff2
+xform 0 2224 944
+p 2128 1022 100 0 -1 DESC:Z model coefficient 1
+p 1840 686 100 0 0 EGU:mm
+p 1840 750 100 0 0 EGUF:5.0
+p 1840 718 100 0 0 EGUL:-5.0
+p 2064 878 100 0 0 HIGH:5.0
+p 2064 942 100 0 0 HIHI:5.0
+p 1840 654 100 0 0 HOPR:5.0
+p 2064 910 100 0 0 LOLO:-5.0
+p 1840 622 100 0 0 LOPR:-5.0
+p 2064 846 100 0 0 LOW:-5.0
+p 1840 782 100 0 0 PREC:5
+use eais 2136 1064 100 0 m2RawZPos
+xform 0 2240 1136
+p 2128 1214 100 0 -1 DESC:Raw Z position
+p 1856 878 100 0 0 EGU:microns
+p 1856 942 100 0 0 EGUF:12000.0
+p 1856 910 100 0 0 EGUL:-12000.0
+p 2080 1070 100 0 0 HIGH:12000.0
+p 2080 1134 100 0 0 HIHI:12000.0
+p 1856 846 100 0 0 HOPR:12000.0
+p 2080 1102 100 0 0 LOLO:-12000.0
+p 1856 814 100 0 0 LOPR:-12000.0
+p 2080 1038 100 0 0 LOW:-12000.0
+p 1856 654 100 0 0 MDEL:0.005
+p 1856 974 100 0 0 PREC:2
+p 1952 1150 100 0 -1 def(INP):$(m2)zPos
+use eais 248 1976 100 0 m2XTiltNominal
+xform 0 352 2048
+p 256 2126 100 0 -1 DESC:Nominal X tilt
+p -32 1790 100 0 0 EGU:arcsec
+p 192 1982 100 0 0 HIGH:20.0
+p 192 2046 100 0 0 HIHI:20.0
+p -32 1758 100 0 0 HOPR:20.0
+p 192 2014 100 0 0 LOLO:-20.0
+p -32 1726 100 0 0 LOPR:-20.0
+p 192 1950 100 0 0 LOW:-20.0
+p -32 1886 100 0 0 PREC:5
+use eais 248 1768 100 0 m2YTiltNominal
+xform 0 352 1840
+p 240 1918 100 0 -1 DESC:Nominal Y tilt
+p -32 1582 100 0 0 EGU:arcsec
+p -32 1646 100 0 0 EGUF:20.0
+p -32 1614 100 0 0 EGUL:-20.0
+p 192 1774 100 0 0 HIGH:20.0
+p 192 1838 100 0 0 HIHI:20.0
+p -32 1550 100 0 0 HOPR:20.0
+p 192 1806 100 0 0 LOLO:-20.0
+p -32 1518 100 0 0 LOPR:-20.0
+p 192 1742 100 0 0 LOW:-20.0
+p -32 1678 100 0 0 PREC:5
+use eais 248 1544 100 0 m2TiltRefTemp
+xform 0 352 1616
+p 192 1694 100 0 -1 DESC:Thermal model reference temp
+p -32 1358 100 0 0 EGU:deg C
+p -32 1422 100 0 0 EGUF:40.0
+p -32 1390 100 0 0 EGUL:-40.0
+p 192 1550 100 0 0 HIGH:40.0
+p 192 1614 100 0 0 HIHI:40.0
+p -32 1326 100 0 0 HOPR:40.0
+p 192 1582 100 0 0 LOLO:-40.0
+p -32 1294 100 0 0 LOPR:-40.0
+p 192 1518 100 0 0 LOW:-40.0
+p -32 1454 100 0 0 PREC:5
+use eais 248 1320 100 0 m2XTiltThermalCoeff
+xform 0 352 1392
+p 224 1470 100 0 -1 DESC:Thermal model X coefficient
+p -32 1134 100 0 0 EGU:arcsec/deg C
+p -32 1198 100 0 0 EGUF:0.1
+p -32 1166 100 0 0 EGUL:-0.1
+p 192 1326 100 0 0 HIGH:0.1
+p 192 1390 100 0 0 HIHI:0.1
+p -32 1102 100 0 0 HOPR:0.1
+p 192 1358 100 0 0 LOLO:-0.1
+p -32 1070 100 0 0 LOPR:-0.1
+p 192 1294 100 0 0 LOW:-0.1
+p -32 1230 100 0 0 PREC:5
+use eais 248 1096 100 0 m2YTiltThermalCoeff
+xform 0 352 1168
+p 224 1246 100 0 -1 DESC:Thermal model Y coefficient
+p -32 910 100 0 0 EGU:arcsec/deg C
+p -32 974 100 0 0 EGUF:0.1
+p -32 942 100 0 0 EGUL:-0.1
+p 192 1102 100 0 0 HIGH:0.1
+p 192 1166 100 0 0 HIHI:0.1
+p -32 878 100 0 0 HOPR:0.1
+p 192 1134 100 0 0 LOLO:-0.1
+p -32 846 100 0 0 LOPR:-0.1
+p 192 1070 100 0 0 LOW:-0.1
+p -32 1006 100 0 0 PREC:5
+use eais 248 872 100 0 m2XTiltModelCoeff
+xform 0 352 944
+p 240 1022 100 0 -1 DESC:Model X coefficient
+p -32 686 100 0 0 EGU:arcsec
+p -32 750 100 0 0 EGUF:3.0
+p -32 718 100 0 0 EGUL:-3.0
+p 192 878 100 0 0 HIGH:3.0
+p 192 942 100 0 0 HIHI:3.0
+p -32 654 100 0 0 HOPR:3.0
+p 192 910 100 0 0 LOLO:-3.0
+p -32 622 100 0 0 LOPR:-3.0
+p 192 846 100 0 0 LOW:-3.0
+p -32 782 100 0 0 PREC:5
+use eais 248 648 100 0 m2YTiltModelCoeff
+xform 0 352 720
+p 256 814 100 0 -1 DESC:Model Y coefficient
+p -32 462 100 0 0 EGU:arcsec
+p -32 526 100 0 0 EGUF:3.0
+p -32 494 100 0 0 EGUL:-3.0
+p 192 654 100 0 0 HIGH:3.0
+p 192 718 100 0 0 HIHI:3.0
+p -32 430 100 0 0 HOPR:3.0
+p 192 686 100 0 0 LOLO:-3.0
+p -32 398 100 0 0 LOPR:-3.0
+p 192 622 100 0 0 LOW:-3.0
+p -32 558 100 0 0 PREC:5
+use eais 2136 1960 100 0 m2ZNominal
+xform 0 2240 2032
+p 2128 2110 100 0 -1 DESC:Nominal Z position
+p 1856 1774 100 0 0 EGU:mm
+p 1856 1838 100 0 0 EGUF:12.0
+p 1856 1806 100 0 0 EGUL:-12.0
+p 2080 1966 100 0 0 HIGH:12.0
+p 2080 2030 100 0 0 HIHI:12.0
+p 1856 1742 100 0 0 HOPR:12.0
+p 2080 1998 100 0 0 LOLO:-12.0
+p 1856 1710 100 0 0 LOPR:-12.0
+p 2080 1934 100 0 0 LOW:-12.0
+p 1856 1870 100 0 0 PREC:5
+use eais 2136 1736 100 0 m2ZRefTemp
+xform 0 2240 1808
+p 2080 1886 100 0 -1 DESC:Z model reference temperature
+p 1856 1550 100 0 0 EGU:deg C
+p 1856 1614 100 0 0 EGUF:40.0
+p 1856 1582 100 0 0 EGUL:-40.0
+p 2080 1742 100 0 0 HIGH:40.0
+p 2080 1806 100 0 0 HIHI:40.0
+p 1856 1518 100 0 0 HOPR:40.0
+p 2080 1774 100 0 0 LOLO:-40.0
+p 1856 1486 100 0 0 LOPR:-40.0
+p 2080 1710 100 0 0 LOW:-40.0
+p 1856 1646 100 0 0 PREC:5
+use eais 2136 1512 100 0 m2ZThermalCoeff
+xform 0 2240 1584
+p 2112 1662 100 0 -1 DESC:Z temperature coefficient
+p 1856 1326 100 0 0 EGU:mm/deg C
+p 1856 1390 100 0 0 EGUF:0.5
+p 1856 1358 100 0 0 EGUL:-0.5
+p 2080 1518 100 0 0 HIGH:0.5
+p 2080 1582 100 0 0 HIHI:0.5
+p 1856 1294 100 0 0 HOPR:0.5
+p 2080 1550 100 0 0 LOLO:0.0
+p 1856 1422 100 0 0 PREC:5
+use eais 2136 1288 100 0 m2ZModelCoeff1
+xform 0 2240 1360
+p 2144 1438 100 0 -1 DESC:Z model coefficient 1
+p 1856 1102 100 0 0 EGU:mm
+p 1856 1166 100 0 0 EGUF:5.0
+p 1856 1134 100 0 0 EGUL:-5.0
+p 2080 1294 100 0 0 HIGH:5.0
+p 2080 1358 100 0 0 HIHI:5.0
+p 1856 1070 100 0 0 HOPR:5.0
+p 2080 1326 100 0 0 LOLO:-5.0
+p 1856 1038 100 0 0 LOPR:-5.0
+p 2080 1262 100 0 0 LOW:-5.0
+p 1856 1198 100 0 0 PREC:5
+use eais 376 104 100 0 xTiltPos
+xform 0 480 176
+p 400 254 100 0 -1 DESC:Copy of M2 X tilt
+p 96 -82 100 0 0 EGU:arcsec
+p 96 -306 100 0 0 MDEL:0.0005
+p 96 14 100 0 0 PREC:3
+p 368 62 100 0 1 SCAN:.05 second
+p 128 206 100 0 -1 def(INP):$(m2)xTiltPos
+use eais 984 104 100 0 yTiltPos
+xform 0 1088 176
+p 1008 254 100 0 -1 DESC:Copy of M2 Y tilt
+p 704 -82 100 0 0 EGU:arcsec
+p 704 -306 100 0 0 MDEL:0.0005
+p 704 14 100 0 0 PREC:3
+p 976 62 100 0 0 SCAN:Passive
+p 736 206 100 0 -1 def(INP):$(m2)yTiltPos
+use estringins 1376 2151 100 0 chopping
+xform 0 1504 2224
+p 1392 2288 100 0 -1 DESC:State of chopping
+p 1552 2144 100 0 1 SCAN:1 second
+p 1376 2318 100 0 0 VAL:No
+p 1104 2256 100 0 -1 def(INP):$(m2)chopping
+use eaos 1720 344 100 0 m2Scale
+xform 0 1824 432
+p 1728 526 100 0 -1 DESC:M2 scale factor
+p 1664 158 100 0 0 EGU:None
+p 1440 -130 100 0 0 MDEL:0.000005
+p 1440 286 100 0 0 PREC:5
+p 1808 304 100 1024 1 name:$(tcs)$(I)
+use eaos 2872 328 100 0 m2ZPos
+xform 0 2976 416
+p 2880 510 100 0 -1 DESC:Current Z Position
+p 2816 142 100 0 0 EGU:mm
+p 2592 -146 100 0 0 MDEL:0.000005
+p 2592 270 100 0 0 PREC:5
+p 2960 288 100 1024 1 name:$(tcs)$(I)
+use eaos 2312 344 100 0 m2ZErrorCorr
+xform 0 2416 432
+p 2320 526 100 0 -1 DESC:Focus error correction
+p 2256 158 100 0 0 EGU:mm
+p 2032 -130 100 0 0 MDEL:0.000005
+p 2032 286 100 0 0 PREC:5
+p 2400 304 100 1024 1 name:$(tcs)$(I)
+use eaos 1720 72 100 0 m2Magnification
+xform 0 1824 160
+p 1728 254 100 0 -1 DESC:M2 Magnification
+p 1664 -114 100 0 0 EGU:None
+p 1440 -402 100 0 0 MDEL:0.000005
+p 1440 14 100 0 0 PREC:5
+p 1808 32 100 1024 1 name:$(tcs)$(I)
+use tcsArcsec2rad 576 1943 100 0 tcsArcsec2rad#83
+xform 0 696 2024
+p 592 2112 100 0 -1 seta:top $(top)xtiltNom:
+use tcsArcsec2rad 560 1735 100 0 tcsArcsec2rad#84
+xform 0 680 1816
+p 576 1904 100 0 -1 seta:top $(top)ytiltNom:
+use tcsArcsec2rad 576 1287 100 0 tcsArcsec2rad#85
+xform 0 696 1368
+p 592 1456 100 0 -1 seta:top $(top)xtiltTCoeff:
+use tcsArcsec2rad 576 1063 100 0 tcsArcsec2rad#86
+xform 0 696 1144
+p 592 1232 100 0 -1 seta:top $(top)ytiltTCoeff:
+use tcsArcsec2rad 576 839 100 0 tcsArcsec2rad#87
+xform 0 696 920
+p 592 1008 100 0 -1 seta:top $(top)xtiltMCoeff:
+use tcsArcsec2rad 576 615 100 0 tcsArcsec2rad#88
+xform 0 696 696
+p 592 784 100 0 -1 seta:top $(top)ytiltMCoeff:
+use outhier 3160 1272 100 0 FL
+xform 0 3152 1312
+use outhier 3160 1400 100 0 ZCORR
+xform 0 3152 1440
+use outhier 1848 1272 100 0 XTILTCORR
+xform 0 1840 1312
+use outhier 1848 1208 100 0 YTILTCORR
+xform 0 1840 1248
+use egenSub 1192 776 100 0 m2Tilt
+xform 0 1312 1200
+p 1200 1630 100 0 -1 DESC:Generate M2 XY Tilt demands
+p 1280 1070 100 0 1 DISV:0
+p 880 1326 100 0 0 PREC:14
+p 1264 862 100 0 0 SCAN:Passive
+p 1232 1150 100 0 -1 SNAM:tcsOpticsM2Tilt
+use egenSub 2648 776 100 0 m2Z
+xform 0 2768 1200
+p 2608 1630 100 0 -1 DESC:Generate M2 Z (focus) demands
+p 2401 293 100 0 0 FTVJ:LONG
+p 2336 1326 100 0 0 PREC:5
+p 2704 1150 100 0 -1 SNAM:tcsOpticsM2Z
+p 2336 1278 100 0 0 def(INPE):0.0
+p 2336 1214 100 0 1 def(INPF):$(m2)zGuide
+p 2576 1290 75 0 -1 pproc(INPE):PP
+p 2912 1226 75 0 -1 pproc(OUTF):PP
+p 2912 1162 75 0 -1 pproc(OUTG):PP
+p 2912 1098 75 0 -1 pproc(OUTH):PP
+p 2912 1034 75 0 -1 pproc(OUTI):PP
+p 2912 970 75 0 -1 pproc(OUTJ):PP
+use bc200tr 0 -120 -100 0 frame
+xform 0 1680 1184
+[comments]

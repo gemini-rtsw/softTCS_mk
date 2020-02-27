@@ -1,0 +1,31 @@
+[symbol2]
+bbox -256 -320 -32 192
+port -144 -288 100 0 FLNK symbol 2 -32 -288 0
+port -128 128 100 0 EXP1 symbol 2 -32 128 0
+port -128 64 100 0 EXP2 symbol 2 -32 64 0
+port -128 0 100 0 EXP3 symbol 2 -32 0 0
+port -128 -64 100 0 EXP4 symbol 2 -32 -64 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -208 -144 seqODGW
+l 100 0 0 -176 -208 CAD
+r 0 -256 -320 -64 192
+v 0 -64 -288
+-32 -288
+_
+v 0 -64 128
+-32 128
+_
+v 0 -64 64
+-32 64
+_
+v 0 -64 0
+-32 0
+_
+v 0 -64 -64
+-32 -64
+_
+[comments]

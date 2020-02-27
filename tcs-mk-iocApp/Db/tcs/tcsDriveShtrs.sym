@@ -1,0 +1,27 @@
+[symbol2]
+bbox 288 576 608 800
+port 332 719 100 1792 BOT symbol 1 288 704 0
+port 332 591 100 1792 SDIS symbol 1 288 576 0
+port 332 655 100 1792 SLNK symbol 1 288 640 0
+port 336 784 100 1792 TOP symbol 1 288 768 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 400 672 moveShtrs records
+l 100 0 0 448 720 Trigger
+r 0 352 800 608 576
+v 0 288 704
+352 704
+_
+v 0 288 576
+352 576
+_
+v 0 288 640
+352 640
+_
+v 0 288 768
+352 768
+_
+[comments]

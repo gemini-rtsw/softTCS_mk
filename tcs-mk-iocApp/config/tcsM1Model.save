@@ -1,0 +1,41 @@
+# Template pvsave file to save the values of the current M1 model
+#
+# Note that the J field is written last as this will trigger
+# the processing of the gensub record restoreM1
+group {
+
+%double $(prefix)drives:figureTotals.VALA ;
+double $(prefix)drives:restoreM1.A = 0.0;
+%double $(prefix)drives:figureTotals.VALB ;
+double $(prefix)drives:restoreM1.B = 0.0;
+%double $(prefix)drives:figureTotals.VALC ;
+double $(prefix)drives:restoreM1.C = 0.0;
+%double $(prefix)drives:figureTotals.VALD ;
+double $(prefix)drives:restoreM1.D = 0.0;
+%double $(prefix)drives:figureTotals.VALE ;
+double $(prefix)drives:restoreM1.E = 0.0;
+%double $(prefix)drives:figureTotals.VALF ;
+double $(prefix)drives:restoreM1.F = 0.0;
+%double $(prefix)drives:figureTotals.VALG ;
+double $(prefix)drives:restoreM1.G = 0.0;
+%double $(prefix)drives:figureTotals.VALH ;
+double $(prefix)drives:restoreM1.H = 0.0;
+%double $(prefix)drives:figureTotals.VALI ;
+double $(prefix)drives:restoreM1.I = 0.0;
+%double $(prefix)drives:figureTotals.VALK ;
+double $(prefix)drives:restoreM1.K = 0.0;
+%double $(prefix)drives:figureTotals.VALL ;
+double $(prefix)drives:restoreM1.L = 0.0;
+%double $(prefix)drives:figureTotals.VALM ;
+double $(prefix)drives:restoreM1.M = 0.0;
+%double $(prefix)drives:figureTotals.VALN ;
+double $(prefix)drives:restoreM1.N = 0.0;
+%double $(prefix)m2XErrorCorr ;
+double $(prefix)drives:restoreM1.P = 0.0;
+%double $(prefix)m2YErrorCorr ;
+double $(prefix)drives:restoreM1.Q = 0.0;
+%double $(prefix)demandEl;
+double $(prefix)drives:restoreM1.O = 0.0;
+};
+%double $(prefix)drives:figureTotals.VALJ ;
+double $(prefix)drives:restoreM1.J = 0.0;

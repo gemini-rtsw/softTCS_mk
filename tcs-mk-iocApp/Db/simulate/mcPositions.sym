@@ -1,0 +1,37 @@
+[symbol2]
+bbox -224 -224 128 160
+port -32 -192 100 0 FLNK symbol 2 128 -192 0
+port -144 -192 100 0 SLNK symbol 1 -224 -192 0
+port -144 -128 100 0 ELVEL symbol 1 -224 -128 0
+port -144 -64 100 0 EL symbol 1 -224 -64 0
+port -144 0 100 0 AZVEL symbol 1 -224 0 0
+port -144 64 100 0 AZ symbol 1 -224 64 0
+port -144 128 100 0 TIME symbol 1 -224 128 0
+uniq 5
+[tools]
+[attributes]
+[layers]
+<symbol>
+r 0 -160 -224 32 160
+v 0 32 -192
+128 -192
+_
+v 0 -224 -192
+-160 -192
+_
+v 0 -224 -128
+-160 -128
+_
+v 0 -224 -64
+-160 -64
+_
+v 0 -224 0
+-160 0
+_
+v 0 -224 64
+-160 64
+_
+v 0 -224 128
+-160 128
+_
+[comments]

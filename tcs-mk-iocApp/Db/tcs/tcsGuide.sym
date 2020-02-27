@@ -1,0 +1,26 @@
+[symbol2]
+bbox -224 -32 0 224
+port -128 0 100 0 CEABS symbol 2 0 0 0
+port -128 32 100 0 CAABS symbol 2 0 32 0
+port -96 192 100 0 CA symbol 2 0 192 0
+port -96 160 100 0 CE symbol 2 0 160 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -160 96 guide
+r 0 -224 -32 -64 224
+v 0 -64 0
+0 0
+_
+v 0 -64 32
+0 32
+_
+v 0 0 192
+-64 192
+_
+v 0 0 160
+-64 160
+_
+[comments]

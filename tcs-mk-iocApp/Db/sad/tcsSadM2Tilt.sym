@@ -1,0 +1,24 @@
+[symbol2]
+bbox 128 448 864 864
+port 240 800 100 1792 SLNK symbol 1 128 800 0
+port 752 800 100 1792 FLNK symbol 2 864 800 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 448 816 M2 Tilt Axis
+r 0 192 864 800 448
+v 1 352 576
+640 736
+_
+v 0 352 736
+640 576
+_
+v 0 128 800
+192 800
+_
+v 0 800 800
+864 800
+_
+[comments]

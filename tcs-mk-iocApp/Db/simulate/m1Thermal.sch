@@ -1,0 +1,106 @@
+[schematic2]
+uniq 12
+[tools]
+[detail]
+w 1058 1906 100 0 n#1 eaos.ANB101Zero.VAL 1048 1896 1520 1896 1520 1568 1632 1568 egenSubD.trussTemp.INPA
+w 714 1762 100 0 n#2 eaos.ANB101Amp.VAL 704 1752 1504 1752 1504 1536 1632 1536 egenSubD.trussTemp.INPB
+w 1018 1562 100 0 n#3 eaos.ANB103Zero.VAL 1008 1552 1488 1552 1488 1504 1632 1504 egenSubD.trussTemp.INPC
+w 698 1402 100 0 n#4 eaos.ANB103Amp.VAL 688 1392 1008 1392 1008 1472 1632 1472 egenSubD.trussTemp.INPD
+w 1010 1226 100 0 n#5 eaos.SensorStep.VAL 1000 1216 1104 1216 1104 1440 1624 1440 egenSubD.trussTemp.INPE
+w 706 1050 100 0 n#6 eaos.SensorStepTime.VAL 696 1040 1152 1040 1152 1408 1632 1408 egenSubD.trussTemp.INPF
+w 1002 866 100 0 n#7 eaos.SensorSpike.VAL 992 856 1200 856 1200 1376 1632 1376 egenSubD.trussTemp.INPG
+w 690 682 100 0 n#8 eaos.SensorSpikeTime.VAL 680 672 1248 672 1248 1344 1632 1344 egenSubD.trussTemp.INPH
+w 1010 506 100 0 n#9 ebos.applySpikes.VAL 1000 496 1296 496 1296 1248 1624 1248 egenSubD.trussTemp.INPK
+w 1922 1546 100 0 n#10 egenSubD.trussTemp.OUTA 1912 1536 2168 1536 m1NodeBox.m1NodeBox#119.TEMP1
+w 1922 1482 100 0 n#11 egenSubD.trussTemp.OUTB 1912 1472 2088 1472 2088 1152 2168 1152 m1NodeBox.m1NodeBox#120.TEMP1
+s 2608 160 100 0 Sciences Ltd.
+s 2608 192 100 0 Observatory
+s 2608 224 100 0 Copyright
+s 1248 2272 200 0 Simulation of M1 thermal model
+s 2624 2400 100 0 $Id: m1Thermal.sch,v 1.2 2011/05/03 14:38:28 cjm Exp $
+s 2848 96 100 0 18 Feb 2002
+s 2944 200 200 0 Gemini TCS
+s 2864 144 100 0 Simulated PCS thermal model
+[cell use]
+use bc200tr 32 -72 -100 0 frame
+xform 0 1712 1232
+use m1NodeBox 2176 1319 100 0 m1NodeBox#119
+xform 0 2368 1472
+p 2196 1292 100 0 1 seta:top $(top)ANB101:
+use m1NodeBox 2176 935 100 0 m1NodeBox#120
+xform 0 2368 1088
+p 2196 908 100 0 1 seta:top $(top)ANB103:
+use eaos 432 1303 100 0 ANB103Amp
+xform 0 560 1392
+p 464 1488 100 0 -1 DESC:ANB103 amplitude
+p 400 1118 100 0 0 EGU:deg C
+p 176 1214 100 0 0 EGUF:10.0
+p 176 1182 100 0 0 EGUL:-10.0
+use eaos 760 1463 100 0 ANB103Zero
+xform 0 888 1552
+p 792 1648 100 0 -1 DESC:ANB103 zero point
+p 728 1278 100 0 0 EGU:deg C
+p 504 1374 100 0 0 EGUF:25.0
+p 504 1342 100 0 0 EGUL:-25.0
+use eaos 456 1663 100 0 ANB101Amp
+xform 0 584 1752
+p 488 1848 100 0 -1 DESC:ANB101 amplitude
+p 424 1478 100 0 0 EGU:deg C
+p 200 1574 100 0 0 EGUF:10.0
+p 200 1542 100 0 0 EGUL:-10.0
+use eaos 792 1807 100 0 ANB101Zero
+xform 0 920 1896
+p 824 1992 100 0 -1 DESC:ANB101 zero point
+p 760 1622 100 0 0 EGU:deg C
+p 536 1718 100 0 0 EGUF:25.0
+p 536 1686 100 0 0 EGUL:-25.0
+p 904 1800 100 1024 0 name:$(top)$(I)
+use eais 416 2048 100 0 positionThermal
+xform 0 520 2120
+p 392 2198 100 0 -1 DESC:Mirror bulk temperature
+p 424 2006 100 0 1 EGU:deg C
+p 136 1926 100 0 0 EGUF:25.0
+p 136 1894 100 0 0 EGUL:-25.0
+p 136 1830 100 0 0 HOPR:25.0
+p 136 1798 100 0 0 LOPR:-25.0
+p 136 1958 100 0 0 PREC:1
+p 504 2040 100 1024 0 name:$(top)$(I)
+use egenSubD 1678 764 100 0 trussTemp
+xform 0 1776 1200
+p 1662 1643 100 0 -1 DESC:Generate truss temperatures
+p 1848 765 100 0 1 SCAN:10 second
+p 1928 1546 75 0 -1 pproc(OUTA):PP
+p 1928 1482 75 0 -1 pproc(OUTB):PP
+p 1849 738 100 0 1 SNAM:tcsM1trussTemp
+p 1409 549 100 0 0 FTK:LONG
+p 1409 549 100 0 0 FTL:LONG
+use eaos 752 1127 100 0 SensorStep
+xform 0 880 1216
+p 784 1312 100 0 -1 DESC:Sensor step size
+p 720 942 100 0 0 EGU:deg C
+p 496 1038 100 0 0 EGUF:10.0
+p 496 1006 100 0 0 EGUL:-10.0
+use eaos 448 951 100 0 SensorStepTime
+xform 0 576 1040
+p 480 1136 100 0 -1 DESC:Sensor step time
+p 416 766 100 0 0 EGU:seconds
+p 192 862 100 0 0 EGUF:7200
+p 192 830 100 0 0 EGUL:-7200
+use eaos 744 767 100 0 SensorSpike
+xform 0 872 856
+p 776 952 100 0 -1 DESC:Sensor spike
+p 712 582 100 0 0 EGU:deg C
+p 488 678 100 0 0 EGUF:20.0
+p 488 646 100 0 0 EGUL:-20.0
+use eaos 432 583 100 0 SensorSpikeTime
+xform 0 560 672
+p 464 768 100 0 -1 DESC:Sensor spike period
+p 400 398 100 0 0 EGU:seconds
+p 176 494 100 0 0 EGUF:600.0
+p 176 462 100 0 0 EGUL:0
+use ebos 800 399 100 0 applySpikes
+xform 0 872 496
+p 751 592 100 0 -1 DESC:Apply temperature spikes
+p 424 350 100 0 0 ONAM:enabled
+p 424 382 100 0 0 ZNAM:disabled
+[comments]

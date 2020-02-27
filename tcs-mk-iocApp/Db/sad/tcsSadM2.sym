@@ -1,0 +1,18 @@
+[symbol2]
+bbox 256 544 704 704
+port 608 672 100 1792 FLNK symbol 2 704 672 0
+port 352 672 100 1792 SLNK symbol 1 256 672 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 384 608 TCS M2 SAD records
+r 0 320 704 640 544
+v 0 640 672
+704 672
+_
+v 0 256 672
+320 672
+_
+[comments]

@@ -1,0 +1,16 @@
+[symbol2]
+bbox 272 432 432 592
+port 240 464 100 0 Slnk symbol 1 272 496 0
+port 224 528 100 0 Action symbol 1 272 560 0
+port 408 518 100 0 flnk symbol 2 432 512 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 288 560 Trigger STOP
+l 100 0 0 304 528 or FOLLOW
+l 100 0 0 352 496 in
+l 100 0 0 304 464 Subsystem
+r 0 272 592 432 432
+[comments]

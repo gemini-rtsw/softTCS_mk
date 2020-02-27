@@ -1,0 +1,12 @@
+[symbol2]
+bbox -488 -128 -264 184
+uniq 27
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -416 96 Calc M1
+l 100 0 0 -416 56 Validity
+l 100 0 0 -408 16 Flags
+r 0 -488 -128 -264 184
+[comments]

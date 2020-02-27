@@ -1,0 +1,11 @@
+[symbol2]
+bbox 560 560 720 768
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 624 704 M2
+l 130 0 0 608 656 PARK
+r 0 560 768 720 560
+[comments]

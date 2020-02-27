@@ -1,0 +1,13 @@
+[symbol2]
+bbox 400 672 624 832
+port 616 696 100 0 FLNK symbol 2 624 736 0
+port 616 776 100 0 VAL symbol 2 624 816 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 140 0 0 424 720 movebaffle
+l 140 0 0 488 760 M2
+r 0 400 832 624 672
+[comments]

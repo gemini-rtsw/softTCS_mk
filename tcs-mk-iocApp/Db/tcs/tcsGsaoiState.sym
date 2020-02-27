@@ -1,0 +1,19 @@
+[symbol2]
+bbox -224 32 232 160
+port 68 144 100 1792 STATE symbol 2 84 128 0
+port 68 64 100 1792 FLNK symbol 2 84 48 0
+uniq 27
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -144 88 GSAOI State
+l 100 0 0 -136 112 Compute
+r 0 -224 32 32 160
+v 0 32 128
+84 128
+_
+v 0 32 48
+84 48
+_
+[comments]

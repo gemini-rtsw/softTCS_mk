@@ -1,0 +1,11 @@
+[symbol2]
+bbox -128 -192 64 96
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -96 -32 Coma model
+l 100 0 0 -96 0 Drive M2 
+r 0 -128 -192 64 96
+[comments]

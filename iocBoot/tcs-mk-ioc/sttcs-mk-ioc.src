@@ -1,0 +1,59 @@
+$(LINUX_ONLY)#!${INSTALL}/bin/${ARCH}/tcs-mk-ioc
+
+cd ${INSTALL}
+
+epicsEnvSet("IOCSH_PS1","$(IOCPROMPT)> ")
+epicsEnvSet("TZ", "HST 10")
+
+# Needed for the dynamic config
+nfsMount("$(DYNCFGSERVER)","$(DYNCFGREMOTE)","$(DYNCFGLOCAL)")
+# Needed for static files, like ephemerides
+nfsMount("$(STCFGSERVER)","$(STCFGREMOTE)","$(STCFGLOCAL)")
+## Register all support components
+dbLoadDatabase("dbd/tcs-mk-ioc.dbd")
+tcs_mk_ioc_registerRecordDeviceDriver(pdbbase)
+
+# Initialise the telecope pointing model.
+tcsModelInit
+tcsOpticsInit
+
+## Load record instances
+< data/$(TCSTOP).subs
+dbLoadRecords("db/iocAdminRTEMS.db", "IOC=$(TCSTOP):iocStats, TODFORMAT=%m/%d/%Y %H:%M:%S")
+dbLoadRecords("db/timeProbe.db","top=$(TCSTOP):")
+
+# Configure BANCOMM card
+# - set the bc635 Time Provider priority to something other than the default
+# or set it to a negative value to disable the bc635 Time Provider
+# Must be called before BCconfigure
+bc635TimeSetTpPrio (50)
+
+#Set the Bancomm master in RTC ("A3") Mode
+bcUseRTCMode()
+
+# - Master ? Simulate ? intPerSecond, intPerTick, timeOffset (microsec)
+BCconfigure (0, 0, 100, 1, 0)
+drvXy240Config(1, 32, 0xd000)
+
+traceIocInit
+
+iocInit
+
+# Set the pvload file names
+tcsSaveDefFnames("$(DYNCFGFILE)/tcsSimulations.default","$(DYNCFGFILE)/GemNorth.default","$(DYNCFGFILE)/$(TCSPV).current")
+
+# Initialize the TCS database
+# This block works out of gem_sw
+tcsPvload "$(DYNCFGFILE)/tcsSimulations.default","top=$(TCSTOP):,ag=tag:,version=1"
+tcsPvload "$(DYNCFGFILE)/tcsSimulationsMK.default","top=$(TCSTOP):,ag=tag:,version=1"
+tcsPvload "$(DYNCFGFILE)/GemNorth.default","top=$(TCSTOP):,version=1"
+tcsPvload "$(DYNCFGFILE)/$(TCSPV).current","top=$(TCSTOP):,version=1"
+
+tcsReadCarInfo("$(TCSTOP):") 
+tcsReadCadInfo("$(TCSTOP):")
+
+tcsConfigSetFilePrefix("./")
+
+# Start sequences
+< data/$(TCSSEQ)
+

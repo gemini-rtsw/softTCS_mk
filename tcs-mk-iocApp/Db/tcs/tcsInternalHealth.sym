@@ -1,0 +1,27 @@
+[symbol2]
+bbox -256 -32 160 160
+port 48 0 100 0 FLNK symbol 2 160 0 0
+port 48 128 100 0 HLTH symbol 2 160 128 0
+port 48 64 100 0 MESS symbol 2 160 64 0
+port -176 16 100 0 SLNK symbol 1 -256 0 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -96 64 Health
+l 100 0 0 -128 96 TCS Internal
+r 0 -192 -32 96 160
+v 0 96 0
+160 0
+_
+v 0 96 128
+160 128
+_
+v 0 96 64
+160 64
+_
+v 0 -256 0
+-192 0
+_
+[comments]

@@ -1,0 +1,166 @@
+[schematic2]
+uniq 33
+[tools]
+[detail]
+w 2312 3698 100 0 n#30 ecalcs.present.FLNK 2288 3696 2384 3696 2384 3632 2480 3632 elongouts.heartbeat.SLNK
+w 2022 3890 100 0 n#8 ecalcs.present.VAL 2288 3664 2352 3664 2352 3776 2224 3776 2224 3888 1856 3888 1856 3856 2000 3856 ecalcs.present.INPA
+w 2398 3666 100 0 n#8 junction 2352 3664 2480 3664 elongouts.heartbeat.DOL
+w 928 2706 100 0 n#27 eaos.windSpeed.OUT 848 2672 912 2672 912 2704 992 2704 eaos.windVel.SLNK
+w 888 3858 100 0 n#13 eaos.humid.FLNK 832 3856 992 3856 junction
+w 994 4040 100 0 n#13 eaos.temp.FLNK 848 4240 992 4240 992 3792 1280 3792 ecalcs.dewPoint.SLNK
+w 1154 3752 100 0 n#24 hwin.hwin#23.in 800 3440 1152 3440 1152 4016 1280 4016 ecalcs.dewPoint.INPF
+w 1122 3808 100 0 n#22 hwin.hwin#20.in 816 3520 1120 3520 1120 4048 1280 4048 ecalcs.dewPoint.INPE
+w 1090 3872 100 0 n#21 hwin.hwin#19.in 816 3616 1088 3616 1088 4080 1280 4080 ecalcs.dewPoint.INPD
+w 1058 3992 100 0 n#18 eaos.humid.VAL 832 3824 1056 3824 1056 4112 1280 4112 ecalcs.dewPoint.INPC
+w 1128 4146 100 0 n#17 hwin.hwin#16.in 848 4016 1024 4016 1024 4144 1280 4144 ecalcs.dewPoint.INPB
+w 944 4210 100 0 n#14 eaos.temp.VAL 848 4208 1088 4208 1088 4176 1280 4176 ecalcs.dewPoint.INPA
+s 1568 4368 300 0 Weather Server Simulation
+s 3120 2288 100 0 Gemini Telescope Control System
+s 3168 2224 100 0 Weather Server Simulator
+s 2848 4480 100 0 $Id: ws.sch,v 1.2 2000/11/02 16:39:13 cjm Exp $
+s 944 2496 100 0 The wind velocity record is an exact duplicate of
+s 944 2464 100 0 windSpeed. It is included simply for compatibility
+s 944 2432 100 0 with the ECS/WS ICD.
+s 2320 3472 100 0 The heartbeat record is included simply for
+s 2320 3440 100 0 compatibility with the ECS/WS ICD.
+s 1888 2816 100 0 This record is present as it is needed by the ECS
+[cell use]
+use eaos 1336 3032 100 0 windDirection
+xform 0 1440 3120
+p 1376 3214 100 0 -1 DESC:Wind direction
+p 1056 2878 100 0 0 DRVH:360.0
+p 1056 2846 100 0 0 DRVL:0.0
+p 1328 2990 100 0 1 EGU:degs
+p 1056 2942 100 0 0 EGUF:360.0
+p 1056 2910 100 0 0 EGUL:0.0
+p 1280 3230 100 0 0 HOPR:360.0
+p 1280 3198 100 0 0 LOPR:0.0
+p 1056 2974 100 0 0 PREC:1
+p 1424 3024 100 1024 0 name:$(ws)$(I)
+use eaos 616 4120 100 0 temp
+xform 0 720 4208
+p 576 4302 100 0 -1 DESC:Current ambient temperature
+p 336 3966 100 0 0 DRVH:25.0
+p 336 3934 100 0 0 DRVL:-25.0
+p 608 4078 100 0 1 EGU:deg C
+p 336 4030 100 0 0 EGUF:25.0
+p 336 3998 100 0 0 EGUL:-25.0
+p 560 4318 100 0 0 HOPR:25.0
+p 560 4286 100 0 0 LOPR:-25.0
+p 336 4062 100 0 0 PREC:1
+p 704 4112 100 1024 0 name:$(ws)$(I)
+p 848 4176 75 768 -1 pproc(OUT):PP
+use eaos 600 3736 100 0 humid
+xform 0 704 3824
+p 608 3918 100 0 -1 DESC:Relative Humidity
+p 320 3582 100 0 0 DRVH:100.0
+p 320 3550 100 0 0 DRVL:1.0
+p 592 3694 100 0 1 EGU:percentage
+p 320 3646 100 0 0 EGUF:100.0
+p 320 3614 100 0 0 EGUL:1.0
+p 544 3710 100 0 0 HHSV:MAJOR
+p 544 3774 100 0 0 HIGH:70.0
+p 544 3838 100 0 0 HIHI:85.0
+p 544 3934 100 0 0 HOPR:100.0
+p 544 3678 100 0 0 HSV:MINOR
+p 544 3902 100 0 0 LOPR:1.0
+p 320 3678 100 0 0 PREC:1
+p 688 3728 100 1024 0 name:$(ws)$(I)
+p 832 3792 75 768 -1 pproc(OUT):PP
+use eaos 824 3032 100 0 press
+xform 0 928 3120
+p 864 3214 100 0 -1 DESC:Air pressure
+p 544 2878 100 0 0 DRVH:750.0
+p 544 2846 100 0 0 DRVL:550.0
+p 816 2990 100 0 1 EGU:millibars
+p 544 2942 100 0 0 EGUF:750.0
+p 544 2910 100 0 0 EGUL:550.0
+p 768 3230 100 0 0 HOPR:750.0
+p 768 3198 100 0 0 LOPR:550.0
+p 544 2974 100 0 0 PREC:1
+p 912 3024 100 1024 0 name:$(ws)$(I)
+use eaos 616 2616 100 0 windSpeed
+xform 0 720 2704
+p 656 2798 100 0 -1 DESC:Wind speed
+p 336 2462 100 0 0 DRVH:150.0
+p 608 2574 100 0 1 EGU:Km/hr
+p 336 2526 100 0 0 EGUF:150.0
+p 336 2494 100 0 0 EGUL:0.0
+p 560 2590 100 0 0 HHSV:MAJOR
+p 560 2654 100 0 0 HIGH:40.0
+p 560 2718 100 0 0 HIHI:90.0
+p 560 2814 100 0 0 HOPR:150.0
+p 560 2558 100 0 0 HSV:MINOR
+p 336 2558 100 0 0 PREC:1
+p 704 2608 100 1024 0 name:$(ws)$(I)
+p 848 2672 75 768 -1 pproc(OUT):PP
+use eaos 1016 2616 100 0 windVel
+xform 0 1120 2704
+p 1056 2798 100 0 -1 DESC:Wind velocity
+p 736 2462 100 0 0 DRVH:150.0
+p 1008 2574 100 0 1 EGU:Km/hour
+p 736 2526 100 0 0 EGUF:150.0
+p 736 2494 100 0 0 EGUL:0.0
+p 960 2590 100 0 0 HHSV:MAJOR
+p 960 2654 100 0 0 HIGH:40.0
+p 960 2718 100 0 0 HIHI:90.0
+p 960 2814 100 0 0 HOPR:150.0
+p 960 2558 100 0 0 HSV:MINOR
+p 736 2558 100 0 0 PREC:1
+p 1104 2608 100 1024 0 name:$(ws)$(I)
+use eaos 2008 2952 100 0 ahuSetPoint
+xform 0 2112 3040
+p 1968 3134 100 0 -1 DESC:Air Handling unit set point
+p 1728 2798 100 0 0 DRVH:25.0
+p 1728 2766 100 0 0 DRVL:-25.0
+p 2000 2910 100 0 1 EGU:deg C
+p 1728 2862 100 0 0 EGUF:25.0
+p 1728 2830 100 0 0 EGUL:-25.0
+p 1952 3150 100 0 0 HOPR:25.0
+p 1952 3118 100 0 0 LOPR:-25.0
+p 1728 2894 100 0 0 PREC:1
+p 2096 2944 100 1024 0 name:$(ws)$(I)
+p 2240 3008 75 768 -1 pproc(OUT):PP
+use elongouts 2504 3544 100 0 heartbeat
+xform 0 2608 3632
+p 2480 3742 100 0 -1 DESC:Weather server heartbeat
+p 2320 3550 100 0 0 OMSL:closed_loop
+p 2592 3536 100 1024 0 name:$(ws)$(I)
+use bc200tr 272 2008 -100 0 frame
+xform 0 1952 3312
+use hwin 632 3400 100 0 hwin#23
+xform 0 704 3440
+p 611 3432 100 0 -1 val(in):1.0
+use hwin 648 3480 100 0 hwin#20
+xform 0 720 3520
+p 627 3512 100 0 -1 val(in):0.0001846
+use hwin 648 3576 100 0 hwin#19
+xform 0 720 3616
+p 627 3608 100 0 -1 val(in):100.0
+use hwin 680 3976 100 0 hwin#16
+xform 0 752 4016
+p 659 4008 100 0 -1 val(in):273.16
+use ecalcs 2024 3384 100 0 present
+xform 0 2144 3648
+p 2128 3694 100 0 -1 CALC:A+1
+p 2112 3422 100 0 1 PV:$(ws)
+p 2096 3582 100 0 -1 SCAN:1 second
+use ecalcs 1304 3704 100 0 dewPoint
+xform 0 1424 3968
+p 1312 3614 100 0 1 CALC:F/((F/(A+B))-E*LOGE(C/D))-B
+p 1328 4238 100 0 -1 DESC:Calculate dew point
+p 1312 3662 100 0 1 EGU:deg C
+p 992 3822 100 0 0 PREC:1
+p 1392 3696 100 1024 0 name:$(ws)$(I)
+use ecars 3096 2824 100 0 activeC
+xform 0 3232 2992
+p 3063 2072 100 0 0 PV:$(ws)
+use esirs 3048 3672 100 0 state
+xform 0 3232 3824
+p 2975 3344 100 0 0 FTVL:LONG
+p 2975 2671 100 0 0 PV:$(ws)
+use esirs 3048 3352 100 0 health
+xform 0 3232 3504
+p 2975 3024 100 0 0 FTVL:STRING
+p 2975 2351 100 0 0 PV:$(ws)
+[comments]

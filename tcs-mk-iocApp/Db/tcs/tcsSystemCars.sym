@@ -1,0 +1,14 @@
+[symbol2]
+bbox 16 928 224 1200
+port 128 1184 100 1792 RESET symbol 1 16 1184 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 60 0 0 96 1072 TCS Top-level CARs
+r 0 80 1200 224 928
+v 0 16 1184
+80 1184
+_
+[comments]

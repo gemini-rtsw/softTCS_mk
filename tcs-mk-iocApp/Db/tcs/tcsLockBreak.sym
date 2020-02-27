@@ -1,0 +1,18 @@
+[symbol2]
+bbox -128 -32 64 64
+port -16 -16 100 0 FLNK symbol 2 64 0 0
+port -96 -16 100 0 SLNK symbol 1 -128 0 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -80 32 LockBreak
+r 0 -96 -32 32 64
+v 0 64 0
+32 0
+_
+v 0 -128 0
+-96 0
+_
+[comments]

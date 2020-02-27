@@ -1,0 +1,20 @@
+[symbol2]
+bbox 80 928 224 1200
+port 240 976 100 0 FLNK symbol 2 224 976 0
+port 0 944 100 0 c#65 symbol 1 80 944 0
+port -16 976 100 0 agTrack symbol 1 80 976 0
+port -16 1008 100 0 aoTrack symbol 1 80 1008 0
+port -16 1040 100 0 ecTrack symbol 1 80 1040 0
+port -16 1072 100 0 crTrack symbol 1 80 1072 0
+port -16 1120 100 0 m1Track symbol 1 80 1120 0
+port -16 1152 100 0 m2Track symbol 1 80 1152 0
+port -16 1184 100 0 mcTrack symbol 1 80 1184 0
+port 240 1136 100 0 trackOK symbol 2 224 1136 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 60 0 0 80 1088 Combine Track Status
+r 0 80 1200 224 928
+[comments]

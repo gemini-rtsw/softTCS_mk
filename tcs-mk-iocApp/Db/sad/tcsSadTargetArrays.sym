@@ -1,0 +1,18 @@
+[symbol2]
+bbox 192 448 864 736
+port 720 480 100 0 FLNK symbol 2 864 480 0
+port 272 480 100 0 SLNK symbol 1 192 480 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 336 656 SAD Parameters for target arrays
+r 0 256 736 800 448
+v 0 800 480
+864 480
+_
+v 0 192 480
+256 480
+_
+[comments]

@@ -1,0 +1,14 @@
+[symbol2]
+bbox -256 -96 128 160
+port -176 96 100 0 TEMP1 symbol 1 -256 96 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -80 32 M1 Node Box
+r 0 -192 -96 128 160
+v 0 -256 96
+-192 96
+_
+[comments]

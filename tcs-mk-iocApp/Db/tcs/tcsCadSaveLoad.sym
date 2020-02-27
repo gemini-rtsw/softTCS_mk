@@ -1,0 +1,18 @@
+[symbol2]
+bbox 80 416 304 928
+port 240 720 100 0 MESS symbol 2 304 736 0
+port 256 816 100 0 VAL symbol 2 304 816 0
+port 96 736 100 0 ICID symbol 1 80 736 0
+port 96 816 100 0 DIR symbol 1 80 816 0
+uniq 1
+[tools]
+[attributes]
+p 100 396 100 0 0 set0:ftva STRING
+p 120 376 100 0 0 set1:ftvb STRING
+p 140 356 100 0 0 set2:ftvc STRING
+p 160 336 100 0 0 set3:ftvd STRING
+[layers]
+<symbol>
+l 130 0 0 80 608 tcsCadSaveLoad
+r 0 80 928 304 416
+[comments]
