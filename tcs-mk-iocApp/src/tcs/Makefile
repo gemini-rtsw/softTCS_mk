@@ -8,7 +8,7 @@ include $(TOP)/configure/CONFIG
 #=============================
 # Build the IOC application
 
-LIBRARY_IOC_RTEMS = tcs
+LIBRARY_IOC = tcs
 
 # tcs.dbd will be created and installed
 DBD += tcs.dbd

@@ -8,7 +8,7 @@ include $(TOP)/configure/CONFIG
 #=============================
 # Build the IOC application
 
-PROD_IOC_RTEMS = tcs-mk-ioc
+PROD_IOC = tcs-mk-ioc
 # tcs-mk-ioc.dbd will be created and installed
 DBD += tcs-mk-ioc.dbd
 
