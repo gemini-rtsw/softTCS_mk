@@ -28,14 +28,14 @@ WORKSUP=/gem_sw/work/$(EPICS_RELEASE)/support
 
 IOCSTATS=$(PRODSUP)/iocStats/3-1-16-5
 SLALIB=$(PRODSUP)/slalib/1-9-10
-ASTLIB=$(PRODSUP)/astlib/1-6-14
+ASTLIB=$(PRODSUP)/astlib/1-6-15
 GEMREC=$(PRODSUP)/geminiRec/4-1-11
 SNCSEQ=$(PRODSUP)/seq/2-2-5-3
 PVLOAD=$(PRODSUP)/pvload/1-1-4
 GEMUTILS=$(PRODSUP)/gemUtil/1-13
-TCSLIB=$(PRODSUP)/tcslib/1-0-19
+TCSLIB=$(PRODSUP)/tcslib/1-0-20
 TPTLIB=$(PRODSUP)/tptlib/1-0-5
-TIMELIB=$(PRODSUP)/timelib/2-1-1
+TIMELIB=$(PRODSUP)/timelib/2-1-2
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/gem_sw/epics/$(EPICS_RELEASE)/base
