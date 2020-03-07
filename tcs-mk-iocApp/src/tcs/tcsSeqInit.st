@@ -365,7 +365,6 @@ int done[MAXSUBSYS]  ;              /* flags to show subsystems are "ready" */
 int timedOut[MAXSUBSYS] ;           /* flags to show subsystems timed out */
 int pstat ;                         /* Status of pvload */
 
-int clockDone ;                     /* Flag to show time has been read OK */
 int semInitialized = FALSE ;        /* Flag to show if semaphores have been initialized */
 int firstInit ;                     /* Flag to show first init has been done */
 int m1ModelType ;                   /* non-AO or AO model */
@@ -3097,7 +3096,6 @@ ss master
  {
   when ()
   {
-    clockDone = FALSE ;
     firstInit = FALSE ;
     tcsState  = INITIALISING ;
     tcsName   = 1 ;
@@ -3115,19 +3113,10 @@ ss master
     }
     pvPut(tcsState) ;
     pvPut(tcsName);
-    DBGMSG (DBG_NONE, "tcsSeqInit: ss master init -> noclock\n") ;
-  } state noClock
- } 
 
- state noClock
- {
-  when (delay(1.0))
-  {
-    if (timeNow(&tai) == 0) clockDone = TRUE ;
-  } state noClock
+    // THE FOLLOWING WAS ABSORBED FROM THE "noclock" STATE, WHICH
+    // BECAME IRRELEVANT SINCE WE ASSUME THE CLOCK IS ALWAYS IN SYNC
 
-  when(clockDone)
-  {
     // NOTE: The following two functions MAY fail.
     //       A proper state transition should take this
     //       into account and not mark semInitialized until
@@ -3136,9 +3125,9 @@ ss master
     //tcsOpticsInit();
     semInitialized = TRUE;
     pvPut(goS);
-    DBGMSG (DBG_NONE, "tcsSeqInit: ss master sem initialized / noClock ->initialising\n") ;
+    DBGMSG (DBG_NONE, "tcsSeqInit: ss master sem init -> initialising\n") ;
   } state initialising
- }  
+ }
 
  state initialising
  {

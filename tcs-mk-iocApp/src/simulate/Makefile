@@ -17,7 +17,6 @@ DBD += tcsSimFunc.dbd
 tcsSim_DBD += base.dbd
 tcsSim_DBD += geminiRecords.dbd        
 tcsSim_DBD += pvload.dbd   
-tcsSim_DBD += bancomm.dbd 
 tcsSim_DBD += timelib.dbd 
 tcsSim_DBD += slalib.dbd 
 tcsSim_DBD += tcslib.dbd 

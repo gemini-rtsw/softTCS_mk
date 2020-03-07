@@ -18,7 +18,6 @@ DBD += tcsFunc.dbd
 tcs_DBD += base.dbd
 tcs_DBD += geminiRecords.dbd        
 tcs_DBD += pvload.dbd   
-tcs_DBD += bancomm.dbd
 tcs_DBD += timelib.dbd 
 tcs_DBD += slalib.dbd 
 tcs_DBD += tcslib.dbd 

@@ -18,7 +18,6 @@ vpath %.db $(SYS_DB_PATHS)
 
 DB_INSTALLS += iocAdminRTEMS.db
 DB_INSTALLS += iocAdminSoft.db
-DB_INSTALLS += timeProbe.db
 
 
 include $(TOP)/configure/RULES
