@@ -30,7 +30,6 @@ tcs-mk-ioc_DBD += listAlarmRecords.dbd
 tcs-mk-ioc_DBD += menuScan.dbd
 tcs-mk-ioc_DBD += timeProbe.dbd
 tcs-mk-ioc_DBD += bancomm.dbd
-tcs-mk-ioc_DBD += xy240.dbd
 tcs-mk-ioc_DBD += net_config.dbd
 tcs-mk-ioc_DBD += iocInit.dbd
 
@@ -60,7 +59,6 @@ tcs-mk-ioc_LIBS += pvload
 tcs-mk-ioc_LIBS += seq pv
 tcs-mk-ioc_LIBS += timeProbe
 tcs-mk-ioc_LIBS += bancomm
-tcs-mk-ioc_LIBS += xy240
 
 # Finally link to the EPICS Base libraries
 tcs-mk-ioc_LIBS += $(EPICS_BASE_IOC_LIBS)

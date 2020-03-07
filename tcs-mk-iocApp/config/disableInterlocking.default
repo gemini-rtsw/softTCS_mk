@@ -1,6 +1,6 @@
 # Force disabling the xycom for simulation. The driver won't detect
 # properly the absence under some platforms.
-int $(top)xycomInterlock.DISA = 1;
-int $(top)checkForXycom.DISA = 1;
-int $(top)checkForXycom.VAL = 1;
-int $(top)xycomAbsent.PROC = 1;
+# int $(top)xycomInterlock.DISA = 1;
+# int $(top)checkForXycom.DISA = 1;
+# int $(top)checkForXycom.VAL = 1;
+# int $(top)xycomAbsent.PROC = 1;

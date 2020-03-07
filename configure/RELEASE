@@ -38,7 +38,6 @@ GEMUTILS=$(PRODSUP)/gemUtil/1-13
 TCSLIB=$(PRODSUP)/tcslib/1-0-19
 TPTLIB=$(PRODSUP)/tptlib/1-0-5
 TIMELIB=$(PRODSUP)/timelib/2-1-1
-XYCOM=$(PRODSUP)/xycom/2-1-8
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/gem_sw/epics/$(EPICS_RELEASE)/base

@@ -33,7 +33,6 @@ bcUseRTCMode()
 
 # - Master ? Simulate ? intPerSecond, intPerTick, timeOffset (microsec)
 BCconfigure (0, 1, 100, 1, 0)
-# drvXy240Config(1, 32, 0xd000)
 
 traceIocInit
 

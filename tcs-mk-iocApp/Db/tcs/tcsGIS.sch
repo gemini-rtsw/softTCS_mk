@@ -1,25 +1,22 @@
 [schematic2]
-uniq 18
+uniq 15
 [tools]
 [detail]
 w -1344 739 100 0 n#1 ebos.ebos#710.FLNK -1696 736 -992 736 -992 352 -3104 352 -3104 -128 -2336 -128 ecalcs.ecalcs#716.SLNK
 w -656 1491 100 0 n#2 ebos.ebos#696.FLNK -1024 1488 -288 1488 -288 1088 -3104 1088 -3104 544 -2336 544 ecalcs.ecalcs#707.SLNK
 w -2392 259 100 0 n#3 hwin.hwin#723.in -2448 256 -2336 256 ecalcs.ecalcs#716.INPA
-w -1624 3 100 0 n#4 ebos.ebos#718.OUT -1696 0 -1552 0 hwout.hwout#717.outp
-w -2040 99 100 0 n#5 ecalcs.ecalcs#716.FLNK -2048 96 -2032 96 -2032 32 -1952 32 ebos.ebos#718.SLNK
-w -2000 67 100 0 n#6 ecalcs.ecalcs#716.VAL -2048 64 -1952 64 ebos.ebos#718.DOL
-w -2392 931 100 0 n#7 hwin.hwin#711.in -2448 928 -2336 928 ecalcs.ecalcs#707.INPA
-w -1624 675 100 0 n#8 ebos.ebos#710.OUT -1696 672 -1552 672 hwout.hwout#709.outp
-w -2040 771 100 0 n#9 ecalcs.ecalcs#707.FLNK -2048 768 -2032 768 -2032 704 -1952 704 ebos.ebos#710.SLNK
-w -2000 739 100 0 n#10 ecalcs.ecalcs#707.VAL -2048 736 -1952 736 ebos.ebos#710.DOL
-w -952 1427 100 0 n#11 ebos.ebos#696.OUT -1024 1424 -880 1424 hwout.Laser.outp
-w -1368 1523 100 0 n#12 ecalcs.calc1.FLNK -1376 1520 -1360 1520 -1360 1456 -1280 1456 ebos.ebos#696.SLNK
-w -1296 1491 100 0 n#13 junction -1312 1488 -1280 1488 ebos.ebos#696.DOL
-w -1344 1491 100 0 n#13 ecalcs.calc1.VAL -1376 1488 -1312 1488 -1312 1728 -1792 1728 -1792 1680 -1664 1680 ecalcs.calc1.INPA
-w -1856 1539 100 0 n#14 efanouts.fanout.LNK1 -1936 1536 -1776 1536 -1776 1296 -1664 1296 ecalcs.calc1.SLNK
-w -2384 1395 100 0 n#15 ecalcs.ecalcs#676.FLNK -2512 1392 -2256 1392 -2256 1456 -2176 1456 efanouts.fanout.SLNK
-w -2424 1363 100 0 n#16 ecalcs.ecalcs#676.VAL -2512 1360 -2336 1360 -2336 1536 -2128 1536 efanouts.fanout.SELL
-w -2854 1562 -100 0 n#17 hwin.hwin#675.in -2872 1552 -2800 1552 ecalcs.ecalcs#676.INPA
+w -2040 99 100 0 n#4 ecalcs.ecalcs#716.FLNK -2048 96 -2032 96 -2032 32 -1952 32 ebos.ebos#718.SLNK
+w -2000 67 100 0 n#5 ecalcs.ecalcs#716.VAL -2048 64 -1952 64 ebos.ebos#718.DOL
+w -2392 931 100 0 n#6 hwin.hwin#711.in -2448 928 -2336 928 ecalcs.ecalcs#707.INPA
+w -2040 771 100 0 n#7 ecalcs.ecalcs#707.FLNK -2048 768 -2032 768 -2032 704 -1952 704 ebos.ebos#710.SLNK
+w -2000 739 100 0 n#8 ecalcs.ecalcs#707.VAL -2048 736 -1952 736 ebos.ebos#710.DOL
+w -1368 1523 100 0 n#9 ecalcs.calc1.FLNK -1376 1520 -1360 1520 -1360 1456 -1280 1456 ebos.ebos#696.SLNK
+w -1296 1491 100 0 n#10 junction -1312 1488 -1280 1488 ebos.ebos#696.DOL
+w -1344 1491 100 0 n#10 ecalcs.calc1.VAL -1376 1488 -1312 1488 -1312 1728 -1792 1728 -1792 1680 -1664 1680 ecalcs.calc1.INPA
+w -1856 1539 100 0 n#11 efanouts.fanout.LNK1 -1936 1536 -1776 1536 -1776 1296 -1664 1296 ecalcs.calc1.SLNK
+w -2384 1395 100 0 n#12 ecalcs.ecalcs#676.FLNK -2512 1392 -2256 1392 -2256 1456 -2176 1456 efanouts.fanout.SLNK
+w -2424 1363 100 0 n#13 ecalcs.ecalcs#676.VAL -2512 1360 -2336 1360 -2336 1536 -2128 1536 efanouts.fanout.SELL
+w -2854 1562 -100 0 n#14 hwin.hwin#675.in -2872 1552 -2800 1552 ecalcs.ecalcs#676.INPA
 s -1440 32 100 0 Laser Vignetting Interlock OFF
 s -1440 704 100 0 Laser Vignetting Interlock ON
 s -768 1456 100 0 Laser Interlock System "heartbeat"
@@ -40,37 +37,22 @@ xform 0 -2544 256
 p -2896 240 100 0 -1 val(in):$(top)domeVignette
 use ebos -1952 -57 100 0 ebos#718
 xform 0 -1824 32
-p -1904 112 100 0 1 DTYP:XYCOM-240
 p -2272 -18 100 0 0 OMSL:closed_loop
 p -2272 -114 100 0 0 ONAM:1
 p -2272 -82 100 0 0 ZNAM:0
 p -1840 -64 100 1024 -1 name:$(top)LaserIntOFF
 use ebos -1952 615 100 0 ebos#710
 xform 0 -1824 704
-p -1904 784 100 0 1 DTYP:XYCOM-240
 p -2272 654 100 0 0 OMSL:closed_loop
 p -2272 558 100 0 0 ONAM:1
 p -2272 590 100 0 0 ZNAM:0
 p -1840 608 100 1024 -1 name:$(top)LaserIntON
 use ebos -1280 1367 100 0 ebos#696
 xform 0 -1152 1456
-p -1232 1536 100 0 1 DTYP:XYCOM-240
 p -1600 1406 100 0 0 OMSL:closed_loop
 p -1600 1310 100 0 0 ONAM:1
 p -1600 1342 100 0 0 ZNAM:0
 p -1168 1360 100 1024 -1 name:$(top)LaserInterlock
-use hwout -1472 32 -100 0 hwout#717
-xform 0 -1456 0
-p -1442 -72 100 0 0 typ(outp):val
-p -1456 -48 100 0 -1 val(outp):#C0 S25
-use hwout -1472 704 -100 0 hwout#709
-xform 0 -1456 672
-p -1442 600 100 0 0 typ(outp):val
-p -1456 624 100 0 -1 val(outp):#C0 S24
-use hwout -800 1456 -100 0 Laser
-xform 0 -784 1424
-p -770 1352 100 0 0 typ(outp):val
-p -784 1376 100 0 -1 val(outp):#C0 S26
 use ecalcs -2312 -216 -100 0 ecalcs#716
 xform 0 -2192 48
 p -2240 -18 100 0 1 CALC:(A=0)?1:0
