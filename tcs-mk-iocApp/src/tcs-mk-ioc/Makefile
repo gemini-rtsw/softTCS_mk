@@ -28,13 +28,11 @@ tcs-mk-ioc_DBD += tptlib.dbd
 tcs-mk-ioc_DBD += astlib.dbd
 tcs-mk-ioc_DBD += listAlarmRecords.dbd
 tcs-mk-ioc_DBD += menuScan.dbd
-tcs-mk-ioc_DBD += net_config.dbd
 tcs-mk-ioc_DBD += iocInit.dbd
 
 # tcs-mk-ioc_registerRecordDeviceDriver.cpp derives from tcs-mk-ioc.dbd
 tcs-mk-ioc_SRCS += tcs-mk-ioc_registerRecordDeviceDriver.cpp
 tcs-mk-ioc_SRCS += initTrace.c
-tcs-mk-ioc_SRCS += net_config.c
 
 # Build the main IOC entry point on workstation OSs.
 tcs-mk-ioc_SRCS_DEFAULT += tcs-mk-iocMain.cpp
