@@ -1,45 +1,10 @@
 $(LINUX_ONLY)#!${INSTALL}/bin/${ARCH}/tcs-mk-ioc
 
-cd ${INSTALL}
+cd ${TEST_INSTALL}
 
-epicsEnvSet("IOCSH_PS1","$(SIMTOP)-sim-ioc> ")
-epicsEnvSet("TZ", "HST 10")
+substitute "IOCPROMPT=$(SIMTOP)-sim-ioc"
+substitute "SUBS=sim.subs"
+substitute "TCSTOP=$(SIMTOP),TCSPV=$(SIMTCSPV),TCSSEQ=$(SIMTCSSEQ)"
+
 epicsEnvSet("SIMTOP","$(SIMTOP)")
-# Needed for the dynamic config
-nfsMount("$(DYNCFGSERVER)","$(DYNCFGREMOTE)","$(DYNCFGLOCAL)")
-# Needed for static files, like ephemerides
-nfsMount("$(STCFGSERVER)","$(STCFGREMOTE)","$(STCFGLOCAL)")
-## Register all support components
-dbLoadDatabase("dbd/tcs-mk-ioc.dbd")
-tcs_mk_ioc_registerRecordDeviceDriver(pdbbase)
-
-# Initialise the telecope pointing model.
-tcsModelInit
-tcsOpticsInit
-
-## Load record instances
-< data/sim.subs
-dbLoadRecords("db/iocAdminRTEMS.db", "IOC=$(SIMTOP):iocStats, TODFORMAT=%m/%d/%Y %H:%M:%S")
-
-traceIocInit
-
-iocInit
-
-# Set the pvload file names
-tcsSaveDefFnames("$(DYNCFGFILE)/tcsSimulations.default","$(DYNCFGFILE)/GemNorth.default","$(DYNCFGFILE)/$(TCSPV).current")
-
-# Initialize the TCS database
-# This block works out of gem_sw
-tcsPvload "$(DYNCFGFILE)/tcsSimulations.default","top=$(SIMTOP):,ag=tag:,version=1"
-tcsPvload "$(DYNCFGFILE)/tcsSimulationsMK.default","top=$(SIMTOP):,ag=tag:,version=1"
-tcsPvload "$(DYNCFGFILE)/GemNorth.default","top=$(SIMTOP):,version=1"
-tcsPvload "$(DYNCFGFILE)/$(TCSPV).current","top=$(SIMTOP):,version=1"
-tcsPvload "$(DYNCFGFILE)/disableInterlocking.default","top=$(SIMTOP):"
-
-tcsReadCarInfo("$(SIMTOP):")
-tcsReadCadInfo("$(SIMTOP):")
-
-tcsConfigSetFilePrefix("./")
-
-# Start sequences
-< data/$(TCSSEQ)
+include "../common.src"

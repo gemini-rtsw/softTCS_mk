@@ -14,7 +14,8 @@
 # Set CHECK_RELEASE to NO to disable checking completely.
 # Set CHECK_RELEASE to WARN to perform consistency checking but
 #   continue building anyway if conflicts are found.
-CHECK_RELEASE = YES
+# CHECK_RELEASE = YES
+CHECK_RELEASE = WARN
 
 # Define flag for "top=" macro substitution on ioc startup script. 
 # More than one top can be defined this way
@@ -29,54 +30,52 @@ TTCS = tcs
 TEST_IOC = no
 
 # Dynamic conf
-DYNCFG_SERVER = 10.2.71.11
-DYNCFG_REMOTE = /gem_sw/etc/rtconfig
-DYNCFG_LOCAL  = /rtconfig
+ifeq ($(TTCS),tcs)
+    DYNCFG_LOCAL = /tmp/rtconfig
+else
+    DYNCFG_LOCAL = /gemsoft/etc/rtconfig
+endif
+
 DYNCFG_FILES = $(DYNCFG_LOCAL)/tcs
 # Static conf
-STCFG_SERVER = 10.2.2.57
-STCFG_REMOTE = /export/gemini
-STCFG_LOCAL  = /gemini
+STCFG_LOCAL  = /gemsoft
 
-AGTOP = ag
-SIMTOP = tc2
-
-USR_BOOT_FLAGS  = -MTCSTOP=$(TTCS) -MAGTOP=$(AGTOP) -MSIMTOP=$(SIMTOP)
-USR_BOOT_FLAGS += -MDYNCFGSERVER=$(DYNCFG_SERVER) -MDYNCFGREMOTE=$(DYNCFG_REMOTE)
+USR_BOOT_FLAGS  = -MTCSTOP=$(TTCS)
 USR_BOOT_FLAGS += -MDYNCFGLOCAL=$(DYNCFG_LOCAL) -MDYNCFGFILE=$(DYNCFG_FILES)
-USR_BOOT_FLAGS += -MSTCFGSERVER=$(STCFG_SERVER) -MSTCFGREMOTE=$(STCFG_REMOTE)
 USR_BOOT_FLAGS += -MSTCFGLOCAL=$(STCFG_LOCAL)
 USR_BOOT_FLAGS += -MTCSDATA=.
 
-ifeq ($(TTCS),tcs)
-    USR_BOOT_FLAGS += -MTCSENV=resource
-    USR_BOOT_FLAGS += -MTCSPV=GemNorth
-    USR_BOOT_FLAGS += -MTCSSEQ=startSeq
-    USR_BOOT_FLAGS += -MNTP_INET=10.1.71.12
-    ifeq ($(TEST_IOC),no)
-        USR_BOOT_FLAGS += -MIOCPROMPT=tcs-mk-ioc
-        USR_BOOT_FLAGS += -MSUBS=tcs.subs
-    else
-        USR_BOOT_FLAGS += -MIOCPROMPT=tcs-TEST-ioc
-        USR_BOOT_FLAGS += -MSUBS=tcsTEST.subs
-    endif
+
+USR_BOOT_FLAGS += -MTCSENV=resource
+USR_BOOT_FLAGS += -MTCSPV=GemNorth
+USR_BOOT_FLAGS += -MTCSSEQ=startSeq
+USR_BOOT_FLAGS += -MNTP_INET=10.1.71.12
+
+ifeq ($(TEST_IOC),no)
+    USR_BOOT_FLAGS += -MIOCPROMPT=tcs-mk-ioc
+    USR_BOOT_FLAGS += -MSUBS=tcs.subs
 else
-    USR_BOOT_FLAGS += -MTCSENV=resourceTC1
-    USR_BOOT_FLAGS += -MTCSPV=GemNorthTC1
-    USR_BOOT_FLAGS += -MTCSSEQ=startSeqSIM
-    USR_BOOT_FLAGS += -MIOCPROMPT='$(SIMTOP)-sim-ioc'
-    USR_BOOT_FLAGS += -MSUBS=tc1.subs
-    USR_BOOT_FLAGS += -MNTP_INET=10.2.2.104
+    USR_BOOT_FLAGS += -MIOCPROMPT=tcs-TEST-ioc
+    USR_BOOT_FLAGS += -MSUBS=tcsTEST.subs
 endif
+
+USR_BOOT_FLAGS += -MSIMTCSENV=resourceTC1
+USR_BOOT_FLAGS += -MSIMTCSPV=GemNorthTC1
+USR_BOOT_FLAGS += -MSIMTCSSEQ=startSeqSIM
+USR_BOOT_FLAGS += -MSIMIOCPROMPT='$(SIMTOP)-sim-ioc'
+USR_BOOT_FLAGS += -MSIMSUBS=tc1.subs
+USR_BOOT_FLAGS += -MSIMNTP_INET=10.1.76.10
 
 # Set this when you only want to compile this application
 #   for a subset of the cross-compiled target architectures
 #   that Base is built for.
-CROSS_COMPILER_TARGET_ARCHS = RTEMS-mvme2307
+CROSS_COMPILER_TARGET_ARCHS =
 
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
 #INSTALL_LOCATION=</path/name/to/install/top>
+INSTALL_LOCATION=/gem_sw/test/rcar/TCS/tcs/mk
+USR_BOOT_FLAGS += -MTEST_INSTALL=${INSTALL_LOCATION}
 
 # Set this when your IOC and the host use different paths
 #   to access the application. This will be needed to boot
