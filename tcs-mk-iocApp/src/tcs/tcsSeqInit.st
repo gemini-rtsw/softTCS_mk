@@ -368,7 +368,6 @@ int pstat ;                         /* Status of pvload */
 int semInitialized = FALSE ;        /* Flag to show if semaphores have been initialized */
 int firstInit ;                     /* Flag to show first init has been done */
 int m1ModelType ;                   /* non-AO or AO model */
-double tai ;                        /* time from clock */
 double gsaoiChipXmin ;              /* Minimum X (pixels) */
 double gsaoiChipXmax ;
 double gsaoiChipYmin ;
@@ -382,6 +381,7 @@ double odgw3Ypos ;                  /* Position of target in ODGW 1 */
 double odgw4Xpos ;                  /* Position of target in ODGW 1 */
 double odgw4Ypos ;                  /* Position of target in ODGW 1 */
 string tcsPrefix ;                  /* Prefix for TCS database names */
+string tcsPrefixSub ;               /* Substution string for Prefix when pvsaving */
 string mcPrefix ;                   /* Prefix for MC database names */
 string crPrefix ;                   /* Prefix for CR database names */
 string ecPrefix ;                   /* Prefix for EC database names */
@@ -811,6 +811,7 @@ ss mcs
     waitTime[MC] = 0.0 ;                
     timeOutPeriod[MC] = 60.0 ;
     strcpy (tcsPrefix, macValueGet("top")) ;
+    snprintf (tcsPrefixSub, 40, "prefix=%s", macValueGet("top")) ;
     pvGet(intSimulate[MC]) ;
     if (intSimulate[MC])
     {
@@ -3020,30 +3021,19 @@ ss m1s
      if (m1GuideOn && m1FigUpdates ) {
        m1ModelType = tcsOpticsGetM1SaveType();
        if (m1ModelType == 2) {
-          if (!strcmp(tcsPrefix, "tc1:")) {
-           pvsave("./data/tcsM1Model.save", "prefix=tc1:",
-                  "./data/tc1M1RestoreGPI.pv", 10);
-         } else {
-           pvsave("./data/tcsM1Model.save", "prefix=tcs:",
+          if (!strcmp(tcsPrefix, "tcs:")) {
+           pvsave("./data/tcsM1Model.save", tcsPrefixSub,
                   "./data/tcsM1Restore.pv", 10);
+         } else {
+           pvsave("./data/tcsM1Model.save", tcsPrefixSub,
+                  "./data/tc1M1RestoreGPI.pv", 10);
          }
        } else if (m1ModelType == 1) {
-          if (!strcmp(tcsPrefix, "tc1:")) {
-           pvsave("./data/tcsM1Model.save", "prefix=tc1:",
-                  "./data/tc1M1RestoreAO.pv", 10);
-         } else {
-           pvsave("./data/tcsM1Model.save", "prefix=tcs:",
-                  "./data/tcsM1RestoreAO.pv", 10);
-         }
+         pvsave("./data/tcsM1Model.save", tcsPrefixSub,
+                "./data/tc1M1RestoreAO.pv", 10);
        } else {
-          if (!strcmp(tcsPrefix, "tc1:")) {
-           pvsave("./data/tcsM1Model.save", "prefix=tc1:",
-                  "./data/tc1M1Restore.pv", 10);
-         } else {
-           pvsave("./data/tcsM1Model.save", "prefix=tcs:",
-                  "./data/tcsM1Restore.pv", 10);
-         }
-        
+         pvsave("./data/tcsM1Model.save", tcsPrefixSub,
+                "./data/tc1M1Restore.pv", 10);
        }
      }
    } state monitoring
