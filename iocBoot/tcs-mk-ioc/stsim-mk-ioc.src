@@ -1,6 +1,6 @@
 $(LINUX_ONLY)#!${INSTALL}/bin/${ARCH}/tcs-mk-ioc
 
-cd ${TEST_INSTALL}
+cd ${TEST_INSTALL=${INSTALL}}
 epicsEnvSet("EPICS_CA_ADDR_LIST","10.1.2.255")
 
 substitute "IOCPROMPT=$(SIMTOP)-sim-ioc"
