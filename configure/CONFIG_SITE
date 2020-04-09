@@ -74,8 +74,8 @@ CROSS_COMPILER_TARGET_ARCHS =
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
 #INSTALL_LOCATION=</path/name/to/install/top>
-INSTALL_LOCATION=/gem_sw/test/rcar/TCS/tcs/mk
-USR_BOOT_FLAGS += -MTEST_INSTALL=${INSTALL_LOCATION}
+# INSTALL_LOCATION=/gem_sw/test/rcar/TCS/tcs/mk
+# USR_BOOT_FLAGS += -MTEST_INSTALL=${INSTALL_LOCATION}
 
 # Set this when your IOC and the host use different paths
 #   to access the application. This will be needed to boot
