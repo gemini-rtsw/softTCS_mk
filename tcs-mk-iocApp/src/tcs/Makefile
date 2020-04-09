@@ -25,6 +25,7 @@ tcs_DBD += tptlib.dbd
 tcs_DBD += astlib.dbd 
 tcs_DBD += listAlarmRecords.dbd 
 tcs_DBD += menuScan.dbd 
+tcs_DBD += timeProbe.dbd 
 
 # tcs_registerRecordDeviceDriver.cpp derives from tcs.dbd
 tcs_SRCS += tcs_registerRecordDeviceDriver.cpp
@@ -79,6 +80,7 @@ INC += tcsTcb.h
 
 LIBRARY_IOC += tcsSupport
 tcsSupport_LIBS += seq pv
+tcsSupport_LIBS += timeProbe
 tcsSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 tcsSupport_SRCS += tcsSeqInit.st
 tcsSupport_SRCS += tcsReadHrwfs.st
