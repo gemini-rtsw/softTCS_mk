@@ -312,7 +312,7 @@
 *-
 */
 
-program tcsSeqInit ("top=tcs:, mc=mc:, cr=cr:, ec=ec:, m2=m2:, ag=ag:, gp=gp:, m1=m1:, ao=ao:, aom=aom:, gsaoi=gsaoi:")
+program tcsSeqInit ("top=tcs:, mc=mc:, cr=cr:, ec=ec:, m2=m2:, ag=ag:, gp=gp:, m1=m1:, ao=ao:, aom=aom:, gsaoi=gsaoi:, CONF_FILES_DIR=/gem_sw/etc/rtconfig/tcs")
 
 option -c ;                    /* allow start prior to all connections */
 
@@ -349,6 +349,7 @@ int pvsave (char *file , char *subst, char *outFile, int flags);
 #define INIT 1
 #define START 3
 #define MAXLOOPS 20
+#define MAX_PATH 256
 }%
 
 
@@ -382,6 +383,7 @@ double odgw4Xpos ;                  /* Position of target in ODGW 1 */
 double odgw4Ypos ;                  /* Position of target in ODGW 1 */
 string tcsPrefix ;                  /* Prefix for TCS database names */
 string tcsPrefixSub ;               /* Substution string for Prefix when pvsaving */
+string tcsPrefNoColon ;             /* Prefix for files */
 string mcPrefix ;                   /* Prefix for MC database names */
 string crPrefix ;                   /* Prefix for CR database names */
 string ecPrefix ;                   /* Prefix for EC database names */
@@ -402,6 +404,9 @@ string aoDbName ;                   /* Name of AO database records */
 string gpDbName ;                   /* Name of GPOL database records */
 string aomDbName ;                  /* Name of AOM database records */
 string gsaoiDbName ;                /* Name of GSAOI database records */
+char confFileSave[MAX_PATH];
+char confFileRest[MAX_PATH];
+string CONF_FILES_DIR;
 
 
 /* Event flags */
@@ -787,6 +792,20 @@ assign applState[GP] to "" ;
 assign applState[AOM] to "" ;
 assign applState[GSAOI] to "" ;
 
+void setConfFileRest(string result, int modelType, string top, string dir, string pref) {
+  if (modelType == 2) {
+    if (!strcmp(top, "tcs:")) {
+      snprintf (result, MAX_PATH, "%s/%s", dir, "tcsM1Restore.pv");
+    } else {
+      snprintf (result, MAX_PATH, "%s/%s%s", dir, pref, "M1RestoreGPI.pv");
+    }
+  } else if (modelType == 1) {
+    snprintf (result, MAX_PATH, "%s/%s%s", dir, pref, "M1RestoreAO.pv");
+  } else {
+    snprintf (result, MAX_PATH, "%s/%s%s", dir, pref, "M1Restore.pv");
+  }
+}
+
 /****************************************************************************/
 /* The state set controlling the MCS
 */
@@ -810,8 +829,6 @@ ss mcs
     loopDelay = 1.0 ;
     waitTime[MC] = 0.0 ;                
     timeOutPeriod[MC] = 60.0 ;
-    strcpy (tcsPrefix, macValueGet("top")) ;
-    snprintf (tcsPrefixSub, 40, "prefix=%s", macValueGet("top")) ;
     pvGet(intSimulate[MC]) ;
     if (intSimulate[MC])
     {
@@ -2876,7 +2893,6 @@ ss m1s
     loopDelay = 1.0 ;
     waitTime[M1] = 0.0 ;                
     timeOutPeriod[M1] = 30.0 ;
-    strcpy (tcsPrefix, macValueGet("top")) ;
     pvGet(intSimulate[M1]) ;
     if (intSimulate[M1])
     {
@@ -3020,44 +3036,17 @@ ss m1s
 */
      if (m1GuideOn && m1FigUpdates ) {
        m1ModelType = tcsOpticsGetM1SaveType();
-       if (m1ModelType == 2) {
-          if (!strcmp(tcsPrefix, "tcs:")) {
-           pvsave("./data/tcsM1Model.save", tcsPrefixSub,
-                  "./data/tcsM1Restore.pv", 10);
-         } else {
-           pvsave("./data/tcsM1Model.save", tcsPrefixSub,
-                  "./data/tc1M1RestoreGPI.pv", 10);
-         }
-       } else if (m1ModelType == 1) {
-         pvsave("./data/tcsM1Model.save", tcsPrefixSub,
-                "./data/tc1M1RestoreAO.pv", 10);
-       } else {
-         pvsave("./data/tcsM1Model.save", tcsPrefixSub,
-                "./data/tc1M1Restore.pv", 10);
-       }
+       snprintf (confFileSave, MAX_PATH, "%s/%s", CONF_FILES_DIR, "tcsM1Model.save");
+       setConfFileRest(confFileRest, m1ModelType, tcsPrefix, CONF_FILES_DIR, tcsPrefNoColon);
+       pvsave(confFileSave, tcsPrefixSub, confFileRest, 10);
      }
    } state monitoring
 
    when (efTestAndClear(m1Restore))
    {
      m1ModelType = tcsOpticsGetM1ModelType();
-     if (!strcmp(tcsPrefix, "tc1:")) {
-       if (m1ModelType == 0) {
-         pstat = pvload("./data/tc1M1Restore.pv","",2);
-       } else if (m1ModelType == 1) {
-         pstat = pvload("./data/tc1M1RestoreAO.pv","",2);
-       } else {
-         pstat = pvload("./data/tc1M1RestoreGPI.pv","",2);
-       }
-     } else {
-       if (m1ModelType == 0) {
-         pstat = pvload("./data/tcsM1Restore.pv","",2);
-       } else if (m1ModelType == 1) {
-         pstat = pvload("./data/tcsM1RestoreAO.pv","",2);
-       } else {
-         pstat = pvload("./data/tcsM1RestoreGPI.pv","",2);
-       }
-     }
+     setConfFileRest(confFileRest, m1ModelType, tcsPrefix, CONF_FILES_DIR, tcsPrefNoColon);
+     pstat = pvload(confFileRest, "", 2);
      if (pstat) {
        strcpy(m1CommSentMsg, "Failed to restore M1 model data");
        m1CommSentC = menuCarstatesERROR ;
@@ -3103,6 +3092,10 @@ ss master
     }
     pvPut(tcsState) ;
     pvPut(tcsName);
+    strcpy (tcsPrefix, macValueGet("top")) ;
+    strcpy (CONF_FILES_DIR, macValueGet("CONF_FILES_DIR"));
+    snprintf (tcsPrefixSub, 40, "prefix=%s", macValueGet("top")) ;
+    snprintf (tcsPrefNoColon, strlen(tcsPrefix), "%s", tcsPrefix);
 
     // THE FOLLOWING WAS ABSORBED FROM THE "noclock" STATE, WHICH
     // BECAME IRRELEVANT SINCE WE ASSUME THE CLOCK IS ALWAYS IN SYNC

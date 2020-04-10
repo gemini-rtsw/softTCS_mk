@@ -9,5 +9,5 @@ seq &tcsSeqSysSimulate, "top=$(SIMTOP):, sys=ao:, sad=$(SIMTOP):ao:, subsys=$(SI
 seq &tcsSeqSysSimulate, "top=$(SIMTOP):, sys=aom:, sad=$(SIMTOP):aom:, subsys=$(SIMTOP):aom:"
 seq &tcsSeqSysSimulate, "top=$(SIMTOP):, sys=gp:, sad=$(SIMTOP):gp:sad:, subsys=$(SIMTOP):gp:"
 seq &tcsSeqGsaoiSimulate, "top=$(SIMTOP):, sys=gsaoi:, sad=gsaoi:"
-seq &tcsSeqInit, "top=$(SIMTOP):, prefix=$(SIMTOP):"
+seq &tcsSeqInit, "top=$(SIMTOP):, prefix=$(SIMTOP):, CONF_FILES_DIR=$(DYNCFGFILE)"
 seq &tcsReadHrwfs, "top=$(SIMTOP):"
