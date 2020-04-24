@@ -406,7 +406,7 @@ string aomDbName ;                  /* Name of AOM database records */
 string gsaoiDbName ;                /* Name of GSAOI database records */
 char confFileSave[MAX_PATH];
 char confFileRest[MAX_PATH];
-string CONF_FILES_DIR;
+char CONF_FILES_DIR[MAX_PATH];
 
 
 /* Event flags */
