@@ -792,7 +792,7 @@ assign applState[GP] to "" ;
 assign applState[AOM] to "" ;
 assign applState[GSAOI] to "" ;
 
-void setConfFileRest(string result, int modelType, string top, string dir, string pref) {
+void setConfFileRest(char *result, int modelType, string top, char *dir, string pref) {
   if (modelType == 2) {
     if (!strcmp(top, "tcs:")) {
       snprintf (result, MAX_PATH, "%s/%s", dir, "tcsM1Restore.pv");
