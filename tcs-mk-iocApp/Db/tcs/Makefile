@@ -15,6 +15,9 @@ vpath %.db $(SYS_DB_PATHS)
 DEPSCHS = $(wildcard ../*.sch)
 DB += tcsTop.db
 
+DB_INSTALLS += iocAdminSoft.db
+DB_INSTALLS += timeProbe.db
+
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE

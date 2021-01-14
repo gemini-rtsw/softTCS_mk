@@ -14,8 +14,8 @@
 # Set CHECK_RELEASE to NO to disable checking completely.
 # Set CHECK_RELEASE to WARN to perform consistency checking but
 #   continue building anyway if conflicts are found.
-# CHECK_RELEASE = YES
-CHECK_RELEASE = WARN
+CHECK_RELEASE = YES
+#CHECK_RELEASE = WARN
 
 # Define flag for "top=" macro substitution on ioc startup script. 
 # More than one top can be defined this way
@@ -26,12 +26,13 @@ CHECK_RELEASE = WARN
 # TTCS: TCS top
 # TEST_IOC: Option if you are booting the IOC with "tcs" as top in a Lab environment
 # ICARUS: Choose if data files are going to be read from icarus or from local data/ directory
-TTCS = tcs
+TTCS = tc2
 TEST_IOC = no
 
 # Dynamic conf
 TEST_DYNCFG_LOCAL = /home/software/rtconfig
-DYNCFG_LOCAL = /gemsoft/etc/rtconfig
+DYNCFG_LOCAL = /home/hstecher/work/config
+ 
 
 DYNCFG_SYS = /tcs
 # Static conf
