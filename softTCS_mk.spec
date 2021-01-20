@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 6%{?dist}
+Release: 4%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -95,5 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
    /%{_prefix}/%{name}/include
    /%{_prefix}/%{name}/configure
+
+%changelog
 
 
