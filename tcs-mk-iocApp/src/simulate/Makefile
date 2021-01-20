@@ -21,7 +21,7 @@ tcsSim_DBD += timelib.dbd
 tcsSim_DBD += slalib.dbd 
 tcsSim_DBD += tcslib.dbd 
 #tcsSim_DBD += tptlib.dbd 
-tcsSim_DBD += astlib.dbd 
+#tcsSim_DBD += astlib.dbd 
 #tcsSim_DBD += menuScan.dbd 
 
 # Add all the support libraries used by tcsSim
