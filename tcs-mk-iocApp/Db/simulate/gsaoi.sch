@@ -88,7 +88,6 @@ p 2176 736 100 0 -1 setb:window 4
 use gsaoiSimFilters -384 176 100 0 gsaoiSimFilters#50
 xform 0 -272 272
 p -370 399 100 0 1 seta:prefix $(prefix)cc:
-p -368 429 100 0 1 setc:
 use esels 102 189 100 0 bdValsSel
 xform 0 184 456
 p 152 184 100 1024 0 name:$(prefix)$(I)

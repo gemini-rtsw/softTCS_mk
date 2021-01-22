@@ -52,7 +52,6 @@ p -704 720 100 0 0 set4:ftvd STRING
 use gsaoiSimFilter -704 -752 100 0 gsaoiSimFilter#19
 xform 0 -592 -656
 p -669 -721 100 0 1 setb:filtname vfilt2
-p -653 -590 100 0 0 seta:
 p -696 -592 100 0 0 set1:ftva STRING
 p -696 -624 100 0 0 set2:ftvb STRING
 p -696 -656 100 0 0 set3:ftvc STRING
