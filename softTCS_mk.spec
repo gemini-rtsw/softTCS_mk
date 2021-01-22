@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Fri Jan 22 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-9
+- new package built with tito
+
 * Wed Jan 20 2021 Matt Rippa <mrippa@gemini.edu> 0.1-8
 - Fixed build errors due to missing astlib.dbd
 
