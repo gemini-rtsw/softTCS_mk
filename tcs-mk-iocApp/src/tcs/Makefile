@@ -20,11 +20,11 @@ tcs_DBD += geminiRecords.dbd
 tcs_DBD += pvload.dbd   
 tcs_DBD += timelibSupp.dbd 
 tcs_DBD += slalib.dbd 
-tcs_DBD += tcslib.dbd 
+tcs_DBD += tcslibSupp.dbd 
 #tcs_DBD += tptlib.dbd 
-tcs_DBD += astlib.dbd 
+#tcs_DBD += astlib.dbd 
 tcs_DBD += listAlarmRecords.dbd 
-tcs_DBD += menuScan.dbd 
+#tcs_DBD += menuScan.dbd 
 tcs_DBD += timeProbe.dbd 
 
 # tcs_registerRecordDeviceDriver.cpp derives from tcs.dbd

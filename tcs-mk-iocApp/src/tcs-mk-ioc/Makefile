@@ -13,21 +13,20 @@ PROD_IOC = tcs-mk-ioc
 DBD += tcs-mk-ioc.dbd
 
 # tcs-mk-ioc.dbd will be made up from these files:
-#tcs-mk-ioc_DBD += base.dbd
+tcs-mk-ioc_DBD += base.dbd
 tcs-mk-ioc_DBD += tcsFunc.dbd
 tcs-mk-ioc_DBD += tcsSimFunc.dbd
 tcs-mk-ioc_DBD += iocAdmin.dbd
 tcs-mk-ioc_DBD += devIocStats.dbd
 tcs-mk-ioc_DBD += geminiRecords.dbd
-tcs-mk-ioc_DBD += iocAdmin.dbd
 tcs-mk-ioc_DBD += pvload.dbd
 tcs-mk-ioc_DBD += timelibSupp.dbd
-tcs-mk-ioc_DBD += tcslib.dbd
+tcs-mk-ioc_DBD += tcslibSupp.dbd
 tcs-mk-ioc_DBD += slalib.dbd
 #tcs-mk-ioc_DBD += tptlib.dbd
 #tcs-mk-ioc_DBD += astlib.dbd
 tcs-mk-ioc_DBD += listAlarmRecords.dbd
-cs-mk-ioc_DBD += menuScan.dbd
+tcs-mk-ioc_DBD += menuScan.dbd
 tcs-mk-ioc_DBD += iocInit.dbd
 
 # tcs-mk-ioc_registerRecordDeviceDriver.cpp derives from tcs-mk-ioc.dbd
