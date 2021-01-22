@@ -19,17 +19,17 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 ## You may specify dependencies here
-BuildRequires: epics-base-devel sequencer-devel 
-Requires: epics-base sequencer procServ conserver
+BuildRequires: epics-base-devel re2c tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
+Requires: epics-base iocStats sequencer autosave bancomm geminiRec timelib slalib xycom gemUtil timeProbe pvload tcslib astlib tptlib
 ## Switch dependency checking off
-## AutoReqProv: no
+AutoReqProv: no
 
 %description
 This is the ioc module %{name}.
@@ -38,7 +38,7 @@ This is the ioc module %{name}.
 %package devel
 Summary: %{name}-devel Package
 Group: Development/Gemini
-Requires: %{name}
+Requires: %{name} tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
 %description devel
 This is the module %{name}.
 
@@ -89,19 +89,14 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/bin
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
-   /%{_prefix}/%{name}/data
+  # /%{_prefix}/%{name}/data
    /%{_prefix}/%{name}/lib
-   /%{_prefix}/%{name}/include
+   #/%{_prefix}/%{name}/include
    /%{_prefix}/%{name}/configure
 
 %files devel
 %defattr(-,root,root)
-   /%{_prefix}/%{name}/db
-   /%{_prefix}/%{name}/dbd
-   /%{_prefix}/%{name}/data
-   /%{_prefix}/%{name}/lib
    /%{_prefix}/%{name}/include
-   /%{_prefix}/%{name}/configure
 
 %changelog
 * Wed Jan 20 2021 Matt Rippa <mrippa@gemini.edu> 0.1-8
