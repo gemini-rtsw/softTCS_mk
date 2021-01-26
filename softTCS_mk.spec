@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -27,7 +27,7 @@ ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 ## You may specify dependencies here
 BuildRequires: epics-base-devel re2c tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
-Requires: epics-base iocStats sequencer autosave bancomm geminiRec timelib slalib xycom gemUtil timeProbe pvload tcslib astlib tptlib
+Requires: epics-base iocStats sequencer autosave bancomm geminiRec timelib slalib xycom gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver
 ## Switch dependency checking off
 AutoReqProv: no
 
@@ -99,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Jan 26 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-10
+- Change the configs for mkotcsioc-lv2 tests
 * Fri Jan 22 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-9
 - new package built with tito
 
