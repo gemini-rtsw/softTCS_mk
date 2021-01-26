@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -99,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Jan 26 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-11
+- Change configs for mkotcsioc-lv2 tests
+
 * Tue Jan 26 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-10
 - Change the configs for mkotcsioc-lv2 tests
 * Fri Jan 22 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-9
