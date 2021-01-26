@@ -1,6 +1,6 @@
 $(LINUX_ONLY)#!${INSTALL}/bin/${ARCH}/tcs-mk-ioc
 
-cd ${INSTALL}
+#cd ${INSTALL}
 
 substitute "SUBS=$(TCSTOP).subs"
 include "../common.src"
