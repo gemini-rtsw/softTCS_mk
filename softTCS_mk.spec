@@ -27,7 +27,7 @@ ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 ## You may specify dependencies here
 BuildRequires: epics-base-devel re2c tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
-Requires: epics-base iocStats sequencer autosave bancomm geminiRec timelib slalib xycom gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver
+Requires: epics-base iocStats sequencer autosave bancomm geminiRec timelib slalib xycom gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client
 ## Switch dependency checking off
 AutoReqProv: no
 
