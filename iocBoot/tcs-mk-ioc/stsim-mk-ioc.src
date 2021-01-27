@@ -1,4 +1,4 @@
-$(LINUX_ONLY)#!${INSTALL}/bin/${ARCH}/tcs-mk-ioc
+$(LINUX_ONLY)#!./bin/${ARCH}/tcs-mk-ioc
 
 #cd ${TEST_INSTALL=${INSTALL}}
 
