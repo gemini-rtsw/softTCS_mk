@@ -55,6 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r db $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r dbd $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r data $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r bin $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r lib $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r include $RPM_BUILD_ROOT/%{_prefix}/%{name}
@@ -89,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/bin
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
-  # /%{_prefix}/%{name}/data
+   /%{_prefix}/%{name}/data
    /%{_prefix}/%{name}/lib
    #/%{_prefix}/%{name}/include
    /%{_prefix}/%{name}/configure
