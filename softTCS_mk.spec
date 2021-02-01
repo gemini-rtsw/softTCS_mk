@@ -70,7 +70,7 @@ if [ "$1" == "2" ]; then
 	manage-procs write-procs-cf
 fi
 # install systemd files
-manage-procs add -f -A -C %{_prefix}/%{name}/bin/linux-x86_64 -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 stsim2-mk-ioc.boot
+manage-procs add -f -C %{_prefix}/%{name}/bin/linux-x86_64 -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 stsim2-mk-ioc.boot
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
 
