@@ -26,7 +26,7 @@ CHECK_RELEASE = YES
 # TTCS: TCS top
 # TEST_IOC: Option if you are booting the IOC with "tcs" as top in a Lab environment
 # ICARUS: Choose if data files are going to be read from icarus or from local data/ directory
-TTCS = tc2
+TTCS = tcs
 TEST_IOC = no
 
 # Dynamic conf
