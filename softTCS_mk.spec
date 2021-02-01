@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-15
+- Changed top back to tc2 for testing manage-procs change without causing a tcs
+  conflict if the change doesn't work as intended
+
 * Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-14
 - Change the config_site ttcs from tc2 to tcs to fix the top
 - Remove -a flag from spec file manage procs
