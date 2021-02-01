@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-14
+- Change the config_site ttcs from tc2 to tcs to fix the top
+- Remove -a flag from spec file manage procs
+- Added data to spec
+
 * Tue Jan 26 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-13
 - Change to relative path in boot file and add port to procserv config
 
