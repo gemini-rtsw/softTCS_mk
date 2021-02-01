@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-16
+- Change top to tc1 to test top fix
+
 * Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-15
 - Changed top back to tc2 for testing manage-procs change without causing a tcs
   conflict if the change doesn't work as intended
