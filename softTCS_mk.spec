@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,11 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Feb 02 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-18
+- Manage-procs test changing directory path for correct chdir in conf file
+- Procserv configuration test adding relative path to spec file manage-procs
+  line
+
 * Mon Feb 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-17
 - Change top from tc2 to tcs
 
