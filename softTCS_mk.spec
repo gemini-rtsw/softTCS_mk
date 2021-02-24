@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Wed Feb 24 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-19
+- Change rtconfig path for softTCS_mk on mkotcsioc-lv2 from tmp to more
+  permanent path
+
 * Tue Feb 02 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-18
 - Manage-procs test changing directory path for correct chdir in conf file
 - Procserv configuration test adding relative path to spec file manage-procs
