@@ -30,8 +30,8 @@ TTCS = tcs
 TEST_IOC = no
 
 # Dynamic conf
-TEST_DYNCFG_LOCAL = /home/software/rtconfig
-DYNCFG_LOCAL = /tmp/rtconfig/tcs
+TEST_DYNCFG_LOCAL = /gemsoft/etc/rtconfig
+DYNCFG_LOCAL = /gemsoft/etc/rtconfig
  
 
 DYNCFG_SYS = /tcs
