@@ -3,7 +3,7 @@
 #
 # Initiate check for Xycom hardware and state of Interlock system
 #
-string $(top)checkForXycom.PROC = "1"; # Any value to force processing
+#string $(top)checkForXycom.PROC = "1"; # Any value to force processing
 #
 # Set up default values for system statistic scan rates
 #
