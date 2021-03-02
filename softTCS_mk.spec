@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Mar 02 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-20
+- Comment out xycom check processing line
+
 * Wed Feb 24 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-19
 - Change rtconfig path for softTCS_mk on mkotcsioc-lv2 from tmp to more
   permanent path
