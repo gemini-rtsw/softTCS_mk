@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Mar 30 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-21
+- Changes from Roberto and Team South tcsMechOi related
+
 * Tue Mar 02 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-20
 - Comment out xycom check processing line
 
