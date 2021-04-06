@@ -1,5 +1,5 @@
 [schematic2]
-uniq 29
+uniq 28
 [tools]
 [detail]
 w 4492 539 100 0 n#1 efanouts.moveFan.LNK2 4400 528 4656 528 4656 672 4848 672 tcsDriveShtrs.tcsDriveShtrs#1531.SLNK
@@ -28,10 +28,9 @@ w 4018 108 100 0 n#21 egenSub.driveECS.OUTJ 4080 608 4448 608 4448 336 4016 336 
 w 4034 -44 100 0 n#22 egenSub.driveECS.OUTI 4080 672 4464 672 4464 320 4032 320 4032 -480 4160 -480 ebos.domeLimitValid.SLNK
 w 4482 548 100 0 n#23 egenSub.driveECS.OUTH 4080 736 4480 736 4480 288 4064 288 4064 128 4160 128 eaos.domeVignette.SLNK
 w 4498 588 100 0 n#24 egenSub.driveECS.OUTG 4080 800 4496 800 4496 304 4048 304 4048 -16 4128 -16 outhier.c#1488.p
-w 4780 1618 100 0 n#25 egenSub.driveECS.OUTA 4080 1184 4560 1184 4560 1616 5072 1616 outhier.c#1405.p
-w 3132 1442 100 0 n#26 eaos.moveTol.VAL 3120 1440 3216 1440 tcsDeg2rad.tcsDeg2rad#1492.INP
-w 3132 1474 100 0 n#27 eaos.moveTol.FLNK 3120 1472 3216 1472 tcsDeg2rad.tcsDeg2rad#1492.SLNK
-w 4084 482 100 0 n#28 egenSub.driveECS.FLNK 4080 480 4160 480 efanouts.moveFan.SLNK
+w 3132 1442 100 0 n#25 eaos.moveTol.VAL 3120 1440 3216 1440 tcsDeg2rad.tcsDeg2rad#1492.INP
+w 3132 1474 100 0 n#26 eaos.moveTol.FLNK 3120 1472 3216 1472 tcsDeg2rad.tcsDeg2rad#1492.SLNK
+w 4084 482 100 0 n#27 egenSub.driveECS.FLNK 4080 480 4160 480 efanouts.moveFan.SLNK
 s 5440 -496 100 0 Gemini Telescope Control System
 s 5216 1696 100 0 $Id: tcsDriveEcs.sch,v 1.4 2014/09/18 15:10:11 cjm Exp $
 s 3728 1536 100 0 Note that driveECS always outputs a stream of demands. These
@@ -176,8 +175,6 @@ xform 0 3336 1432
 p 3232 1520 100 0 -1 seta:top $(top)moveTol:
 use outhier 4120 -56 100 0 c#1488
 xform 0 4112 -16
-use outhier 5064 1576 100 0 c#1405
-xform 0 5056 1616
 use inhier 3192 456 100 0 c#1481
 xform 0 3184 496
 use inhier 3192 536 100 0 c#1480
@@ -209,7 +206,7 @@ p 3264 1102 100 0 0 def(INPD):0.0
 p 3264 1022 100 0 0 def(INPE):0.0
 p 3296 590 100 0 -1 def(INPF):$(mc)azCurrentPos
 p 3264 510 100 0 -1 def(INPG):$(mc)elCurrentPos
-p 4208 1230 100 0 -1 def(OUTA):$(ec)followA.F
+p 4208 1230 100 0 0 def(OUTA):0.0
 p 4176 -18 100 0 -1 def(OUTG):$(tcs)domeVignette.HIHI
 p 3904 416 100 1024 0 name:$(top)$(I)
 p 3744 1066 75 0 -1 pproc(INPC):PP
