@@ -2,7 +2,7 @@ substitute "DYNCFGFILE=$(DYNCFGLOCAL)$(DYNCFGSYS)"
 epicsEnvSet("DYNCFGFILE", "$(DYNCFGFILE)")
 
 epicsEnvSet("IOCSH_PS1","$(IOCPROMPT)> ")
-epicsEnvSet("TZ", "HST 10")
+epicsEnvSet("TZ", "HST10")
 
 ## Register all support components
 dbLoadDatabase("dbd/tcs-mk-ioc.dbd")
