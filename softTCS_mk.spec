@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Apr 13 2021 Felix Kraemer <fkraemer@gemini.edu> 0.1-25
+- added gemini-ade to BuildRequires in specfile
+
 * Mon Apr 12 2021 Tiffany Shreves <tiffany.shreves@noirlab.edu> 0.1-24
 - Fix TZ environment var from HST 10 to HST10
 
