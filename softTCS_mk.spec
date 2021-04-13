@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -100,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Mon Apr 12 2021 Tiffany Shreves <tiffany.shreves@noirlab.edu> 0.1-23
+- GS removes not existing GEMS/ECS records
+- GS removed disconnected channels
+
 * Thu Apr 01 2021 Tiffany Shreves <tshreves@gemini.edu> 0.1-22
 - Integrate gs removed channels updates
 
