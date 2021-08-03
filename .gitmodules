@@ -1,0 +1,3 @@
+[submodule "gem-ci"]
+	path = gem-ci
+	url = git@gitlab.com:nsf-noirlab/gemini/rtsw/gem-ci.git
