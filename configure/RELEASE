@@ -25,7 +25,6 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 PRODSUP=/gem_base/epics/support
 
-IOCSTATS=$(PRODSUP)/iocStats
 SLALIB=$(PRODSUP)/slalib
 ASTLIB=$(PRODSUP)/astlib
 GEMREC=$(PRODSUP)/geminiRec
