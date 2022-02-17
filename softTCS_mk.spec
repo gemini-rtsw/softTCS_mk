@@ -27,7 +27,7 @@ ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 ## You may specify dependencies here
 BuildRequires: epics-base-devel re2c tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel gemini-ade
-Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client
+Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ-conserver
 ## Switch dependency checking off
 AutoReqProv: no
 
@@ -73,12 +73,16 @@ fi
 manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/sttcs-mk-ioc.boot
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
+systemctl daemon-reload
+systemctl restart conserver
 
 %postun
 if [ "$1" == "0" ]; then
 	manage-procs remove -f %{name}
 	manage-procs write-procs-cf
 	rm -rf %{_prefix}/%{name}
+	systemctl daemon-reload
+	systemctl restart conserver
 fi
 
 
