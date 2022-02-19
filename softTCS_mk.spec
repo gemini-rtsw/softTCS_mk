@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Sat Feb 19 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-28
+- new package built with tito
+
 * Tue Aug 03 2021 Hawi Stecher 
 - Added .gitlab-ci.yml
 
