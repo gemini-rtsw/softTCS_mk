@@ -95,6 +95,33 @@ if [ "$1" == "0" ]; then
 	systemctl restart conserver
 fi
 
+%post sim1
+source /etc/profile
+# if upgrading, remove old systemd related files
+if [ "$1" == "2" ]; then
+	manage-procs remove -f %{name}
+	manage-procs write-procs-cf
+fi
+# install systemd files
+manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/stsim1-ioc.boot
+if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
+
+systemctl daemon-reload
+systemctl restart conserver
+
+%post sim2
+source /etc/profile
+# if upgrading, remove old systemd related files
+if [ "$1" == "2" ]; then
+	manage-procs remove -f %{name}
+	manage-procs write-procs-cf
+fi
+# install systemd files
+manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/stsim2-ioc.boot
+if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
+
+systemctl daemon-reload
+systemctl restart conserver
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -114,11 +141,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files sim1
 %defattr(-,root,root)
+   /%{_prefix}/%{name}/bin/linux-x86_64/tcs-mk-ioc
    /%{_prefix}/%{name}/bin/linux-x86_64/stsim1-mk-ioc.boot
+   /%{_prefix}/%{name}/db
+   /%{_prefix}/%{name}/dbd
+   /%{_prefix}/%{name}/data
+   /%{_prefix}/%{name}/lib
+   /%{_prefix}/%{name}/configure
 
 %files sim2
 %defattr(-,root,root)
+   /%{_prefix}/%{name}/bin/linux-x86_64/tcs-mk-ioc
    /%{_prefix}/%{name}/bin/linux-x86_64/stsim2-mk-ioc.boot
+   /%{_prefix}/%{name}/db
+   /%{_prefix}/%{name}/dbd
+   /%{_prefix}/%{name}/data
+   /%{_prefix}/%{name}/lib
+   /%{_prefix}/%{name}/configure
 
 %changelog
 * Sat Feb 19 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-28
