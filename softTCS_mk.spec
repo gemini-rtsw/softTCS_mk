@@ -42,6 +42,16 @@ Requires: %{name} tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-de
 %description devel
 This is the module %{name}.
 
+%package sim1
+Summary: %{name}-sim1 Package
+%description sim1
+This is the module %{name}-sim1.
+
+%package sim2
+Summary: %{name}-sim2 Package
+%description sim2
+This is the module %{name}-sim2.
+
 %prep
 %setup -q 
 
@@ -91,17 +101,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-   /%{_prefix}/%{name}/bin
+   /%{_prefix}/%{name}/bin/linux-x86_64/sttcs-mk-ioc.boot
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
    /%{_prefix}/%{name}/data
    /%{_prefix}/%{name}/lib
-   #/%{_prefix}/%{name}/include
    /%{_prefix}/%{name}/configure
 
 %files devel
 %defattr(-,root,root)
    /%{_prefix}/%{name}/include
+
+%files sim1
+%defattr(-,root,root)
+   /%{_prefix}/%{name}/bin/linux-x86_64/stsim1-mk-ioc.boot
+
+%files sim2
+%defattr(-,root,root)
+   /%{_prefix}/%{name}/bin/linux-x86_64/stsim2-mk-ioc.boot
 
 %changelog
 * Sat Feb 19 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-28
