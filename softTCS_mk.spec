@@ -44,9 +44,13 @@ This is the module %{name}.
 
 %package sim1
 Summary: %{name}-sim1 Package
+%description sim1
+This is the module %{name}-sim1.
 
 %package sim2
 Summary: %{name}-sim2 Package
+%description sim2
+This is the module %{name}-sim2.
 
 %prep
 %setup -q 
