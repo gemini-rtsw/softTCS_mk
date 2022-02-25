@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -160,6 +160,10 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/configure
 
 %changelog
+* Thu Feb 24 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-29
+- Add sim boot files to spec file
+- Incorrectly added autosave to the softTCS
+
 * Sat Feb 19 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-28
 - new package built with tito
 
