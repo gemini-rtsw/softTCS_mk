@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -165,6 +165,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/bin/linux-x86_64/stsim2-mk-ioc.boot
 
 %changelog
+* Sat Feb 26 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-30
+- Restructure the specfile for simulators
+
 * Thu Feb 24 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-29
 - Add sim boot files to spec file
 - Incorrectly added autosave to the softTCS
