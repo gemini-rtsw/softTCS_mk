@@ -99,30 +99,47 @@ fi
 source /etc/profile
 # if upgrading, remove old systemd related files
 if [ "$1" == "2" ]; then
-	manage-procs remove -f %{name}
+	manage-procs remove -f %{name}-sim1
 	manage-procs write-procs-cf
 fi
 # install systemd files
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/stsim1-ioc.boot
+manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name}-sim1 -P 25350 bin/linux-x86_64/stsim1-ioc.boot
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
 systemctl daemon-reload
 systemctl restart conserver
+
+%postun sim1
+if [ "$1" == "0" ]; then
+	manage-procs remove -f %{name}-sim1
+	manage-procs write-procs-cf
+	rm -rf %{_prefix}/%{name}-sim1
+	systemctl daemon-reload
+	systemctl restart conserver
+fi
 
 %post sim2
 source /etc/profile
 # if upgrading, remove old systemd related files
 if [ "$1" == "2" ]; then
-	manage-procs remove -f %{name}
+	manage-procs remove -f %{name}-sim2
 	manage-procs write-procs-cf
 fi
 # install systemd files
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/stsim2-ioc.boot
+manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name}-sim2 -P 25350 bin/linux-x86_64/stsim2-ioc.boot
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
 systemctl daemon-reload
 systemctl restart conserver
 
+%postun sim2
+if [ "$1" == "0" ]; then
+	manage-procs remove -f %{name}-sim2
+	manage-procs write-procs-cf
+	rm -rf %{_prefix}/%{name}-sim2
+	systemctl daemon-reload
+	systemctl restart conserver
+fi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
