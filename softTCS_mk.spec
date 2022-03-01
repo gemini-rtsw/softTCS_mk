@@ -38,19 +38,9 @@ This is the ioc module %{name}.
 %package devel
 Summary: %{name}-devel Package
 Group: Development/Gemini
-Requires: %{name} tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
+Requires: %{name} tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
 %description devel
 This is the module %{name}.
-
-%package sim1
-Summary: %{name}-sim1 Package
-%description sim1
-This is the module %{name}-sim1.
-
-%package sim2
-Summary: %{name}-sim2 Package
-%description sim2
-This is the module %{name}-sim2.
 
 %prep
 %setup -q 
@@ -79,8 +69,22 @@ if [ "$1" == "2" ]; then
 	manage-procs remove -f %{name}
 	manage-procs write-procs-cf
 fi
+
 # install systemd files
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/sttcs-mk-ioc.boot
+# Main production program TCS
+manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
+    -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
+    -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/sttcs-mk-ioc.boot
+
+#Simulators
+simulators="sim1 sim2"
+echo "Your simulators are >>>${simulators}<<< "
+for simulator in $simulators; do
+    manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
+    -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
+    -Uroot -Groot %{name}-${simulator} -P 25350 bin/linux-x86_64/st${simulator}-mk-ioc.boot
+done
+
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
 systemctl daemon-reload
@@ -95,57 +99,12 @@ if [ "$1" == "0" ]; then
 	systemctl restart conserver
 fi
 
-%post sim1
-source /etc/profile
-# if upgrading, remove old systemd related files
-if [ "$1" == "2" ]; then
-	manage-procs remove -f %{name}-sim1
-	manage-procs write-procs-cf
-fi
-# install systemd files
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name}-sim1 -P 25350 bin/linux-x86_64/stsim1-ioc.boot
-if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
-
-systemctl daemon-reload
-systemctl restart conserver
-
-%postun sim1
-if [ "$1" == "0" ]; then
-	manage-procs remove -f %{name}-sim1
-	manage-procs write-procs-cf
-	rm -rf %{_prefix}/%{name}-sim1
-	systemctl daemon-reload
-	systemctl restart conserver
-fi
-
-%post sim2
-source /etc/profile
-# if upgrading, remove old systemd related files
-if [ "$1" == "2" ]; then
-	manage-procs remove -f %{name}-sim2
-	manage-procs write-procs-cf
-fi
-# install systemd files
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64  -Uroot -Groot %{name}-sim2 -P 25350 bin/linux-x86_64/stsim2-ioc.boot
-if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
-
-systemctl daemon-reload
-systemctl restart conserver
-
-%postun sim2
-if [ "$1" == "0" ]; then
-	manage-procs remove -f %{name}-sim2
-	manage-procs write-procs-cf
-	rm -rf %{_prefix}/%{name}-sim2
-	systemctl daemon-reload
-	systemctl restart conserver
-fi
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-   /%{_prefix}/%{name}/bin/linux-x86_64/sttcs-mk-ioc.boot
+   /%{_prefix}/%{name}/bin
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
    /%{_prefix}/%{name}/data
@@ -155,14 +114,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root)
    /%{_prefix}/%{name}/include
-
-%files sim1
-%defattr(-,root,root)
-   /%{_prefix}/%{name}/bin/linux-x86_64/stsim1-mk-ioc.boot
-
-%files sim2
-%defattr(-,root,root)
-   /%{_prefix}/%{name}/bin/linux-x86_64/stsim2-mk-ioc.boot
 
 %changelog
 * Sat Feb 26 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-30
