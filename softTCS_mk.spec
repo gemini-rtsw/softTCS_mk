@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -116,6 +116,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Wed Mar 02 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-32
+- New Release merging unstable/2022q1-tr4-nosimspecs branch into TR4
+
 * Tue Mar 01 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-31
 - All sims configured with 1 RPM
 
