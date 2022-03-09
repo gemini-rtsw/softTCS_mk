@@ -67,6 +67,10 @@ source /etc/profile
 # if upgrading, remove old systemd related files
 if [ "$1" == "2" ]; then
 	manage-procs remove -f %{name}
+    simulators="sim1 sim2"
+    for simulator in $simulators; do
+        manage-procs remove -f %{name}-${simulator}
+    done
 	manage-procs write-procs-cf
 fi
 
@@ -74,7 +78,7 @@ fi
 # Main production program TCS
 manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
     -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
-    -Uroot -Groot %{name} -P 25350 bin/linux-x86_64/sttcs-mk-ioc.boot
+    -Uroot -Groot %{name} bin/linux-x86_64/sttcs-mk-ioc.boot
 
 #Simulators
 simulators="sim1 sim2"
@@ -82,7 +86,7 @@ echo "Your simulators are >>>${simulators}<<< "
 for simulator in $simulators; do
     manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
     -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
-    -Uroot -Groot %{name}-${simulator} -P 25350 bin/linux-x86_64/st${simulator}-mk-ioc.boot
+    -Uroot -Groot %{name}-${simulator} bin/linux-x86_64/st${simulator}-mk-ioc.boot
 done
 
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
