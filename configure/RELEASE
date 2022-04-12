@@ -25,6 +25,10 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 PRODSUP=/gem_base/epics/support
 
+BANCOMM=$(PRODSUP)/bancomm
+TIMELIB=$(PRODSUP)/timelib
+XYCOM=$(PRODSUP)/xycom
+TIMEPROBE=$(PRODSUP)/timeProbe
 SLALIB=$(PRODSUP)/slalib
 ASTLIB=$(PRODSUP)/astlib
 GEMREC=$(PRODSUP)/geminiRec
@@ -33,8 +37,8 @@ PVLOAD=$(PRODSUP)/pvload
 GEMUTILS=$(PRODSUP)/gemUtil
 TCSLIB=$(PRODSUP)/tcslib
 TPTLIB=$(PRODSUP)/tptlib
-TIMELIB=$(PRODSUP)/timelib
-TIMEPROBE=$(PRODSUP)/timeProbe
+#TIMELIB=$(PRODSUP)/timelib
+#TIMEPROBE=$(PRODSUP)/timeProbe
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/gem_base/epics/epics-base

@@ -25,7 +25,7 @@ tcs_DBD += tcslibSupp.dbd
 #tcs_DBD += astlib.dbd 
 tcs_DBD += listAlarmRecords.dbd 
 #tcs_DBD += menuScan.dbd 
-tcs_DBD += timeProbe.dbd 
+tcs_DBD += timeProbeSupp.dbd 
 
 # tcs_registerRecordDeviceDriver.cpp derives from tcs.dbd
 tcs_SRCS += tcs_registerRecordDeviceDriver.cpp

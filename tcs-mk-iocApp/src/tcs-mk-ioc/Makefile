@@ -26,6 +26,7 @@ tcs-mk-ioc_DBD += slalib.dbd
 #tcs-mk-ioc_DBD += astlib.dbd
 tcs-mk-ioc_DBD += listAlarmRecords.dbd
 tcs-mk-ioc_DBD += menuScan.dbd
+tcs-mk-ioc_DBD += timeProbeSupp.dbd
 tcs-mk-ioc_DBD += iocInit.dbd
 
 # tcs-mk-ioc_registerRecordDeviceDriver.cpp derives from tcs-mk-ioc.dbd
@@ -51,6 +52,7 @@ tcs-mk-ioc_LIBS += slalib
 tcs-mk-ioc_LIBS += tptlib
 tcs-mk-ioc_LIBS += pvload
 tcs-mk-ioc_LIBS += seq pv
+tcs-mk-ioc_LIBS += timeProbe
 
 # Finally link to the EPICS Base libraries
 tcs-mk-ioc_LIBS += $(EPICS_BASE_IOC_LIBS)
