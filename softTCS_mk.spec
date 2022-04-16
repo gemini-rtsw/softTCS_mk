@@ -66,12 +66,12 @@ find $RPM_BUILD_ROOT/%{_prefix}/%{name}/configure -name ".git" -exec rm -rf {} \
 source /etc/profile
 # if upgrading, remove old systemd related files
 if [ "$1" == "2" ]; then
-	manage-procs remove -f %{name}
+    manage-procs remove -f %{name}
     simulators="sim1 sim2"
     for simulator in $simulators; do
         manage-procs remove -f %{name}-${simulator}
     done
-	manage-procs write-procs-cf
+    manage-procs write-procs-cf
 fi
 
 # install systemd files
@@ -96,11 +96,15 @@ systemctl restart conserver
 
 %postun
 if [ "$1" == "0" ]; then
-	manage-procs remove -f %{name}
-	manage-procs write-procs-cf
-	rm -rf %{_prefix}/%{name}
-	systemctl daemon-reload
-	systemctl restart conserver
+    manage-procs remove -f %{name}
+    simulators="sim1 sim2"
+    for simulator in $simulators; do
+        manage-procs remove -f %{name}-${simulator}
+    done
+    manage-procs write-procs-cf
+    rm -rf %{_prefix}/%{name}
+    systemctl daemon-reload
+    systemctl restart conserver
 fi
 
 %clean
@@ -208,6 +212,5 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Jan 20 2021 Matt Rippa <mrippa@gemini.edu>
 - New changelog
-
 
 
