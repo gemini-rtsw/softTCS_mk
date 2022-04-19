@@ -67,9 +67,16 @@ source /etc/profile
 # if upgrading, remove old systemd related files
 if [ "$1" == "2" ]; then
     manage-procs remove -f %{name}
+
+    # delete file copied in during installation
+    rm -f /etc/systemd/system/procserv-%{name}.service
+
     simulators="sim1 sim2"
     for simulator in $simulators; do
         manage-procs remove -f %{name}-${simulator}
+
+        # delete file copied in during installation
+        rm -f /etc/systemd/system/procserv-%{name}-${simulator}.service
     done
     manage-procs write-procs-cf
 fi
@@ -111,9 +118,16 @@ systemctl restart conserver
 %postun
 if [ "$1" == "0" ]; then
     manage-procs remove -f %{name}
+        
+    # delete file copied in during installation
+    rm -f /etc/systemd/system/procserv-%{name}.service
+    
     simulators="sim1 sim2"
     for simulator in $simulators; do
         manage-procs remove -f %{name}-${simulator}
+        
+        # delete file copied in during installation
+        rm -f /etc/systemd/system/procserv-%{name}-${simulator}.service
     done
     manage-procs write-procs-cf
     rm -rf %{_prefix}/%{name}
