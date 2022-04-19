@@ -80,6 +80,7 @@ manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
     -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
     -Uroot -Groot %{name} bin/linux-x86_64/sttcs-mk-ioc.boot
 
+
 #Simulators
 simulators="sim1 sim2"
 echo "Your simulators are >>>${simulators}<<< "
@@ -92,6 +93,19 @@ done
 if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
 
 systemctl daemon-reload
+
+# disable autostarting of service at boot / container start
+systemctl disable procserv-%{name}.service
+# copy the unit file from the unknown dir to the system's one
+cp -f /etc/procServ.d/procserv-%{name}.service /etc/systemd/system/
+
+for simulator in $simulators; do
+	# disable autostarting of service at boot / container start
+	systemctl disable procserv-%{name}-${simulator}.service
+	# copy the unit file from the unknown dir to the system's one
+	cp -f /etc/procServ.d/procserv-%{name}-${simulator}.service /etc/systemd/system/
+done
+
 systemctl restart conserver
 
 %postun
