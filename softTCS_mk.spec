@@ -19,7 +19,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: 0.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -152,6 +152,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Tue Apr 19 2022 Felix Kraemer <felix.kraemer@noirlab.edu> 0.1-33
+- some tricks to prevent autostarting softIOCs at boot time
+- changes for fixing nsf-noirlab/gemini/rtsw/iocs/softTCS_mk#11
 * Wed Mar 02 2022 Matt Rippa <matt.rippa@noirlab.edu> 0.1-32
 - New Release merging unstable/2022q1-tr4-nosimspecs branch into TR4
 
