@@ -25,9 +25,11 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
+
 ## You may specify dependencies here
 BuildRequires: epics-base-devel re2c tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel gemini-ade
-Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client 
+Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client procServ-conserver  
+
 ## Switch dependency checking off
 AutoReqProv: no
 
