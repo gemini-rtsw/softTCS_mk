@@ -58,6 +58,7 @@ tcs_SRCS += tcsSaveLoadCad.c
 tcs_SRCS += tcsSeqCommands.c
 tcs_SRCS += tcsSlewCad.c
 tcs_SRCS += tcsVtCads.c
+tcs_SRCS += tcsSaveModel.c
 
 INC += tcsCadInfo.h
 INC += tcsCommands.h

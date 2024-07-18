@@ -340,6 +340,20 @@ option -c ;                    /* allow start prior to all connections */
 %{
 int pvload (char *file, char *subst, int flags) ;
 int pvsave (char *file , char *subst, char *outFile, int flags);
+int saveModel (char *file , char *prefix, double *values, int max_values);  // [PVSAVE]
+}%
+
+%{
+static int throughInitialising(void) {
+    throughSeqCounter(INITIALISING_ST);
+
+    return FALSE;
+}
+static int throughMonitoring(void) {
+    throughSeqCounter(MONITORING_ST);
+
+    return FALSE;
+}
 }%
 
 /* Local defines go here */
@@ -365,10 +379,13 @@ int applState[MAXSUBSYS] ;          /* Subsystem application state */
 int done[MAXSUBSYS]  ;              /* flags to show subsystems are "ready" */
 int timedOut[MAXSUBSYS] ;           /* flags to show subsystems timed out */
 int pstat ;                         /* Status of pvload */
+int pvsaveCurrIt;                   /* pvsave loop current iteration */
 
+int clockDone ;                     /* Flag to show time has been read OK */
 int semInitialized = FALSE ;        /* Flag to show if semaphores have been initialized */
 int firstInit ;                     /* Flag to show first init has been done */
 int m1ModelType ;                   /* non-AO or AO model */
+double tai ;                        /* time from clock */
 double gsaoiChipXmin ;              /* Minimum X (pixels) */
 double gsaoiChipXmax ;
 double gsaoiChipYmin ;
@@ -792,6 +809,31 @@ assign applState[GP] to "" ;
 assign applState[AOM] to "" ;
 assign applState[GSAOI] to "" ;
 
+/****************************************************************************/
+/* pvsave workaround variables [PVSAVE]
+*/
+#define MAX_VALUES  17
+double values[MAX_VALUES];
+assign values[0] to "{top}drives:figureTotals.VALA";    # tcs:drives:restoreM1.A
+assign values[1] to "{top}drives:figureTotals.VALB";    # tcs:drives:restoreM1.B
+assign values[2] to "{top}drives:figureTotals.VALC";    # tcs:drives:restoreM1.C
+assign values[3] to "{top}drives:figureTotals.VALD";    # tcs:drives:restoreM1.D
+assign values[4] to "{top}drives:figureTotals.VALE";    # tcs:drives:restoreM1.E
+assign values[5] to "{top}drives:figureTotals.VALF";    # tcs:drives:restoreM1.F
+assign values[6] to "{top}drives:figureTotals.VALG";    # tcs:drives:restoreM1.G
+assign values[7] to "{top}drives:figureTotals.VALH";    # tcs:drives:restoreM1.H
+assign values[8] to "{top}drives:figureTotals.VALI";    # tcs:drives:restoreM1.I
+assign values[9] to "{top}drives:figureTotals.VALJ";    # no data
+assign values[10] to "{top}drives:figureTotals.VALK";   # tcs:drives:restoreM1.K
+assign values[11] to "{top}drives:figureTotals.VALL";   # tcs:drives:restoreM1.L
+assign values[12] to "{top}drives:figureTotals.VALM";   # tcs:drives:restoreM1.M
+assign values[13] to "{top}drives:figureTotals.VALN";   # tcs:drives:restoreM1.N
+assign values[14] to "{top}m2XErrorCorr";               # tcs:drives:restoreM1.P
+assign values[15] to "{top}m2YErrorCorr";               # tcs:drives:restoreM1.Q
+assign values[16] to "{top}demandEl";                   # tcs:drives:restoreM1.O
+
+/****************************************************************************/
+
 void setConfFileRest(char *result, int modelType, string top, char *dir, string pref) {
   if (modelType == 2) {
     if (!strcmp(top, "tcs:")) {
@@ -829,6 +871,7 @@ ss mcs
     loopDelay = 1.0 ;
     waitTime[MC] = 0.0 ;                
     timeOutPeriod[MC] = 60.0 ;
+    strcpy (tcsPrefix, macValueGet("top")) ;
     pvGet(intSimulate[MC]) ;
     if (intSimulate[MC])
     {
@@ -3034,19 +3077,86 @@ ss m1s
 *  There is also a problem with macro substitutions. Hence the need to
 *  call different functions depending on the value of "top"
 */
-     if (m1GuideOn && m1FigUpdates ) {
-       m1ModelType = tcsOpticsGetM1SaveType();
-       snprintf (confFileSave, MAX_PATH, "%s/%s", CONF_FILES_DIR, "tcsM1Model.save");
-       setConfFileRest(confFileRest, m1ModelType, tcsPrefix, CONF_FILES_DIR, tcsPrefNoColon);
-       pvsave(confFileSave, tcsPrefixSub, confFileRest, 10);
-     }
+      if (m1GuideOn && m1FigUpdates ) { 
+        
+       if (pvsaveCurrIt > 4) { /*Only write every 30s*/
+
+         /* Read model (pvsave workaround) [PVSAVE]
+          */
+         int v_counter;
+         for (v_counter = 0; v_counter < MAX_VALUES; v_counter++) {
+            pvGet(values[v_counter]);
+         }
+
+         pvsaveCurrIt = 0;
+         m1ModelType = tcsOpticsGetM1SaveType();
+         snprintf (confFileSave, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Mod.save");
+         if (m1ModelType == 2) {
+            if (!strcmp(tcsPrefix, "tc1:")) {
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1ResGPI.pv");
+                saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
+                //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
+           } else {
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+                saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
+                //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
+           }
+         } else if (m1ModelType == 1) {
+            if (!strcmp(tcsPrefix, "tc1:")) {
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1ResAO.pv");             
+                saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
+                //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
+            } else {
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResAO.pv");
+                saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
+                //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
+           }
+         } else {
+            if (!strcmp(tcsPrefix, "tc1:")) {
+               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1Res.pv");
+                saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
+                //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
+            } else {
+               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+                saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
+               //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
+           }
+        
+         }
+       }
+       else{
+        pvsaveCurrIt = pvsaveCurrIt + 1;
+       }
+
+     } 
    } state monitoring
 
    when (efTestAndClear(m1Restore))
    {
      m1ModelType = tcsOpticsGetM1ModelType();
-     setConfFileRest(confFileRest, m1ModelType, tcsPrefix, CONF_FILES_DIR, tcsPrefNoColon);
-     pstat = pvload(confFileRest, "", 2);
+     if (!strcmp(tcsPrefix, "tc1:")) {
+       if (m1ModelType == 0) {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1Res.pv");
+         pstat = pvload(confFileRest,"",2);
+       } else if (m1ModelType == 1) {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1ResAO.pv");
+         pstat = pvload(confFileRest,"",2);
+       } else {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1ResGPI.pv");
+         pstat = pvload(confFileRest,"",2);
+       }
+     } else {
+       if (m1ModelType == 0) {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+         pstat = pvload(confFileRest,"",2);
+       } else if (m1ModelType == 1) {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResAO.pv");
+         pstat = pvload(confFileRest,"",2);
+       } else {
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResGPI.pv");
+         pstat = pvload(confFileRest,"",2);
+       }
+     }
      if (pstat) {
        strcpy(m1CommSentMsg, "Failed to restore M1 model data");
        m1CommSentC = menuCarstatesERROR ;
