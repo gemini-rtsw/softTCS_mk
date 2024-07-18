@@ -343,18 +343,6 @@ int pvsave (char *file , char *subst, char *outFile, int flags);
 int saveModel (char *file , char *prefix, double *values, int max_values);  // [PVSAVE]
 }%
 
-%{
-static int throughInitialising(void) {
-    throughSeqCounter(INITIALISING_ST);
-
-    return FALSE;
-}
-static int throughMonitoring(void) {
-    throughSeqCounter(MONITORING_ST);
-
-    return FALSE;
-}
-}%
 
 /* Local defines go here */
 
