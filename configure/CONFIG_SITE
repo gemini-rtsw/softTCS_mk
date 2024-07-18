@@ -15,7 +15,7 @@
 # Set CHECK_RELEASE to WARN to perform consistency checking but
 #   continue building anyway if conflicts are found.
 CHECK_RELEASE = YES
-#CHECK_RELEASE = WARN
+CROSS_COMPILER_TARGET_ARCHS = linux-x86_64 RTEMS-mvme2700
 
 # Define flag for "top=" macro substitution on ioc startup script. 
 # More than one top can be defined this way
