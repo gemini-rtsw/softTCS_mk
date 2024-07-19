@@ -28,6 +28,7 @@ CROSS_COMPILER_TARGET_ARCHS = linux-x86_64 RTEMS-mvme2700
 # ICARUS: Choose if data files are going to be read from icarus or from local data/ directory
 TTCS = tcs
 TEST_IOC = no
+NTP_CNFG_FILE = /gemsoft/etc/rtconfig/ntp/ntp-10.2.50.10.conf
 
 # Dynamic conf
 TEST_DYNCFG_LOCAL = /gemsoft/etc/rtconfig
@@ -48,7 +49,7 @@ USR_BOOT_FLAGS += -MTCSDATA=.
 USR_BOOT_FLAGS += -MTCSENV=resource
 USR_BOOT_FLAGS += -MTCSPV=GemNorth
 USR_BOOT_FLAGS += -MTCSSEQ=startSeq
-USR_BOOT_FLAGS += -MNTP_INET=10.1.71.12
+USR_BOOT_FLAGS += -MNTP_INET=10.2.50.10
 
 ifeq ($(TEST_IOC),no)
     USR_BOOT_FLAGS += -MIOCPROMPT=tcs-mk-ioc
@@ -63,7 +64,7 @@ USR_BOOT_FLAGS += -MSIMTCSPV=GemNorthTC1
 USR_BOOT_FLAGS += -MSIMTCSSEQ=startSeqSIM
 USR_BOOT_FLAGS += -MSIMIOCPROMPT='$(SIMTOP)-sim-ioc'
 USR_BOOT_FLAGS += -MSIMSUBS=tc1.subs
-USR_BOOT_FLAGS += -MSIMNTP_INET=10.1.76.10
+USR_BOOT_FLAGS += -MSIMNTP_INET=10.2.50.10
 
 # Set this when you only want to compile this application
 #   for a subset of the cross-compiled target architectures

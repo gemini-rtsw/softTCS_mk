@@ -1,6 +1,51 @@
 $(LINUX_ONLY)#!./bin/${ARCH}/tcs-mk-ioc
 
+
 #cd ${INSTALL}
 
 substitute "SUBS=$(TCSTOP).subs"
-include "../common.src"
+substitute "DYNCFGFILE=$(DYNCFGLOCAL)$(DYNCFGSYS)"
+epicsEnvSet("DYNCFGFILE", "$(DYNCFGFILE)")
+
+epicsEnvSet("IOCSH_PS1","$(IOCPROMPT)> ")
+epicsEnvSet("TZ", "HST10")
+#epicsEnvSet("EPICS_TS_NTP_INET","172.16.2.39")
+#epicsEnvSet("EPICS_CA_ADDR_LIST","172.17.2.255 172.17.3.255 172.17.102.130 172.17.105.20 172.16.102.130 aom-vme sbfmcao01.cl.gemini.edu mcao-stealth.cl.gemini.edu 172.17.106.111 172.17.105.37 172.17.107.50 172.17.55.101 172.17.101.101 172.17.65.255 172.17.102.139 172.17.102.138 172.17.2.54 172.16.2.34 172.16.2.255")
+
+## Register all support components
+dbLoadDatabase("dbd/tcs-mk-ioc.dbd")
+tcs_mk_ioc_registerRecordDeviceDriver(pdbbase)
+
+# specify NTP server config file
+epicsEnvSet("EPICS_TS_NTP_CONF_FILE","$(NTPCFGFILE)")
+
+# Initialise the telecope pointing model.
+tcsModelInit
+tcsOpticsInit
+
+## Load record instances
+< data/$(SUBS)
+#dbLoadRecords("db/iocAdminSoft.db", "IOC=$(TCSTOP):iocStats, TODFORMAT=%m/%d/%Y %H:%M:%S")
+dbLoadRecords("db/timeProbe.db", "top=$(TCSTOP):")
+
+#traceIocInit
+
+iocInit
+
+# Set the pvload file names
+tcsSaveDefFnames("$(DYNCFGFILE)/tcsSimulations.default","$(DYNCFGFILE)/GemNorth.default","$(DYNCFGFILE)/$(TCSPV).current")
+
+# Initialize the TCS database
+# This block works out of gem_sw
+tcsPvload "$(DYNCFGFILE)/tcsSimulations.default","top=$(TCSTOP):,ag=tag:,version=1"
+tcsPvload "$(DYNCFGFILE)/tcsSimulationsMK.default","top=$(TCSTOP):,ag=tag:,version=1"
+tcsPvload "$(DYNCFGFILE)/GemNorth.default","top=$(TCSTOP):,version=1"
+tcsPvload "$(DYNCFGFILE)/$(TCSPV).current","top=$(TCSTOP):,version=1"
+
+tcsReadCarInfo("$(TCSTOP):") 
+tcsReadCadInfo("$(TCSTOP):")
+
+tcsConfigSetFilePrefix("./")
+
+# Start sequences
+< data/$(TCSSEQ)
