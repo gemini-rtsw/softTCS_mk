@@ -99,6 +99,8 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Fri Jul 19 2024 Anthony Sylvester
+- updated to match the CP version, uses new service files without using manage-procs
 * Tue Apr 19 2022 Felix Kraemer <felix.kraemer@noirlab.edu> 0.1-33
 - some tricks to prevent autostarting softIOCs at boot time
 - changes for fixing nsf-noirlab/gemini/rtsw/iocs/softTCS_mk#11
