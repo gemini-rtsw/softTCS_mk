@@ -27,7 +27,7 @@ PRODSUP=/gem_base/epics/support
 
 #BANCOMM=$(PRODSUP)/bancomm
 TIMELIB=$(PRODSUP)/timelib
-#XYCOM=$(PRODSUP)/xycom
+XYCOM=$(PRODSUP)/xycom
 TIMEPROBE=$(PRODSUP)/timeProbe
 SLALIB=$(PRODSUP)/slalib
 ASTLIB=$(PRODSUP)/astlib
