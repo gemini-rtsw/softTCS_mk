@@ -36,8 +36,8 @@ tcsSaveDefFnames("$(DYNCFGFILE)/tcsSimulations.default","$(DYNCFGFILE)/GemNorth.
 
 # Initialize the TCS database
 # This block works out of gem_sw
-tcsPvload "$(DYNCFGFILE)/tcsSimulations.default","top=$(TCSTOP):,ag=tag:,version=1"
-tcsPvload "$(DYNCFGFILE)/tcsSimulationsMK.default","top=$(TCSTOP):,ag=tag:,version=1"
+tcsPvload "$(DYNCFGFILE)/sioc-changes/tcsSimulations.default","top=$(TCSTOP):,version=1"
+tcsPvload "$(DYNCFGFILE)/tcsSimulationsMK.default","top=$(TCSTOP):,version=1"
 tcsPvload "$(DYNCFGFILE)/GemNorth.default","top=$(TCSTOP):,version=1"
 tcsPvload "$(DYNCFGFILE)/$(TCSPV).current","top=$(TCSTOP):,version=1"
 
