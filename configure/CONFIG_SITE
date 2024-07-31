@@ -26,7 +26,8 @@ CROSS_COMPILER_TARGET_ARCHS = linux-x86_64 RTEMS-mvme2700
 # TTCS: TCS top
 # TEST_IOC: Option if you are booting the IOC with "tcs" as top in a Lab environment
 # ICARUS: Choose if data files are going to be read from icarus or from local data/ directory
-TTCS = tcs
+TTCS = tcv #for gateway testing
+#TTCS = tcs
 TEST_IOC = no
 NTP_CNFG_FILE = /gemsoft/etc/rtconfig/ntp/ntp-10.2.50.10.conf
 
