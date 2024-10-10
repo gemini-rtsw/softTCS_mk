@@ -312,7 +312,7 @@
 *-
 */
 
-program tcsSeqInit ("top=tcs:, mc=mc:, cr=cr:, ec=ec:, m2=m2:, ag=ag:, gp=gp:, m1=m1:, ao=ao:, aom=aom:, gsaoi=gsaoi:, CONF_FILES_DIR=/gem_sw/etc/rtconfig/tcs")
+program tcsSeqInit ("top=tcs:, mc=mc:, cr=cr:, ec=ec:, m2=m2:, ag=ag:, gp=gp:, m1=m1:, ao=ao:, aom=aom:, gsaoi=gsaoi:, CONF_FILES_DIR=/gem_sw/rtconfig/tcs")
 
 option -c ;                    /* allow start prior to all connections */
 
@@ -3085,27 +3085,27 @@ ss m1s
                 saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
                 //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
            } else {
-                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Restore.pv");
                 saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
                 //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
            }
          } else if (m1ModelType == 1) {
             if (!strcmp(tcsPrefix, "tc1:")) {
-                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1ResAO.pv");             
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1RestoreAO.pv");             
                 saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
                 //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
             } else {
-                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResAO.pv");
+                snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1RestoreAO.pv");
                 saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
                 //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
            }
          } else {
             if (!strcmp(tcsPrefix, "tc1:")) {
-               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1Res.pv");
+               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tc1M1Restore.pv");
                 saveModel(confFileRest, "tc1:", values, MAX_VALUES);    // [PVSAVE]
                 //pvsave(confFileSave, "prefix=tc1:", confFileRest, 10);
             } else {
-               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+               snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Restore.pv");
                 saveModel(confFileRest, "tcs:", values, MAX_VALUES);    // [PVSAVE]
                //pvsave(confFileSave, "prefix=tcs:", confFileRest, 10);
            }
@@ -3135,10 +3135,10 @@ ss m1s
        }
      } else {
        if (m1ModelType == 0) {
-         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Res.pv");
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1Restore.pv");
          pstat = pvload(confFileRest,"",2);
        } else if (m1ModelType == 1) {
-         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResAO.pv");
+         snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1RestoreAO.pv");
          pstat = pvload(confFileRest,"",2);
        } else {
          snprintf (confFileRest, 40, "%s/%s", CONF_FILES_DIR, "tcsM1ResGPI.pv");
