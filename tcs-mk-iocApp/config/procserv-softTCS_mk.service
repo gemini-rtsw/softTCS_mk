@@ -6,7 +6,7 @@ ConditionPathIsDirectory=/gem_base/epics/ioc/softTCS_mk
 [Service]
 Type=simple
 Environment="LD_LIBRARY_PATH=:/gem_base/epics/ioc/softTCS_mk/lib/linux-x86_64"
-ExecStart=/bin/procServ --foreground --logfile - --name softTCS_mk --ignore ^D^C^] --logoutcmd ^D --chdir /gem_base/epics/ioc/softTCS_mk --info-file /run/procserv-softTCS_mk/info --port 1235 --allow /gem_base/epics/ioc/softTCS_mk/bin/linux-x86_64/sttcs-mk-ioc.boot
+ExecStart=/bin/procServ --foreground --logfile /gemsoft/var/log/tcs/tcs_e7-$(date +%%Y-%%m-%%d).log --name softTCS_mk --ignore ^D^C^] --logoutcmd ^D --chdir /gem_base/epics/ioc/softTCS_mk --info-file /run/procserv-softTCS_mk/info --port 1235 --allow /gem_base/epics/ioc/softTCS_mk/bin/linux-x86_64/sttcs-mk-ioc.boot
 RuntimeDirectory=procserv-softTCS_mk
 StandardOutput=syslog
 StandardError=inherit
