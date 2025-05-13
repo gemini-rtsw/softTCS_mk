@@ -1,5 +1,0 @@
-# Removing all content as the file should be empty after removing the submodule
-[submodule "ci"]
-	path = ci
-	url = git@gitlab.com:nsf-noirlab/gemini/rtsw/user-tools/gemini-rtsw-ci.git
-	branch = softTCS_mk
