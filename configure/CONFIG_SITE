@@ -17,6 +17,9 @@
 CHECK_RELEASE = YES
 CROSS_COMPILER_TARGET_ARCHS = linux-x86_64 RTEMS-mvme2700
 
+# Copy shared libraries to bin directory after building
+BIN_INSTALLS_Linux += $(wildcard /lib/*.so)
+
 # Define flag for "top=" macro substitution on ioc startup script. 
 # More than one top can be defined this way
 # This flag is used by the Macros Substitution and Include Tool 
