@@ -1,4 +1,0 @@
-[submodule "ci"]
-	path = ci
-	url = git@gitlab.com:nsf-noirlab/gemini/rtsw/user-tools/gemini-rtsw-ci.git
-	branch = softTCS_mk
