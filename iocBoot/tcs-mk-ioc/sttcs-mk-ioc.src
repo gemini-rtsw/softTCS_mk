@@ -48,3 +48,6 @@ tcsConfigSetFilePrefix("./")
 
 # Start sequences
 < data/$(TCSSEQ)
+
+dbpf tcs:logrecord.VAL ""
+
