@@ -13,6 +13,7 @@ LIBRARY_IOC = tcs
 # tcs.dbd will be created and installed
 DBD += tcs.dbd
 DBD += tcsFunc.dbd
+DBD += tcsDebug.dbd
 
 # tcs.dbd will be made up from these files:
 tcs_DBD += base.dbd
@@ -59,6 +60,7 @@ tcs_SRCS += tcsSeqCommands.c
 tcs_SRCS += tcsSlewCad.c
 tcs_SRCS += tcsVtCads.c
 tcs_SRCS += tcsSaveModel.c
+tcs_SRCS += tcsDebug.c
 
 INC += tcsCadInfo.h
 INC += tcsCommands.h
