@@ -3609,9 +3609,18 @@ ss master
    printf( "tcsSeqInit: m1TimeOut\n") ;
   } state initialising
 
- } 
+  when (done[MC] && done[CR] && done[EC] && done[M2] && 
+        done[AG] && done[AO] && done[GP] && done[M1] && done[AOM]) {
+    DBGMSG (DBG_NONE, "tcsSeqInit: all subsystems ready, transition to monitoring\n");
+  } state monitoring
 
- state monitoring
+  when (delay(30.0)) {
+    DBGMSG (DBG_NONE, "tcsSeqInit: timeout fallback transition to monitoring\n");
+  } state monitoring
+
+} 
+
+state monitoring
  {
 
 /* This state checks for disconnect events for each subsystem as well as
