@@ -26,6 +26,7 @@ tcsOpticsInit
 < data/$(SUBS)
 #dbLoadRecords("db/iocAdminSoft.db", "IOC=$(TCSTOP):iocStats, TODFORMAT=%m/%d/%Y %H:%M:%S")
 dbLoadRecords("db/timeProbe.db", "top=$(TCSTOP):")
+dbLoadRecords("db/tcsNirsgOutputs.db", "tcs=$(TCSTOP):")
 
 #traceIocInit
 

@@ -14,7 +14,7 @@ vpath %.db $(SYS_DB_PATHS)
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 
-
+DB += tcsNirsgOutputs.db
 
 #DB_INSTALLS += iocAdminRTEMS.db
 #DB_INSTALLS += iocAdminSoft.db

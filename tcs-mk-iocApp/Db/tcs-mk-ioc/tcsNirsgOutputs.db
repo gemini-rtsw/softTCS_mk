@@ -1,0 +1,37 @@
+#======================================================================
+# tcsNirsgOutputs.db
+# 
+# Output records to push TCS SAD values to nirsg IOC via Channel Access
+#======================================================================
+
+#----------------------------------------------------------------------
+# Push sourceATrackFrame (string) to nirsg
+#----------------------------------------------------------------------
+record(stringout, "$(tcs)nirsg:sourceATrackFrame:out") {
+    field(DESC, "Push TrackFrame to nirsg")
+    field(DOL,  "$(tcs)sad:sourceATrackFrame CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "nirsg:dc:srcATrackFrameTCS CA")
+}
+
+#----------------------------------------------------------------------
+# Push sourceATrackEq (string) to nirsg
+#----------------------------------------------------------------------
+record(stringout, "$(tcs)nirsg:sourceATrackEq:out") {
+    field(DESC, "Push TrackEq to nirsg")
+    field(DOL,  "$(tcs)sad:sourceATrackEq CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "nirsg:dc:srcATrackEqTCS CA")
+}
+
+#----------------------------------------------------------------------
+# Push sourceAWavelength (double) to nirsg
+#----------------------------------------------------------------------
+record(ao, "$(tcs)nirsg:sourceAWavelength:out") {
+    field(DESC, "Push Wavelength to nirsg")
+    field(DOL,  "$(tcs)sad:sourceAWavelength CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "nirsg:dc:srcAWavelengthTCS CA")
+    field(PREC, "3")
+}
+
