@@ -92,7 +92,7 @@ p 4688 3728 100 0 -1 DESC:Output astrometric context
 p 4816 3664 100 0 1 NOVA:45
 p 4832 3616 100 0 1 NOVB:12
 p 4768 3262 100 0 -1 SNAM:tcsUpdateAstCtx
-p 4768 3230 100 0 -1 def(OUTA):nirsg:dc:astCtxTCS.VALA CA
+p 4768 3230 100 0 -1 def(OUTA):nirsg:dc:astCtxTCS.VALA CA NMS
 p 4768 3198 75 768 -1 pproc(OUTA):PP
 use egenSub 2560 3367 100 0 egenSub#1359
 xform 0 2704 3792

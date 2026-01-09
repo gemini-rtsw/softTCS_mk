@@ -254,6 +254,7 @@ double $(top)m1:ANB103Amp  =  3.0 ;      # Amplitude of truss temp (deg C)
 # GPOL Control System
 #
 int    $(top)gp:sad:state    = 0;        # Initial state is Booting
+string $(top)gp:sad:health   = "GOOD";   # Default health state (GOOD)
 # Set some default values for the names of the plates
 group {
 string  $(top)gp:identify.E  = "calibrator" ;  # Name of upper plate
