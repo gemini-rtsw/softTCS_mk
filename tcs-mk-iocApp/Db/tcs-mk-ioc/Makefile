@@ -15,6 +15,7 @@ vpath %.db $(SYS_DB_PATHS)
 # databases, templates, substitutions like this
 
 DB += tcsNirsgOutputs.db
+DB += tcsAogOutputs.db
 
 #DB_INSTALLS += iocAdminRTEMS.db
 #DB_INSTALLS += iocAdminSoft.db
