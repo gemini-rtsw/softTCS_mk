@@ -11,7 +11,7 @@ record(ao, "$(tcs)aog:currentRma:out") {
     field(DESC, "Push currentRma to aog")
     field(DOL,  "$(tcs)currentRma CPP")
     field(OMSL, "closed_loop")
-    field(OUT,  "aog:cc:wfsposcurrentRmaTCS CA")
+    field(OUT,  "aog:cc:currentRmaTCS CA")
     field(PREC, "3")
 }
 
@@ -22,7 +22,7 @@ record(ao, "$(tcs)aog:currentZd:out") {
     field(DESC, "Push currentZd to aog")
     field(DOL,  "$(tcs)currentZd CPP")
     field(OMSL, "closed_loop")
-    field(OUT,  "aog:cc:wfsposzdTCS CA")
+    field(OUT,  "aog:cc:currentZdTCS CA")
     field(PREC, "4")
 }
 
