@@ -1066,6 +1066,51 @@ string $(top)m1ModelRestore.A = "AO" ;    # Default is AO model
 string $(top)m1ModelRestore.DIR = "CLEAR" ;    # Otherwise command is marked
 
 ####### EPICS7 Specific Defaults #######
+# OCAL fields must have valid calc expressions in EPICS7 (empty strings not allowed)
+# InposWait records (from tcsSubsysIPwait and tcsSubsysIPwaitAO)
+string $(top)agInposWait.OCAL = "1";
+string $(top)ecInposWait.OCAL = "1";
+string $(top)crInposWait.OCAL = "1";
+string $(top)m1InposWait.OCAL = "1";
+string $(top)m2InposWait.OCAL = "1";
+string $(top)mcInposWait.OCAL = "1";
+string $(top)gpInposWait.OCAL = "1";
+string $(top)aoInposWait.OCAL = "1";
+string $(top)aomInposWait.OCAL = "1";
+string $(top)gsaoiInposWait.OCAL = "1";
+# AoConfigWait records (from tcsSubsysIPwaitAO)
+string $(top)aoAoConfigWait.OCAL = "1";
+string $(top)aomAoConfigWait.OCAL = "1";
+string $(top)gsaoiAoConfigWait.OCAL = "1";
+# TrkWait records (from tcsSubsysTrkWait)
+string $(top)mcTrkWait.OCAL = "1";
+string $(top)m2TrkWait.OCAL = "1";
+string $(top)crTrkWait.OCAL = "1";
+string $(top)ecTrkWait.OCAL = "1";
+string $(top)aoTrkWait.OCAL = "1";
+string $(top)m1TrkWait.OCAL = "1";
+string $(top)p1TrkWait.OCAL = "1";
+string $(top)p2TrkWait.OCAL = "1";
+string $(top)oiTrkWait.OCAL = "1";
+string $(top)ngsPr1TrkWait.OCAL = "1";
+string $(top)ngsPr2TrkWait.OCAL = "1";
+string $(top)ngsPr3TrkWait.OCAL = "1";
+# ActWait records (from tcsSubsysActWait)
+string $(top)mcActWait.OCAL = "1";
+string $(top)m2ActWait.OCAL = "1";
+string $(top)crActWait.OCAL = "1";
+string $(top)ecActWait.OCAL = "1";
+string $(top)aoActWait.OCAL = "1";
+string $(top)m1ActWait.OCAL = "1";
+string $(top)agActWait.OCAL = "1";
+string $(top)wsActWait.OCAL = "1";
+string $(top)gpActWait.OCAL = "1";
+string $(top)aomActWait.OCAL = "1";
+string $(top)gsaoiActWait.OCAL = "1";
+# ScWait records (from tcsSubcadWait)
+string $(top)rotDatumScWait.OCAL = "1";
+string $(top)aoCorrectScWait.OCAL = "1";
+
 string $(top)inPosTrue.VAL = "TRUE";
 string $(top)inPosFalse.VAL ="FALSE";
 string $(top)ngsPr1Park:noResp.VAL      = "No response from Canopus";       
