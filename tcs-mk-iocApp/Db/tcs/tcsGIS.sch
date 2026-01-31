@@ -38,21 +38,21 @@ p -2272 -18 100 0 0 OMSL:closed_loop
 p -2272 -114 100 0 0 ONAM:1
 p -2272 -82 100 0 0 ZNAM:0
 p -1840 -64 100 1024 -1 name:$(top)LaserIntOFF
-p -1840 -32 100 0 -1 def(OUT):gis:tcsLaserIntOFF
+p -1840 -32 100 0 -1 def(OUT):lis:tcsLaserIntOFF
 use ebos -1952 615 100 0 ebos#710
 xform 0 -1824 704
 p -2272 654 100 0 0 OMSL:closed_loop
 p -2272 558 100 0 0 ONAM:1
 p -2272 590 100 0 0 ZNAM:0
 p -1840 608 100 1024 -1 name:$(top)LaserIntON
-p -1840 640 100 0 -1 def(OUT):gis:tcsLaserIntON
+p -1840 640 100 0 -1 def(OUT):lis:tcsLaserIntON
 use ebos -1280 1367 100 0 ebos#696
 xform 0 -1152 1456
 p -1600 1406 100 0 0 OMSL:closed_loop
 p -1600 1310 100 0 0 ONAM:1
 p -1600 1342 100 0 0 ZNAM:0
 p -1168 1360 100 1024 -1 name:$(top)LaserInterlock
-p -1168 1392 100 0 -1 def(OUT):gis:tcsLaserInterlock
+p -1168 1392 100 0 -1 def(OUT):lis:tcsLaserInterlock
 use ecalcs -2312 -216 -100 0 ecalcs#716
 xform 0 -2192 48
 p -2240 -18 100 0 1 CALC:(A=0)?1:0
