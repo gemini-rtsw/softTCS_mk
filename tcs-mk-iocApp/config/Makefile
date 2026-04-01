@@ -21,6 +21,7 @@ DATA += tcs.subs
 DATA += tc1.subs
 DATA += sim.subs
 DATA += disableInterlocking.default
+DATA += procserv-softTCS_mk.service
 
 include $(TOP)/configure/RULES
 #----------------------------------------

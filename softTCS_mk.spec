@@ -4,22 +4,17 @@
 %define debug_package %{nil}
 %define arch %(uname -m)
 %define checkout %(git log --pretty=format:'%h' -n 1) 
+%define version 1.0.0
+%define git_hash %(git rev-parse --short HEAD 2>/dev/null || echo "nogit")
 
-#These global defines are added to prevent stripping
-# symbols on vxWorks cross-compiled code
-# Getting 'strip' to work is probably only needed for
-# building a related debug sub-package
-#
-# But this prevents all the strip warnings
-# mrippa 20120202
 %global _enable_debug_package 0
 %global debug_package %{nil}
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
-Version: 0.1
-Release: 34%{?dist}
+Version: %{version}
+Release: 8.git%{git_hash}%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -28,7 +23,7 @@ Prefix: %{_prefix}
 
 ## You may specify dependencies here
 BuildRequires: epics-base-devel re2c tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel gemini-ade
-Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client procServ-conserver  
+Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client  
 
 ## Switch dependency checking off
 AutoReqProv: no
@@ -40,7 +35,7 @@ This is the ioc module %{name}.
 %package devel
 Summary: %{name}-devel Package
 Group: Development/Gemini
-Requires: %{name} tdct iocStats-devel sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
+Requires: %{name} tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
 %description devel
 This is the module %{name}.
 
@@ -65,76 +60,21 @@ cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{name}
 find $RPM_BUILD_ROOT/%{_prefix}/%{name}/configure -name ".git" -exec rm -rf {} \;
 
 %post
-source /etc/profile
-# if upgrading, remove old systemd related files
-if [ "$1" == "2" ]; then
-    manage-procs remove -f %{name}
-
-    # delete file copied in during installation
-    rm -f /etc/systemd/system/procserv-%{name}.service
-
-    simulators="sim1 sim2"
-    for simulator in $simulators; do
-        manage-procs remove -f %{name}-${simulator}
-
-        # delete file copied in during installation
-        rm -f /etc/systemd/system/procserv-%{name}-${simulator}.service
-    done
-    manage-procs write-procs-cf
-fi
-
-# install systemd files
-# Main production program TCS
-manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
-    -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
-    -Uroot -Groot %{name} bin/linux-x86_64/sttcs-mk-ioc.boot
-
-
-#Simulators
-simulators="sim1 sim2"
-echo "Your simulators are >>>${simulators}<<< "
-for simulator in $simulators; do
-    manage-procs add -f -C /gem_base/epics/ioc/softTCS_mk \
-    -e LD_LIBRARY_PATH=$LD_LIBRARY_PATH:%{_prefix}/%{name}/lib/linux-x86_64 \
-    -Uroot -Groot %{name}-${simulator} bin/linux-x86_64/st${simulator}-mk-ioc.boot
-done
-
-if [ ! -d /etc/conserver ]; then mkdir /etc/conserver ; fi; manage-procs write-procs-cf
-
+# install service file and reload, disable the service
+cp -f %{_prefix}/%{name}/data/procserv-%{name}.service /etc/systemd/system/
 systemctl daemon-reload
-
-# disable autostarting of service at boot / container start
 systemctl disable procserv-%{name}.service
-# copy the unit file from the unknown dir to the system's one
-cp -f /etc/procServ.d/procserv-%{name}.service /etc/systemd/system/
 
-for simulator in $simulators; do
-	# disable autostarting of service at boot / container start
-	systemctl disable procserv-%{name}-${simulator}.service
-	# copy the unit file from the unknown dir to the system's one
-	cp -f /etc/procServ.d/procserv-%{name}-${simulator}.service /etc/systemd/system/
-done
-
-systemctl restart conserver
+%preun
+# disable and stop the service before uninstalling
+#systemctl disable procserv-%{name}.service
+systemctl stop procserv-%{name}.service
 
 %postun
+# remove the service file and reload if not upgrading
 if [ "$1" == "0" ]; then
-    manage-procs remove -f %{name}
-        
-    # delete file copied in during installation
     rm -f /etc/systemd/system/procserv-%{name}.service
-    
-    simulators="sim1 sim2"
-    for simulator in $simulators; do
-        manage-procs remove -f %{name}-${simulator}
-        
-        # delete file copied in during installation
-        rm -f /etc/systemd/system/procserv-%{name}-${simulator}.service
-    done
-    manage-procs write-procs-cf
-    rm -rf %{_prefix}/%{name}
     systemctl daemon-reload
-    systemctl restart conserver
 fi
 
 %clean
@@ -154,6 +94,8 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Fri Jul 19 2024 Anthony Sylvester
+- updated to match the CP version, uses new service files without using manage-procs
 * Tue Apr 19 2022 Felix Kraemer <felix.kraemer@noirlab.edu> 0.1-33
 - some tricks to prevent autostarting softIOCs at boot time
 - changes for fixing nsf-noirlab/gemini/rtsw/iocs/softTCS_mk#11

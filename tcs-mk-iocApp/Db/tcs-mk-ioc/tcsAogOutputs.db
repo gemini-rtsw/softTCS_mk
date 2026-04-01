@@ -1,0 +1,47 @@
+#======================================================================
+# tcsAogOutputs.db
+# 
+# Output records to push TCS values to AOG IOC via Channel Access
+#======================================================================
+
+#----------------------------------------------------------------------
+# Push currentRma (double) to aog
+#----------------------------------------------------------------------
+record(ao, "$(tcs)aog:currentRma:out") {
+    field(DESC, "Push currentRma to aog")
+    field(DOL,  "$(tcs)currentRma CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "aog:cc:currentRmaTCS CA")
+    field(PREC, "3")
+}
+
+#----------------------------------------------------------------------
+# Push currentZd (double) to aog
+#----------------------------------------------------------------------
+record(ao, "$(tcs)aog:currentZd:out") {
+    field(DESC, "Push currentZd to aog")
+    field(DOL,  "$(tcs)currentZd CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "aog:cc:currentZdTCS CA")
+    field(PREC, "4")
+}
+
+#----------------------------------------------------------------------
+# Push aoMoveAStar.A (string) to aog
+#----------------------------------------------------------------------
+record(stringout, "$(tcs)aog:moveAStar:out") {
+    field(DESC, "Push aoMoveAStar.A to aog")
+    field(DOL,  "$(tcs)aoMoveAStar.A CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "aog:cc:tcsMoveAStar CA")
+}
+
+#----------------------------------------------------------------------
+# Push sodiumAltitude (double) to aog
+#----------------------------------------------------------------------
+record(ao, "$(tcs)aog:sodiumAltitude:out") {
+    field(DESC, "Push sodiumAltitude to aog")
+    field(DOL,  "$(tcs)sad:sodiumAltitude CPP")
+    field(OMSL, "closed_loop")
+    field(OUT,  "aog:cc:sodium CA")
+}

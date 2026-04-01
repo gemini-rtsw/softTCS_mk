@@ -16,7 +16,7 @@ w -1344 1491 100 0 n#10 ecalcs.calc1.VAL -1376 1488 -1312 1488 -1312 1728 -1792 
 w -1856 1539 100 0 n#11 efanouts.fanout.LNK1 -1936 1536 -1776 1536 -1776 1296 -1664 1296 ecalcs.calc1.SLNK
 w -2384 1395 100 0 n#12 ecalcs.ecalcs#676.FLNK -2512 1392 -2256 1392 -2256 1456 -2176 1456 efanouts.fanout.SLNK
 w -2424 1363 100 0 n#13 ecalcs.ecalcs#676.VAL -2512 1360 -2336 1360 -2336 1536 -2128 1536 efanouts.fanout.SELL
-w -2854 1562 -100 0 n#14 hwin.hwin#675.in -2872 1552 -2800 1552 ecalcs.ecalcs#676.INPA
+w -2590 1866 -100 0 n#14 ebos.ebos#724.VAL -2608 1864 -2480 1864 -2480 1704 -2960 1704 -2960 1552 -2800 1552 ecalcs.ecalcs#676.INPA
 s -1440 32 100 0 Laser Vignetting Interlock OFF
 s -1440 704 100 0 Laser Vignetting Interlock ON
 s -768 1456 100 0 Laser Interlock System "heartbeat"
@@ -29,9 +29,6 @@ xform 0 -1632 912
 use hwin -2640 887 100 0 hwin#711
 xform 0 -2544 928
 p -2896 912 100 0 -1 val(in):$(top)domeVignette
-use hwin -3064 1511 100 0 hwin#675
-xform 0 -2968 1552
-p -3096 1600 100 0 -1 val(in):$(top)checkForXycom.VAL
 use hwin -2640 215 100 0 hwin#723
 xform 0 -2544 256
 p -2896 240 100 0 -1 val(in):$(top)domeVignette
@@ -41,18 +38,21 @@ p -2272 -18 100 0 0 OMSL:closed_loop
 p -2272 -114 100 0 0 ONAM:1
 p -2272 -82 100 0 0 ZNAM:0
 p -1840 -64 100 1024 -1 name:$(top)LaserIntOFF
+p -1840 -32 100 0 -1 def(OUT):lis:in:tcsLaserIntOFF
 use ebos -1952 615 100 0 ebos#710
 xform 0 -1824 704
 p -2272 654 100 0 0 OMSL:closed_loop
 p -2272 558 100 0 0 ONAM:1
 p -2272 590 100 0 0 ZNAM:0
 p -1840 608 100 1024 -1 name:$(top)LaserIntON
+p -1840 640 100 0 -1 def(OUT):lis:in:tcsLaserIntON
 use ebos -1280 1367 100 0 ebos#696
 xform 0 -1152 1456
 p -1600 1406 100 0 0 OMSL:closed_loop
 p -1600 1310 100 0 0 ONAM:1
 p -1600 1342 100 0 0 ZNAM:0
 p -1168 1360 100 1024 -1 name:$(top)LaserInterlock
+p -1168 1392 100 0 -1 def(OUT):lis:in:tcsLaserInterlock
 use ecalcs -2312 -216 -100 0 ecalcs#716
 xform 0 -2192 48
 p -2240 -18 100 0 1 CALC:(A=0)?1:0
@@ -83,4 +83,14 @@ p -2064 1630 100 0 -1 DESC:Select string output
 p -2320 1662 100 0 0 SCAN:Passive
 p -2112 1262 100 0 1 SELM:Specified
 p -2064 1312 100 1024 0 name:$(top)LaserGISfan
+use ebos -2864 1800 100 0 ebos#724
+xform 0 -2736 1864
+p -3096 2020 100 0 1 DESC:Simulated xycom check for softioc
+p -3184 1718 100 0 1 ONAM:Absent
+p -2960 1846 100 0 1 OSV:MAJOR
+p -3184 1846 100 0 1 PINI:YES
+p -2752 1768 100 1024 1 name:$(top)checkForXycom
+p -3184 1750 100 0 1 ZNAM:Present
+p -2960 1814 100 0 1 ZSV:NO_ALARM
+p -3184 1782 100 0 1 VAL:0
 [comments]

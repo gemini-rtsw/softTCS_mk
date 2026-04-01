@@ -28,6 +28,7 @@ tcs-mk-ioc_DBD += listAlarmRecords.dbd
 tcs-mk-ioc_DBD += menuScan.dbd
 tcs-mk-ioc_DBD += timeProbeSupp.dbd
 tcs-mk-ioc_DBD += iocInit.dbd
+tcs-mk-ioc_DBD += tcsDebug.dbd
 
 # tcs-mk-ioc_registerRecordDeviceDriver.cpp derives from tcs-mk-ioc.dbd
 tcs-mk-ioc_SRCS += tcs-mk-ioc_registerRecordDeviceDriver.cpp

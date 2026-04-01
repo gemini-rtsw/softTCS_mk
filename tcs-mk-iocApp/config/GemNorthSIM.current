@@ -114,4 +114,5 @@ string $(top)gsaoiCarDisable = "Disabled" ;
 string $(top)trackidDisable = "On" ;
 
 # Default path for ephemeris files
-string $(top)def:ephFolder = "/gemini/files/ephemerides" ;
+#string $(top)def:ephFolder = "/gemini/files/ephemerides" ;
+string $(top)def:ephFolder = "/gem_sw/rtconfig/ephemerides" ;

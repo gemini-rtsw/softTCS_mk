@@ -3,7 +3,7 @@
 #
 # Initiate check for Xycom hardware and state of Interlock system
 #
-#string $(top)checkForXycom.PROC = "1"; # Any value to force processing
+string $(top)checkForXycom.PROC = "1"; # Any value to force processing
 #
 # Set up default values for system statistic scan rates
 #
@@ -274,10 +274,20 @@ double $(top)ak:yim   =  0.0;          # Y pointing origin (mm)
 # New terms from TS 22Mar2017 (Coma x and y)
 # New terms from TS 26Aug2017 (Coma x and y)
 # New terms from TS 08Nov2017 (Coma x and y)
-#
+# New terms from TS 09Sep2019 (Coma x and y)
+# New terms from TS 20Feb2020 (Coma x and y)
+# New terms from TS 05Oct2021 (Coma x and y)
+# New terms from TS 29Jan2022 (Coma x and y)
+# New terms from TS 07Mar2022 (Coma x and y)
+# New terms from TS 08Jun2023 (Astig 0 45 Coma X Y)
+# New terms from TS 13Jun2023 (Coma x and y)
+# New terms from TS/ JB 25Oct2023 (coma x and y)
+# Taking out those last terms (JB, 25Oct2023)
+# New terms from JB 11Sep2024 (Z6 Z7)
+# New terms from JB 25July2025 (Z6 Z7)
 group {
- double $(top)om:m2XNominal = 2.31; # X reference position
- double $(top)om:m2YNominal = 2.36; # Y reference position
+ double $(top)om:m2XNominal = 4.085; # X reference position  
+ double $(top)om:m2YNominal = 1.861; # Y reference position
  double $(top)om:m2ZNominal = -0.25;     # Z reference position
  double $(top)om:m2XYRefTemp = 5.0;     # Reference for thermal model (deg C)
  double $(top)om:m2ZRefTemp  = 0.15;     # Reference for thermal model (deg C)
@@ -288,14 +298,14 @@ group {
  double $(top)om:tt:step1 = 0.5;         # permitted sample step (deg C)
  double $(top)om:tt:step2 = 0.5;         # permitted sample step (deg C)
  double $(top)om:tt:diff  = 1.0;         # permitted sensor difference (deg C)
- double $(top)om:m2XModelCoeff1   = 0.20; # Model X coefficient (mm)
- double $(top)om:m2YModelCoeff1   = -0.24; # Model Y coefficient (mm)
+ double $(top)om:m2XModelCoeff1   = 0.151; # Model X coefficient (mm)
+ double $(top)om:m2YModelCoeff1   = -0.042; # Model Y coefficient (mm)
  double $(top)om:m2XModelCoeff2   = 0.0; # Model X coefficient (mm)
  double $(top)om:m2YModelCoeff2   = 0.0; # Model Y coefficient (mm)
  double $(top)om:m2ZModelCoeff1  = 0.496; # Model Z coefficient (mm)
  double $(top)om:m2ZModelCoeff2  = -0.225; # Model Z coefficient (mm)
  
- double $(top)om:m2XTiltNominal  = -224; # Reference for xtilt (arcsec)
+ double $(top)om:m2XTiltNominal  = -424; # Reference for xtilt (arcsec)
  double $(top)om:m2YTiltNominal  = -322; # Reference for ytilt (arcsec)
  double $(top)om:m2XTiltModelCoeff = 0.0 ; # Model Xtilt coeff (arcsec)
  double $(top)om:m2YTiltModelCoeff = 0.0 ; # Model Ytilt coeff (arcsec)
@@ -440,52 +450,67 @@ double $(top)drives:m1ModelMaxAge = 1000.0;  # Max age (hrs) for valid file
 # New terms TS 30Nov2015 (Z4 Z5 Z9 Z10 Z11 Z12)
 # New terms TS 30Aug2016 (Z4 Z5)
 # New terms TS 22Mar2017 (Z4 Z5 Z9 Z10 Z11 Z12)
-# New terms TS 26Aug2017 (Z4 Z5 Z9 Z10 Z16 Z17
-#
+# New terms TS 26Aug2017 (Z4 Z5 Z9 Z10 Z16 Z17)
+# New terms TS 03Sep2019 (Z4 Z5 Z9 Z17)
+# New terms TS 20Feb2020 (Z4 Z5 Z9 Z13 Z14 Z16 Z17)
+# New terms TS 05Oct2021 (Z4 Z5 Z16 Z17)
+# New terms TS 29Jan2022 (Z4 Z5 Z9 Z10 Z11)
+# New terms TS 07Mar2022 (Z4 Z5 Z9 Z10)
+# New terms TS 13Jun2023 (Z4 Z5 Z9 Z10 Z11 Z12 Z16 Z17)
+# New terms TS/ JB 25Oct2023 (z4, z5)
+# Taking out last terms and reverting (JB, 25Oct2023)
+# New terms JB 11Sep2024 (Z4 Z5 Z9 Z10)
+# New terms JB 20250310  (Z4 Z5)
+# New terms JB 20250725 (Z4 Z5 Z9 Z10)
+
 group {
- double $(top)im:aVals:Z4 = -1.17 ;
+ double $(top)im:aVals:Z4 = -0.050 ;
  double $(top)im:bVals:Z4 = 0.0 ;
- double $(top)im:cVals:Z4 = 9.92 ;
+ double $(top)im:cVals:Z4 = 9.65 ;
 }
 group {
- double $(top)im:aVals:Z5 = -13.37 ;
+ double $(top)im:aVals:Z5 = -17.57 ;
  double $(top)im:bVals:Z5 = 0.0 ;
- double $(top)im:cVals:Z5 = 7.13 ;
+ double $(top)im:cVals:Z5 = 10.01 ;
 }
+
 group {
  double $(top)im:aVals:Z8 = 0.41 ;
  double $(top)im:bVals:Z8 = 0.0 ;
  double $(top)im:cVals:Z8 = -0.25 ;
 }
+
 group {
- double $(top)im:aVals:Z9 = -0.25 ;
+ double $(top)im:aVals:Z9 = -0.5875 ;
  double $(top)im:bVals:Z9 = 0.0 ;
- double $(top)im:cVals:Z9 = 0.74 ;
+ double $(top)im:cVals:Z9 = 0.884 ;
 }
 group {
- double $(top)im:aVals:Z10 = -0.04 ;
+ double $(top)im:aVals:Z10 = 1.34 ;
  double $(top)im:bVals:Z10 = 0.0 ;
- double $(top)im:cVals:Z10 = 0.72 ;
+ double $(top)im:cVals:Z10 = -0.7 ;
 }
+
 group {
- double $(top)im:aVals:Z11 = 0.03 ;
+ double $(top)im:aVals:Z11 = -0.14 ;
  double $(top)im:bVals:Z11 = 0.0 ;
- double $(top)im:cVals:Z11 = -0.05 ;
+ double $(top)im:cVals:Z11 = -0.15 ;
 }
 group {
- double $(top)im:aVals:Z12 = 0.45 ;
+ double $(top)im:aVals:Z12 = 0.50 ;
  double $(top)im:bVals:Z12 = 0.0 ;
- double $(top)im:cVals:Z12 = 0.01 ;
+ double $(top)im:cVals:Z12 = -0.66 ;
 }
+
 group {
- double $(top)im:aVals:Z13 = 0.19 ;
+ double $(top)im:aVals:Z13 = -0.05 ;
  double $(top)im:bVals:Z13 = 0.0 ;
- double $(top)im:cVals:Z13 = -0.68 ;
+ double $(top)im:cVals:Z13 = -0.46 ;
 }
 group {
- double $(top)im:aVals:Z14 = 0.11 ;
+ double $(top)im:aVals:Z14 = 0.01 ;
  double $(top)im:bVals:Z14 = 0.0 ;
- double $(top)im:cVals:Z14 = 0.06 ;
+ double $(top)im:cVals:Z14 = 0.29 ;
 }
 group {
  double $(top)im:aVals:Z15 = 0.0 ;
@@ -493,14 +518,14 @@ group {
  double $(top)im:cVals:Z15 = 0.0 ;
 }
 group {
- double $(top)im:aVals:Z16 = -0.22 ;
+ double $(top)im:aVals:Z16 = 0.21 ;
  double $(top)im:bVals:Z16 = 0.0 ;
- double $(top)im:cVals:Z16 = -0.17 ;
+ double $(top)im:cVals:Z16 = -0.30 ;
 }
 group {
- double $(top)im:aVals:Z17 = -0.35 ;
+ double $(top)im:aVals:Z17 = 0.08 ;
  double $(top)im:bVals:Z17 = 0.0 ;
- double $(top)im:cVals:Z17 = 0.23 ;
+ double $(top)im:cVals:Z17 = 0.01 ;
 }
 group {
  double $(top)im:aVals:Z18 = 0.02 ;
@@ -513,6 +538,24 @@ group {
  double $(top)im:cVals:Z19 = -0.03 ;
 }
 string $(top)im:m1TriggerLoadModel = "enabled" ; # Make sure model is loaded
+
+# Set some default values for M1 Figure corrections that are currently blank after a reboot.
+
+double $(top)m1Figure.A = 0.0;
+double $(top)m1Figure.B = 0.0;
+double $(top)m1Figure.C = 0.0;
+double $(top)m1Figure.D = 0.0;
+double $(top)m1Figure.E = 0.0;
+double $(top)m1Figure.F = 0.0;
+double $(top)m1Figure.G = 0.0;
+double $(top)m1Figure.H = 0.0;
+double $(top)m1Figure.I = 0.0;
+double $(top)m1Figure.J = 0.0;
+double $(top)m1Figure.K = 0.0;
+double $(top)m1Figure.L = 0.0;
+double $(top)m1Figure.M = 0.0;
+double $(top)m1Figure.N = 0.0;
+
 #
 #  Parameters controlling guide filtering.
 #
@@ -1022,3 +1065,591 @@ string $(top)sad:programID = "None";
 string $(top)m1ModelRestore.A = "AO" ;    # Default is AO model
 string $(top)m1ModelRestore.DIR = "CLEAR" ;    # Otherwise command is marked
 
+####### EPICS7 Specific Defaults #######
+# OCAL fields must have valid calc expressions in EPICS7 (empty strings not allowed)
+# InposWait records (from tcsSubsysIPwait and tcsSubsysIPwaitAO)
+string $(top)agInposWait.OCAL = "1";
+string $(top)ecInposWait.OCAL = "1";
+string $(top)crInposWait.OCAL = "1";
+string $(top)m1InposWait.OCAL = "1";
+string $(top)m2InposWait.OCAL = "1";
+string $(top)mcInposWait.OCAL = "1";
+string $(top)gpInposWait.OCAL = "1";
+string $(top)aoInposWait.OCAL = "1";
+string $(top)aomInposWait.OCAL = "1";
+string $(top)gsaoiInposWait.OCAL = "1";
+# AoConfigWait records (from tcsSubsysIPwaitAO)
+string $(top)aoAoConfigWait.OCAL = "1";
+string $(top)aomAoConfigWait.OCAL = "1";
+string $(top)gsaoiAoConfigWait.OCAL = "1";
+# TrkWait records (from tcsSubsysTrkWait)
+string $(top)mcTrkWait.OCAL = "1";
+string $(top)m2TrkWait.OCAL = "1";
+string $(top)crTrkWait.OCAL = "1";
+string $(top)ecTrkWait.OCAL = "1";
+string $(top)aoTrkWait.OCAL = "1";
+string $(top)m1TrkWait.OCAL = "1";
+string $(top)p1TrkWait.OCAL = "1";
+string $(top)p2TrkWait.OCAL = "1";
+string $(top)oiTrkWait.OCAL = "1";
+string $(top)ngsPr1TrkWait.OCAL = "1";
+string $(top)ngsPr2TrkWait.OCAL = "1";
+string $(top)ngsPr3TrkWait.OCAL = "1";
+# ActWait records (from tcsSubsysActWait)
+string $(top)mcActWait.OCAL = "1";
+string $(top)m2ActWait.OCAL = "1";
+string $(top)crActWait.OCAL = "1";
+string $(top)ecActWait.OCAL = "1";
+string $(top)aoActWait.OCAL = "1";
+string $(top)m1ActWait.OCAL = "1";
+string $(top)agActWait.OCAL = "1";
+string $(top)wsActWait.OCAL = "1";
+string $(top)gpActWait.OCAL = "1";
+string $(top)aomActWait.OCAL = "1";
+string $(top)gsaoiActWait.OCAL = "1";
+# ScWait records (from tcsSubcadWait)
+string $(top)rotDatumScWait.OCAL = "1";
+string $(top)aoCorrectScWait.OCAL = "1";
+
+string $(top)inPosTrue.VAL = "TRUE";
+string $(top)inPosFalse.VAL ="FALSE";
+string $(top)ngsPr1Park:noResp.VAL      = "No response from Canopus";       
+string $(top)carouselPark:noResp.VAL    = "No response from Enclosure";     
+string $(top)pwfs1Observe:noResp.VAL    = "No response from PWFS1";         
+string $(top)m1Btempset:noResp.VAL      = "No response from PCS";           
+string $(top)p2SeqDark:noResp.VAL       = "No response from PWFS2";         
+string $(top)oiwfsStop:noResp.VAL       = "No response from A&G";           
+string $(top)m1ZoneMode:noResp.VAL      = "No response from PCS";           
+string $(top)seq:m1rebootnoResp.VAL     = "No response from PCS";           
+string $(top)gpolPlateMoveB:noResp.VAL  = "No response from GPOL";          
+string $(top)pwfs1FldstopPark:noResp.VAL = "No response from A&G";          
+string $(top)m2Baffle:noResp.VAL        = "No response from Secondary";     
+string $(top)pwfs1StopObserve:noResp.VAL = "No response from PWFS1";        
+string $(top)pwfs1Unwrap:noResp.VAL     = "No response from A&G";           
+string $(top)seq:aotestnoResp.VAL       = "No response from GAOS";          
+string $(top)seq:gpdatumnoResp.VAL      = "No response from GPOL";          
+string $(top)oiwfsTolerance:noResp.VAL  = "No response from A&G";           
+string $(top)hrwfsPark:noResp.VAL       = "No response from A&G";           
+string $(top)pwfs1FilterDatum:noResp.VAL = "No response from A&G";          
+string $(top)pwfs2FocusPark:noResp.VAL  = "No response from A&G";           
+string $(top)gpolInit:noResp.VAL        = "No response from GPOL";          
+string $(top)seq:mctestnoResp.VAL       = "No response from MCS";           
+string $(top)ventGatesPark:noResp.VAL   = "No response from Enclosure";     
+string $(top)domeStop:noResp.VAL        = "No response from Enclosure";     
+string $(top)oiSeqDark:noResp.VAL       = "No response from OIWFS";         
+string $(top)m2GuideReset:noResp.VAL    = "No response from Secondary";     
+string $(top)m1ElevSource:noResp.VAL    = "No response from PCS";           
+string $(top)rotCentre:noResp.VAL       = "No response from Rotator";       
+string $(top)shtrsStop:noResp.VAL       = "No response from Enclosure";     
+string $(top)m2Stop:noResp.VAL          = "No response from Secondary";     
+string $(top)carousel:noResp.VAL        = "No response from Enclosure";     
+string $(top)gsaoiodgwSetup:noResp.VAL  = "No response from GSAOI";         
+string $(top)shutterStop:noResp.VAL     = "No response from Enclosure";     
+string $(top)chop:noResp.VAL            = "No response from SCS";           
+string $(top)pwfs2Park:noResp.VAL       = "No response from A&G";           
+string $(top)pwfs1SetOrient:noResp.VAL  = "No response from A&G";           
+string $(top)aoLgsIris:noResp.VAL       = "No response from Altair";        
+string $(top)pwfs2Tolerance:noResp.VAL  = "No response from A&G";           
+string $(top)agDatum:noResp.VAL         = "No response from A&G";           
+string $(top)azimuth:noResp.VAL         = "No response from mount";         
+string $(top)seq:gprebootnoResp.VAL     = "No response from GPOL";          
+string $(top)ngsPr3Park:noResp.VAL      = "No response from Canopus";       
+string $(top)agDebug:noResp.VAL         = "No response from A&G";           
+string $(top)seq:aginitnoResp.VAL       = "No response from A&G";           
+string $(top)seq:aorebootnoResp.VAL     = "No response from GAOS";          
+string $(top)aoExitShutter:noResp.VAL   = "No response from Altair";        
+string $(top)aoLgsNDFilter:noResp.VAL   = "No response from Altair";        
+string $(top)azConfig:noResp.VAL        = "No response from mount";         
+string $(top)aoCalMode:noResp.VAL       = "No response from Altair";       
+string $(top)seq:m1parknoResp.VAL       = "No response from PCS";          
+string $(top)seq:agparknoResp.VAL       = "No response from A&G";          
+string $(top)enclosurePark:noResp.VAL   = "No response from Enclosure";    
+string $(top)ventgates:noResp.VAL       = "No response from Enclosure";    
+string $(top)m2GuideConfig:noResp.VAL   = "No response from Secondary";    
+string $(top)m1Supports:noResp.VAL      = "No response from PCS";          
+string $(top)m2Tolerance:noResp.VAL     = "No response from Secondary";    
+string $(top)m2Park:noResp.VAL          = "No response from Secondary";    
+string $(top)pwfs1Stop:noResp.VAL       = "No response from A&G";          
+string $(top)pwfs2Observe:noResp.VAL    = "No response from PWFS2";        
+string $(top)pwfs2FocusDatum:noResp.VAL = "No response from A&G";          
+string $(top)encThermal:noResp.VAL      = "No response from Enclosure";    
+string $(top)m2Init:noResp.VAL          = "No response from Secondary";    
+string $(top)seq:m1initnoResp.VAL       = "No response from PCS";          
+string $(top)scienceFoldDatum:noResp.VAL = "No response from A&G";         
+string $(top)aoFlexFile:noResp.VAL      = "No response from Altair";       
+string $(top)pwfs1Move:noResp.VAL       = "No response from A&G";          
+string $(top)pwfs1FocusDatum:noResp.VAL = "No response from A&G";          
+string $(top)seq:agrebootnoResp.VAL     = "No response from A&G";          
+string $(top)enclosureDatum:noResp.VAL  = "No response from Enclosure";    
+string $(top)chopConfig:noResp.VAL      = "No response from SCS";          
+string $(top)m1Figure:noResp.VAL        = "No response from PCS";          
+string $(top)m1Park:noResp.VAL          = "No response from PCS";          
+string $(top)pwfs2FilterDatum:noResp.VAL = "No response from A&G";         
+string $(top)pwfs2Move:noResp.VAL       = "No response from A&G";          
+string $(top)pwfs1Filter:noResp.VAL     = "No response from A&G";          
+string $(top)seq:m2parknoResp.VAL       = "No response from SCS";          
+string $(top)m2Move:noResp.VAL          = "No response from Secondary";    
+string $(top)oiwfsDatum:noResp.VAL      = "No response from A&G";          
+string $(top)pwfs1Park:noResp.VAL       = "No response from A&G";          
+string $(top)seq:crtestnoResp.VAL       = "No response from Rotator";      
+string $(top)hrwfs:noResp.VAL           = "No response from A&G";          
+string $(top)agTest:noResp.VAL          = "No response from A&G";          
+string $(top)scienceFoldPark:noResp.VAL = "No response from A&G";          
+string $(top)oiwfsSelect:noResp.VAL     = "No response from A&G";          
+string $(top)seq:ecparknoResp.VAL       = "No response from ECS";          
+string $(top)m2GuideControl:noResp.VAL  = "No response from Secondary";    
+string $(top)seq:crinitnoResp.VAL       = "No response from Rotator";      
+string $(top)seq:gpparknoResp.VAL       = "No response from GPOL";         
+string $(top)gpolPlateSeq:noResp.VAL    = "No response from GPOL";         
+string $(top)aoMove:noResp.VAL          = "No response from Altair";       
+string $(top)m2Datum:noResp.VAL         = "No response from Secondary";    
+string $(top)ventGatesStop:noResp.VAL   = "No response from Enclosure";    
+string $(top)pwfs2FldstopDatum:noResp.VAL = "No response from A&G";        
+string $(top)pwfs2SetOrient:noResp.VAL  = "No response from A&G";          
+string $(top)pwfs2FldstopPark:noResp.VAL = "No response from A&G";         
+string $(top)p1detSigInit:noResp.VAL    = "No response from PWFS1";        
+string $(top)pwfs1FldstopDatum:noResp.VAL = "No response from A&G";        
+string $(top)pwfs2Unwrap:noResp.VAL     = "No response from A&G";          
+string $(top)seq:ecdatumnoResp.VAL      = "No response from ECS";          
+string $(top)p1Seq:noResp.VAL           = "No response from PWFS1";        
+string $(top)telpark:noResp.VAL         = "No response from mount";        
+string $(top)aoFoldDatum:noResp.VAL     = "No response from A&G";          
+string $(top)oiSeq:noResp.VAL           = "No response from OIWFS";        
+string $(top)pwfs1FilterPark:noResp.VAL = "No response from A&G";          
+string $(top)seq:mcrebootnoResp.VAL     = "No response from MCS";          
+string $(top)oiwfsMove:noResp.VAL       = "No response from A&G";          
+string $(top)elConfig:noResp.VAL        = "No response from mount";        
+string $(top)pwfs2Flip:noResp.VAL       = "No response from A&G";          
+string $(top)scienceFold:noResp.VAL     = "No response from A&G";          
+string $(top)seq:crdatumnoResp.VAL      = "No response from Rotator";      
+string $(top)p2Seq:noResp.VAL           = "No response from PWFS2";        
+string $(top)mountDatum:noResp.VAL      = "No response from mount";        
+string $(top)gpolIdentify:noResp.VAL    = "No response from GPOL";         
+string $(top)telstop:noResp.VAL         = "No response from mount";        
+string $(top)shutterPark:noResp.VAL     = "No response from Enclosure";    
+string $(top)seq:aoinitnoResp.VAL       = "No response from GAOS";         
+string $(top)pwfs2FilterPark:noResp.VAL = "No response from A&G";          
+string $(top)seq:mcinitnoResp.VAL       = "No response from MCS";          
+string $(top)seq:m2datumnoResp.VAL      = "No response from SCS";          
+string $(top)pwfs1Fldstop:noResp.VAL    = "No response from A&G";          
+string $(top)ngsPr2Park:noResp.VAL      = "No response from Canopus";      
+string $(top)elevation:noResp.VAL       = "No response from mount";        
+string $(top)oiSigInit:noResp.VAL       = "No response from OIWFS";        
+string $(top)seq:aodatumnoResp.VAL      = "No response from GAOS";         
+string $(top)aoFold:noResp.VAL          = "No response from A&G";          
+string $(top)m1ThermalControl:noResp.VAL = "No response from PCS";         
+string $(top)p1SigModeAo:noResp.VAL     = "No response from PWFS1";        
+string $(top)hrwfsDatum:noResp.VAL      = "No response from A&G";          
+string $(top)oiwfsStopObserve:noResp.VAL = "No response from OIWFS";       
+string $(top)seq:aoparknoResp.VAL       = "No response from GAOS";         
+string $(top)pwfs2Filter:noResp.VAL     = "No response from A&G";          
+string $(top)m2Beam:noResp.VAL          = "No response from Secondary";    
+string $(top)seq:m2initnoResp.VAL       = "No response from SCS";          
+string $(top)carouselStop:noResp.VAL    = "No response from Enclosure";    
+string $(top)shutter:noResp.VAL         = "No response from Enclosure";    
+string $(top)seq:mcparknoResp.VAL       = "No response from MCS";          
+string $(top)oiwfsObserve:noResp.VAL    = "No response from OIWFS";        
+string $(top)seq:ectestnoResp.VAL       = "No response from ECS";          
+string $(top)pwfs2Stop:noResp.VAL       = "No response from A&G";          
+string $(top)agPark:noResp.VAL          = "No response from A&G";          
+string $(top)p1SeqDark:noResp.VAL       = "No response from PWFS1";        
+string $(top)azel:noResp.VAL            = "No response from mount";          
+string $(top)vgatesStop:noResp.VAL      = "No response from Enclosure";      
+string $(top)pwfs2StopObserve:noResp.VAL = "No response from PWFS2";         
+string $(top)m2SetController:noResp.VAL = "No response from Secondary";      
+string $(top)pwfs1Datum:noResp.VAL      = "No response from A&G";            
+string $(top)m1ReadLut:noResp.VAL       = "No response from PCS";            
+string $(top)m1Definition:noResp.VAL    = "No response from PCS";            
+string $(top)m1ZeroSet:noResp.VAL       = "No response from PCS";            
+string $(top)seq:ecrebootnoResp.VAL     = "No response from ECS";            
+string $(top)seq:gptestnoResp.VAL       = "No response from GPOL";           
+string $(top)mountLog:noResp.VAL        = "No response from mount";          
+string $(top)mountTolerance:noResp.VAL  = "No response from mount";          
+string $(top)seq:agtestnoResp.VAL       = "No response from A&G";            
+string $(top)pwfs1FocusPark:noResp.VAL  = "No response from A&G";            
+string $(top)pwfs1Tolerance:noResp.VAL  = "No response from A&G";            
+string $(top)seq:m1testnoResp.VAL       = "No response from PCS";            
+string $(top)seq:mcdatumnoResp.VAL      = "No response from MCS";            
+string $(top)aoMoveAStar:noResp.VAL     = "No response from Altair";         
+string $(top)seq:crrebootnoResp.VAL     = "No response from Rotator";        
+string $(top)clearGuideFocus:noResp.VAL = "No response from Secondary";      
+string $(top)aoNgsNDFilter:noResp.VAL   = "No response from Altair";         
+string $(top)agInit:noResp.VAL          = "No response from A&G";            
+string $(top)seq:m1datumnoResp.VAL      = "No response from PCS";            
+string $(top)oiwfsPark:noResp.VAL       = "No response from A&G";            
+string $(top)seq:m2rebootnoResp.VAL     = "No response from SCS";            
+string $(top)pwfs2Datum:noResp.VAL      = "No response from A&G";            
+string $(top)clearTiltGuide:noResp.VAL  = "No response from Secondary";      
+string $(top)aoTTGSLoop:noResp.VAL      = "No response from Altair";         
+string $(top)seq:agdatumnoResp.VAL      = "No response from A&G";            
+string $(top)pwfs2Fldstop:noResp.VAL    = "No response from A&G";            
+string $(top)p2detSigInit:noResp.VAL    = "No response from PWFS2";          
+string $(top)p2SigModeAo:noResp.VAL     = "No response from PWFS2";          
+string $(top)seq:gpinitnoResp.VAL       = "No response from GPOL";           
+string $(top)seq:crparknoResp.VAL       = "No response from Rotator";        
+string $(top)enclosureInit:noResp.VAL   = "No response from Enclosure";      
+string $(top)seq:ecinitnoResp.VAL       = "No response from ECS";            
+string $(top)gpolPlateMoveP:noResp.VAL  = "No response from GPOL";           
+string $(top)aoFoldPark:noResp.VAL      = "No response from A&G";            
+string $(top)aoEntShutter:noResp.VAL    = "No response from Altair";         
+string $(top)seq:m2testnoResp.VAL       = "No response from SCS";            
+string $(top)pwfs1Flip:noResp.VAL       = "No response from A&G";            
+                                                                             
+string $(top)gp:plateStepC:ms1.VAL      = "Command active";                  
+string $(top)ec:debugC:ms1.VAL          = "Command active";                  
+string $(top)ag:p1:filterC:ms1.VAL      = "Command active";                  
+string $(top)gsaoi:debugC:ms1.VAL       = "Command active";                  
+string $(top)mc:debugC:ms1.VAL          = "Command active";      
+string $(top)gsaoi:initC:ms1.VAL        = "Command active";      
+string $(top)gp:plateBeamC:ms1.VAL      = "Command active";      
+string $(top)cr:followC:ms1.VAL         = "Command active";      
+string $(top)m2:initC:ms1.VAL           = "Command active";      
+string $(top)gp:plateParkC:ms1.VAL      = "Command active";      
+string $(top)ag:rebootC:ms1.VAL         = "Command active";      
+string $(top)cr:stopC:ms1.VAL           = "Command active";      
+string $(top)m2:debugC:ms1.VAL          = "Command active";      
+string $(top)gp:debugC:ms1.VAL          = "Command active";      
+string $(top)cr:initC:ms1.VAL           = "Command active";      
+string $(top)m2:rebootC:ms1.VAL         = "Command active";      
+string $(top)ag:datumC:ms1.VAL          = "Command active";      
+string $(top)gp:testC:ms1.VAL           = "Command active";      
+string $(top)gp:identifyC:ms1.VAL       = "Command active";      
+string $(top)ag:p1:probeC:ms1.VAL       = "Command active";      
+string $(top)cr:debugC:ms1.VAL          = "Command active";      
+string $(top)ag:testC:ms1.VAL           = "Command active";      
+string $(top)m2:stopC:ms1.VAL           = "Command active";      
+string $(top)ao:rebootC:ms1.VAL         = "Command active";      
+string $(top)aom:rebootC:ms1.VAL        = "Command active";      
+string $(top)aom:parkC:ms1.VAL          = "Command active";      
+string $(top)ag:oi:focusC:ms1.VAL       = "Command active";      
+string $(top)m1:debugC:ms1.VAL          = "Command active";      
+string $(top)ao:moveC:ms1.VAL           = "Command active";      
+string $(top)m1:datumC:ms1.VAL          = "Command active";      
+string $(top)gp:stopC:ms1.VAL           = "Command active";      
+string $(top)ao:datumC:ms1.VAL          = "Command active";      
+string $(top)ag:aoC:ms1.VAL             = "Command active";      
+string $(top)aom:debugC:ms1.VAL         = "Command active";      
+string $(top)ec:stopC:ms1.VAL           = "Command active";      
+string $(top)ag:p1:focusC:ms1.VAL       = "Command active";      
+string $(top)gsaoi:rebootC:ms1.VAL      = "Command active";      
+string $(top)gp:rebootC:ms1.VAL         = "Command active";      
+string $(top)m1:followC:ms1.VAL         = "Command active";      
+string $(top)gp:plateAngleC:ms1.VAL     = "Command active";      
+string $(top)m1:testC:ms1.VAL           = "Command active";      
+string $(top)m2:datumC:ms1.VAL          = "Command active";      
+string $(top)mc:rebootC:ms1.VAL         = "Command active";      
+string $(top)ao:testC:ms1.VAL           = "Command active";      
+string $(top)cr:testC:ms1.VAL           = "Command active";      
+string $(top)mc:testC:ms1.VAL           = "Command active";      
+string $(top)ag:p2:fldstopC:ms1.VAL     = "Command active";      
+string $(top)ag:p2:probeC:ms1.VAL       = "Command active";      
+string $(top)mc:moveC:ms1.VAL           = "Command active";      
+string $(top)ao:followC:ms1.VAL         = "Command active";   
+string $(top)ag:p2:filterC:ms1.VAL      = "Command active";            
+string $(top)ag:sfC:ms1.VAL             = "Command active";            
+string $(top)mc:datumC:ms1.VAL          = "Command active";            
+string $(top)ec:datumC:ms1.VAL          = "Command active";            
+string $(top)m2:testC:ms1.VAL           = "Command active";            
+string $(top)ag:p1:fldstopC:ms1.VAL     = "Command active";            
+string $(top)ag:p2:focusC:ms1.VAL       = "Command active";            
+string $(top)ag:hwC:ms1.VAL             = "Command active";            
+string $(top)ag:oi:filterC:ms1.VAL      = "Command active";            
+string $(top)ec:followC:ms1.VAL         = "Command active";            
+string $(top)gp:plateDatumC:ms1.VAL     = "Command active";            
+string $(top)m2:moveC:ms1.VAL           = "Command active";            
+string $(top)mc:initC:ms1.VAL           = "Command active";            
+string $(top)gsaoi:testC:ms1.VAL        = "Command active";            
+string $(top)ag:oi:fldstopC:ms1.VAL     = "Command active";            
+string $(top)gp:datumC:ms1.VAL          = "Command active";            
+string $(top)cr:datumC:ms1.VAL          = "Command active";            
+string $(top)ec:initC:ms1.VAL           = "Command active";            
+string $(top)aom:testC:ms1.VAL          = "Command active";            
+string $(top)mc:followC:ms1.VAL         = "Command active";            
+string $(top)aom:ngsPr2probeC:ms1.VAL   = "Command active";            
+string $(top)aom:ngsPr3probeC:ms1.VAL   = "Command active";            
+string $(top)ao:initC:ms1.VAL           = "Command active";            
+string $(top)m1:stopC:ms1.VAL           = "Command active";            
+string $(top)aom:ngsPr1probeC:ms1.VAL   = "Command active";            
+string $(top)ao:debugC:ms1.VAL          = "Command active";            
+string $(top)ec:rebootC:ms1.VAL         = "Command active";            
+string $(top)ag:oi:probeC:ms1.VAL       = "Command active";            
+string $(top)cr:rebootC:ms1.VAL         = "Command active";            
+string $(top)ag:parkC:ms1.VAL           = "Command active";            
+string $(top)ao:stopC:ms1.VAL           = "Command active";            
+string $(top)mc:stopC:ms1.VAL           = "Command active";            
+string $(top)gp:parkC:ms1.VAL           = "Command active";            
+string $(top)gp:plateRotateC:ms1.VAL    = "Command active";            
+string $(top)ec:testC:ms1.VAL           = "Command active";            
+string $(top)m1:rebootC:ms1.VAL         = "Command active";            
+string $(top)m2:followC:ms1.VAL         = "Command active";            
+string $(top)ag:debugC:ms1.VAL          = "Command active";            
+string $(top)m1:initC:ms1.VAL           = "Command active";            
+string $(top)ag:initC:ms1.VAL           = "Command active";            
+string $(top)aom:datumC:ms1.VAL         = "Command active";            
+string $(top)aom:initC:ms1.VAL          = "Command active";
+string $(top)gp:plateStepC:ms2.VAL      = "-";                         
+string $(top)ec:debugC:ms2.VAL          = "-";                         
+string $(top)ag:p1:filterC:ms2.VAL      = "-";                         
+string $(top)gsaoi:debugC:ms2.VAL       = "-";     
+string $(top)mc:debugC:ms2.VAL          = "-";     
+string $(top)m2:initC:ms2.VAL           = "-";     
+string $(top)gp:plateBeamC:ms2.VAL      = "-";     
+string $(top)gsaoi:initC:ms2.VAL        = "-";     
+string $(top)cr:followC:ms2.VAL         = "-";     
+string $(top)gp:plateParkC:ms2.VAL      = "-";     
+string $(top)ag:rebootC:ms2.VAL         = "-";     
+string $(top)cr:stopC:ms2.VAL           = "-";     
+string $(top)m2:debugC:ms2.VAL          = "-";     
+string $(top)gp:debugC:ms2.VAL          = "-";     
+string $(top)cr:initC:ms2.VAL           = "-";     
+string $(top)m2:rebootC:ms2.VAL         = "-";     
+string $(top)ag:datumC:ms2.VAL          = "-";     
+string $(top)gp:testC:ms2.VAL           = "-";     
+string $(top)gp:identifyC:ms2.VAL       = "-";     
+string $(top)ag:p1:probeC:ms2.VAL       = "-";     
+string $(top)cr:debugC:ms2.VAL          = "-";     
+string $(top)ag:testC:ms2.VAL           = "-";     
+string $(top)m2:stopC:ms2.VAL           = "-";     
+string $(top)ao:rebootC:ms2.VAL         = "-";     
+string $(top)aom:rebootC:ms2.VAL        = "-";     
+string $(top)aom:parkC:ms2.VAL          = "-";     
+string $(top)ag:oi:focusC:ms2.VAL       = "-";     
+string $(top)m1:debugC:ms2.VAL          = "-";     
+string $(top)ao:moveC:ms2.VAL           = "-";     
+string $(top)m1:datumC:ms2.VAL          = "-";     
+string $(top)ao:datumC:ms2.VAL          = "-";     
+string $(top)gp:stopC:ms2.VAL           = "-";     
+string $(top)ag:aoC:ms2.VAL             = "-";     
+string $(top)aom:debugC:ms2.VAL         = "-";     
+string $(top)ec:stopC:ms2.VAL           = "-";     
+string $(top)ag:p1:focusC:ms2.VAL       = "-";     
+string $(top)gsaoi:rebootC:ms2.VAL      = "-";     
+string $(top)gp:rebootC:ms2.VAL         = "-";     
+string $(top)m1:followC:ms2.VAL         = "-";     
+string $(top)gp:plateAngleC:ms2.VAL     = "-";     
+string $(top)m1:testC:ms2.VAL           = "-";     
+string $(top)m2:datumC:ms2.VAL          = "-";     
+string $(top)mc:rebootC:ms2.VAL         = "-";     
+string $(top)ao:testC:ms2.VAL           = "-";     
+string $(top)cr:testC:ms2.VAL           = "-";     
+string $(top)mc:testC:ms2.VAL           = "-";     
+string $(top)ag:p2:fldstopC:ms2.VAL     = "-";     
+string $(top)ag:p2:probeC:ms2.VAL       = "-";     
+string $(top)mc:moveC:ms2.VAL           = "-";     
+string $(top)ao:followC:ms2.VAL         = "-";     
+string $(top)ag:p2:filterC:ms2.VAL      = "-";     
+string $(top)ag:sfC:ms2.VAL             = "-";     
+string $(top)mc:datumC:ms2.VAL          = "-";     
+string $(top)ec:datumC:ms2.VAL          = "-";     
+string $(top)m2:testC:ms2.VAL           = "-";     
+string $(top)ag:p1:fldstopC:ms2.VAL     = "-";     
+string $(top)ag:p2:focusC:ms2.VAL       = "-";     
+string $(top)ag:hwC:ms2.VAL             = "-";     
+string $(top)ag:oi:filterC:ms2.VAL      = "-";     
+string $(top)ec:followC:ms2.VAL         = "-";     
+string $(top)gp:plateDatumC:ms2.VAL     = "-";     
+string $(top)m2:moveC:ms2.VAL           = "-";     
+string $(top)mc:initC:ms2.VAL           = "-";     
+string $(top)gsaoi:testC:ms2.VAL        = "-";     
+string $(top)ag:oi:fldstopC:ms2.VAL     = "-";     
+string $(top)gp:datumC:ms2.VAL          = "-";     
+string $(top)cr:datumC:ms2.VAL          = "-";     
+string $(top)ec:initC:ms2.VAL           = "-";     
+string $(top)mc:followC:ms2.VAL         = "-";     
+string $(top)aom:testC:ms2.VAL          = "-";     
+string $(top)aom:ngsPr2probeC:ms2.VAL   = "-";     
+string $(top)aom:ngsPr3probeC:ms2.VAL   = "-";     
+string $(top)ao:initC:ms2.VAL           = "-";     
+string $(top)m1:stopC:ms2.VAL           = "-";     
+string $(top)aom:ngsPr1probeC:ms2.VAL   = "-";     
+string $(top)ao:debugC:ms2.VAL          = "-";     
+string $(top)ec:rebootC:ms2.VAL         = "-";     
+string $(top)ag:oi:probeC:ms2.VAL       = "-";     
+string $(top)cr:rebootC:ms2.VAL         = "-";     
+string $(top)ag:parkC:ms2.VAL           = "-";     
+string $(top)ao:stopC:ms2.VAL           = "-";     
+string $(top)mc:stopC:ms2.VAL           = "-";     
+string $(top)gp:parkC:ms2.VAL           = "-";     
+string $(top)gp:plateRotateC:ms2.VAL    = "-";     
+string $(top)ec:testC:ms2.VAL           = "-";     
+string $(top)m1:rebootC:ms2.VAL         = "-";     
+string $(top)m2:followC:ms2.VAL         = "-";     
+string $(top)ag:debugC:ms2.VAL          = "-";     
+string $(top)m1:initC:ms2.VAL           = "-";     
+string $(top)ag:initC:ms2.VAL           = "-";     
+string $(top)aom:datumC:ms2.VAL         = "-";     
+string $(top)aom:initC:ms2.VAL          = "-";     
+string $(top)gp:lowerSensorState.VAL    = "OPEN";                        
+string $(top)gp:middleSensorState.VAL   = "OPEN";                        
+string $(top)gp:upperSensorState.VAL    = "OPEN";                                                                                               
+string $(top)gp:defUpPlateName.VAL      = "Unknown";                     
+string $(top)gsaoiActTout.VAL           = "GSAOI timed out";             
+string $(top)drives:agHwName.VAL        = "IN";                          
+#string $(top)com:stopAllEnc.VAL         = "MARK";                        
+string $(top)ak:pm:par19:name.VAL       = "TF";                          
+string $(top)aomHlthDefVal.VAL          = "GOOD";                        
+string $(top)ak:pm:par8:name.VAL        = "HECA3";                       
+#string $(top)oiwfsMfollow.VAL           = "0";                           
+#string $(top)drives:ecThermalMode.VAL   = "Passive";                     
+string $(top)com:orbitBrightness.VAL    = "Unspecified";                 
+string $(top)gp:plateBeam:lowBeam.VAL   = "CLOSED";                      
+string $(top)gp:plateBeam:lowPark.VAL   = "OPEN";                        
+string $(top)gp:middleSensorOpen.VAL    = "OPEN";                        
+string $(top)gp:upperSensorOpen.VAL     = "OPEN";                        
+string $(top)gp:defMidPlateName.VAL     = "Unknown";                     
+string $(top)gp:plateBeam:upPark.VAL    = "OPEN";                        
+string $(top)gp:lowerSensorOpen.VAL     = "OPEN";                        
+string $(top)gp:plateBeam:upBeam.VAL    = "CLOSED";                      
+string $(top)gp:defLowPlateName.VAL     = "Unknown";                     
+string $(top)gp:plateBeam:midBeam.VAL   = "CLOSED";                      
+string $(top)gp:plateBeam:midPark.VAL   = "OPEN";                        
+string $(top)wsHlthDefVal.VAL           = "GOOD";                        
+string $(top)ecHealthMess.VAL           = "WARNING";                     
+string $(top)drives:upperSensor.VAL     = "OPEN";                        
+string $(top)mcHlthDefVal.VAL           = "GOOD";                        
+string $(top)wsActTout.VAL              = "WeatherServer timed out";     
+string $(top)drives:upperPlateName.VAL  = "Unknown";                     
+string $(top)agActTout.VAL              = "A&G timed out";               
+string $(top)ak:pm:par9:name.VAL        = "HESA5";                       
+#string $(top)com:stopGuideWFS.VAL       = "off";                         
+string $(top)aomHealthIn.VAL            = "WARNING"; 
+string $(top)aoHlthDefVal.VAL           = "GOOD";                        
+string $(top)ak:pm:par17:name.VAL       = "AN";                          
+#string $(top)debugString1.VAL           = "NONE";                       
+string $(top)ak:pm:par4:name.VAL        = "HACA10";                      
+string $(top)com:unfollowAllEncE.VAL    = "off";                         
+string $(top)com:unfollowAllEncD.VAL    = "off";                         
+string $(top)ak:pm:par15:name.VAL       = "HSCA";                        
+#string $(top)debugMcStart.VAL           = "START";                      
+string $(top)crHealthIn.VAL             = "GOOD";                        
+string $(top)aomHealthMess.VAL          = "DAB in Auto";                 
+string $(top)com:pwfs2orbitBrightness.VAL = "Unspecified";               
+string $(top)gpHlthDefVal.VAL           = "GOOD";                       
+string $(top)tcsHealth.VAL              = "WARNING";                    
+string $(top)ecHlthDefVal.VAL           = "GOOD";                       
+#string $(top)mcMstop.VAL                = "0";                          
+string $(top)drives:lowerSensor.VAL     = "OPEN";                       
+#string $(top)pwfs1Mfollow.VAL           = "0";                          
+#string $(top)aoMstop.VAL                = "0";                          
+string $(top)com:g2orbitBrightness.VAL  = "Unspecified";                
+#string $(top)debugAOStart.VAL           = "START";                     
+string $(top)agHlthDefVal.VAL           = "GOOD";                       
+string $(top)ak:pm:par18:name.VAL       = "AW";                         
+string $(top)ak:pm:par11:name.VAL       = "PEE";                        
+string $(top)com:unfollowAllngs1.VAL    = "off";                        
+string $(top)com:unfollowAllngs2.VAL    = "off";                        
+string $(top)com:unfollowAllngs3.VAL    = "off";                        
+string $(top)ecHealthIn.VAL             = "WARNING";                    
+string $(top)ak:pm:par29:name.VAL       = "string";                     
+string $(top)ecHealthbad.VAL            = "BAD";                        
+#string $(top)debugEcStart.VAL           = "START";                     
+string $(top)planetBrightness.VAL       = "Unspecified";                
+string $(top)com:g1orbitBrightness.VAL  = "Unspecified";                
+string $(top)ecHealthgood.VAL           = "GOOD";                       
+string $(top)drives:lowerPlateName.VAL  = "Unknown";                    
+string $(top)drives:agAoName.VAL        = "park-pos.";                  
+string $(top)drives:closedStr.VAL       = "Closed";                     
+#string $(top)com:stopGuideRot.VAL       = "off";                                             
+#string $(top)com:stopGuideM1.VAL        = "off";
+#string $(top)com:stopGuideM2.VAL        = "off";
+string $(top)m1HlthDefVal.VAL           = "GOOD";
+string $(top)ecHealthwarning.VAL        = "WARNING";
+string $(top)gpActWso.VAL               = "Invalid - system offline?";
+#string $(top)debugM2Start.VAL           = "START";                     
+#string $(top)com:unfollowAllAO.VAL      = "off";
+string $(top)ak:pm:par13:name.VAL       = "NPAE";
+string $(top)ak:pm:par2:name.VAL        = "HASA2";
+string $(top)m2HlthDefVal.VAL           = "GOOD";
+#string $(top)pwfs2Mstop.VAL             = "0";                          
+string $(top)ak:pm:par7:name.VAL        = "HESA3";
+#string $(top)com:stopGuideMount.VAL     = "off";
+#string $(top)com:unfollowAllM2.VAL      = "off";
+#string $(top)crMfollow.VAL              = "0";                          
+string $(top)ak:pm:par5:name.VAL        = "HESA2";
+string $(top)drives:agSfName.VAL        = "gcal2gmos3";
+#string $(top)ngs3MngsPr3Stop.VAL        = "0";                          
+#string $(top)mcMfollow.VAL              = "0";                          
+string $(top)ak:pm:par16:name.VAL       = "HSSE8";
+#string $(top)com:unfollowAllodgw2.VAL   = "off";
+#string $(top)com:unfollowAllodgw1.VAL   = "off";
+#string $(top)com:unfollowAllodgw4.VAL   = "off";
+#string $(top)com:unfollowAllodgw3.VAL   = "off";
+#string $(top)crMstop.VAL                = "0";                           
+#string $(top)ngs2MngsPr2Follow.VAL      = "0";                           
+#string $(top)debugCrStart.VAL           = "START";                       
+#string $(top)oiwfsMstop.VAL             = "0";                           
+string $(top)agActWso.VAL               = "Invalid - system offline?";  
+string $(top)drives:middleSensor.VAL    = "OPEN";                        
+string $(top)com:oiwfsorbitBrightness.VAL = "Unspecified";              
+#string $(top)m2Mstop.VAL                = "0";                           
+#string $(top)aoMfollow.VAL              = "0";                           
+string $(top)com:g4orbitBrightness.VAL  = "Unspecified";                
+                                                                        
+string $(top)gp:platePark:midBeam.VAL   = "OPEN";                        
+string $(top)gp:platePark:lowBeam.VAL   = "OPEN";                        
+string $(top)gp:platePark:lowPark.VAL   = "CLOSED";                      
+string $(top)gp:platePark:midPark.VAL   = "CLOSED";                      
+string $(top)gems:simScanPeriod.VAL     = "string";                      
+string $(top)gp:platePark:upPark.VAL    = "CLOSED";                      
+string $(top)gp:platePark:upBeam.VAL    = "OPEN";                        
+string $(top)ecHealthMess.VAL           = "WARNING";                    
+string $(top)aomHealthIn.VAL            = "WARNING";                    
+string $(top)ak:pm:par17:name.VAL       = "AN";                          
+string $(top)drives:openStr.VAL         = "Open";                        
+string $(top)ak:pm:par4:name.VAL        = "HACA10";                      
+string $(top)ak:pm:par15:name.VAL       = "HSCA";                        
+string $(top)crHealthIn.VAL             = "GOOD";                        
+string $(top)aomHealthMess.VAL          = "DAB in Auto";                
+
+string $(top)crActTout.VAL              = "Rotator timed out";
+string $(top)com:g3orbitBrightness.VAL  = "Unspecified";
+string $(top)m1ActTout.VAL              = "Primary timed out";
+string $(top)aoActTout.VAL              = "AO timed out";
+string $(top)com:pwfs1orbitBrightness.VAL = "Unspecified";
+
+#string $(top)slewMguide.VAL             = "0";                           
+string $(top)drives:agHwName.VAL        = "IN";
+#string $(top)com:unfollowAllCass.VAL    = "off";
+string $(top)m2ActTout.VAL              = "Secondary timed out";
+#string $(top)ngs1MngsPr1Stop.VAL        = "0";                           
+#string $(top)pwfs1Mstop.VAL             = "0";                           
+string $(top)aomActTout.VAL             = "AOM timed out";
+#string $(top)ngs2MngsPr2Stop.VAL        = "0";                           
+string $(top)com:unfollowAllPwfs1.VAL   = "off";
+string $(top)com:unfollowAllPwfs2.VAL   = "off";
+string $(top)crHlthDefVal.VAL           = "GOOD";
+string $(top)aomActWso.VAL              = "Invalid - system offline?";
+string $(top)wsHealthMess.VAL           = "GOOD";
+string $(top)aoActWso.VAL               = "Invalid - system offline?";
+string $(top)com:unfollowAllMount.VAL   = "off";
+string $(top)gpActTout.VAL              = "GPOL timed out";
+string $(top)gsaoiHlthDefVal.VAL        = "GOOD";
+string $(top)com:stopAllMntAxSel.VAL    = "Both";
+
+string $(top)gisSimEnabled.VAL          = "Enabled";
+string $(top)mcActTout.VAL              = "Mount timed out";
+string $(top)m2GuideControl:ScWso.VAL   = "OK";
+#string $(top)pwfs2Mfollow.VAL           = "0";                             
+#string $(top)drives:ecThermalMode.VAL   = "Passive";
+#string $(top)m2Mfollow.VAL              = "0";                             
+string $(top)com:unfollowAllOiwfs.VAL   = "off";
+#string $(top)ngs1MngsPr1Follow.VAL      = "0";                             
+#string $(top)ngs3MngsPr3Follow.VAL      = "0";                               
+
+int $(top)limits:ambl.DISA = 1;
+int $(top)limits:azbl.DISA = 1;
+int $(top)limits:elbl.DISA = 1;
+int $(top)limits:rotbl.DISA = 1;
+int $(top)limits:zinbl.DISA = 1;
+int $(top)limits:zoutbl.DISA = 1;
+
+string $(top)ak:pm:par20:name.VAL       = "string";                     
+string $(top)ak:pm:par21:name.VAL       = "string";                     
+string $(top)ak:pm:par22:name.VAL       = "string";                     
+string $(top)ak:pm:par23:name.VAL       = "string";                     
+string $(top)ak:pm:par24:name.VAL       = "string";                     
+string $(top)ak:pm:par25:name.VAL       = "string";                     
+string $(top)ak:pm:par26:name.VAL       = "string";                     
+string $(top)ak:pm:par27:name.VAL       = "string";                     
+string $(top)ak:pm:par28:name.VAL       = "string";
+###################################################

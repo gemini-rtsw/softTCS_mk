@@ -115,13 +115,14 @@ p 2256 94 100 0 -1 EVNT:
 p 2288 254 100 0 0 HIHI:0.0000000e+00
 use estringouts 3224 248 100 0 inPosFalse
 xform 0 3328 320
-p 3136 126 100 0 0 OMSL:supervisory
+p 3136 126 100 0 1 OMSL:closed_loop
 p 3296 334 100 0 -1 VAL:FALSE
 p 3520 334 100 0 -1 def(OUT):$(sad)inPosition
 p 3456 304 75 768 -1 pproc(OUT):PP
 p 3168 -245 100 0 0 typ(OUT):path
 use estringouts 3240 72 100 0 inPosTrue
 xform 0 3344 144
+p 3152 -50 100 0 1 OMSL:closed_loop
 p 3312 174 100 0 -1 VAL:TRUE
 p 3536 158 100 0 -1 def(OUT):$(sad)inPosition
 p 3472 128 75 768 -1 pproc(OUT):PP
