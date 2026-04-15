@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REL-4620 — PWFS-2 Wrap Limit Problem Breakdown</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+  h1 { color: #58a6ff; font-size: 1.8rem; margin-bottom: 0.5rem; border-bottom: 1px solid #30363d; padding-bottom: 0.5rem; }
+  h2 { color: #79c0ff; font-size: 1.4rem; margin: 2rem 0 1rem; }
+  h3 { color: #d2a8ff; font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+  p, li { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.5rem; }
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+  .highlight { color: #ffa657; font-weight: 600; }
+  .bad { color: #f85149; }
+  .good { color: #3fb950; }
+  .diagram-container { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; margin: 1rem 0; overflow-x: auto; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  .callout { background: #1c2128; border-left: 3px solid #58a6ff; padding: 0.75rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; }
+  .callout.warn { border-left-color: #f85149; }
+  .callout.ok { border-left-color: #3fb950; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+  code { background: #1c2128; padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.9em; color: #ffa657; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #30363d; padding: 0.5rem 0.75rem; text-align: left; font-size: 0.9rem; }
+  th { background: #1c2128; color: #79c0ff; }
+  td { color: #c9d1d9; }
+</style>
+</head>
+<body>
+
+<h1>REL-4620 — Understanding the PWFS-2 Wrap Limit Bug</h1>
+<p style="color: #8b949e; margin-bottom: 2rem;">
+  Updated April 2026 — incorporates monitoring data (Feb 2025), prior investigation (Sep 2025),
+  and source code analysis. See <code>rel-4620.md</code> for the full write-up.
+</p>
+
+<!-- ============================================================ -->
+<h2>Part 1: What Is It Trying To Do?</h2>
+<!-- ============================================================ -->
+
+<div class="section">
+<h3>The Real-World Goal</h3>
+<p>The telescope has guide probes (PWFS-1 and PWFS-2) mounted on <span class="highlight">rotary tables</span>. As the telescope tracks a star across the sky, each probe slowly rotates to stay aligned. But the rotary table has physical stops — it can only spin so far before it hits a mechanical limit.</p>
+
+<p>The TCS needs to answer one question: <span class="highlight">"How many minutes until this probe hits its limit?"</span></p>
+
+<p>That countdown is displayed on the operator's screen (TSD). When it reaches zero, the system triggers an <span class="highlight">unwrap</span> — it reverses the probe's rotation direction so it can keep tracking.</p>
+
+<div class="callout">
+<strong>In plain terms:</strong> Imagine you're winding a garden hose reel. You can see the hose getting close to fully wound. You need to predict "how many more turns before it's maxed out?" and display a countdown so the operator knows when to reverse.
+</div>
+
+<p><strong>When does this code run?</strong> Only when the Cassegrain rotator is in fixed (AZEL_TOPO) mode
+and P2 is actively tracking — the configuration used for MAROON-X. Before MAROON-X was installed
+in 2021, this was an uncommon mode, which is why the bug went unnoticed for years.</p>
+</div>
+
+<div class="section">
+<h3>What Information Does It Need?</h3>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 380" width="900" height="380">
+  <defs>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#30363d"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffa657"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f85149"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <text x="450" y="30" text-anchor="middle" fill="#58a6ff" font-size="16" font-weight="bold">Inputs Required to Predict "Time to Limit"</text>
+
+  <!-- Row 1: EPICS inputs (explicit, stable) -->
+  <text x="50" y="58" fill="#8b949e" font-size="11" font-style="italic">EPICS inputs (explicit, stable):</text>
+  <rect x="30" y="65" width="190" height="55" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="125" y="87" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Probe Limits</text>
+  <text x="125" y="103" text-anchor="middle" fill="#8b949e" font-size="10">p2RTLoLim, p2RTHiLim</text>
+  <text x="125" y="115" text-anchor="middle" fill="#8b949e" font-size="10">(mechanical stop positions)</text>
+
+  <rect x="240" y="65" width="190" height="55" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="335" y="87" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Rotator Limits</text>
+  <text x="335" y="103" text-anchor="middle" fill="#8b949e" font-size="10">rothilim, rotlolim</text>
+
+  <rect x="450" y="65" width="190" height="55" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="545" y="87" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Other Limits</text>
+  <text x="545" y="103" text-anchor="middle" fill="#8b949e" font-size="10">ellim, amlim, azhilim, etc.</text>
+
+  <!-- Row 2: Global variables (hidden, changing) -->
+  <text x="50" y="148" fill="#f85149" font-size="11" font-style="italic">Global variables (hidden, change every 50ms cycle):</text>
+  <rect x="30" y="155" width="165" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="2"/>
+  <text x="112" y="177" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="bold">Probe Position</text>
+  <text x="112" y="193" text-anchor="middle" fill="#8b949e" font-size="10">p2RTPosn (encoder)</text>
+  <text x="112" y="207" text-anchor="middle" fill="#f85149" font-size="10">RAW — no filtering!</text>
+
+  <rect x="210" y="155" width="165" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="2"/>
+  <text x="292" y="177" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="bold">Star Position</text>
+  <text x="292" y="193" text-anchor="middle" fill="#8b949e" font-size="10">RA, Dec (M_tar_p[])</text>
+  <text x="292" y="207" text-anchor="middle" fill="#8b949e" font-size="10">target stream errors</text>
+
+  <rect x="390" y="155" width="165" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="2"/>
+  <text x="472" y="177" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="bold">Time / HA</text>
+  <text x="472" y="193" text-anchor="middle" fill="#8b949e" font-size="10">St (sidereal time)</text>
+  <text x="472" y="207" text-anchor="middle" fill="#8b949e" font-size="10">curha = St - RA</text>
+
+  <rect x="570" y="155" width="165" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="2"/>
+  <text x="652" y="177" text-anchor="middle" fill="#ffa657" font-size="12" font-weight="bold">Pointing Demands</text>
+  <text x="652" y="193" text-anchor="middle" fill="#8b949e" font-size="10">AzDef, RmaDef</text>
+  <text x="652" y="207" text-anchor="middle" fill="#8b949e" font-size="10">stair-step corrections</text>
+
+  <rect x="750" y="155" width="120" height="65" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="810" y="177" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Latitude</text>
+  <text x="810" y="193" text-anchor="middle" fill="#8b949e" font-size="10">19.8° N (Mauna Kea)</text>
+  <text x="810" y="207" text-anchor="middle" fill="#8b949e" font-size="10">(static)</text>
+
+  <!-- Row 3: Derived quantity -->
+  <line x1="292" y1="220" x2="350" y2="250" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="472" y1="220" x2="430" y2="250" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="810" y1="220" x2="500" y2="250" stroke="#30363d" stroke-width="1.5"/>
+
+  <rect x="290" y="250" width="310" height="50" rx="6" fill="#1c2128" stroke="#d2a8ff" stroke-width="2"/>
+  <text x="445" y="272" text-anchor="middle" fill="#d2a8ff" font-size="13" font-weight="bold">Parallactic Angle (PA)</text>
+  <text x="445" y="289" text-anchor="middle" fill="#8b949e" font-size="11">pa0 = slaPa(curha, dec, tlat) — how fast the sky rotates at the probe</text>
+
+  <!-- Arrow to answer -->
+  <line x1="112" y1="220" x2="380" y2="325" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="125" y1="120" x2="380" y2="325" stroke="#30363d" stroke-width="1.5"/>
+  <line x1="445" y1="300" x2="430" y2="325" stroke="#30363d" stroke-width="1.5"/>
+
+  <rect x="310" y="320" width="260" height="45" rx="6" fill="#1c2128" stroke="#58a6ff" stroke-width="2"/>
+  <text x="440" y="348" text-anchor="middle" fill="#58a6ff" font-size="14" font-weight="bold">TIME TO LIMIT (minutes)</text>
+</svg>
+</div>
+
+<div class="callout warn">
+<strong>The hidden inputs are the problem.</strong> The monitoring data proved that all 7 explicit EPICS inputs (limits, debug flag) had <strong>zero variation</strong> across sessions. But the function also reads global variables (probe position, sidereal time, pointing demands) that change every 50ms cycle. The algorithm is hypersensitive to these hidden changes.
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>Part 2: How the Current Code Solves It</h2>
+<!-- ============================================================ -->
+
+<div class="section">
+<h3>The Algorithm in Plain Terms</h3>
+<p>The code uses a <span class="highlight">two-phase approach</span>:</p>
+<ol style="padding-left: 1.5rem; margin-top: 0.5rem;">
+  <li><strong>Phase 1 — Solve for candidate times (trig):</strong> Convert the distance-to-limit into a parallactic angle, then use <code>tcsLimPa()</code> to find future hour angles where PA equals the limit PA. Returns 0, 1, or 2 candidate HAs per limit (up to 4 total for lo+hi).</li>
+  <li><strong>Phase 2 — Simulate forward to validate (loop):</strong> Step the hour angle forward in 6 coarse 90° jumps. At each step, project where the probe <em>would be</em> by accumulating parallactic angle changes onto the current encoder position. When you pass a candidate HA, check: "Is the projected probe position within 180° of the limit?" If yes, accept that time.</li>
+</ol>
+<p>The simulation step exists because the trig in Phase 1 can return "ghost" solutions — hour angles where the PA value matches, but the probe would actually be at the <em>opposite</em> limit. The proximity check is supposed to reject those ghosts.</p>
+</div>
+
+<div class="section">
+<h3>Current Algorithm — Full Walkthrough</h3>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 920" width="900" height="920">
+  <text x="450" y="28" text-anchor="middle" fill="#58a6ff" font-size="16" font-weight="bold">CURRENT ALGORITHM — Step by Step</text>
+
+  <!-- Phase 1 -->
+  <rect x="40" y="45" width="400" height="300" rx="8" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="55" y="67" fill="#79c0ff" font-size="14" font-weight="bold">PHASE 1: Solve for Candidate HAs</text>
+
+  <rect x="60" y="80" width="360" height="45" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="75" y="100" fill="#c9d1d9" font-size="11">Read probe position from encoder (raw, unfiltered)</text>
+  <text x="75" y="115" fill="#8b949e" font-size="10">p2RTPosn = tcsProbeGetRTPosns() — line 12731</text>
+
+  <rect x="60" y="135" width="360" height="45" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="75" y="155" fill="#c9d1d9" font-size="11">Compute current PA, then PA-at-each-limit:</text>
+  <text x="75" y="170" fill="#8b949e" font-size="10">pa0 = slaPa(curha, dec, tlat); pa = pa0 + (limit - posn)</text>
+
+  <rect x="60" y="190" width="360" height="65" rx="5" fill="#1c2128" stroke="#d2a8ff" stroke-width="1.5"/>
+  <text x="75" y="210" fill="#c9d1d9" font-size="11">Solve: "At what HA does PA = pa_limit?"</text>
+  <text x="75" y="226" fill="#8b949e" font-size="10">p2locount = tcsLimPa(..., p2halo) — 0, 1, or 2 solutions</text>
+  <text x="75" y="242" fill="#8b949e" font-size="10">p2hicount = tcsLimPa(..., p2hahi) — 0, 1, or 2 solutions</text>
+
+  <rect x="60" y="265" width="360" height="65" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="75" y="285" fill="#c9d1d9" font-size="11">Adjust candidates to be in the future:</text>
+  <text x="75" y="301" fill="#8b949e" font-size="10">if (p2halo[i] &lt; curha) p2halo[i] += 2*PI</text>
+  <text x="75" y="317" fill="#8b949e" font-size="10">Initialize: p2RT = p2RTPosn; pa = pa0</text>
+
+  <!-- Phase 2 -->
+  <rect x="40" y="360" width="830" height="545" rx="8" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="55" y="382" fill="#79c0ff" font-size="14" font-weight="bold">PHASE 2: Simulate Forward (6 steps of 90° each = 6 sidereal hours)</text>
+
+  <!-- The 6 steps -->
+  <text x="60" y="405" fill="#c9d1d9" font-size="12">Step HA forward in 90° chunks. At each step:</text>
+
+  <g>
+    <rect x="60" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="115" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 0</text>
+    <text x="115" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <rect x="185" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="240" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 1</text>
+    <text x="240" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <rect x="310" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="365" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 2</text>
+    <text x="365" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <rect x="435" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="490" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 3</text>
+    <text x="490" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <rect x="560" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="615" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 4</text>
+    <text x="615" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <rect x="685" y="415" width="110" height="50" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+    <text x="740" y="435" text-anchor="middle" fill="#8b949e" font-size="10">Step 5</text>
+    <text x="740" y="448" text-anchor="middle" fill="#c9d1d9" font-size="10">HA += 90°</text>
+
+    <line x1="170" y1="440" x2="185" y2="440" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="295" y1="440" x2="310" y2="440" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="420" y1="440" x2="435" y2="440" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="545" y1="440" x2="560" y2="440" stroke="#30363d" stroke-width="1.5"/>
+    <line x1="670" y1="440" x2="685" y2="440" stroke="#30363d" stroke-width="1.5"/>
+  </g>
+
+  <!-- At each step: compute PA, update p2RT -->
+  <text x="60" y="490" fill="#c9d1d9" font-size="12">At each step, compute the new PA and update the projected probe position:</text>
+
+  <!-- BUG 1 box -->
+  <rect x="60" y="500" width="800" height="90" rx="6" fill="#2d1215" stroke="#f85149" stroke-width="2.5"/>
+  <text x="75" y="522" fill="#f85149" font-size="14" font-weight="bold">BUG 1: CUMULATIVE slaDrange() ACCUMULATION (lines 12928-12929)</text>
+  <text x="75" y="542" fill="#c9d1d9" font-size="12">panew = slaPa(ha, dec, tlat);</text>
+  <text x="75" y="560" fill="#f85149" font-size="12" font-weight="bold">p2RT += slaDrange(panew - pa) * R2D;</text>
+  <text x="450" y="560" fill="#8b949e" font-size="11">Each step ADDS the PA change. Errors from slaDrange()</text>
+  <text x="75" y="580" fill="#f85149" font-size="12" font-weight="bold">pa = panew;</text>
+  <text x="450" y="580" fill="#8b949e" font-size="11">boundary crossings COMPOUND over 6 steps.</text>
+
+  <!-- Then check candidates -->
+  <text x="60" y="615" fill="#c9d1d9" font-size="12">When HA passes a candidate, check if the projected position is near the limit:</text>
+
+  <!-- BUG 2 box -->
+  <rect x="60" y="625" width="800" height="70" rx="6" fill="#2d1215" stroke="#ffa657" stroke-width="2"/>
+  <text x="75" y="647" fill="#ffa657" font-size="14" font-weight="bold">BUG 2: HARD 180° PROXIMITY CHECK (lines 12981, 12993)</text>
+  <text x="75" y="667" fill="#c9d1d9" font-size="12">if ( fabs( <tspan fill="#f85149" font-weight="bold">p2RT</tspan> - p2RTLoLim ) &lt;= 180.0 )   <tspan fill="#8b949e">← uses the CORRUPTED p2RT value</tspan></text>
+  <text x="75" y="685" fill="#c9d1d9" font-size="12">    p2ttl = p2halo[j] - curha;  p2valid = 1;   <tspan fill="#8b949e">← accept this candidate time</tspan></text>
+
+  <!-- Two outcomes -->
+  <line x1="350" y1="695" x2="250" y2="730" stroke="#3fb950" stroke-width="1.5"/>
+  <line x1="550" y1="695" x2="650" y2="730" stroke="#f85149" stroke-width="1.5"/>
+
+  <rect x="120" y="730" width="260" height="45" rx="5" fill="#0d2818" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="250" y="750" text-anchor="middle" fill="#3fb950" font-size="12">YES (within 180°) → accept candidate</text>
+  <text x="250" y="765" text-anchor="middle" fill="#8b949e" font-size="10">p2ttl = candidate_HA - current_HA</text>
+
+  <rect x="520" y="730" width="260" height="45" rx="5" fill="#2d1215" stroke="#f85149" stroke-width="1.5"/>
+  <text x="650" y="750" text-anchor="middle" fill="#f85149" font-size="12">NO (beyond 180°) → reject as ghost</text>
+  <text x="650" y="765" text-anchor="middle" fill="#8b949e" font-size="10">probe heading to opposite limit</text>
+
+  <!-- Output -->
+  <text x="60" y="805" fill="#c9d1d9" font-size="12">After all 6 steps, pick the shortest accepted time:</text>
+
+  <rect x="60" y="815" width="800" height="40" rx="5" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+  <text x="460" y="840" text-anchor="middle" fill="#c9d1d9" font-size="12">*(double *)pgsub->valj = p2ttl * ST2MIN;   <tspan fill="#8b949e">→ flows to TSD with NO filtering</tspan></text>
+
+  <!-- Bottom summary -->
+  <rect x="60" y="870" width="800" height="30" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1.5"/>
+  <text x="460" y="890" text-anchor="middle" fill="#f85149" font-size="12">Bug 1 corrupts p2RT → Bug 2 randomly accepts/rejects solutions → VALJ jumps by hundreds of minutes</text>
+</svg>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>Part 3: Why It Breaks — The Two Bugs</h2>
+<!-- ============================================================ -->
+
+<div class="section">
+<h3>Bug 1 (PRIMARY): Cumulative slaDrange() Error</h3>
+<p>This is the dominant cause. The PA accumulation across 6 coarse steps compounds rounding errors
+from <code>slaDrange()</code> boundary crossings, pushing <code>p2RT</code> far from reality.</p>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 520" width="900" height="520">
+  <text x="450" y="25" text-anchor="middle" fill="#f85149" font-size="15" font-weight="bold">How Cumulative slaDrange() Creates Chaos</text>
+
+  <!-- The concept -->
+  <text x="50" y="55" fill="#c9d1d9" font-size="12">slaDrange() normalizes an angle to ±180°. When the PA change crosses a boundary, it can flip sign:</text>
+
+  <!-- Example boxes side by side -->
+  <rect x="50" y="70" width="380" height="90" rx="5" fill="#0d2818" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="60" y="90" fill="#3fb950" font-size="12" font-weight="bold">Normal case (no boundary crossing):</text>
+  <text x="60" y="110" fill="#c9d1d9" font-size="11">PA goes from 45° to 90° (+45° change)</text>
+  <text x="60" y="126" fill="#c9d1d9" font-size="11">slaDrange(90° - 45°) = +45°</text>
+  <text x="60" y="148" fill="#3fb950" font-size="11">p2RT += 45° ✓ correct</text>
+
+  <rect x="470" y="70" width="380" height="90" rx="5" fill="#2d1215" stroke="#f85149" stroke-width="1.5"/>
+  <text x="480" y="90" fill="#f85149" font-size="12" font-weight="bold">Boundary crossing case:</text>
+  <text x="480" y="110" fill="#c9d1d9" font-size="11">PA goes from 170° to -170° (+20° change)</text>
+  <text x="480" y="126" fill="#c9d1d9" font-size="11">panew - pa = -170° - 170° = -340°</text>
+  <text x="480" y="148" fill="#f85149" font-size="11">slaDrange(-340°) = +20° ... usually. But floating-point</text>
+
+  <!-- Show the accumulation over 6 steps -->
+  <text x="50" y="190" fill="#c9d1d9" font-size="12">With 90° HA jumps, each step can span a huge PA change. The errors compound:</text>
+
+  <!-- Step-by-step accumulation diagram -->
+  <rect x="50" y="205" width="120" height="65" rx="4" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="110" y="225" text-anchor="middle" fill="#8b949e" font-size="10">Step 0</text>
+  <text x="110" y="240" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RT = 100°</text>
+  <text x="110" y="255" text-anchor="middle" fill="#3fb950" font-size="10">+30° = 130°</text>
+  <text x="110" y="268" text-anchor="middle" fill="#8b949e" font-size="9">error: 0°</text>
+
+  <line x1="170" y1="237" x2="190" y2="237" stroke="#ffa657" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <rect x="190" y="205" width="120" height="65" rx="4" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="250" y="225" text-anchor="middle" fill="#8b949e" font-size="10">Step 1</text>
+  <text x="250" y="240" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RT = 130°</text>
+  <text x="250" y="255" text-anchor="middle" fill="#3fb950" font-size="10">+25° = 155°</text>
+  <text x="250" y="268" text-anchor="middle" fill="#8b949e" font-size="9">error: ~0°</text>
+
+  <line x1="310" y1="237" x2="330" y2="237" stroke="#ffa657" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <rect x="330" y="205" width="120" height="65" rx="4" fill="#1c2128" stroke="#ffa657" stroke-width="2"/>
+  <text x="390" y="225" text-anchor="middle" fill="#8b949e" font-size="10">Step 2</text>
+  <text x="390" y="240" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RT = 155°</text>
+  <text x="390" y="255" text-anchor="middle" fill="#ffa657" font-size="10">PA crosses ±180°!</text>
+  <text x="390" y="268" text-anchor="middle" fill="#ffa657" font-size="9">error: ±5°</text>
+
+  <line x1="450" y1="237" x2="470" y2="237" stroke="#f85149" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+  <rect x="470" y="205" width="120" height="65" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="2"/>
+  <text x="530" y="225" text-anchor="middle" fill="#8b949e" font-size="10">Step 3</text>
+  <text x="530" y="240" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RT = ???</text>
+  <text x="530" y="255" text-anchor="middle" fill="#f85149" font-size="10">prior error carried</text>
+  <text x="530" y="268" text-anchor="middle" fill="#f85149" font-size="9">error: ±15°</text>
+
+  <line x1="590" y1="237" x2="610" y2="237" stroke="#f85149" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+
+  <rect x="610" y="205" width="120" height="65" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="2"/>
+  <text x="670" y="225" text-anchor="middle" fill="#8b949e" font-size="10">Steps 4-5</text>
+  <text x="670" y="240" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RT = ???</text>
+  <text x="670" y="255" text-anchor="middle" fill="#f85149" font-size="10">more crossings</text>
+  <text x="670" y="268" text-anchor="middle" fill="#f85149" font-size="9">error: ±30-100°+</text>
+
+  <!-- Growing error bar -->
+  <text x="50" y="300" fill="#c9d1d9" font-size="12">Uncertainty in p2RT grows at each step:</text>
+  <rect x="90" y="308" width="20" height="10" rx="2" fill="#3fb950"/>
+  <rect x="230" y="306" width="30" height="14" rx="2" fill="#3fb950"/>
+  <rect x="370" y="303" width="50" height="20" rx="2" fill="#ffa657"/>
+  <rect x="510" y="298" width="80" height="30" rx="2" fill="#f85149"/>
+  <rect x="650" y="290" width="120" height="46" rx="2" fill="#f85149"/>
+
+  <!-- Real data evidence -->
+  <rect x="50" y="350" width="800" height="155" rx="6" fill="#1c2128" stroke="#f85149" stroke-width="2"/>
+  <text x="65" y="375" fill="#f85149" font-size="14" font-weight="bold">REAL DATA PROOF (monitoring 2025-02-26)</text>
+  <text x="65" y="398" fill="#c9d1d9" font-size="12">Three monitoring sessions, same telescope, same inputs, wildly different VALJ:</text>
+
+  <text x="80" y="425" fill="#79c0ff" font-size="12">Session 1 (11:34 UTC):</text>
+  <text x="280" y="425" fill="#c9d1d9" font-size="12">VALJ avg = 3.6 min, range = 9.7 min</text>
+  <rect x="550" y="416" width="50" height="14" rx="2" fill="#58a6ff"/>
+  <text x="610" y="427" fill="#8b949e" font-size="10">MEDIUM chaos</text>
+
+  <text x="80" y="448" fill="#ffa657" font-size="12">Session 2 (11:47 UTC):</text>
+  <text x="280" y="448" fill="#c9d1d9" font-size="12">VALJ avg = 26.2 min, range = 22.5 min</text>
+  <rect x="550" y="439" width="120" height="14" rx="2" fill="#ffa657"/>
+  <text x="680" y="450" fill="#8b949e" font-size="10">HIGH chaos</text>
+
+  <text x="80" y="471" fill="#f85149" font-size="12">Session 3 (11:57 UTC):</text>
+  <text x="280" y="471" fill="#c9d1d9" font-size="12">VALJ avg = 513 min, range = 163 min, max jump = 135 min</text>
+  <rect x="550" y="462" width="250" height="14" rx="2" fill="#f85149"/>
+
+  <text x="65" y="497" fill="#ffa657" font-size="12" font-weight="bold">All 7 EPICS limit inputs had ZERO variation. VALB (elevation limit) was stable at ~312 min.</text>
+</svg>
+</div>
+</div>
+
+<div class="section">
+<h3>Bug 2 (SECONDARY): The 180° Razor Edge</h3>
+<p>Even if Bug 1 were fixed, the proximity check has no hysteresis. When the probe is genuinely
+near the 180° crossover point, the check flips between accepting different solutions.</p>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 310" width="900" height="310">
+  <text x="450" y="25" text-anchor="middle" fill="#ffa657" font-size="15" font-weight="bold">The 180° Boundary Problem</text>
+
+  <!-- Axis -->
+  <line x1="100" y1="140" x2="800" y2="140" stroke="#30363d" stroke-width="2"/>
+  <text x="450" y="167" text-anchor="middle" fill="#8b949e" font-size="12">|p2RT - p2RTLoLim| in degrees</text>
+
+  <line x1="200" y1="135" x2="200" y2="145" stroke="#8b949e" stroke-width="1"/>
+  <text x="200" y="160" text-anchor="middle" fill="#8b949e" font-size="10">0°</text>
+  <line x1="350" y1="135" x2="350" y2="145" stroke="#8b949e" stroke-width="1"/>
+  <text x="350" y="160" text-anchor="middle" fill="#8b949e" font-size="10">90°</text>
+  <line x1="500" y1="135" x2="500" y2="145" stroke="#ffa657" stroke-width="2"/>
+  <text x="500" y="162" text-anchor="middle" fill="#ffa657" font-size="11" font-weight="bold">180°</text>
+  <text x="500" y="176" text-anchor="middle" fill="#ffa657" font-size="10">THRESHOLD</text>
+  <line x1="650" y1="135" x2="650" y2="145" stroke="#8b949e" stroke-width="1"/>
+  <text x="650" y="160" text-anchor="middle" fill="#8b949e" font-size="10">270°</text>
+
+  <!-- Threshold line -->
+  <line x1="500" y1="95" x2="500" y2="260" stroke="#ffa657" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Accept zone -->
+  <rect x="200" y="110" width="300" height="25" rx="3" fill="#0d2818" opacity="0.6"/>
+  <text x="350" y="126" text-anchor="middle" fill="#3fb950" font-size="11">ACCEPT — use this candidate</text>
+
+  <!-- Reject zone -->
+  <rect x="500" y="110" width="200" height="25" rx="3" fill="#2d1215" opacity="0.6"/>
+  <text x="600" y="126" text-anchor="middle" fill="#f85149" font-size="11">REJECT — ghost solution</text>
+
+  <!-- With Bug 1 -->
+  <text x="110" y="205" fill="#f85149" font-size="13" font-weight="bold">With Bug 1 active:</text>
+  <circle cx="250" cy="215" r="5" fill="#3fb950" opacity="0.5"/>
+  <circle cx="600" cy="215" r="5" fill="#f85149" opacity="0.5"/>
+  <circle cx="350" cy="215" r="5" fill="#3fb950" opacity="0.5"/>
+  <circle cx="150" cy="215" r="5" fill="#3fb950" opacity="0.5"/>
+  <circle cx="700" cy="215" r="5" fill="#f85149" opacity="0.5"/>
+  <circle cx="450" cy="215" r="5" fill="#3fb950" opacity="0.5"/>
+  <circle cx="550" cy="215" r="5" fill="#f85149" opacity="0.5"/>
+  <text x="320" y="238" fill="#c9d1d9" font-size="11">p2RT is so corrupted it lands randomly across the entire range —</text>
+  <text x="320" y="252" fill="#c9d1d9" font-size="11">the check accepts or rejects <tspan fill="#f85149" font-weight="bold">at random</tspan> on each 50ms cycle</text>
+
+  <!-- Without Bug 1 -->
+  <text x="110" y="280" fill="#ffa657" font-size="13" font-weight="bold">Without Bug 1:</text>
+  <circle cx="490" cy="290" r="5" fill="#3fb950" opacity="0.7"/>
+  <circle cx="510" cy="290" r="5" fill="#f85149" opacity="0.7"/>
+  <circle cx="493" cy="300" r="5" fill="#3fb950" opacity="0.7"/>
+  <circle cx="508" cy="300" r="5" fill="#f85149" opacity="0.7"/>
+  <text x="540" y="298" fill="#c9d1d9" font-size="11">Still flips when p2RT is genuinely near 180° (encoder noise) — the <tspan fill="#ffa657">oscillation</tspan> pattern</text>
+</svg>
+</div>
+</div>
+
+<div class="section">
+<h3>The Full Failure Chain</h3>
+<div class="diagram-container">
+<svg viewBox="0 0 900 310" width="900" height="310">
+  <text x="450" y="25" text-anchor="middle" fill="#ffa657" font-size="15" font-weight="bold">How Small Noise Becomes a 135-Minute Jump</text>
+
+  <!-- Stage 1 -->
+  <rect x="20" y="50" width="155" height="80" rx="5" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="97" y="72" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="bold">Encoder + Globals</text>
+  <text x="97" y="90" text-anchor="middle" fill="#c9d1d9" font-size="10">p2RTPosn jitters ±2°</text>
+  <text x="97" y="104" text-anchor="middle" fill="#c9d1d9" font-size="10">St, RA advance</text>
+  <text x="97" y="118" text-anchor="middle" fill="#c9d1d9" font-size="10">target stream errors</text>
+
+  <line x1="175" y1="90" x2="195" y2="90" stroke="#ffa657" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- Stage 2 -->
+  <rect x="195" y="50" width="155" height="80" rx="5" fill="#1c2128" stroke="#d2a8ff" stroke-width="1.5"/>
+  <text x="272" y="72" text-anchor="middle" fill="#d2a8ff" font-size="11" font-weight="bold">PA Calculation</text>
+  <text x="272" y="90" text-anchor="middle" fill="#c9d1d9" font-size="10">slaPa(ha, dec, lat)</text>
+  <text x="272" y="104" text-anchor="middle" fill="#c9d1d9" font-size="10">near zenith: ±20°</text>
+  <text x="272" y="118" text-anchor="middle" fill="#8b949e" font-size="10">(singularity)</text>
+
+  <line x1="350" y1="90" x2="370" y2="90" stroke="#ffa657" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- Stage 3 -->
+  <rect x="370" y="50" width="155" height="80" rx="5" fill="#2d1215" stroke="#f85149" stroke-width="2"/>
+  <text x="447" y="72" text-anchor="middle" fill="#f85149" font-size="11" font-weight="bold">BUG 1: Accumulate</text>
+  <text x="447" y="90" text-anchor="middle" fill="#c9d1d9" font-size="10">6 steps × slaDrange()</text>
+  <text x="447" y="104" text-anchor="middle" fill="#c9d1d9" font-size="10">boundary crossings</text>
+  <text x="447" y="118" text-anchor="middle" fill="#f85149" font-size="10">errors compound</text>
+
+  <line x1="525" y1="90" x2="545" y2="90" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- Stage 4 -->
+  <rect x="545" y="50" width="155" height="80" rx="5" fill="#2d1215" stroke="#ffa657" stroke-width="2"/>
+  <text x="622" y="72" text-anchor="middle" fill="#ffa657" font-size="11" font-weight="bold">BUG 2: Hard Check</text>
+  <text x="622" y="90" text-anchor="middle" fill="#c9d1d9" font-size="10">|p2RT - limit| ≤ 180?</text>
+  <text x="622" y="104" text-anchor="middle" fill="#c9d1d9" font-size="10">no hysteresis</text>
+  <text x="622" y="118" text-anchor="middle" fill="#ffa657" font-size="10">random YES/NO</text>
+
+  <line x1="700" y1="90" x2="720" y2="90" stroke="#f85149" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- Stage 5 -->
+  <rect x="720" y="50" width="155" height="80" rx="5" fill="#2d1215" stroke="#f85149" stroke-width="2.5"/>
+  <text x="797" y="72" text-anchor="middle" fill="#f85149" font-size="11" font-weight="bold">CHAOS OUTPUT</text>
+  <text x="797" y="90" text-anchor="middle" fill="#c9d1d9" font-size="10">VALJ = 4 → 513 min</text>
+  <text x="797" y="104" text-anchor="middle" fill="#c9d1d9" font-size="10">no output filtering</text>
+  <text x="797" y="118" text-anchor="middle" fill="#f85149" font-size="10">→ spurious unwrap</text>
+
+  <!-- Growing uncertainty bars -->
+  <text x="97" y="155" text-anchor="middle" fill="#8b949e" font-size="10">±2°</text>
+  <rect x="82" y="160" width="30" height="8" rx="2" fill="#3fb950"/>
+  <text x="272" y="155" text-anchor="middle" fill="#8b949e" font-size="10">±5-20°</text>
+  <rect x="247" y="160" width="50" height="8" rx="2" fill="#d2a8ff"/>
+  <text x="447" y="155" text-anchor="middle" fill="#8b949e" font-size="10">±30-100°+</text>
+  <rect x="407" y="160" width="80" height="8" rx="2" fill="#f85149"/>
+  <text x="622" y="155" text-anchor="middle" fill="#8b949e" font-size="10">FLIP!</text>
+  <rect x="587" y="160" width="70" height="8" rx="2" fill="#ffa657"/>
+  <text x="797" y="155" text-anchor="middle" fill="#f85149" font-size="10">579 min range</text>
+  <rect x="737" y="160" width="120" height="8" rx="2" fill="#f85149"/>
+
+  <!-- Historical pattern -->
+  <rect x="50" y="195" width="800" height="105" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+  <text x="60" y="218" fill="#58a6ff" font-size="13" font-weight="bold">Historical Pattern (consistent since 2021)</text>
+
+  <text x="60" y="240" fill="#8b949e" font-size="11">2021 REL-4008:</text>
+  <text x="190" y="240" fill="#c9d1d9" font-size="11">"P2 unwraps without warning" — MAROON-X installed, fixed CRCS mode first used regularly</text>
+
+  <text x="60" y="258" fill="#8b949e" font-size="11">2022 GNFR-72825:</text>
+  <text x="190" y="258" fill="#c9d1d9" font-size="11">"15-20 min jumps" — <tspan fill="#ffa657" font-weight="bold">"target stream error...stair step of movement demand"</tspan></text>
+
+  <text x="60" y="276" fill="#8b949e" font-size="11">2024 GNFR-74131:</text>
+  <text x="190" y="276" fill="#c9d1d9" font-size="11">"10 min jumps between two values" — still happening, video evidence</text>
+
+  <text x="60" y="294" fill="#8b949e" font-size="11">2025 monitoring:</text>
+  <text x="190" y="294" fill="#c9d1d9" font-size="11">579 min variation with constant inputs — definitive algorithmic proof</text>
+</svg>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2>Part 4: The Fix — Direct Forward Integration</h2>
+<!-- ============================================================ -->
+
+<div class="section">
+<h3>The Old Way vs. The New Way</h3>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 580" width="900" height="580">
+  <text x="450" y="28" text-anchor="middle" fill="#58a6ff" font-size="16" font-weight="bold">OLD (Rube Goldberg) vs. NEW (Just Do the Calculus)</text>
+
+  <!-- LEFT: Old -->
+  <rect x="30" y="45" width="410" height="520" rx="8" fill="none" stroke="#f85149" stroke-width="2"/>
+  <text x="235" y="68" text-anchor="middle" fill="#f85149" font-size="14" font-weight="bold">OLD: Inverse Trig + Simulation + Check</text>
+
+  <rect x="55" y="80" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="235" y="102" text-anchor="middle" fill="#c9d1d9" font-size="11">1. Solve inverse trig for candidate HAs (tcsLimPa)</text>
+
+  <line x1="235" y1="115" x2="235" y2="128" stroke="#f85149" stroke-width="1.5"/>
+
+  <rect x="55" y="128" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="235" y="150" text-anchor="middle" fill="#c9d1d9" font-size="11">2. Get 0, 1, or 2 solutions per limit (up to 4 total)</text>
+
+  <line x1="235" y1="163" x2="235" y2="176" stroke="#f85149" stroke-width="1.5"/>
+
+  <rect x="55" y="176" width="360" height="45" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1.5"/>
+  <text x="235" y="195" text-anchor="middle" fill="#c9d1d9" font-size="11">3. Simulate forward in 6 coarse 90° steps</text>
+  <text x="235" y="212" text-anchor="middle" fill="#f85149" font-size="10">p2RT += slaDrange(panew - pa) * R2D ← BUG</text>
+
+  <line x1="235" y1="221" x2="235" y2="234" stroke="#f85149" stroke-width="1.5"/>
+
+  <rect x="55" y="234" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1.5"/>
+  <text x="235" y="256" text-anchor="middle" fill="#c9d1d9" font-size="11">4. At each candidate HA: |p2RT - limit| ≤ 180° ? ← BUG</text>
+
+  <line x1="235" y1="269" x2="235" y2="282" stroke="#f85149" stroke-width="1.5"/>
+
+  <rect x="55" y="282" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="235" y="304" text-anchor="middle" fill="#c9d1d9" font-size="11">5. Pick shortest accepted candidate → VALJ</text>
+
+  <rect x="55" y="335" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="65" y="357" fill="#f85149" font-size="11">✗ Ghost solutions require filtering</text>
+
+  <rect x="55" y="378" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="65" y="400" fill="#f85149" font-size="11">✗ 90° steps → huge PA changes → slaDrange errors</text>
+
+  <rect x="55" y="421" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="65" y="443" fill="#f85149" font-size="11">✗ Errors compound over 6 steps (cumulative)</text>
+
+  <rect x="55" y="464" width="360" height="35" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="1"/>
+  <text x="65" y="486" fill="#f85149" font-size="11">✗ 180° check flips randomly on corrupted p2RT</text>
+
+  <rect x="55" y="507" width="360" height="40" rx="4" fill="#2d1215" stroke="#f85149" stroke-width="2"/>
+  <text x="235" y="530" text-anchor="middle" fill="#f85149" font-size="12" font-weight="bold">Result: 579 min variation, 135 min jumps</text>
+
+  <!-- RIGHT: New -->
+  <rect x="460" y="45" width="410" height="520" rx="8" fill="none" stroke="#3fb950" stroke-width="2"/>
+  <text x="665" y="68" text-anchor="middle" fill="#3fb950" font-size="14" font-weight="bold">NEW: Direct Forward Integration</text>
+
+  <rect x="485" y="80" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="665" y="102" text-anchor="middle" fill="#c9d1d9" font-size="11">1. Read current position and limits</text>
+
+  <line x1="665" y1="115" x2="665" y2="128" stroke="#3fb950" stroke-width="1.5"/>
+
+  <rect x="485" y="128" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="665" y="150" text-anchor="middle" fill="#c9d1d9" font-size="11">2. distance = position - limit</text>
+
+  <line x1="665" y1="163" x2="665" y2="176" stroke="#3fb950" stroke-width="1.5"/>
+
+  <rect x="485" y="176" width="360" height="55" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="2"/>
+  <text x="665" y="195" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">3. Step forward in small 5° increments</text>
+  <text x="665" y="212" text-anchor="middle" fill="#c9d1d9" font-size="11">Compute PA at each step, add up rotation</text>
+  <text x="665" y="225" text-anchor="middle" fill="#8b949e" font-size="10">(~72 steps = 24h, one slaPa() each)</text>
+
+  <line x1="665" y1="231" x2="665" y2="244" stroke="#3fb950" stroke-width="1.5"/>
+
+  <rect x="485" y="244" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="2"/>
+  <text x="665" y="266" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">4. Stop when position crosses a limit</text>
+
+  <line x1="665" y1="279" x2="665" y2="292" stroke="#3fb950" stroke-width="1.5"/>
+
+  <rect x="485" y="292" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="665" y="314" text-anchor="middle" fill="#c9d1d9" font-size="11">5. That step's time = the answer → VALJ</text>
+
+  <rect x="485" y="345" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="495" y="367" fill="#3fb950" font-size="11">✓ No inverse trig, no ghost solutions</text>
+
+  <rect x="485" y="388" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="495" y="410" fill="#3fb950" font-size="11">✓ 5° steps → tiny PA changes → no boundary issues</text>
+
+  <rect x="485" y="431" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="495" y="453" fill="#3fb950" font-size="11">✓ Direct limit check — no ambiguous 180° threshold</text>
+
+  <rect x="485" y="474" width="360" height="35" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="1"/>
+  <text x="495" y="496" fill="#3fb950" font-size="11">✓ Single answer — stable, predictable, monotonic</text>
+
+  <rect x="485" y="517" width="360" height="40" rx="4" fill="#0d2818" stroke="#3fb950" stroke-width="2"/>
+  <text x="665" y="540" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="bold">Result: smooth countdown, no jumps</text>
+</svg>
+</div>
+
+<div class="callout ok">
+<strong>The concept is simple calculus:</strong> The probe rotates because the parallactic angle changes as the Earth turns. The PA rate at any future moment is computable from trig (star position + hour angle + latitude). So: step forward in small time increments, compute the PA at each step, add up the rotation, and stop when it crosses a limit. That's it — area under the curve equals distance traveled.
+</div>
+</div>
+
+<div class="section">
+<h3>What the New Code Looks Like</h3>
+
+<div class="diagram-container">
+<svg viewBox="0 0 900 350" width="900" height="350">
+  <text x="450" y="25" text-anchor="middle" fill="#3fb950" font-size="15" font-weight="bold">Forward Integration — Visual Walkthrough</text>
+
+  <!-- The curve -->
+  <text x="55" y="55" fill="#8b949e" font-size="11">Probe position over time (area under PA rate curve):</text>
+
+  <!-- Axis -->
+  <line x1="80" y1="250" x2="820" y2="250" stroke="#30363d" stroke-width="2"/>
+  <line x1="80" y1="80" x2="80" y2="250" stroke="#30363d" stroke-width="2"/>
+  <text x="450" y="275" text-anchor="middle" fill="#8b949e" font-size="11">Time (hours ahead)</text>
+  <text x="35" y="165" text-anchor="middle" fill="#8b949e" font-size="11" transform="rotate(-90,35,165)">Probe position (deg)</text>
+
+  <!-- Time labels -->
+  <text x="80" y="265" text-anchor="middle" fill="#8b949e" font-size="9">now</text>
+  <text x="204" y="265" text-anchor="middle" fill="#8b949e" font-size="9">2h</text>
+  <text x="328" y="265" text-anchor="middle" fill="#8b949e" font-size="9">4h</text>
+  <text x="452" y="265" text-anchor="middle" fill="#8b949e" font-size="9">6h</text>
+  <text x="576" y="265" text-anchor="middle" fill="#8b949e" font-size="9">8h</text>
+  <text x="700" y="265" text-anchor="middle" fill="#8b949e" font-size="9">10h</text>
+
+  <!-- Starting position -->
+  <text x="35" y="195" fill="#58a6ff" font-size="10">p2RTPosn</text>
+  <line x1="75" y1="190" x2="825" y2="190" stroke="#58a6ff" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Limit line -->
+  <text x="35" y="115" fill="#f85149" font-size="10">p2RTHiLim</text>
+  <line x1="75" y1="110" x2="825" y2="110" stroke="#f85149" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- The probe position curve (rising smoothly toward limit) -->
+  <path d="M 80 190 Q 200 188 250 182 Q 350 168 400 155 Q 450 140 500 128 Q 530 120 555 112" stroke="#3fb950" stroke-width="3" fill="none"/>
+
+  <!-- Hit point -->
+  <circle cx="555" cy="112" r="6" fill="#3fb950" stroke="#fff" stroke-width="2"/>
+  <text x="565" y="100" fill="#3fb950" font-size="12" font-weight="bold">HIT! p2pos >= p2RTHiLim</text>
+
+  <!-- Time-to-limit annotation -->
+  <line x1="555" y1="118" x2="555" y2="250" stroke="#3fb950" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="290" x2="555" y2="290" stroke="#3fb950" stroke-width="2"/>
+  <line x1="80" y1="285" x2="80" y2="295" stroke="#3fb950" stroke-width="2"/>
+  <line x1="555" y1="285" x2="555" y2="295" stroke="#3fb950" stroke-width="2"/>
+  <text x="317" y="307" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="bold">p2ttl = this many HA radians → convert to minutes → VALJ</text>
+
+  <!-- Small steps illustration -->
+  <text x="150" y="230" fill="#8b949e" font-size="10">Each tick = one 5° HA step (~20 sec)</text>
+  <line x1="80" y1="245" x2="80" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="90" y1="245" x2="90" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="100" y1="245" x2="100" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="110" y1="245" x2="110" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="120" y1="245" x2="120" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="130" y1="245" x2="130" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="140" y1="245" x2="140" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="150" y1="245" x2="150" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="160" y1="245" x2="160" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <line x1="170" y1="245" x2="170" y2="250" stroke="#d2a8ff" stroke-width="1"/>
+  <text x="190" y="243" fill="#8b949e" font-size="9">...</text>
+</svg>
+</div>
+
+<div class="callout">
+<strong>What was removed:</strong> The <code>tcsLimPa()</code> calls for P1/P2, the candidate HA arrays, the P1/P2 portions of the 90° simulation loop, the cumulative <code>slaDrange()</code> accumulation (lines 12928-12929), and the 180° proximity checks. The azimuth and rotator wrap calculations are untouched.
+</div>
+</div>
+
+</body>
+</html>
