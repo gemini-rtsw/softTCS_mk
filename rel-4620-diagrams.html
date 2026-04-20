@@ -618,6 +618,10 @@ near the 180° crossover point, the check flips between accepting different solu
 <div class="callout ok">
 <strong>The concept is simple calculus:</strong> The probe rotates because the parallactic angle changes as the Earth turns. The PA rate at any future moment is computable from trig (star position + hour angle + latitude). So: step forward in small time increments, compute the PA at each step, add up the rotation, and stop when it crosses a limit. That's it — area under the curve equals distance traveled.
 </div>
+
+<div class="callout warn">
+<strong>Behavior change to communicate to ops:</strong> In geometries where the probe <em>genuinely does not reach a limit within 24 h</em>, the new algorithm reports invalid (<code>-999</code>, displayed as "−" on the TSD). The old code returned a large-but-finite number in those cases — it wasn't physically meaningful, but it looked like a countdown. A dash means <strong>"no limit in 24 h"</strong>, not "system broken".
+</div>
 </div>
 
 <div class="section">
@@ -685,6 +689,75 @@ near the 180° crossover point, the check flips between accepting different solu
 <div class="callout">
 <strong>What was removed:</strong> The <code>tcsLimPa()</code> calls for P1/P2, the candidate HA arrays, the P1/P2 portions of the 90° simulation loop, the cumulative <code>slaDrange()</code> accumulation (lines 12928-12929), and the 180° proximity checks. The azimuth and rotator wrap calculations are untouched.
 </div>
+</div>
+
+<!-- ============================================================ -->
+<h2>Part 5: Verification Status</h2>
+<!-- ============================================================ -->
+
+<div class="section">
+<h3>What's Been Verified, What's Pending</h3>
+<table>
+  <thead>
+    <tr><th>Check</th><th>Status</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Algorithm is sound by construction (no cumulative error, no ghost solutions)</td>
+      <td class="good">✓ analytic</td>
+      <td>5° steps keep <code>slaDrange</code> away from its wrap boundary; direct limit check has no branching on corrupted state.</td>
+    </tr>
+    <tr>
+      <td>Same function signature / output contract as old code</td>
+      <td class="good">✓ verified</td>
+      <td>Same <code>VALI</code>/<code>VALJ</code> fields, same units (min), same <code>-999</code> sentinel, same mask bits.</td>
+    </tr>
+    <tr>
+      <td>Az / rotator / elevation / airmass paths untouched</td>
+      <td class="good">✓ verified</td>
+      <td>Only the P1/P2 block changed. No EPICS record or downstream wiring changes.</td>
+    </tr>
+    <tr>
+      <td>Compiles cleanly</td>
+      <td style="color:#ffa657">⏳ pending</td>
+      <td>Not yet built in the full EPICS/TCS environment.</td>
+    </tr>
+    <tr>
+      <td>Runs without crashing in a test IOC</td>
+      <td style="color:#ffa657">⏳ pending</td>
+      <td>Integration test on softTCS simulator or equivalent.</td>
+    </tr>
+    <tr>
+      <td>On-sky: <code>VALJ</code> is stable with constant inputs</td>
+      <td style="color:#ffa657">⏳ pending</td>
+      <td>Definitive test — brief MAROON-X fixed-CRCS tracking run.</td>
+    </tr>
+    <tr>
+      <td>Offline regression vs. recorded chaos</td>
+      <td class="bad">⚠ limited</td>
+      <td>Feb 2025 CSVs recorded only outputs (VALJ), not all inputs needed to replay the exact chaos. Analytic argument carries the case.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="section">
+<h3>How To Validate On Hardware</h3>
+<ol>
+  <li>Configure MAROON-X or equivalent fixed-CRCS P2-following setup (<code>r_frame == AZEL_TOPO</code>, <code>p2Following == 1</code>).</li>
+  <li>Start tracking.</li>
+  <li>Watch <code>tcs:limits:times.VALJ</code> on the TSD or via <code>camonitor</code>.</li>
+  <li><strong>Old bug signature:</strong> alternating values every update (e.g. 15/22/15/22…) or jumps of hundreds of minutes with constant inputs.</li>
+  <li><strong>Fixed signature:</strong> a smooth monotonically-decreasing countdown.</li>
+</ol>
+<p>For verbose diagnostics, set <code>INPH=1</code> on the <code>times</code> genSub record to enable the per-step integration trace in the IOC log.</p>
+</div>
+
+<div class="section">
+<h3>Rollback Plan</h3>
+<p>The fix is a single commit with a preserved function signature. Reverting is a one-liner:</p>
+<pre style="background:#0d1117; border:1px solid #30363d; padding:0.75rem; border-radius:4px; overflow-x:auto; color:#c9d1d9;"><code>git revert ab94016</code></pre>
+<p>Rebuild and redeploy the previous IOC. No other rollback actions required (no EPICS record changes, no upstream/downstream file changes).</p>
 </div>
 
 </body>
