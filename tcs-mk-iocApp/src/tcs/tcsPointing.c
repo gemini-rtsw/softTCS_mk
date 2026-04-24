@@ -12749,6 +12749,19 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
      * P1/P2 ROTARY TABLE TIME-TO-LIMIT  (REL-4620 fix)
      * ============================================================
      *
+     * !!! STATUS 2026-04-24: NOT READY FOR PRODUCTION !!!
+     *   On-sky validation showed two problems:
+     *     (1) 5° step size gave 20-min granularity floor — fixed by
+     *         reducing step to 0.25° (1 sidereal minute).
+     *     (2) The 1:1 PA-to-probe-rotation accumulation below is
+     *         WRONG.  Engineering-archive replay (2026-04-05 22:00
+     *         UT MAROON-X) showed the probe's rotary table moves
+     *         about 2.4× faster than the parallactic angle.  The
+     *         scale factor depends on AG inverse-kinematics
+     *         geometry (guide-star x,y on focal plane and probe
+     *         arm angle).  This MUST be fixed before deployment.
+     *   See `rel-4620.md` Section 13 for evidence and next steps.
+     *
      * WHAT THIS COMPUTES
      *   How many minutes until the P1 or P2 guide probe's rotary
      *   table reaches its mechanical limit (hi or lo), assuming
