@@ -12772,7 +12772,7 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
      *
      * METHOD: FORWARD INTEGRATION
      *   Starting from the current state (HA, probe position, PA),
-     *   step the hour angle forward in small (5°) increments.
+     *   step the hour angle forward in small (0.25°) increments.
      *   At each step:
      *     1. Compute the new parallactic angle.
      *     2. Add its change to a running rotation total.
@@ -12792,27 +12792,39 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
      *   GNFR-73941, GNFR-74131, GNFR-74132, GNFR-72665,
      *   GNFR-72825).
      *
-     *   With 5° HA steps the per-step PA change is small (a few
-     *   degrees), so slaDrange never crosses its wrap boundary
-     *   and the integration is smooth and stable.
+     *   With 0.25° HA steps the per-step PA change is small
+     *   (a fraction of a degree to a few degrees anywhere except
+     *   near the zenith), so slaDrange never crosses its wrap
+     *   boundary and the integration is smooth and stable.
      *
      * COMPUTATIONAL COST
-     *   72 iterations of one slaPa() call each — negligible at
-     *   the 50 ms update rate.
+     *   1440 iterations of one slaPa() call each — about 1.4 ms
+     *   total per invocation, ~3% of the 50 ms update budget.
      *
      * PARAMETERS
-     *   P12_HA_STEP   5° in radians.  Small enough that PA never
-     *                 jumps by more than that between steps, so
-     *                 slaDrange cannot wrap.  Also sets the
-     *                 quantization of the result: ~20 sidereal
-     *                 seconds, which rounds to <1 min on the TSD.
-     *   P12_N_STEPS   72, i.e. 5° × 72 = 360° = 24 sidereal hr,
-     *                 a full rotation of the sky.  If the probe
-     *                 doesn't hit a limit in 24 h, the output
+     *   P12_HA_STEP   0.25° in radians, i.e. exactly 1 sidereal
+     *                 minute of hour angle.  This is the countdown
+     *                 quantization: the reported time-to-limit is
+     *                 a multiple of 1 minute.  Small enough that
+     *                 PA never jumps by more than a few degrees
+     *                 per step, so slaDrange cannot wrap.
+     *   P12_N_STEPS   1440, i.e. 0.25° × 1440 = 360° = 24 sidereal
+     *                 hr, a full rotation of the sky.  If the
+     *                 probe doesn't hit a limit in 24 h, the output
      *                 is marked invalid (-999 to the TSD).
+     *
+     * NOTE ON EARLIER REVISION
+     *   An earlier version of this code used P12_HA_STEP = 5°, which
+     *   is 20 sidereal minutes, not 20 seconds as originally commented.
+     *   That gave a 20-minute granularity floor: the countdown could
+     *   only be reported in 20-minute chunks (20, 40, 60, ...) and
+     *   could never report less than 20 minutes even when the probe
+     *   was physically seconds from the limit.  The current 0.25°
+     *   step gives 1-minute granularity, which matches the TSD's
+     *   display precision.
      * ============================================================ */
-#define P12_HA_STEP  (5.0 * D2R)                 /* 5° in radians */
-#define P12_N_STEPS  ((int)(PI2 / P12_HA_STEP))  /* 72 steps = full circle = 24h */
+#define P12_HA_STEP  (0.25 * D2R)                /* 0.25° = 1 sidereal minute */
+#define P12_N_STEPS  ((int)(PI2 / P12_HA_STEP))  /* 1440 steps = full circle = 24h */
 
        /* ---------------- P1 (PWFS-1) ---------------- */
        if (r_frame == AZEL_TOPO && p1Following) {
@@ -12842,7 +12854,7 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
              /* Add the incremental PA change to our running total.
               * slaDrange keeps a single-step difference inside
               * (-180°, +180°) to handle the HA=±180° wrap gracefully.
-              * Because p1ha advances by only 5° at a time, this
+              * Because p1ha advances by only 0.25° at a time, this
               * difference is always small and safe. */
              p1rot   += slaDrange(p1panew - p1paLast) * R2D;
              p1paLast = p1panew;
