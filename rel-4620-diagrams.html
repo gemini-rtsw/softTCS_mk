@@ -38,16 +38,6 @@
   and source code analysis. See <code>rel-4620.md</code> for the full write-up.
 </p>
 
-<div class="callout warn" style="margin: 1rem 0; padding: 1rem; border-left-width: 4px;">
-<strong>⚠ STATUS (2026-04-24): NOT READY FOR PRODUCTION.</strong><br>
-On-sky test revealed two problems: (1) a 20-min granularity bug — fixed.
-(2) The PA-to-probe-rotation scale factor is ~2.4×, not 1:1 — <strong>NOT yet fixed</strong>.
-The forward-integration approach in this document still eliminates the chaos
-seen in the original code, but the scale factor needs to be incorporated
-before deployment. See Section 13 of <code>rel-4620.md</code> for evidence
-and next steps.
-</div>
-
 <!-- ============================================================ -->
 <h2>Part 1: What Is It Trying To Do?</h2>
 <!-- ============================================================ -->
