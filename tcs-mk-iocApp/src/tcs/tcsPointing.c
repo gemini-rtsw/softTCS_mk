@@ -9036,15 +9036,27 @@ long tcsDriveAOS(struct genSubRecord *pgsub)
         act[ichop] = G2_act[nod][ichop];
     }
 
-/*  If Altair is connected then store an appropriate set of distortion 
+/*  If Altair is connected then store an appropriate set of distortion
 *   coefficients for later use.
+*
+*   REL-4894: only commit T2altair / Altair2t when slaInvf actually succeeds.
+*   The upstream waveform tcs:drives:aoImageDistort reads ao:imageDistort.VALJ,
+*   which does not exist on the Altair MK IOC. Its INP link is configured CA NMS,
+*   so the disconnect does not propagate severity downstream and pgsub->sevr
+*   stays NO_ALARM with pgsub->a = [0,0,0,0,0,0]. slaInvf on a singular zero
+*   matrix returns istat != 0 with garbage in icoeffs; copying that garbage into
+*   Altair2t poisoned Ao2t every fast-loop cycle and cancelled operator
+*   pointing-origin offsets in Altair mode. Guarding on istat keeps the globals
+*   at their compile-time identity defaults from tcsGlobal.h when the inversion
+*   is not valid.
 */
     if (pgsub->sevr == NO_ALARM) {
       memcpy (coeffs, pgsub->a, 6*sizeof(double)) ;
       slaInvf ( coeffs, icoeffs, &istat) ;
-      memcpy (T2altair, coeffs, 6*sizeof(double)) ;
-      memcpy (Altair2t, icoeffs, 6*sizeof(double)) ;
-
+      if (istat == 0) {
+        memcpy (T2altair, coeffs, 6*sizeof(double)) ;
+        memcpy (Altair2t, icoeffs, 6*sizeof(double)) ;
+      }
     }
     epicsMutexUnlock(TcsSemId);
 
