@@ -34,9 +34,202 @@
 
 <h1>REL-4620 — Understanding the PWFS-2 Wrap Limit Bug</h1>
 <p style="color: #8b949e; margin-bottom: 2rem;">
-  Updated April 2026 — incorporates monitoring data (Feb 2025), prior investigation (Sep 2025),
-  and source code analysis. See <code>rel-4620.md</code> for the full write-up.
+  Updated 2026-04-28 — incorporates monitoring data (Feb 2025), prior investigation (Sep 2025),
+  source code analysis, and on-sky test results from 2026-04-27 / 2026-04-28.
+  See <code>rel-4620.md</code> for the full write-up.
 </p>
+
+<div class="section">
+<h2 style="margin-top:0;">Status at a Glance (2026-04-29)</h2>
+<div class="callout ok">
+  <strong>Two bugs found and fixed.</strong> The branch ships the algorithm
+  rewrite (clean forward integration) plus a race-condition fix in
+  <code>tcsProbeLib.c</code>. A diagnostic <code>printf</code> remains in
+  <code>tcsLimitTimes</code> to verify the fix on the next MAROON-X test;
+  it can be removed afterwards.
+</div>
+
+<h3>The Two Bugs</h3>
+<table>
+  <thead>
+    <tr><th>#</th><th>Bug</th><th>Where</th><th>Fix</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Algorithm fragility: 6×90° forward steps with cumulative
+        <code>slaDrange</code> wrap, ghost solutions from inverse trig,
+        and a 180° proximity hack using a corrupted projected position</td>
+      <td><code>tcsPointing.c</code>, P1/P2 block of
+        <code>tcsLimitTimes()</code></td>
+      <td>Replaced with 1440×0.25° forward integration. No ghost
+        solutions, no proximity hack, no cumulative wrap error.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1 Hz double-write race over <code>pwfs2RTmin/RTmax</code>:
+        two writers (<code>tcsProbeSetRTLimits</code> from
+        <code>tcsSeqInit.st:1988</code>, and
+        <code>setRTCurrentLimits</code> via
+        <code>tcsReadWfs.sch:21</code> at <code>SCAN:1 second</code>)
+        wrote disagreeing values to the same global; the consumer
+        saw whichever was current at call time</td>
+      <td><code>tcsProbeLib.c</code></td>
+      <td>Split storage into hardware (<code>pwfs2HwRT*</code>) and
+        orientation-override (<code>pwfs2OrRT*</code>) slots.
+        <code>tcsProbeGetRTLimits</code> combines them on read
+        (stricter wins). External API unchanged — no SNL or EPICS-database
+        edits required.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Why Two Bugs Caused One Symptom</h3>
+<p>Master code mixed both failure modes: the cumulative-wrap chaos and
+the limit race. The chaos masked the race. After REL-4620 fixed the
+algorithm, the underlying race became cleanly visible as the
+two-value flip operators saw on 2026-04-28 (142 ↔ 286 min). The same
+race signature appears in the 2025 monitoring CSVs (480 ↔ 579 min).</p>
+
+<h3>How the Race Fix Works</h3>
+<p>Both writers carry valid intent. The hardware/calibration limits
+(from <code>ag:p2:probeCalParm.{L,M}</code>) define the mechanical
+range. The orientation-override limits (from
+<code>ag:p2:setOrient.VALA</code>) tighten that range for cable
+management. Both should constrain the probe.</p>
+<p>Behaviour with each orientation is identical to before:</p>
+<table>
+  <thead>
+    <tr>
+      <th><code>setOrient.VALA</code></th>
+      <th>Or slot</th><th>Hw slot</th><th>Combined (effective)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>(-218, 0)</td><td>(-218, +218)</td><td>(-218, 0)</td></tr>
+    <tr><td>1</td><td>(-180, +180)</td><td>(-218, +218)</td><td>(-180, +180)</td></tr>
+    <tr><td>default (≥2)</td><td>(-218, +218)</td><td>(-218, +218)</td><td>(-218, +218)</td></tr>
+  </tbody>
+</table>
+<p>The race is gone because the reader always returns a deterministic
+combined value, regardless of which writer wrote last.</p>
+
+<h3>How It Was Validated</h3>
+<ul>
+  <li><strong>Algorithm:</strong> 17/17 unit tests pass; bit-exact
+  stable output for 1000 identical-input calls.</li>
+  <li><strong>Race fix:</strong> A pthreads test
+  (<code>P2UnwrapFiles/tests/race_fix_test.c</code>) ran two 1 Hz
+  writers with disagreeing values plus a 20 Hz reader, before and
+  after the patch. Old: 2 distinct read values, 59 transitions in
+  30 s. New: stable read after the first orientation write at
+  startup; transitions only at startup, never during steady state.</li>
+  <li><strong>Diagnostic format:</strong>
+  <code>P2UnwrapFiles/tests/printf_smoketest.c</code> verifies the
+  trace output is parseable and only fires on the bug-relevant code
+  path.</li>
+</ul>
+
+<h3>What Still Depends on the Next On-Sky Test</h3>
+<p>Confirming end-to-end, with a real MAROON-X observation, that
+<code>timeToP2lim</code> now produces a smooth 1-min/min countdown
+without flips. The diagnostic <code>printf</code> in
+<code>tcsLimitTimes</code> is left in to prove this and to catch any
+<em>other</em> alternating input we haven't identified, in case the
+race wasn't the only contributor.</p>
+
+<h3>How the Race Got There — Code Archaeology</h3>
+<p>The race in <code>tcsProbeLib.c</code> was introduced in 2013 and
+lay dormant for ~8 years before MAROON-X observing made it visible.
+Source: the embedded RCS revision log at the top of the file.</p>
+
+<table>
+  <thead>
+    <tr><th>Date</th><th>Revision</th><th>Author</th><th>What changed</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2008-05-01</td>
+      <td>1.12</td>
+      <td><code>cjm</code></td>
+      <td>Original limit machinery added: <code>pwfs2RTmin/RTmax</code>
+        globals plus <code>tcsProbeSetRTLimits</code> /
+        <code>tcsProbeGetRTLimits</code>. <strong>One writer, one
+        reader, no race possible.</strong> Worked correctly for five
+        years.</td>
+    </tr>
+    <tr style="background:#2d1f23;">
+      <td>2013-05-05</td>
+      <td>1.24<br>(REL-466)</td>
+      <td><code>gemvx</code></td>
+      <td><strong>The race was planted here.</strong> Added
+        <code>setRTCurrentLimits</code> to allow operators to tighten
+        limits based on the &ldquo;preferred orientation&rdquo;
+        (CW/CCW/both) for cable management. Reasonable feature, but
+        the implementation wrote into the <em>same global slot</em>
+        as <code>tcsProbeSetRTLimits</code>. From this point onward,
+        two periodic 1 Hz writers fought over the same memory.</td>
+    </tr>
+    <tr>
+      <td>2021-10</td>
+      <td>—</td>
+      <td>—</td>
+      <td>First on-sky symptom (REL-4008) after MAROON-X
+        commissioning. MAROON-X is the first instrument to use
+        fixed-CRCS + P2-following routinely — the only mode that
+        consumes the racing global.</td>
+    </tr>
+    <tr>
+      <td>2022–2024</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Six more JIRA reports (GNFR-72665, GNFR-72825, GNFR-73941,
+        GNFR-73994, GNFR-74131, GNFR-74132). All bistable-flip
+        variants. Variously misdiagnosed as algorithm chaos because
+        master's <code>tcsLimitTimes</code> also produced random
+        large jumps from the cumulative <code>slaDrange</code> wrap,
+        masking the cleaner two-value race signature underneath.</td>
+    </tr>
+    <tr>
+      <td>2026-04-15</td>
+      <td><code>ab94016</code></td>
+      <td>—</td>
+      <td>REL-4620 algorithm rewrite (forward integration). Made the
+        race <em>visible</em> by removing the chaos that had been
+        hiding it.</td>
+    </tr>
+    <tr style="background:#1f2d23;">
+      <td>2026-04-29</td>
+      <td>(this branch)</td>
+      <td>—</td>
+      <td><strong>Race fixed.</strong> <code>tcsProbeLib.c</code>
+        rewritten to store hardware and orientation limits in
+        separate slots, with <code>tcsProbeGetRTLimits</code>
+        combining them deterministically (stricter wins).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Why it stayed hidden so long:</strong></p>
+<ul>
+  <li>The racing globals are only consumed by the
+  <code>r_frame == AZEL_TOPO && p2Following</code> branch in
+  <code>tcsLimitTimes</code>. Most observing modes don't enter that
+  branch.</li>
+  <li>That branch wasn't routinely exercised until MAROON-X arrived
+  in 2021.</li>
+  <li>Master's algorithm had its own independent chaos that masked
+  the race symptoms; investigators (correctly) focused on the
+  algorithm.</li>
+</ul>
+
+<p><strong>Why REL-4620 needed both fixes:</strong> the algorithm
+rewrite eliminated the chaos but exposed the race underneath. With
+stable inputs the new code produces stable output, so the bistable
+flip on 2026-04-28 could no longer be blamed on the algorithm. That
+observation is what led directly to identifying and fixing the
+13-year-old race in <code>tcsProbeLib.c</code>.</p>
+</div>
 
 <!-- ============================================================ -->
 <h2>Part 1: What Is It Trying To Do?</h2>
