@@ -12904,21 +12904,6 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
            printf ("tcsLimitTimes: P2 forward integration "
                    "(AZEL_TOPO, following)\n");
 
-         /* REL-4620 diagnostic: capture every input to the P2
-          * integration on each call so that an offline-invisible
-          * input alternation (the suspected cause of the on-sky
-          * 142 <-> 286 min flip) can be seen post-hoc.  Logged on
-          * every call; this block only runs in fixed-CRCS + P2
-          * following (MAROON-X) so volume is bounded (~20 lines/sec).
-          * Remove or gate after the bug is identified. */
-         printf("REL4620_P2_TRACE in tlat=%.6f dec=%.6f ra=%.6f "
-                "st=%.6f curha=%.6f p2RTPosn=%.6f "
-                "p2RTLoLim=%.6f p2RTHiLim=%.6f "
-                "r_frame=%d p2Following=%ld\n",
-                tlat, dec, ra, st, curha, p2RTPosn,
-                p2RTLoLim, p2RTHiLim,
-                (int)r_frame, p2Following);
-
          p2paLast = pa0;
          p2rot    = 0.0;
 
@@ -12952,11 +12937,6 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
          }
          if (debug && !p2valid)
            printf("tcsLimitTimes: P2 does not reach a limit in 24h\n");
-
-         /* REL-4620 diagnostic: log the result alongside the input
-          * trace so a post-hoc grep can pair them up. */
-         printf("REL4620_P2_TRACE out p2valid=%d p2ttl_min=%.4f\n",
-                p2valid, p2valid ? (p2ttl * ST2MIN) : -999.0);
        }
 
     /* Adjust limit hour angles to be greater than current. */
