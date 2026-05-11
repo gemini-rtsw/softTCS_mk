@@ -4,7 +4,7 @@
 %define debug_package %{nil}
 %define arch %(uname -m)
 %define checkout %(git log --pretty=format:'%h' -n 1) 
-%define version 1.0.0
+%define version 1.0.1
 %define git_hash %(git rev-parse --short HEAD 2>/dev/null || echo "nogit")
 
 %global _enable_debug_package 0
@@ -14,7 +14,7 @@
 Summary: %{name} Package, a module for EPICS base
 Name: %{name}
 Version: %{version}
-Release: 8.git%{git_hash}%{?dist}
+Release: 0.git%{git_hash}%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
