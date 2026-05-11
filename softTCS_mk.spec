@@ -22,8 +22,37 @@ ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 
 ## You may specify dependencies here
-BuildRequires: epics-base-devel re2c tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel gemini-ade
-Requires: epics-base sequencer autosave bancomm geminiRec timelib slalib gemUtil timeProbe pvload tcslib astlib tptlib sequencer procServ conserver conserver-client  
+BuildRequires: epics-base-devel = 7.0.7-0.git.37.9b80a5c
+BuildRequires: re2c
+BuildRequires: tdct
+BuildRequires: sequencer-devel = 2.2.9.e5e3615-4.git.68.cf961a8.el8
+BuildRequires: bancomm-devel = 1.6.13-4.git.28.1ca0cb4.el8
+BuildRequires: geminiRec-devel = 4.1.13-3.git.53.c94c965.el8
+BuildRequires: timelib-devel = 2.1.4-3.git.21.866a01c.el8
+BuildRequires: slalib-devel = 1.9.7-6.git.67.7872e05.el8
+BuildRequires: gemUtil-devel = 1.6.13-2.git.27.0265e0f.el8
+BuildRequires: timeProbe-devel = 1.1.16-3.git.27.7207767.el8
+BuildRequires: pvload-devel = 1.2.1-7.git.45.a07ac91.el8
+BuildRequires: tcslib-devel = 1.1.1-9.git.37.d589d5e.el8
+BuildRequires: astlib-devel = 1.7.1-8.git.20.02db443.el8
+BuildRequires: tptlib-devel = 1.1.1-7.git.28.dac2fe3.el8
+BuildRequires: gemini-ade
+Requires: epics-base = 7.0.7-0.git.37.9b80a5c
+Requires: sequencer = 2.2.9.e5e3615-4.git.68.cf961a8.el8
+Requires: autosave
+Requires: bancomm = 1.6.13-4.git.28.1ca0cb4.el8
+Requires: geminiRec = 4.1.13-3.git.53.c94c965.el8
+Requires: timelib = 2.1.4-3.git.21.866a01c.el8
+Requires: slalib = 1.9.7-6.git.67.7872e05.el8
+Requires: gemUtil = 1.6.13-2.git.27.0265e0f.el8
+Requires: timeProbe = 1.1.16-3.git.27.7207767.el8
+Requires: pvload = 1.2.1-7.git.45.a07ac91.el8
+Requires: tcslib = 1.1.1-9.git.37.d589d5e.el8
+Requires: astlib = 1.7.1-8.git.20.02db443.el8
+Requires: tptlib = 1.1.1-7.git.28.dac2fe3.el8
+Requires: procServ
+Requires: conserver
+Requires: conserver-client
 
 ## Switch dependency checking off
 AutoReqProv: no
@@ -35,7 +64,20 @@ This is the ioc module %{name}.
 %package devel
 Summary: %{name}-devel Package
 Group: Development/Gemini
-Requires: %{name} tdct sequencer-devel bancomm-devel geminiRec-devel timelib-devel slalib-devel xycom-devel gemUtil-devel timeProbe-devel pvload-devel tcslib-devel astlib-devel tptlib-devel
+Requires: %{name}
+Requires: tdct
+Requires: sequencer-devel = 2.2.9.e5e3615-4.git.68.cf961a8.el8
+Requires: bancomm-devel = 1.6.13-4.git.28.1ca0cb4.el8
+Requires: geminiRec-devel = 4.1.13-3.git.53.c94c965.el8
+Requires: timelib-devel = 2.1.4-3.git.21.866a01c.el8
+Requires: slalib-devel = 1.9.7-6.git.67.7872e05.el8
+Requires: xycom-devel
+Requires: gemUtil-devel = 1.6.13-2.git.27.0265e0f.el8
+Requires: timeProbe-devel = 1.1.16-3.git.27.7207767.el8
+Requires: pvload-devel = 1.2.1-7.git.45.a07ac91.el8
+Requires: tcslib-devel = 1.1.1-9.git.37.d589d5e.el8
+Requires: astlib-devel = 1.7.1-8.git.20.02db443.el8
+Requires: tptlib-devel = 1.1.1-7.git.28.dac2fe3.el8
 %description devel
 This is the module %{name}.
 
