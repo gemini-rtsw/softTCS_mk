@@ -135,13 +135,13 @@ use estringouts 1719 1165 100 0 unfollowAllEncE
 xform 0 1776 1248
 p 1584 1214 100 0 0 VAL:off
 p 1974 1222 100 0 -1 def(OUT):$(tcs)carouselMode.E
-p 1912 1240 75 768 -1 pproc(OUT):NPP
+p 1912 1240 75 768 -1 pproc(OUT):PP
 p 1576 1224 75 1280 -1 pproc(SDIS):NPP
 use estringouts 1711 1381 100 0 unfollowAllEncD
 xform 0 1768 1464
 p 1576 1430 100 0 0 VAL:off
 p 1966 1438 100 0 -1 def(OUT):$(tcs)carouselMode.D
-p 1904 1456 75 768 -1 pproc(OUT):NPP
+p 1904 1456 75 768 -1 pproc(OUT):PP
 p 1568 1440 75 1280 -1 pproc(SDIS):NPP
 use estringouts 1703 1597 100 0 unfollowAllCass
 xform 0 1760 1680
