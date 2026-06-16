@@ -63,6 +63,7 @@ use ecad2 1848 1400 100 0 dtelFocus
 xform 0 1984 1712
 p 1856 2014 100 0 -1 DESC:Telescope focus offset
 p 1888 2200 100 0 0 FTVA:DOUBLE
+p 1888 2250 100 0 0 FTVB:DOUBLE
 p 1888 2296 100 0 0 PREC:3
 p 1920 1518 100 0 -1 SNAM:tcsCADdtelFocus
 p 2160 1774 100 0 -1 def(OUTA):$(sad)m2ZUserOffset

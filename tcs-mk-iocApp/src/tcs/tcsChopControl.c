@@ -1224,7 +1224,8 @@ long tcsCADchopRelative (struct cadRecord *pcad)
  *
  *   EPICS input parameters:
  *      a => User focus offset (mm) 
- *
+ *      b => Instrument focus offset (mm)
+ * 
  *   EPICS output paramters:
  *      vala => User focus offset (mm) 
  *
@@ -1250,6 +1251,8 @@ long tcsCADdtelFocus (struct cadRecord *pcad)
 
    long status ;                    /* Return status */
    static double dzUser;            /* User requested offset */
+   static double dzInst;            /* Instrument requested offset */
+   static double dzTotal;           /* Total requested offset */
    double maxZ;                     /* Current z limit (mm) */
    double maxTilt;                  /* Current tilt limit (arcsec) */
    char str1[16];                   /* formatted string for number */
@@ -1271,6 +1274,12 @@ long tcsCADdtelFocus (struct cadRecord *pcad)
       status = CAD_REJECT;
 
       if (tcsDcDouble ("", pcad->a, &dzUser, pcad)) break;
+      if (tcsDcDouble ("", pcad->b, &dzInst, pcad)) break;
+
+      dzTotal = dzUser + dzInst;
+      printf("dzUser = %d\n",dzUser);
+      printf("dzInst = %d\n",dzInst);
+      printf("dzTotal = %d\n",dzTotal);
 
 /* Fetch the current z limits. At present the current z position is 
  * not available and so the offset is simply checked against the 
@@ -1279,7 +1288,7 @@ long tcsCADdtelFocus (struct cadRecord *pcad)
 
      tcsOpticsGetTiltLimits (&maxTilt, &maxZ);
 
-     if (dzUser > maxZ || dzUser < -maxZ)
+     if (dzTotal > maxZ || dzTotal < -maxZ)
      {
       sprintf (str1, "%.2g", maxZ);
       tcsCsAppendMessageN (pcad, "Z demand exceeds +/- ", str1, (char*)NULL);
@@ -1300,8 +1309,9 @@ long tcsCADdtelFocus (struct cadRecord *pcad)
 *  optics model
 */
 
-      tcsOpticsSetM2DzUser (dzUser);
-      *(double *)pcad->vala = dzUser;
+      tcsOpticsSetM2DzUser (dzTotal);
+      *(double *)pcad->vala = dzTotal;
+      *(double *)pcad->valb = dzInst;
 
       break ;
 
