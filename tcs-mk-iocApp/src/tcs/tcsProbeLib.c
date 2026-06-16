@@ -214,11 +214,38 @@ static double pwfs1Rmax = 300.0;
 static double pwfs2Rmin = 0.0 ;
 static double pwfs2Rmax = 300.0 ;
 
-/* Limits pf probe rotator table motion (degs) */
-static double pwfs1RTmin = -200.0 ;
-static double pwfs1RTmax = 200.0 ;
-static double pwfs2RTmin = -200.0 ;
-static double pwfs2RTmax = 200.0 ;
+/* Limits of probe rotator table motion (degs).
+ *
+ * REL-4620 race fix:
+ *   Two independent writers used to share a single global:
+ *     - tcsProbeSetRTLimits (called from tcsSeqInit.st, every 1 s, writes
+ *       the hardware/calibration limits from ag:p1:probeCalParm.{L,M} and
+ *       ag:p2:probeCalParm.{L,M}).
+ *     - setRTCurrentLimits (called from EPICS subroutine at SCAN:1s on
+ *       tcsReadWfs.sch, writes orientation-snapped limits for P2 only,
+ *       based on ag:p2:setOrient.VALA).
+ *   Both wrote pwfs2RTmin/RTmax with disagreeing values. The consumer
+ *   (tcsLimitTimes in tcsPointing.c) reads at 20 Hz and saw whichever
+ *   was current that millisecond, producing the bistable VALJ flip.
+ *
+ *   Fix: store the two limit sources separately and combine
+ *   deterministically on read (stricter of the two).  This preserves
+ *   both pieces of intent (mechanical bound and operator-selected
+ *   orientation) while eliminating the read-time race.
+ */
+
+/* Hardware / calibration limits — set by tcsProbeSetRTLimits */
+static double pwfs1HwRTmin = -200.0 ;
+static double pwfs1HwRTmax = 200.0 ;
+static double pwfs2HwRTmin = -200.0 ;
+static double pwfs2HwRTmax = 200.0 ;
+
+/* Orientation override limits — set by setRTCurrentLimits (P2 only;
+ * P1 has no orientation-override path).  Initialised wide-open so that
+ * before setRTCurrentLimits has run the combined result equals the
+ * hardware limits. */
+static double pwfs2OrRTmin = -360.0 ;
+static double pwfs2OrRTmax =  360.0 ;
 
 /* Follow status and current rotary table angle. These are only here as
 *  we ran out of links on the EPICS records. This would have meant a
@@ -485,11 +512,16 @@ void tcsProbeDump (int probe)
    if (probe == 0) {
     printf ("\n            PWFS1\n\n") ;
     printf("Physical radial limits:   %.2f %.2f\n", pwfs1Rmin, pwfs1Rmax);
-    printf("Rotary table limits   :   %.2f %.2f\n", pwfs1RTmin, pwfs1RTmax);
+    printf("Rotary table limits   :   %.2f %.2f\n", pwfs1HwRTmin, pwfs1HwRTmax);
    } else if (probe == 1) {
+    /* P2: show effective (combined) limits as well as the two sources */
+    double p2lo = pwfs2HwRTmin > pwfs2OrRTmin ? pwfs2HwRTmin : pwfs2OrRTmin;
+    double p2hi = pwfs2HwRTmax < pwfs2OrRTmax ? pwfs2HwRTmax : pwfs2OrRTmax;
     printf ("\n            PWFS2\n\n") ;
     printf("Physical radial limits:   %.2f %.2f\n", pwfs2Rmin, pwfs2Rmax);
-    printf("Rotary table limits   :   %.2f %.2f\n", pwfs1RTmin, pwfs1RTmax);
+    printf("Rotary table limits   :   %.2f %.2f  (effective; combined)\n", p2lo, p2hi);
+    printf("  hardware/calParm    :   %.2f %.2f\n", pwfs2HwRTmin, pwfs2HwRTmax);
+    printf("  orientation override:   %.2f %.2f\n", pwfs2OrRTmin, pwfs2OrRTmax);
    } else if (probe == 2) {
     printf ("\n            OIWFS\n\n") ;
    } else if (probe == 3) {
@@ -2030,12 +2062,15 @@ void tcsProbeGetRTLimits (double *p1RTMin, double *p1RTMax,
   if (!init)
     tcsProbeInit() ;
 
+  /* REL-4620 race fix: combine the two limit sources deterministically.
+   * P1 has only the hardware source; P2 takes the stricter of the
+   * hardware/calibration limit and the orientation-override limit. */
   epicsMutexLock(tcsProbeSemId);
-  
-  *p1RTMin = pwfs1RTmin ;
-  *p1RTMax = pwfs1RTmax ;
-  *p2RTMin = pwfs2RTmin ;
-  *p2RTMax = pwfs2RTmax ;
+
+  *p1RTMin = pwfs1HwRTmin ;
+  *p1RTMax = pwfs1HwRTmax ;
+  *p2RTMin = (pwfs2HwRTmin > pwfs2OrRTmin) ? pwfs2HwRTmin : pwfs2OrRTmin ;
+  *p2RTMax = (pwfs2HwRTmax < pwfs2OrRTmax) ? pwfs2HwRTmax : pwfs2OrRTmax ;
 
   epicsMutexUnlock(tcsProbeSemId);
 }
@@ -2192,12 +2227,14 @@ void tcsProbeSetRTLimits (double p1RTMin, double p1RTMax,
   if (!init)
     tcsProbeInit() ;
 
+  /* REL-4620 race fix: write only the hardware/calParm slot.  The
+   * orientation-override slot is owned by setRTCurrentLimits. */
   epicsMutexLock(tcsProbeSemId);
-  
-  pwfs1RTmin = p1RTMin;
-  pwfs1RTmax = p1RTMax;
-  pwfs2RTmin = p2RTMin;
-  pwfs2RTmax = p2RTMax;
+
+  pwfs1HwRTmin = p1RTMin;
+  pwfs1HwRTmax = p1RTMax;
+  pwfs2HwRTmin = p2RTMin;
+  pwfs2HwRTmax = p2RTMax;
 
   epicsMutexUnlock(tcsProbeSemId);
 }
@@ -2245,23 +2282,28 @@ long setRTCurrentLimits (struct genSubRecord *pgsub)
 
   orientation = *(long *)pgsub->a;   /* Prefered P2 RT orientation, default 2 */
 
+  /* REL-4620 race fix: write only the orientation-override slot.
+   * The hardware/calParm slot is owned by tcsProbeSetRTLimits.
+   * tcsProbeGetRTLimits combines the two on read (stricter wins),
+   * so the operator-selected orientation still constrains the probe
+   * exactly as before (the per-orientation values are unchanged). */
   switch (orientation) {
   case 0:
     epicsMutexLock(tcsProbeSemId);
-    pwfs2RTmin = -218.0;
-    pwfs2RTmax = 0.0;
+    pwfs2OrRTmin = -218.0;
+    pwfs2OrRTmax = 0.0;
     epicsMutexUnlock(tcsProbeSemId);
     break;
   case 1:
     epicsMutexLock(tcsProbeSemId);
-    pwfs2RTmin = -180.0;
-    pwfs2RTmax = 180.0;
+    pwfs2OrRTmin = -180.0;
+    pwfs2OrRTmax = 180.0;
     epicsMutexUnlock(tcsProbeSemId);
     break;
   default:
     epicsMutexLock(tcsProbeSemId);
-    pwfs2RTmin = -218.0;
-    pwfs2RTmax = 218.0;
+    pwfs2OrRTmin = -218.0;
+    pwfs2OrRTmax = 218.0;
     epicsMutexUnlock(tcsProbeSemId);
     break;
   }

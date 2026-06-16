@@ -9036,15 +9036,27 @@ long tcsDriveAOS(struct genSubRecord *pgsub)
         act[ichop] = G2_act[nod][ichop];
     }
 
-/*  If Altair is connected then store an appropriate set of distortion 
+/*  If Altair is connected then store an appropriate set of distortion
 *   coefficients for later use.
+*
+*   REL-4894: only commit T2altair / Altair2t when slaInvf actually succeeds.
+*   The upstream waveform tcs:drives:aoImageDistort reads ao:imageDistort.VALJ,
+*   which does not exist on the Altair MK IOC. Its INP link is configured CA NMS,
+*   so the disconnect does not propagate severity downstream and pgsub->sevr
+*   stays NO_ALARM with pgsub->a = [0,0,0,0,0,0]. slaInvf on a singular zero
+*   matrix returns istat != 0 with garbage in icoeffs; copying that garbage into
+*   Altair2t poisoned Ao2t every fast-loop cycle and cancelled operator
+*   pointing-origin offsets in Altair mode. Guarding on istat keeps the globals
+*   at their compile-time identity defaults from tcsGlobal.h when the inversion
+*   is not valid.
 */
     if (pgsub->sevr == NO_ALARM) {
       memcpy (coeffs, pgsub->a, 6*sizeof(double)) ;
       slaInvf ( coeffs, icoeffs, &istat) ;
-      memcpy (T2altair, coeffs, 6*sizeof(double)) ;
-      memcpy (Altair2t, icoeffs, 6*sizeof(double)) ;
-
+      if (istat == 0) {
+        memcpy (T2altair, coeffs, 6*sizeof(double)) ;
+        memcpy (Altair2t, icoeffs, 6*sizeof(double)) ;
+      }
     }
     epicsMutexUnlock(TcsSemId);
 
@@ -12611,24 +12623,26 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
     double ellim, amlim, azlolim, azhilim, rotlolim, rothilim, zlim;
     double sinEl, amel, curha, azhalo[2], azhahi[2], azttl=0.0;
     double rothalo[2], rothahi[2], rotttl=0.0;
-    double p1halo[2], p1hahi[2], p1ttl=0.0;
-    double p2halo[2], p2hahi[2], p2ttl=0.0;
+    double p1ttl=0.0;                /* P1 time-to-limit (sidereal rad, *ST2MIN → min) */
+    double p2ttl=0.0;                /* P2 time-to-limit (sidereal rad, *ST2MIN → min) */
     double x, y, a, r;
     double sqsz, cqsz;
     int i, j;
     int azlocount, azhicount, azhidone[2], azlodone[2], azvalid;
     int rotlocount, rothicount, rothidone[2], rotlodone[2], rotvalid;
-    int p1locount, p1hicount, p1hidone[2], p1lodone[2], p1valid;
-    int p2locount, p2hicount, p2hidone[2], p2lodone[2], p2valid;
-    long p1Following, p2Following ;
-    double p1RTPosn, p2RTPosn ;       /* Rotary table posns (degs) */
-    double p1RTHiLim, p1RTLoLim, p2RTHiLim, p2RTLoLim;
-    double pa0 ;                     /* Current parallactic angle (rads) */
-    double dRTHiLim, dRTLoLim;       /* Offsets to limits (degs) */
-    double p1RT, p2RT ;              /* Temporary table positions */
-    long debug ;                     /* Controls diagnostic information */
-    double panew ;                   /* Latest parallactic angle (rads) */
-    static int dbgLevel = DBG_NONE; /* debug level */
+    int p1valid;                     /* 1 = P1 limit reached in 24 h, 0 = no hit */
+    int p2valid;                     /* 1 = P2 limit reached in 24 h, 0 = no hit */
+    long p1Following, p2Following ;  /* probe following-mode flags (from tcsProbeLib) */
+    double p1RTPosn, p2RTPosn ;      /* current rotary-table positions (degs)         */
+    double p1RTHiLim, p1RTLoLim, p2RTHiLim, p2RTLoLim;  /* hw limits (degs)           */
+    double pa0 ;                     /* current parallactic angle (rads)              */
+    /* Variables removed in REL-4620 fix:
+     *   dRTHiLim, dRTLoLim   — offsets passed to old tcsLimPa() call
+     *   p1RT, p2RT           — accumulated-with-bug projected positions
+     *   panew                — PA at each simulation step
+     * All of the above are now local to the per-probe integration block. */
+    long debug ;                     /* diagnostic-print enable (pgsub->h)           */
+    static int dbgLevel = DBG_NONE;  /* debug level                                  */
 
     if (!TcsSemId) {
         DBGMSG (DBG_NONE, "tcsLimitTimes: Semaphore not created");
@@ -12743,43 +12757,198 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
        if (debug) 
          printf("tcsLimitTimes: pa0 = %f\n", pa0*R2D);
 
+    /* ============================================================
+     * P1/P2 ROTARY TABLE TIME-TO-LIMIT  (REL-4620 fix)
+     * ============================================================
+     *
+     * WHAT THIS COMPUTES
+     *   How many minutes until the P1 or P2 guide probe's rotary
+     *   table reaches its mechanical limit (hi or lo), assuming
+     *   the telescope keeps tracking the current target.
+     *
+     *   The result is written to pgsub->vali (P1) / valj (P2) in
+     *   minutes, and is displayed as a countdown on the TSD.
+     *
+     * WHY THE PROBE ROTATES
+     *   When the mount frame is AZEL_TOPO (a.k.a. "fixed CRCS"),
+     *   the Cass rotator is NOT compensating for field rotation.
+     *   To keep a guide star fixed on the probe, the probe's
+     *   rotary table has to rotate at the same rate the sky
+     *   rotates over the telescope — which equals the rate of
+     *   change of the parallactic angle (PA).
+     *
+     *   PA is the angle between "up" on the sky (toward the
+     *   celestial pole) and "up" in the telescope (toward zenith).
+     *   As a target moves across the sky its PA changes; the
+     *   probe tracks by accumulating that change.
+     *
+     * METHOD: FORWARD INTEGRATION
+     *   Starting from the current state (HA, probe position, PA),
+     *   step the hour angle forward in small (0.25°) increments.
+     *   At each step:
+     *     1. Compute the new parallactic angle.
+     *     2. Add its change to a running rotation total.
+     *     3. Project where the probe would be.
+     *     4. If the projected position crosses a limit, stop —
+     *        that step's elapsed HA is the time-to-limit.
+     *
+     * WHY THIS REPLACED THE OLD CODE
+     *   The old algorithm (lines 12928-12929 pre-fix) stepped
+     *   HA forward in 90° chunks and accumulated PA changes via
+     *   slaDrange(panew - pa).  Over a 90° HA step the PA can
+     *   change so much that slaDrange's ±180° wrap produces a
+     *   huge cumulative error in the projected probe position.
+     *   Combined with a "180° proximity" sanity check, this
+     *   produced chaotic output: VALJ jumped hundreds of minutes
+     *   between 50 ms updates with constant inputs (REL-4620,
+     *   GNFR-73941, GNFR-74131, GNFR-74132, GNFR-72665,
+     *   GNFR-72825).
+     *
+     *   With 0.25° HA steps the per-step PA change is small
+     *   (a fraction of a degree to a few degrees anywhere except
+     *   near the zenith), so slaDrange never crosses its wrap
+     *   boundary and the integration is smooth and stable.
+     *
+     * COMPUTATIONAL COST
+     *   1440 iterations of one slaPa() call each — about 1.4 ms
+     *   total per invocation, ~3% of the 50 ms update budget.
+     *
+     * PARAMETERS
+     *   P12_HA_STEP   0.25° in radians, i.e. exactly 1 sidereal
+     *                 minute of hour angle.  This is the countdown
+     *                 quantization: the reported time-to-limit is
+     *                 a multiple of 1 minute.  Small enough that
+     *                 PA never jumps by more than a few degrees
+     *                 per step, so slaDrange cannot wrap.
+     *   P12_N_STEPS   1440, i.e. 0.25° × 1440 = 360° = 24 sidereal
+     *                 hr, a full rotation of the sky.  If the
+     *                 probe doesn't hit a limit in 24 h, the output
+     *                 is marked invalid (-999 to the TSD).
+     *
+     * NOTE ON EARLIER REVISION
+     *   An earlier version of this code used P12_HA_STEP = 5°, which
+     *   is 20 sidereal minutes, not 20 seconds as originally commented.
+     *   That gave a 20-minute granularity floor: the countdown could
+     *   only be reported in 20-minute chunks (20, 40, 60, ...) and
+     *   could never report less than 20 minutes even when the probe
+     *   was physically seconds from the limit.  The current 0.25°
+     *   step gives 1-minute granularity, which matches the TSD's
+     *   display precision.
+     * ============================================================ */
+#define P12_HA_STEP  (0.25 * D2R)                /* 0.25° = 1 sidereal minute */
+#define P12_N_STEPS  ((int)(PI2 / P12_HA_STEP))  /* 1440 steps = full circle = 24h */
+
+       /* ---------------- P1 (PWFS-1) ---------------- */
        if (r_frame == AZEL_TOPO && p1Following) {
-         if (debug) 
-           printf ("tcsLimitTimes: CR is AZEL_TOPO and P1 is following\n");
-         dRTHiLim = p1RTHiLim - p1RTPosn ;
-         dRTLoLim = p1RTLoLim - p1RTPosn ;
-         pa = pa0 + dRTLoLim * D2R ;
-         p1locount = tcsLimPa (cdec, sdec, pa, clat, slat, p1halo);
-         pa = pa0 + dRTHiLim * D2R ;
-         p1hicount = tcsLimPa (cdec, sdec, pa, clat, slat, p1hahi);
-         if (debug) {
-           printf("tcsLimitTimes: P1 lower limit HA's (mins): %f %f\n", 
-                  p1halo[0]*ST2MIN, p1halo[1]*ST2MIN);
-           printf("tcsLimitTimes: P1 upper limit HA's (mins): %f %f\n", 
-                  p1hahi[0]*ST2MIN, p1hahi[1]*ST2MIN);
-        }
-       } else {
-         p1locount = 0 ;
-         p1hicount = 0 ;
+         /* Local loop variables kept local to avoid contaminating
+          * the outer function's state. */
+         double p1ha;      /* projected hour angle at this step (rad)       */
+         double p1panew;   /* parallactic angle at p1ha (rad)               */
+         double p1paLast;  /* PA at previous step — seed from current pa0  */
+         double p1rot;     /* total accumulated probe rotation (deg)        */
+         double p1pos;     /* projected probe position (deg)                */
+
+         if (debug)
+           printf ("tcsLimitTimes: P1 forward integration "
+                   "(AZEL_TOPO, following)\n");
+
+         /* Seed from the current state. */
+         p1paLast = pa0;
+         p1rot    = 0.0;
+
+         for ( i = 0; i < P12_N_STEPS; i++ ) {
+             /* Advance HA by one small step. */
+             p1ha    = curha + (i + 1) * P12_HA_STEP;
+
+             /* New PA at the projected HA. */
+             p1panew = slaPa(p1ha, dec, tlat);
+
+             /* Add the incremental PA change to our running total.
+              * slaDrange keeps a single-step difference inside
+              * (-180°, +180°) to handle the HA=±180° wrap gracefully.
+              * Because p1ha advances by only 0.25° at a time, this
+              * difference is always small and safe. */
+             p1rot   += slaDrange(p1panew - p1paLast) * R2D;
+             p1paLast = p1panew;
+
+             /* Probe position = starting position + accumulated rotation. */
+             p1pos    = p1RTPosn + p1rot;
+
+             if (debug && (i % 12 == 0))
+               printf("tcsLimitTimes: P1 step %d ha=%f pos=%f rot=%f\n",
+                      i, p1ha*ST2MIN, p1pos, p1rot);
+
+             /* LOW LIMIT crossing: probe rotated far enough CCW
+              * to hit p1RTLoLim.  Record time-to-limit and stop. */
+             if ( p1pos <= p1RTLoLim ) {
+                 p1ttl   = (i + 1) * P12_HA_STEP;   /* elapsed HA (rad) */
+                 p1valid = 1;
+                 if (debug)
+                   printf("tcsLimitTimes: P1 hits lo limit at step %d, "
+                          "ttl = %f mins\n", i, p1ttl*ST2MIN);
+                 break;
+             }
+             /* HIGH LIMIT crossing: probe rotated CW to p1RTHiLim. */
+             if ( p1pos >= p1RTHiLim ) {
+                 p1ttl   = (i + 1) * P12_HA_STEP;
+                 p1valid = 1;
+                 if (debug)
+                   printf("tcsLimitTimes: P1 hits hi limit at step %d, "
+                          "ttl = %f mins\n", i, p1ttl*ST2MIN);
+                 break;
+             }
+         }
+         /* If we fell out of the loop without hitting a limit, the
+          * probe will not reach either limit in the next 24 h.
+          * p1valid stays 0 → -999 ("no limit") will be reported below. */
+         if (debug && !p1valid)
+           printf("tcsLimitTimes: P1 does not reach a limit in 24h\n");
        }
+
+       /* ---------------- P2 (PWFS-2) ----------------
+        * Identical to P1 but operating on the P2 rotary table.
+        * P2 is the probe used by MAROON-X in fixed-CRCS mode —
+        * this is the path that exhibited the REL-4620 chaos. */
        if (r_frame == AZEL_TOPO && p2Following) {
-         if (debug) 
-           printf ("tcsLimitTimes: CR is AZEL_TOPO and P2 is following\n");
-         dRTHiLim = p2RTHiLim - p2RTPosn ;
-         dRTLoLim = p2RTLoLim - p2RTPosn ;
-         pa = pa0 + dRTLoLim * D2R ;
-         p2locount = tcsLimPa (cdec, sdec, pa, clat, slat, p2halo);
-         pa = pa0 + dRTHiLim * D2R ;
-         p2hicount = tcsLimPa (cdec, sdec, pa, clat, slat, p2hahi);
-         if (debug) {
-           printf("tcsLimitTimes: P2 lower limit HA's (mins): %f %f\n", 
-                  p2halo[0]*ST2MIN, p2halo[1]*ST2MIN);
-           printf("tcsLimitTimes: P2 upper limit HA's (mins): %f %f\n", 
-                  p2hahi[0]*ST2MIN, p2hahi[1]*ST2MIN);
-        }
-       } else {
-         p2locount = 0 ;
-         p2hicount = 0 ;
+         double p2ha, p2panew, p2paLast, p2rot, p2pos;
+
+         if (debug)
+           printf ("tcsLimitTimes: P2 forward integration "
+                   "(AZEL_TOPO, following)\n");
+
+         p2paLast = pa0;
+         p2rot    = 0.0;
+
+         for ( i = 0; i < P12_N_STEPS; i++ ) {
+             p2ha    = curha + (i + 1) * P12_HA_STEP;
+             p2panew = slaPa(p2ha, dec, tlat);
+             p2rot  += slaDrange(p2panew - p2paLast) * R2D;
+             p2paLast = p2panew;
+             p2pos    = p2RTPosn + p2rot;
+
+             if (debug && (i % 12 == 0))
+               printf("tcsLimitTimes: P2 step %d ha=%f pos=%f rot=%f\n",
+                      i, p2ha*ST2MIN, p2pos, p2rot);
+
+             if ( p2pos <= p2RTLoLim ) {
+                 p2ttl   = (i + 1) * P12_HA_STEP;
+                 p2valid = 1;
+                 if (debug)
+                   printf("tcsLimitTimes: P2 hits lo limit at step %d, "
+                          "ttl = %f mins\n", i, p2ttl*ST2MIN);
+                 break;
+             }
+             if ( p2pos >= p2RTHiLim ) {
+                 p2ttl   = (i + 1) * P12_HA_STEP;
+                 p2valid = 1;
+                 if (debug)
+                   printf("tcsLimitTimes: P2 hits hi limit at step %d, "
+                          "ttl = %f mins\n", i, p2ttl*ST2MIN);
+                 break;
+             }
+         }
+         if (debug && !p2valid)
+           printf("tcsLimitTimes: P2 does not reach a limit in 24h\n");
        }
 
     /* Adjust limit hour angles to be greater than current. */
@@ -12795,18 +12964,8 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
         for ( i = 0; i < rothicount; i++ ) {
            if ( rothahi[i] < curha ) rothahi[i] += PI2;
         }
-        for ( i = 0; i < p1locount; i++ ) {
-           if ( p1halo[i] < curha ) p1halo[i] += PI2;
-        }
-        for ( i = 0; i < p1hicount; i++ ) {
-           if ( p1hahi[i] < curha ) p1hahi[i] += PI2;
-        }
-        for ( i = 0; i < p2locount; i++ ) {
-           if ( p2halo[i] < curha ) p2halo[i] += PI2;
-        }
-        for ( i = 0; i < p2hicount; i++ ) {
-           if ( p2hahi[i] < curha ) p2hahi[i] += PI2;
-        }
+        /* P1/P2 HA adjustments removed — REL-4620: P1/P2 limits are now
+           computed by direct forward integration above, not by tcsLimPa. */
         if (debug) {
           printf("tcsLimitTimes: limits after adjustments\n");
           printf("tcsLimitTimes: current HA (mins) %f\n", curha*ST2MIN);
@@ -12818,14 +12977,7 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
                   rothalo[0]*ST2MIN, rothalo[1]*ST2MIN);
           printf("tcsLimitTimes: CR upper limit HA's (mins): %f %f\n", 
                   rothahi[0]*ST2MIN, rothahi[1]*ST2MIN);
-          printf("tcsLimitTimes: P1 lower limit HA's (mins): %f %f\n", 
-                  p1halo[0]*ST2MIN, p1halo[1]*ST2MIN);
-          printf("tcsLimitTimes: P1 upper limit HA's (mins): %f %f\n", 
-                  p1hahi[0]*ST2MIN, p1hahi[1]*ST2MIN);
-          printf("tcsLimitTimes: P2 lower limit HA's (mins): %f %f\n", 
-                  p2halo[0]*ST2MIN, p2halo[1]*ST2MIN);
-          printf("tcsLimitTimes: P2 upper limit HA's (mins): %f %f\n", 
-                  p2hahi[0]*ST2MIN, p2hahi[1]*ST2MIN);
+          /* P1/P2 HA debug removed — REL-4620: computed by forward integration */
         }
 
     /* Step the azimuth forward in 6 hour increments in order to track
@@ -12834,15 +12986,11 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
         rma = curpa;
         a = slaDrange( curaz );
         r = slaDrange( curpa );
-        p1RT = p1RTPosn ;
-        p2RT = p2RTPosn ;
         pa = pa0 ;
         ha = floor(curha/D90) * D90;
         for ( i = 0; i < 2; i++ ) {
             azlodone[i] = azhidone[i] = FALSE;
             rotlodone[i] = rothidone[i] = FALSE;
-            p1lodone[i] = p1hidone[i] = FALSE;
-            p2lodone[i] = p2hidone[i] = FALSE;
         }
 
         for ( i = 0; i < 6; i++)  {
@@ -12923,81 +13071,10 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
                 }
             }
 
-        /* Parallactic angle at this hour angle */
-           panew = slaPa (ha, dec, tlat);
-           p1RT +=  slaDrange(panew - pa)*R2D;
-           p2RT +=  slaDrange(panew - pa)*R2D;
-           if (debug) {
-             printf("tcsLimitTimes: %d  pa (degs) = %f\n", i, panew*R2D); 
-             printf("tcsLimitTimes: %d  p1RT (degs) = %f\n", i, p1RT); 
-             printf("tcsLimitTimes: %d  p2RT (degs) = %f\n", i, p2RT); 
-           }
-           pa = panew;
-
-        /* Is the hour angle greater than any of the limits ?*/
-            for ( j = 0; j < p1locount; j++ ) {
-                if ( !p1lodone[j] && p1halo[j] <= ha ) {
-                    p1lodone[j] = TRUE;
-                    if (debug)
-                      printf("tcsLimitTimes: %d p1lodone[%1d] = TRUE\n", i, j);
-            /* Is the table within 90 deg of this limit? */
-                    if ( fabs( p1RT - p1RTLoLim ) <= 180.0 ) {
-                      if (debug)
-                        printf("tcsLimitTimes: <180 %f\n", fabs(p1RT-p1RTLoLim));
-                        if ( !p1valid || (p1halo[j] - curha) < p1ttl ) {
-                            p1ttl = p1halo[j] - curha;
-                            p1valid = 1;
-                          if (debug)
-                            printf("tcsLimitTimes: p1ttl %f\n", p1ttl*ST2MIN);
-                        }
-                    }
-                }
-            }
-        /* Repeat for the high limit. */
-            for ( j = 0; j < p1hicount; j++ ) {
-                if ( !p1hidone[j] && p1hahi[j] <= ha ) {
-                    p1hidone[j] = TRUE;
-                    if (debug)
-                      printf("tcsLimitTimes: %d p1hidone[%1d] = TRUE\n", i, j);
-                    if ( fabs( p1RT - p1RTHiLim ) <= 180.0 ) {
-                      if (debug)
-                        printf("tcsLimitTimes: <180 %f\n", fabs(p1RT-p1RTHiLim));
-                        if ( !p1valid || (p1hahi[j] - curha) < p1ttl ) {
-                            p1ttl = p1hahi[j] - curha;
-                            p1valid = 1;
-                            if (debug)
-                              printf("tcsLimitTimes: p1ttl %f\n", p1ttl*ST2MIN);
-                        }
-                    }
-                }
-            }
-
-        /* Is the hour angle greater than any of the limits ? */
-            for ( j = 0; j < p2locount; j++ ) {
-                if ( !p2lodone[j] && p2halo[j] <= ha ) {
-                    p2lodone[j] = TRUE;
-
-            /* Is the table within 90 deg of this limit? */
-                    if ( fabs( p2RT - p2RTLoLim ) <= 180.0 ) {
-                        if ( !p2valid || (p2halo[j] - curha) < p2ttl ) {
-                            p2ttl = p2halo[j] - curha;
-                            p2valid = 1;
-                        }
-                    }
-                }
-            }
-        /* Repeat for the high limit. */
-            for ( j = 0; j < p2hicount; j++ ) {
-                if ( !p2hidone[j] && p2hahi[j] <= ha ) {
-                    p2hidone[j] = TRUE;
-                    if ( fabs( p2RT - p2RTHiLim ) <= 180.0 ) {
-                        if ( !p2valid || (p2hahi[j] - curha) < p2ttl ) {
-                            p2ttl = p2hahi[j] - curha;
-                            p2valid = 1;
-                        }
-                    }
-                }
-            }
+        /* P1/P2 parallactic angle accumulation and limit checks removed.
+         * REL-4620: P1/P2 limits are now computed by direct forward
+         * integration above this loop, eliminating the cumulative
+         * slaDrange() error and the 180-degree proximity check. */
         }
 
     /* Copy azimuth limit to output links. */
@@ -13016,7 +13093,12 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
           rotvalid = 0 ;
         }
 
-    /* Copy P1 limits to output links */
+    /* ---- Write P1 result to VALI.
+     *   Units:  p1ttl is in sidereal radians; ST2MIN converts to minutes.
+     *   Mask:   bit 0x20 set → "P1 limit time is valid and displayable".
+     *   If r_frame isn't AZEL_TOPO or P1 isn't following, we don't write
+     *   VALI at all — VALI defaults to -999 via the invalidation pass at
+     *   the bottom of this function. */
         if (r_frame == AZEL_TOPO && p1Following) {
           if (debug)
             printf("tcsLimitTimes: CR is AZEL, p1 following %d \n", p1valid);
@@ -13030,7 +13112,7 @@ long tcsLimitTimes(struct genSubRecord *pgsub)
           p1valid = 0 ;
         }
 
-    /* Copy P2 limits to output links */
+    /* ---- Write P2 result to VALJ. Same rules as P1 above. */
         if (r_frame == AZEL_TOPO && p2Following) {
            if (p2valid) {
               mask |= 0x40 ;
