@@ -1277,9 +1277,11 @@ long tcsCADdtelFocus (struct cadRecord *pcad)
       if (tcsDcDouble ("", pcad->b, &dzInst, pcad)) break;
 
       dzTotal = dzUser + dzInst;
+      /*
       printf("dzUser = %d\n",dzUser);
       printf("dzInst = %d\n",dzInst);
       printf("dzTotal = %d\n",dzTotal);
+      */
 
 /* Fetch the current z limits. At present the current z position is 
  * not available and so the offset is simply checked against the 
