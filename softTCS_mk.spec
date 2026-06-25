@@ -102,6 +102,9 @@ cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{name}
 find $RPM_BUILD_ROOT/%{_prefix}/%{name}/configure -name ".git" -exec rm -rf {} \;
 
 %post
+# register the IOC shared-library dir with the dynamic linker
+echo "%{_prefix}/%{name}/lib/linux-x86_64" > /etc/ld.so.conf.d/%{name}.conf
+/sbin/ldconfig
 # install service file and reload, disable the service
 cp -f %{_prefix}/%{name}/data/procserv-%{name}.service /etc/systemd/system/
 systemctl daemon-reload
