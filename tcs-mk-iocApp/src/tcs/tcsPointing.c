@@ -4803,8 +4803,7 @@ long tcsUpdateAstCtx(struct genSubRecord *pgsub)
 
 /* Lock the global data and copy the required items to the local array. */
     epicsMutexLock(TcsSemId);
-    /* *valap++ = Tick; */
-    *valap++ = Tick0; // workaround rrojas
+    *valap++ = Tick;
     *valap++ = X0;
     *valap++ = Y0;
     *valap++ = Z0;
