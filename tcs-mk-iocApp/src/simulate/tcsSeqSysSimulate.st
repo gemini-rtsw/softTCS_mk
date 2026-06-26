@@ -65,7 +65,7 @@ option +r;    /* Re-entrant */
 /* Local variables */
 
 float delayTime;                /* Seconds to wait befor setting state "Running" */
-%%char subsys[MAX_STRING_SIZE]; /* Subsystem identifier, including ':' suffix */
+%%static char subsys[MAX_STRING_SIZE]; /* Subsystem identifier, including ':' suffix */
 
 /* SNC assignments */
 
