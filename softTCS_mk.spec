@@ -22,34 +22,34 @@ ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 
 ## You may specify dependencies here
-BuildRequires: epics-base-devel = 7.0.7-0.git.37.9b80a5c
+BuildRequires: epics-base-devel = 7.0.7-0.git.5fb1f41%{?dist}
 BuildRequires: re2c
 BuildRequires: tdct
-BuildRequires: sequencer-devel = 2.2.9.e5e3615-4.git.68.cf961a8.el8
-BuildRequires: bancomm-devel = 1.6.13-4.git.28.1ca0cb4.el8
-BuildRequires: geminiRec-devel = 4.1.13-3.git.53.c94c965.el8
-BuildRequires: timelib-devel = 2.1.4-3.git.21.866a01c.el8
-BuildRequires: slalib-devel = 1.9.7-6.git.67.7872e05.el8
-BuildRequires: gemUtil-devel = 1.6.13-2.git.27.0265e0f.el8
-BuildRequires: timeProbe-devel = 1.1.16-3.git.27.7207767.el8
-BuildRequires: pvload-devel = 1.2.1-7.git.45.a07ac91.el8
-BuildRequires: tcslib-devel = 1.1.1-9.git.37.d589d5e.el8
-BuildRequires: astlib-devel = 1.7.1-8.git.20.02db443.el8
-BuildRequires: tptlib-devel = 1.1.1-7.git.28.dac2fe3.el8
+BuildRequires: sequencer-devel = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
+BuildRequires: bancomm-devel = 1.6.13-4.git.6f4ba7b%{?dist}
+BuildRequires: geminiRec-devel = 4.1.13-3.git.6f58677%{?dist}
+BuildRequires: timelib-devel = 2.1.4-3.git.a504360%{?dist}
+BuildRequires: slalib-devel = 1.9.7-6.git.54d124d%{?dist}
+BuildRequires: gemUtil-devel = 1.6.13-2.git.9268b49%{?dist}
+BuildRequires: timeProbe-devel = 1.1.16-3.git.1bb32b7%{?dist}
+BuildRequires: pvload-devel = 1.2.1-7.git.6df46ce%{?dist}
+BuildRequires: tcslib-devel = 1.1.1-9.git.b18a9b9%{?dist}
+BuildRequires: astlib-devel = 1.7.1-8.git.b96d7ff%{?dist}
+BuildRequires: tptlib-devel = 1.1.1-7.git.a73f3af%{?dist}
 BuildRequires: gemini-ade
-Requires: epics-base = 7.0.7-0.git.37.9b80a5c
-Requires: sequencer = 2.2.9.e5e3615-4.git.68.cf961a8.el8
+Requires: epics-base = 7.0.7-0.git.5fb1f41%{?dist}
+Requires: sequencer = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
 Requires: autosave
-Requires: bancomm = 1.6.13-4.git.28.1ca0cb4.el8
-Requires: geminiRec = 4.1.13-3.git.53.c94c965.el8
-Requires: timelib = 2.1.4-3.git.21.866a01c.el8
-Requires: slalib = 1.9.7-6.git.67.7872e05.el8
-Requires: gemUtil = 1.6.13-2.git.27.0265e0f.el8
-Requires: timeProbe = 1.1.16-3.git.27.7207767.el8
-Requires: pvload = 1.2.1-7.git.45.a07ac91.el8
-Requires: tcslib = 1.1.1-9.git.37.d589d5e.el8
-Requires: astlib = 1.7.1-8.git.20.02db443.el8
-Requires: tptlib = 1.1.1-7.git.28.dac2fe3.el8
+Requires: bancomm = 1.6.13-4.git.6f4ba7b%{?dist}
+Requires: geminiRec = 4.1.13-3.git.6f58677%{?dist}
+Requires: timelib = 2.1.4-3.git.a504360%{?dist}
+Requires: slalib = 1.9.7-6.git.54d124d%{?dist}
+Requires: gemUtil = 1.6.13-2.git.9268b49%{?dist}
+Requires: timeProbe = 1.1.16-3.git.1bb32b7%{?dist}
+Requires: pvload = 1.2.1-7.git.6df46ce%{?dist}
+Requires: tcslib = 1.1.1-9.git.b18a9b9%{?dist}
+Requires: astlib = 1.7.1-8.git.b96d7ff%{?dist}
+Requires: tptlib = 1.1.1-7.git.a73f3af%{?dist}
 Requires: procServ
 Requires: conserver
 Requires: conserver-client
@@ -66,18 +66,18 @@ Summary: %{name}-devel Package
 Group: Development/Gemini
 Requires: %{name}
 Requires: tdct
-Requires: sequencer-devel = 2.2.9.e5e3615-4.git.68.cf961a8.el8
-Requires: bancomm-devel = 1.6.13-4.git.28.1ca0cb4.el8
-Requires: geminiRec-devel = 4.1.13-3.git.53.c94c965.el8
-Requires: timelib-devel = 2.1.4-3.git.21.866a01c.el8
-Requires: slalib-devel = 1.9.7-6.git.67.7872e05.el8
-Requires: xycom-devel
-Requires: gemUtil-devel = 1.6.13-2.git.27.0265e0f.el8
-Requires: timeProbe-devel = 1.1.16-3.git.27.7207767.el8
-Requires: pvload-devel = 1.2.1-7.git.45.a07ac91.el8
-Requires: tcslib-devel = 1.1.1-9.git.37.d589d5e.el8
-Requires: astlib-devel = 1.7.1-8.git.20.02db443.el8
-Requires: tptlib-devel = 1.1.1-7.git.28.dac2fe3.el8
+Requires: sequencer-devel = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
+Requires: bancomm-devel = 1.6.13-4.git.6f4ba7b%{?dist}
+Requires: geminiRec-devel = 4.1.13-3.git.6f58677%{?dist}
+Requires: timelib-devel = 2.1.4-3.git.a504360%{?dist}
+Requires: slalib-devel = 1.9.7-6.git.54d124d%{?dist}
+Requires: xycom-devel = 2.1.12-2.git.e8d8b00%{?dist}
+Requires: gemUtil-devel = 1.6.13-2.git.9268b49%{?dist}
+Requires: timeProbe-devel = 1.1.16-3.git.1bb32b7%{?dist}
+Requires: pvload-devel = 1.2.1-7.git.6df46ce%{?dist}
+Requires: tcslib-devel = 1.1.1-9.git.b18a9b9%{?dist}
+Requires: astlib-devel = 1.7.1-8.git.b96d7ff%{?dist}
+Requires: tptlib-devel = 1.1.1-7.git.a73f3af%{?dist}
 %description devel
 This is the module %{name}.
 
@@ -139,6 +139,12 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Thu Jun 25 2026 Hawi Stecher <hawi.stecher@noirlab.edu>
+- Migrate CI to GitHub Actions (gemini-rtsw-ci)
+- Use %{?dist} for dependency pins so EL8 and EL9 both resolve
+- Update dependency hashes to match scs_mk; pin epics-base to 7.0.7-0.git.5fb1f41
+- Pin xycom-devel; update astlib/tptlib to hashed NVRs
+- Add ldconfig setup to RPM %post for libtcs.so
 * Fri Jul 19 2024 Anthony Sylvester
 - updated to match the CP version, uses new service files without using manage-procs
 * Tue Apr 19 2022 Felix Kraemer <felix.kraemer@noirlab.edu> 0.1-33
