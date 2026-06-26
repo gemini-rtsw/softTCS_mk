@@ -1,4 +1,4 @@
-dbLoadRecords ("db/tcsTop.db","top=$(SIMTOP):,tcs=$(SIMTOP):,m2=$(SIMTOP):m2:,ag=tag:,mc=$(SIMTOP):mc:,cr=$(SIMTOP):cr:,ao=$(SIMTOP):ao:,m1=$(SIMTOP):m1:,ec=$(SIMTOP):ec:,ws=$(SIMTOP):ws:,gp=$(SIMTOP):gp:,sad=$(SIMTOP):sad:,pwfs1=tpwfs1:,pwfs2=tpwfs2:,hrwfs=$(SIMTOP):hrwfs:,oiwfs=tag:oi:,nici=$(SIMTOP):nici:,aom=$(SIMTOP):aom:,gsaoi=tgsaoi:,gems=$(SIMTOP):gems:")
+dbLoadRecords ("db/tcsTop.db","top=$(SIMTOP):,tcs=$(SIMTOP):,m2=$(SIMTOP):m2:,ag=tag:,mc=$(SIMTOP):mc:,cr=$(SIMTOP):cr:,ao=$(SIMTOP):ao:,m1=$(SIMTOP):m1:,ec=$(SIMTOP):ec:,ws=$(SIMTOP):ws:,gp=$(SIMTOP):gp:,sad=$(SIMTOP):sad:,pwfs1=tpwfs1:,pwfs2=tpwfs2:,hrwfs=$(SIMTOP):hrwfs:,oiwfs=tag:oi:,nici=$(SIMTOP):nici:,aom=$(SIMTOP):aom:,gsaoi=tgsaoi:,gems=$(SIMTOP):gems:,index=0,timeout=3.0,text=subsystem")
 
 dbLoadRecords ("db/tcsSad.db"," top=$(SIMTOP):,tcs=$(SIMTOP):,sad=$(SIMTOP):sad: ")
 

@@ -1,4 +1,4 @@
-dbLoadRecords ("db/tcsTop.db","top=tcs:,tcs=tcs:,m2=m2:,ag=ag:,mc=mc:,cr=cr:,ao=ao:,m1=m1:,ec=ec:,ws=ws:,gp=tcs:gp:,sad=tcs:sad:,pwfs1=pwfs1:,pwfs2=pwfs2:,hrwfs=hrwfs:,oiwfs=oiwfs:,nici=tcs:nici:,aom=tcs:aom:,gsaoi=tgsaoi:,gems=tcs:gems:")
+dbLoadRecords ("db/tcsTop.db","top=tcs:,tcs=tcs:,m2=m2:,ag=ag:,mc=mc:,cr=cr:,ao=ao:,m1=m1:,ec=ec:,ws=ws:,gp=tcs:gp:,sad=tcs:sad:,pwfs1=pwfs1:,pwfs2=pwfs2:,hrwfs=hrwfs:,oiwfs=oiwfs:,nici=tcs:nici:,aom=tcs:aom:,gsaoi=tgsaoi:,gems=tcs:gems:,index=0,timeout=3.0,text=subsystem")
 
 
 dbLoadRecords ("db/tcsSad.db","top=tcs:,tcs=tcs:,sad=tcs:sad:")
