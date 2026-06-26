@@ -34,8 +34,8 @@ BuildRequires: gemUtil-devel = 1.6.13-2.git.9268b49%{?dist}
 BuildRequires: timeProbe-devel = 1.1.16-3.git.1bb32b7%{?dist}
 BuildRequires: pvload-devel = 1.2.1-7.git.6df46ce%{?dist}
 BuildRequires: tcslib-devel = 1.1.1-9.git.b18a9b9%{?dist}
-BuildRequires: astlib-devel = 1.7.1-8.git.b96d7ff%{?dist}
-BuildRequires: tptlib-devel = 1.1.1-7.git.a73f3af%{?dist}
+BuildRequires: astlib-devel = 1.7.1-8.git.99a7713%{?dist}
+BuildRequires: tptlib-devel = 1.1.1-7.git.ec11214%{?dist}
 BuildRequires: gemini-ade
 Requires: epics-base = 7.0.7-0.git.5fb1f41%{?dist}
 Requires: sequencer = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
@@ -48,8 +48,8 @@ Requires: gemUtil = 1.6.13-2.git.9268b49%{?dist}
 Requires: timeProbe = 1.1.16-3.git.1bb32b7%{?dist}
 Requires: pvload = 1.2.1-7.git.6df46ce%{?dist}
 Requires: tcslib = 1.1.1-9.git.b18a9b9%{?dist}
-Requires: astlib = 1.7.1-8.git.b96d7ff%{?dist}
-Requires: tptlib = 1.1.1-7.git.a73f3af%{?dist}
+Requires: astlib = 1.7.1-8.git.99a7713%{?dist}
+Requires: tptlib = 1.1.1-7.git.ec11214%{?dist}
 Requires: procServ
 Requires: conserver
 Requires: conserver-client
@@ -76,8 +76,8 @@ Requires: gemUtil-devel = 1.6.13-2.git.9268b49%{?dist}
 Requires: timeProbe-devel = 1.1.16-3.git.1bb32b7%{?dist}
 Requires: pvload-devel = 1.2.1-7.git.6df46ce%{?dist}
 Requires: tcslib-devel = 1.1.1-9.git.b18a9b9%{?dist}
-Requires: astlib-devel = 1.7.1-8.git.b96d7ff%{?dist}
-Requires: tptlib-devel = 1.1.1-7.git.a73f3af%{?dist}
+Requires: astlib-devel = 1.7.1-8.git.99a7713%{?dist}
+Requires: tptlib-devel = 1.1.1-7.git.ec11214%{?dist}
 %description devel
 This is the module %{name}.
 
