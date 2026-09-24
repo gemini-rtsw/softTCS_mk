@@ -83,7 +83,7 @@ assign zerns to "{top}hr:dc:ao.J";
  * The DC publishes a frame counter, the low-order Zernikes (one record each)
  * and the recentre pointing offsets.
  */
-long   hrCounter ;
+int    hrCounter ;
 assign hrCounter to "{hrtop}dc:aoCounter" ;
 monitor hrCounter ;
 
