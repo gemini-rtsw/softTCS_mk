@@ -37,7 +37,7 @@ BuildRequires: tcslib-devel = 1.1.1-9.git.89a8ebf%{?dist}
 BuildRequires: astlib-devel = 1.7.1-8.git.63a5f5c%{?dist}
 BuildRequires: tptlib-devel = 1.1.1-7.git.7d1bd3d%{?dist}
 BuildRequires: gemini-ade
-Requires: epics-base = 7.0.7-0.git.5fb1f41%{?dist}
+Requires: epics-base = 7.0.7%{?dist}
 Requires: sequencer = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
 Requires: autosave
 Requires: bancomm = 1.6.13-4.git.6f4ba7b%{?dist}
