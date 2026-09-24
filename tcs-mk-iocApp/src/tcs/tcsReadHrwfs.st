@@ -1,4 +1,4 @@
-/*
+/* 
 *   FILENAME
 *   tcsReadHrwfs.st
 *
@@ -44,11 +44,7 @@
 * telescope. This replaces the previous method of reading a data file.
 *
 * Invocation:
-* The program is normally started as follows
-*
 * seq &tcsReadHrwfs
-*
-* Macro substitution can over ride the default record prefixes e.g.
 * seq &tcsReadHrwfs "top=tc1:,hrtop=hrwfs:"
 *
 *-
@@ -65,7 +61,6 @@ program tcsReadHrwfs ("top=tcs:,hrtop=hrwfs:")
 #define PI    3.1415926535897932384626433832795
 #define D2R   (PI/180.0)
 #define R2D   (1.0/D2R)
-#define NHRZERN 19            /* Number of Zernikes published by the HRWFS DC */
 
 /* Local variables */
 double tai ;
@@ -85,23 +80,70 @@ assign zerns to "{top}hr:dc:ao.J";
 
 /*
  * HRWFS detector-controller records, read over channel access (REL-845).
- * The DC publishes a frame counter, the low-order Zernikes and the recentre
- * pointing offsets. hrZern is an array assigned across the 19 aoZern records.
+ * The DC publishes a frame counter, the low-order Zernikes (one record each)
+ * and the recentre pointing offsets.
  */
 long   hrCounter ;
 assign hrCounter to "{hrtop}dc:aoCounter" ;
 monitor hrCounter ;
 
-double hrZern[NHRZERN] ;
-assign hrZern to {
-   "{hrtop}dc:aoZern1",  "{hrtop}dc:aoZern2",  "{hrtop}dc:aoZern3",
-   "{hrtop}dc:aoZern4",  "{hrtop}dc:aoZern5",  "{hrtop}dc:aoZern6",
-   "{hrtop}dc:aoZern7",  "{hrtop}dc:aoZern8",  "{hrtop}dc:aoZern9",
-   "{hrtop}dc:aoZern10", "{hrtop}dc:aoZern11", "{hrtop}dc:aoZern12",
-   "{hrtop}dc:aoZern13", "{hrtop}dc:aoZern14", "{hrtop}dc:aoZern15",
-   "{hrtop}dc:aoZern16", "{hrtop}dc:aoZern17", "{hrtop}dc:aoZern18",
-   "{hrtop}dc:aoZern19" } ;
-monitor hrZern ;
+double hrZern1 ;
+assign hrZern1 to "{hrtop}dc:aoZern1" ;
+monitor hrZern1 ;
+double hrZern2 ;
+assign hrZern2 to "{hrtop}dc:aoZern2" ;
+monitor hrZern2 ;
+double hrZern3 ;
+assign hrZern3 to "{hrtop}dc:aoZern3" ;
+monitor hrZern3 ;
+double hrZern4 ;
+assign hrZern4 to "{hrtop}dc:aoZern4" ;
+monitor hrZern4 ;
+double hrZern5 ;
+assign hrZern5 to "{hrtop}dc:aoZern5" ;
+monitor hrZern5 ;
+double hrZern6 ;
+assign hrZern6 to "{hrtop}dc:aoZern6" ;
+monitor hrZern6 ;
+double hrZern7 ;
+assign hrZern7 to "{hrtop}dc:aoZern7" ;
+monitor hrZern7 ;
+double hrZern8 ;
+assign hrZern8 to "{hrtop}dc:aoZern8" ;
+monitor hrZern8 ;
+double hrZern9 ;
+assign hrZern9 to "{hrtop}dc:aoZern9" ;
+monitor hrZern9 ;
+double hrZern10 ;
+assign hrZern10 to "{hrtop}dc:aoZern10" ;
+monitor hrZern10 ;
+double hrZern11 ;
+assign hrZern11 to "{hrtop}dc:aoZern11" ;
+monitor hrZern11 ;
+double hrZern12 ;
+assign hrZern12 to "{hrtop}dc:aoZern12" ;
+monitor hrZern12 ;
+double hrZern13 ;
+assign hrZern13 to "{hrtop}dc:aoZern13" ;
+monitor hrZern13 ;
+double hrZern14 ;
+assign hrZern14 to "{hrtop}dc:aoZern14" ;
+monitor hrZern14 ;
+double hrZern15 ;
+assign hrZern15 to "{hrtop}dc:aoZern15" ;
+monitor hrZern15 ;
+double hrZern16 ;
+assign hrZern16 to "{hrtop}dc:aoZern16" ;
+monitor hrZern16 ;
+double hrZern17 ;
+assign hrZern17 to "{hrtop}dc:aoZern17" ;
+monitor hrZern17 ;
+double hrZern18 ;
+assign hrZern18 to "{hrtop}dc:aoZern18" ;
+monitor hrZern18 ;
+double hrZern19 ;
+assign hrZern19 to "{hrtop}dc:aoZern19" ;
+monitor hrZern19 ;
 
 double hrOffX ;
 assign hrOffX to "{hrtop}dc:aoOffX" ;
@@ -152,7 +194,25 @@ ss readData {
          oldCounter = hrCounter ;
 
 /* Refresh the Zernikes and the pointing offsets from the HRWFS DC. */
-         pvGet(hrZern) ;
+         pvGet(hrZern1) ;
+         pvGet(hrZern2) ;
+         pvGet(hrZern3) ;
+         pvGet(hrZern4) ;
+         pvGet(hrZern5) ;
+         pvGet(hrZern6) ;
+         pvGet(hrZern7) ;
+         pvGet(hrZern8) ;
+         pvGet(hrZern9) ;
+         pvGet(hrZern10) ;
+         pvGet(hrZern11) ;
+         pvGet(hrZern12) ;
+         pvGet(hrZern13) ;
+         pvGet(hrZern14) ;
+         pvGet(hrZern15) ;
+         pvGet(hrZern16) ;
+         pvGet(hrZern17) ;
+         pvGet(hrZern18) ;
+         pvGet(hrZern19) ;
          pvGet(hrOffX) ;
          pvGet(hrOffY) ;
 
@@ -173,12 +233,28 @@ ss readData {
 
 /* Assemble the Zernike array: [time, numz, 19 Zernikes, 19 errors]. */
          timeNow(&tai);
-         numz = NHRZERN ;
+         numz = 19 ;
          zerns[0] = tai ;
          zerns[1] = numz ;
-         for (i = 0 ; i < numz ; i++) {
-           zerns[2 + i] = hrZern[i] ;
-         }
+         zerns[2] = hrZern1 ;
+         zerns[3] = hrZern2 ;
+         zerns[4] = hrZern3 ;
+         zerns[5] = hrZern4 ;
+         zerns[6] = hrZern5 ;
+         zerns[7] = hrZern6 ;
+         zerns[8] = hrZern7 ;
+         zerns[9] = hrZern8 ;
+         zerns[10] = hrZern9 ;
+         zerns[11] = hrZern10 ;
+         zerns[12] = hrZern11 ;
+         zerns[13] = hrZern12 ;
+         zerns[14] = hrZern13 ;
+         zerns[15] = hrZern14 ;
+         zerns[16] = hrZern15 ;
+         zerns[17] = hrZern16 ;
+         zerns[18] = hrZern17 ;
+         zerns[19] = hrZern18 ;
+         zerns[20] = hrZern19 ;
 /* Errors are not yet computed by the HRWFS DC - fill with zeroes. */
          for (i = 0 ; i < 19 ; i++) {
            zerns[21 + i] = 0.0 ;
