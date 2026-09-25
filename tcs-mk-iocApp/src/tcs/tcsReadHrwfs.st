@@ -3,11 +3,16 @@
 *   tcsReadHrwfs.st
 *
 *   FUNCTION NAME(S)
-*   This file contains the polling task for reading the HRWFS data file
+*   This file contains the polling task for reading the HRWFS Zernike data.
 *
 */
 /*  *INDENT-OFF* */
 /* $Log: tcsReadHrwfs.st,v $
+/* Revision 1.5  REL-845 - read HRWFS Zernikes over channel access
+/*   instead of from a data file. The HRWFS DC now computes the Zernikes
+/*   itself (aoHrwfsLib) and publishes them, a frame counter and the
+/*   pointing offsets, so the file-based method is replaced.
+/*
 /* Revision 1.4  2005/04/18 13:20:53  cjm
 /* Include stdio.h to remove warnings
 /*
@@ -28,28 +33,24 @@
 * tcsReadHrwfs.st
 *
 * Purpose:
-* Read the HRWFS data from a file to tune M1
+* Read the HRWFS Zernike data over channel access to tune M1.
 *
 * Description:
-* The program consists of a simple polling task that reads a file containing
-* the Zernike data from the HRWFS. Each time the data in the file is
-* updated, it is written into a database record for passing on to the PCS.
-* Following requests by users, the program was modified to support 
-* automatic offsetting of the telescope based on additional data in the
-* HRWFS data file.
+* A simple polling task that reads the Zernike coefficients, a frame counter
+* and the pointing offsets published by the HRWFS detector controller
+* (REL-845, aoHrwfsLib) over channel access. Each time the frame counter
+* changes, the Zernikes are written into a database record for passing on to
+* the PCS, and (if M1 guiding is on) the pointing offsets are applied to the
+* telescope. This replaces the previous method of reading a data file.
 *
 * Invocation:
-* The program is normally started as follows
-*
 * seq &tcsReadHrwfs
-*
-* Macro substitution can be used to over ride the default record prefixes e.g.
-* seq &tcsReadHrwfs "top=tc1:"
+* seq &tcsReadHrwfs "top=tc1:,hrtop=hrwfs:"
 *
 *-
 */
 
-program tcsReadHrwfs ("top=tcs:")
+program tcsReadHrwfs ("top=tcs:,hrtop=hrwfs:")
 
 %%#include <stdio.h>
 %%#include <stdlib.h>
@@ -68,21 +69,88 @@ double yoff ;
 double mag ;
 double dir ;
 int    numz ;
-int numitems ;
 long   oldCounter ;
-char   buf[40] ;
-%%FILE   *fp ;
 int    i ;
 
-/* assign variables to records */
+/* TCS-side records populated for M1 tuning (unchanged) */
 int   counter ;
 assign counter to "{top}hr:dc:ao.B" ;
 double zerns[40] ;
 assign zerns to "{top}hr:dc:ao.J";
-string fileName ;
-assign fileName to "{top}m1GuideConfig.VALD" ;
 
-/* Records to offset the telescope */
+/*
+ * HRWFS detector-controller records, read over channel access (REL-845).
+ * The DC publishes a frame counter, the low-order Zernikes (one record each)
+ * and the recentre pointing offsets.
+ */
+int    hrCounter ;
+assign hrCounter to "{hrtop}dc:aoCounter" ;
+monitor hrCounter ;
+
+double hrZern1 ;
+assign hrZern1 to "{hrtop}dc:aoZern1" ;
+monitor hrZern1 ;
+double hrZern2 ;
+assign hrZern2 to "{hrtop}dc:aoZern2" ;
+monitor hrZern2 ;
+double hrZern3 ;
+assign hrZern3 to "{hrtop}dc:aoZern3" ;
+monitor hrZern3 ;
+double hrZern4 ;
+assign hrZern4 to "{hrtop}dc:aoZern4" ;
+monitor hrZern4 ;
+double hrZern5 ;
+assign hrZern5 to "{hrtop}dc:aoZern5" ;
+monitor hrZern5 ;
+double hrZern6 ;
+assign hrZern6 to "{hrtop}dc:aoZern6" ;
+monitor hrZern6 ;
+double hrZern7 ;
+assign hrZern7 to "{hrtop}dc:aoZern7" ;
+monitor hrZern7 ;
+double hrZern8 ;
+assign hrZern8 to "{hrtop}dc:aoZern8" ;
+monitor hrZern8 ;
+double hrZern9 ;
+assign hrZern9 to "{hrtop}dc:aoZern9" ;
+monitor hrZern9 ;
+double hrZern10 ;
+assign hrZern10 to "{hrtop}dc:aoZern10" ;
+monitor hrZern10 ;
+double hrZern11 ;
+assign hrZern11 to "{hrtop}dc:aoZern11" ;
+monitor hrZern11 ;
+double hrZern12 ;
+assign hrZern12 to "{hrtop}dc:aoZern12" ;
+monitor hrZern12 ;
+double hrZern13 ;
+assign hrZern13 to "{hrtop}dc:aoZern13" ;
+monitor hrZern13 ;
+double hrZern14 ;
+assign hrZern14 to "{hrtop}dc:aoZern14" ;
+monitor hrZern14 ;
+double hrZern15 ;
+assign hrZern15 to "{hrtop}dc:aoZern15" ;
+monitor hrZern15 ;
+double hrZern16 ;
+assign hrZern16 to "{hrtop}dc:aoZern16" ;
+monitor hrZern16 ;
+double hrZern17 ;
+assign hrZern17 to "{hrtop}dc:aoZern17" ;
+monitor hrZern17 ;
+double hrZern18 ;
+assign hrZern18 to "{hrtop}dc:aoZern18" ;
+monitor hrZern18 ;
+double hrZern19 ;
+assign hrZern19 to "{hrtop}dc:aoZern19" ;
+monitor hrZern19 ;
+
+double hrOffX ;
+assign hrOffX to "{hrtop}dc:aoOffX" ;
+double hrOffY ;
+assign hrOffY to "{hrtop}dc:aoOffY" ;
+
+/* Records to offset the telescope (unchanged) */
 int   m1GuideOn ;
 assign m1GuideOn to "{top}im:m1GuideOn" ;
 string frame ;
@@ -96,11 +164,11 @@ assign vt to "{top}poAdjust.D" ;
 string apply ;
 assign apply to "{top}apply.DIR" ;
 
-ss readFile {
+ss readData {
 
   state init {
 
-     when() { 
+     when() {
        oldCounter = 0 ;
        for (i = 0 ; i < 40 ; i++) {
           zerns[i] = 0.0 ;
@@ -115,83 +183,89 @@ ss readFile {
   }
 
   state poll {
-    
+
      when (delay(1.0)) {
-      
-       pvGet(fileName) ;
+
+       pvGet(hrCounter) ;
        pvGet(m1GuideOn) ;
-       if (fileName != NULL) {
-         
-         if ((fp = fopen (fileName, "r"))) {
-           fgets(buf, 40, fp);
-           counter = atoi(buf);
 
-/* The if statement here will cause the zernikes to be updated the first time
-*  this state set runs i.e. if there is an old file of HRWFS data lying
-*  around these old values will get written into the database. This is not
-*  a problem however as the code that writes these data to M1 will not be
-*  active at this time so they'll never get sent to the PCS
-*/
-           if (counter != oldCounter) {
-             oldCounter = counter ;
-             fgets(buf, 40, fp) ;
+/* Only update when the HRWFS DC reports a new processed frame. */
+       if (hrCounter != oldCounter) {
+         oldCounter = hrCounter ;
 
-/* Try and detect if this is a new style file with offsets or an old style
-*  file without offsets
-*/
-             numitems = sscanf(buf, "%lf %lf", &xoff, &yoff) ;
-             if ( numitems == 2) {
-               mag = sqrt(xoff * xoff + yoff * yoff);
-               sprintf (size, "%.2f", mag);
-               dir = atan2(-xoff, yoff) * R2D ;
-               sprintf (angle, "%.2f", dir);
-               if (m1GuideOn) {
-                 pvPut(frame) ;
-                 pvPut(angle) ;
-                 pvPut(size);
-                 pvPut(vt) ;
-                 pvPut(apply) ;
-               }
-               fgets(buf, 40, fp) ;
-               numz = atoi(buf) ;
-             } else {
-               numz = atoi(buf) ;
-             }
-             timeNow(&tai);
-             zerns[0] = tai ;
-             zerns[1] = numz ;
-/* fill in all the zernikes that have been measured */
-             for (i = 0 ; i < numz ; i++) {
-               fgets(buf, 40, fp) ;
-               zerns[2+i] = atof(buf) ;
-             }
-/* If the maximum allowed haven't been measured, fill in the rest with zeroes */
-             if (numz < 19 ) {
-               for (i = 0; i < 19-numz ; i++) {
-                 zerns[numz + 2 + i] = 0.0 ;
-               }
-             } 
-/* Now fill in the errors */
-             for (i = 0; i < numz; i++) {
-                fgets(buf, 40, fp) ;
-                zerns[21+i] = atof(buf);
-             }
-/* Again make sure those not measured are filled with zeroes */
-             if (numz < 19) {
-               for (i = 0; i < 19-numz ; i++) {
-                 zerns[numz + 21 + i] = 0.0;
-               }
-              } 
-           } 
+/* Refresh the Zernikes and the pointing offsets from the HRWFS DC. */
+         pvGet(hrZern1) ;
+         pvGet(hrZern2) ;
+         pvGet(hrZern3) ;
+         pvGet(hrZern4) ;
+         pvGet(hrZern5) ;
+         pvGet(hrZern6) ;
+         pvGet(hrZern7) ;
+         pvGet(hrZern8) ;
+         pvGet(hrZern9) ;
+         pvGet(hrZern10) ;
+         pvGet(hrZern11) ;
+         pvGet(hrZern12) ;
+         pvGet(hrZern13) ;
+         pvGet(hrZern14) ;
+         pvGet(hrZern15) ;
+         pvGet(hrZern16) ;
+         pvGet(hrZern17) ;
+         pvGet(hrZern18) ;
+         pvGet(hrZern19) ;
+         pvGet(hrOffX) ;
+         pvGet(hrOffY) ;
 
-/* Put the counter first as the record will only process when the Zernikes
-*  get written
-*/
-           pvPut(counter) ;
-           pvPut(zerns) ;
-           fclose (fp) ;
+/* Apply the pointing offset to the telescope (if M1 guiding is on). */
+         xoff = hrOffX ;
+         yoff = hrOffY ;
+         mag = sqrt(xoff * xoff + yoff * yoff) ;
+         sprintf (size, "%.2f", mag) ;
+         dir = atan2(-xoff, yoff) * R2D ;
+         sprintf (angle, "%.2f", dir) ;
+         if (m1GuideOn) {
+           pvPut(frame) ;
+           pvPut(angle) ;
+           pvPut(size) ;
+           pvPut(vt) ;
+           pvPut(apply) ;
          }
 
+/* Assemble the Zernike array: [time, numz, 19 Zernikes, 19 errors]. */
+         timeNow(&tai);
+         numz = 19 ;
+         zerns[0] = tai ;
+         zerns[1] = numz ;
+         zerns[2] = hrZern1 ;
+         zerns[3] = hrZern2 ;
+         zerns[4] = hrZern3 ;
+         zerns[5] = hrZern4 ;
+         zerns[6] = hrZern5 ;
+         zerns[7] = hrZern6 ;
+         zerns[8] = hrZern7 ;
+         zerns[9] = hrZern8 ;
+         zerns[10] = hrZern9 ;
+         zerns[11] = hrZern10 ;
+         zerns[12] = hrZern11 ;
+         zerns[13] = hrZern12 ;
+         zerns[14] = hrZern13 ;
+         zerns[15] = hrZern14 ;
+         zerns[16] = hrZern15 ;
+         zerns[17] = hrZern16 ;
+         zerns[18] = hrZern17 ;
+         zerns[19] = hrZern18 ;
+         zerns[20] = hrZern19 ;
+/* Errors are not yet computed by the HRWFS DC - fill with zeroes. */
+         for (i = 0 ; i < 19 ; i++) {
+           zerns[21 + i] = 0.0 ;
+         }
+
+/* Put the counter first as the record only processes when the Zernikes
+*  get written.
+*/
+         counter = hrCounter ;
+         pvPut(counter) ;
+         pvPut(zerns) ;
        }
 
      }  state poll
