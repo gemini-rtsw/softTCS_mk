@@ -36,23 +36,54 @@ record(ao, "$(tcs)nirsg:sourceAWavelength:out") {
 }
 
 #----------------------------------------------------------------------
-# Re-send the values above when the nirs IOC reboots.
-# On boot the nirs IOC writes GOOD to nirs:sad:health; the CP link
-# processes this record on every monitor update (including GOOD written
-# over GOOD), and the fanout re-processes the output records so they
-# push the SAD values they currently hold.
+# Keep nirsg in step with TCS.
+# Each :rbk record monitors the nirsg copy of a value. Any update (a change
+# on the nirsg side, or the initial update when the channel reconnects
+# after a nirsg IOC reboot) re-processes the matching :out record, which
+# pushes the current TCS SAD value back. No comparison is needed: the
+# nirsg sir records only post monitors when their value changes, so a
+# write of the same value produces no further update and the loop stops.
+# The delay lets the :out record's own CA link reconnect after a reboot
+# before it writes (the :rbk and :out links are separate CA channels).
 #----------------------------------------------------------------------
-record(stringin, "$(tcs)nirsg:healthMon") {
-    field(DESC, "Watch nirs health for IOC reboot")
-    field(INP,  "nirs:sad:health CP MS")
-    field(FLNK, "$(tcs)nirsg:resendFan")
+record(stringin, "$(tcs)nirsg:sourceATrackFrame:rbk") {
+    field(DESC, "nirsg copy of TrackFrame")
+    field(INP,  "nirsg:dc:srcATrackFrameTCS CP MS")
+    field(FLNK, "$(tcs)nirsg:sourceATrackFrame:dly")
 }
 
-record(fanout, "$(tcs)nirsg:resendFan") {
-    field(DESC, "Re-send TCS values to nirsg")
-    field(SELM, "All")
-    field(LNK1, "$(tcs)nirsg:sourceATrackFrame:out")
-    field(LNK2, "$(tcs)nirsg:sourceATrackEq:out")
-    field(LNK3, "$(tcs)nirsg:sourceAWavelength:out")
+record(calcout, "$(tcs)nirsg:sourceATrackFrame:dly") {
+    field(DESC, "Delayed re-send of TrackFrame")
+    field(CALC, "1")
+    field(OOPT, "Every Time")
+    field(ODLY, "2.0")
+    field(OUT,  "$(tcs)nirsg:sourceATrackFrame:out.PROC PP")
 }
 
+record(stringin, "$(tcs)nirsg:sourceATrackEq:rbk") {
+    field(DESC, "nirsg copy of TrackEq")
+    field(INP,  "nirsg:dc:srcATrackEqTCS CP MS")
+    field(FLNK, "$(tcs)nirsg:sourceATrackEq:dly")
+}
+
+record(calcout, "$(tcs)nirsg:sourceATrackEq:dly") {
+    field(DESC, "Delayed re-send of TrackEq")
+    field(CALC, "1")
+    field(OOPT, "Every Time")
+    field(ODLY, "2.0")
+    field(OUT,  "$(tcs)nirsg:sourceATrackEq:out.PROC PP")
+}
+
+record(stringin, "$(tcs)nirsg:sourceAWavelength:rbk") {
+    field(DESC, "nirsg copy of Wavelength")
+    field(INP,  "nirsg:dc:srcAWavelengthTCS CP MS")
+    field(FLNK, "$(tcs)nirsg:sourceAWavelength:dly")
+}
+
+record(calcout, "$(tcs)nirsg:sourceAWavelength:dly") {
+    field(DESC, "Delayed re-send of Wavelength")
+    field(CALC, "1")
+    field(OOPT, "Every Time")
+    field(ODLY, "2.0")
+    field(OUT,  "$(tcs)nirsg:sourceAWavelength:out.PROC PP")
+}
