@@ -37,7 +37,7 @@ BuildRequires: tcslib-devel = 1.1.1-9.git.89a8ebf%{?dist}
 BuildRequires: astlib-devel = 1.7.1-8.git.63a5f5c%{?dist}
 BuildRequires: tptlib-devel = 1.1.1-7.git.7d1bd3d%{?dist}
 BuildRequires: gemini-ade
-Requires: epics-base = 7.0.7-0.git.5fb1f41%{?dist}
+Requires: epics-base = 7.0.7-0.git.054b1d4%{?dist}
 Requires: sequencer = 2.2.9.e5e3615-4.git.7b11f25%{?dist}
 Requires: autosave
 Requires: bancomm = 1.6.13-4.git.6f4ba7b%{?dist}
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/include
 
 %changelog
+* Wed Oct 14 2026 Hawi Stecher <hawi.stecher@noirlab.edu>
+- Repin epics-base runtime Requires to 7.0.7-0.git.054b1d4 (5fb1f41 removed from repo)
+
 * Thu Jun 25 2026 Hawi Stecher <hawi.stecher@noirlab.edu>
 - Migrate CI to GitHub Actions (gemini-rtsw-ci)
 - Use %{?dist} for dependency pins so EL8 and EL9 both resolve
