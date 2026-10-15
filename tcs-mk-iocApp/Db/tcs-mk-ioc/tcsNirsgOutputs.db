@@ -35,3 +35,24 @@ record(ao, "$(tcs)nirsg:sourceAWavelength:out") {
     field(PREC, "3")
 }
 
+#----------------------------------------------------------------------
+# Re-send the values above when the nirs IOC reboots.
+# On boot the nirs IOC writes GOOD to nirs:sad:health; the CP link
+# processes this record on every monitor update (including GOOD written
+# over GOOD), and the fanout re-processes the output records so they
+# push the SAD values they currently hold.
+#----------------------------------------------------------------------
+record(stringin, "$(tcs)nirsg:healthMon") {
+    field(DESC, "Watch nirs health for IOC reboot")
+    field(INP,  "nirs:sad:health CP MS")
+    field(FLNK, "$(tcs)nirsg:resendFan")
+}
+
+record(fanout, "$(tcs)nirsg:resendFan") {
+    field(DESC, "Re-send TCS values to nirsg")
+    field(SELM, "All")
+    field(LNK1, "$(tcs)nirsg:sourceATrackFrame:out")
+    field(LNK2, "$(tcs)nirsg:sourceATrackEq:out")
+    field(LNK3, "$(tcs)nirsg:sourceAWavelength:out")
+}
+
